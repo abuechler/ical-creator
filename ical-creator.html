@@ -83,6 +83,10 @@
       margin-bottom: 16px;
     }
 
+    #eventForm {
+      margin-bottom: 16px;
+    }
+
     .card-title {
       font-size: 1rem;
       font-weight: 600;
@@ -643,6 +647,13 @@
 
     .btn-group .btn {
       flex: 1;
+    }
+
+    .download-hint {
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--error);
+      margin-top: 8px;
     }
 
     /* ==================== Validation Status ==================== */
@@ -1357,9 +1368,9 @@
       <!-- Action Buttons -->
       <div class="btn-group">
         <button type="button" class="btn btn-secondary" id="newEventBtn">New Event</button>
-        <button type="button" class="btn btn-secondary" id="previewBtn">Preview</button>
         <button type="submit" class="btn btn-primary" id="downloadBtn">Download .ics</button>
       </div>
+      <p class="download-hint hidden" id="downloadHint">Fix errors above to download</p>
     </form>
 
     <!-- Saved Events Section -->
@@ -1463,8 +1474,8 @@
     const validationStatus = document.getElementById('validationStatus');
     const validationTitle = document.getElementById('validationTitle');
     const validationMessage = document.getElementById('validationMessage');
-    const previewBtn = document.getElementById('previewBtn');
     const downloadBtn = document.getElementById('downloadBtn');
+    const downloadHint = document.getElementById('downloadHint');
     const newEventBtn = document.getElementById('newEventBtn');
     const timezoneSelect = document.getElementById('timezone');
     const savedEventsSection = document.getElementById('savedEventsSection');
@@ -1486,6 +1497,7 @@
       updateMonthlyHints();
       renderSavedEvents();
       updateDebugInfo();
+      updateDownloadButtonState();
     }
 
     function updateDebugInfo() {
@@ -1679,9 +1691,6 @@
         }
       });
 
-      // Preview button
-      previewBtn.addEventListener('click', handlePreview);
-
       // New event button
       newEventBtn.addEventListener('click', handleNewEvent);
 
@@ -1752,6 +1761,21 @@
       });
       endTypeRadios.forEach(radio => {
         radio.addEventListener('change', saveFormState);
+      });
+
+      // Update download button state on relevant field changes
+      ['title', 'startDate', 'startTime', 'recurrenceEndDate'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', updateDownloadButtonState);
+          el.addEventListener('change', updateDownloadButtonState);
+        }
+      });
+      allDayCheckbox.addEventListener('change', updateDownloadButtonState);
+      isRecurringCheckbox.addEventListener('change', updateDownloadButtonState);
+      frequencySelect.addEventListener('change', updateDownloadButtonState);
+      endTypeRadios.forEach(radio => {
+        radio.addEventListener('change', updateDownloadButtonState);
       });
     }
 
@@ -1835,6 +1859,7 @@
       }
 
       saveFormState();
+      updateDownloadButtonState();
     }
 
     function updateDayPickerUI() {
@@ -1894,26 +1919,10 @@
 
       // Save clean state
       saveFormState();
+      updateDownloadButtonState();
 
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function handlePreview() {
-      if (!validateBasicFields()) {
-        return;
-      }
-
-      // Show recurring options and preview
-      isRecurringCheckbox.checked = true;
-      recurrenceOptions.classList.add('show');
-      previewSection.style.display = 'block';
-
-      calculateOccurrences();
-      renderCalendar();
-
-      // Scroll to preview
-      previewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function handleSubmit(e) {
@@ -2289,6 +2298,30 @@
       document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
       document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
       validationStatus.classList.remove('show', 'success', 'error');
+    }
+
+    function checkFormValidity() {
+      // Silent validation check (doesn't show errors)
+      const title = document.getElementById('title').value.trim();
+      const startDate = document.getElementById('startDate').value;
+      const startTime = document.getElementById('startTime').value;
+
+      if (!title || !startDate) return false;
+      if (!allDayCheckbox.checked && !startTime) return false;
+
+      if (isRecurringCheckbox.checked) {
+        if (frequencySelect.value === 'WEEKLY' && state.selectedDays.size === 0) return false;
+        const endType = document.querySelector('input[name="endType"]:checked').value;
+        if (endType === 'date' && !recurrenceEndDateInput.value) return false;
+      }
+
+      return true;
+    }
+
+    function updateDownloadButtonState() {
+      const isValid = checkFormValidity();
+      downloadBtn.disabled = !isValid;
+      downloadHint.classList.toggle('hidden', isValid);
     }
 
     function showValidationStatus(isSuccess, title, message) {
@@ -2848,6 +2881,7 @@
 
       // Save restored state
       saveFormState();
+      updateDownloadButtonState();
 
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
