@@ -13,4 +13,8 @@ needed and offer suggestions. Summarize the the prompts and decisions in the sec
 
 ## Planning Decisions
 
-<your content goes here>
+1. **Preview button**: Remove it entirely (it's redundant since preview shows automatically when "Is Recurring" is checked)
+
+2. **Download button validation**: Disable button when validation errors exist + show hint text below (e.g., "Fix errors above to download")
+
+3. **Spacing**: Match standard card spacing (16px gap) between the Download button area and Saved Events section
