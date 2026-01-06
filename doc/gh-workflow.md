@@ -197,3 +197,42 @@ uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 ```
 
 This convention keeps the security of SHA pinning while making it easy to see which version is in use.
+
+### Dependabot Configuration
+
+> **User:** "Create a dependabot file and automatically update the workflows after a cool down period of two weeks."
+
+**Initial response:** Incorrectly stated that Dependabot doesn't have a native "delay by X days" feature and suggested using monthly schedule as a workaround.
+
+> **User:** "This is not true, see https://github.blog/changelog/2025-07-01-dependabot-supports-configuration-of-a-minimum-package-age/"
+
+**Correction:** The `cooldown` feature was added to Dependabot in July 2025. It allows specifying a minimum age requirement before Dependabot creates PRs for newly released dependencies.
+
+**File created:** `.github/dependabot.yml`
+
+```yaml
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 14
+    groups:
+      actions:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+```
+
+**Key configuration:**
+- `cooldown.default-days: 14` - Waits 14 days after a new version is released before creating a PR
+- Only applies to version updates; security updates are still immediate
+- Groups all action updates into single PRs
+
+**Sources:**
+- [Dependabot supports configuration of a minimum package age](https://github.blog/changelog/2025-07-01-dependabot-supports-configuration-of-a-minimum-package-age/)
+- [Dependabot options reference](https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference)
