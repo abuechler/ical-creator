@@ -60,33 +60,6 @@
     header {
       text-align: center;
       margin-bottom: 32px;
-      position: relative;
-    }
-
-    .github-link {
-      position: absolute;
-      top: 0;
-      right: 0;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--gray-600);
-      text-decoration: none;
-      font-size: 0.8125rem;
-      padding: 4px 8px;
-      border-radius: var(--radius-sm);
-      transition: color 0.15s, background-color 0.15s;
-    }
-
-    .github-link:hover {
-      color: var(--gray-900);
-      background-color: var(--gray-200);
-    }
-
-    .github-link svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
     }
 
     header h1 {
@@ -107,6 +80,10 @@
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    #eventForm {
       margin-bottom: 16px;
     }
 
@@ -672,6 +649,13 @@
       flex: 1;
     }
 
+    .download-hint {
+      text-align: center;
+      font-size: 0.8125rem;
+      color: var(--error);
+      margin-top: 8px;
+    }
+
     /* ==================== Validation Status ==================== */
     .validation-status {
       display: none;
@@ -724,6 +708,37 @@
     select.error:focus,
     textarea.error:focus {
       box-shadow: 0 0 0 3px var(--error-bg);
+    }
+
+    /* ==================== Footer ==================== */
+    .site-footer {
+      text-align: center;
+      padding: 24px 16px;
+      margin-top: 16px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .site-footer .github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gray-500);
+      text-decoration: none;
+      font-size: 0.875rem;
+      padding: 8px 16px;
+      border-radius: var(--radius);
+      transition: color 0.15s, background-color 0.15s;
+    }
+
+    .site-footer .github-link:hover {
+      color: var(--gray-700);
+      background-color: var(--gray-200);
+    }
+
+    .site-footer .github-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
     }
 
     /* ==================== Responsive ==================== */
@@ -1019,7 +1034,6 @@
     /* ==================== Debug Info ==================== */
     .debug-info {
       margin-top: 24px;
-      padding: 12px 16px;
       background: var(--gray-100);
       border: 1px dashed var(--gray-300);
       border-radius: var(--radius-sm);
@@ -1030,8 +1044,32 @@
 
     .debug-info-title {
       font-weight: 600;
-      margin-bottom: 8px;
       color: var(--gray-700);
+      cursor: pointer;
+      padding: 12px 16px;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .debug-info-title::-webkit-details-marker {
+      display: none;
+    }
+
+    .debug-info-title::before {
+      content: '';
+      border: 5px solid transparent;
+      border-left: 6px solid var(--gray-500);
+      transition: transform 0.15s;
+    }
+
+    .debug-info[open] .debug-info-title::before {
+      transform: rotate(90deg);
+    }
+
+    .debug-info-content {
+      padding: 0 16px 12px 16px;
     }
 
     .debug-info-row {
@@ -1053,12 +1091,6 @@
 <body>
   <div class="container">
     <header>
-      <a href="https://github.com/abuechler/ical-creator" class="github-link" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 16 16" aria-hidden="true">
-          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
-        </svg>
-        View on GitHub
-      </a>
       <h1>iCal Creator</h1>
       <p class="subtitle">
         Create and download calendar events
@@ -1336,9 +1368,9 @@
       <!-- Action Buttons -->
       <div class="btn-group">
         <button type="button" class="btn btn-secondary" id="newEventBtn">New Event</button>
-        <button type="button" class="btn btn-secondary" id="previewBtn">Preview</button>
         <button type="submit" class="btn btn-primary" id="downloadBtn">Download .ics</button>
       </div>
+      <p class="download-hint hidden" id="downloadHint">Fix errors above to download</p>
     </form>
 
     <!-- Saved Events Section -->
@@ -1353,8 +1385,9 @@
     </section>
 
     <!-- Debug Info -->
-    <div class="debug-info" id="debugInfo">
-      <div class="debug-info-title">Debug Info</div>
+    <details class="debug-info" id="debugInfo">
+      <summary class="debug-info-title">Debug Info</summary>
+      <div class="debug-info-content">
       <div class="debug-info-row">
         <span class="debug-info-label">Detected timezone:</span>
         <span class="debug-info-value" id="debugDetectedTz">-</span>
@@ -1375,8 +1408,18 @@
         <button type="button" class="btn btn-secondary btn-sm" id="resetTimezoneBtn">Reset Timezone to Detected</button>
         <button type="button" class="btn btn-secondary btn-sm" id="clearLocalStorageBtn">Clear All Local Storage</button>
       </div>
-    </div>
+      </div>
+    </details>
   </div>
+
+  <footer class="site-footer">
+    <a href="https://github.com/abuechler/ical-creator" class="github-link" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 16 16" aria-hidden="true">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      View on GitHub
+    </a>
+  </footer>
 
   <script>
     // ==================== Constants ====================
@@ -1431,8 +1474,8 @@
     const validationStatus = document.getElementById('validationStatus');
     const validationTitle = document.getElementById('validationTitle');
     const validationMessage = document.getElementById('validationMessage');
-    const previewBtn = document.getElementById('previewBtn');
     const downloadBtn = document.getElementById('downloadBtn');
+    const downloadHint = document.getElementById('downloadHint');
     const newEventBtn = document.getElementById('newEventBtn');
     const timezoneSelect = document.getElementById('timezone');
     const savedEventsSection = document.getElementById('savedEventsSection');
@@ -1454,6 +1497,7 @@
       updateMonthlyHints();
       renderSavedEvents();
       updateDebugInfo();
+      updateDownloadButtonState();
     }
 
     function updateDebugInfo() {
@@ -1647,9 +1691,6 @@
         }
       });
 
-      // Preview button
-      previewBtn.addEventListener('click', handlePreview);
-
       // New event button
       newEventBtn.addEventListener('click', handleNewEvent);
 
@@ -1720,6 +1761,21 @@
       });
       endTypeRadios.forEach(radio => {
         radio.addEventListener('change', saveFormState);
+      });
+
+      // Update download button state on relevant field changes
+      ['title', 'startDate', 'startTime', 'recurrenceEndDate'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', updateDownloadButtonState);
+          el.addEventListener('change', updateDownloadButtonState);
+        }
+      });
+      allDayCheckbox.addEventListener('change', updateDownloadButtonState);
+      isRecurringCheckbox.addEventListener('change', updateDownloadButtonState);
+      frequencySelect.addEventListener('change', updateDownloadButtonState);
+      endTypeRadios.forEach(radio => {
+        radio.addEventListener('change', updateDownloadButtonState);
       });
     }
 
@@ -1803,6 +1859,7 @@
       }
 
       saveFormState();
+      updateDownloadButtonState();
     }
 
     function updateDayPickerUI() {
@@ -1862,26 +1919,10 @@
 
       // Save clean state
       saveFormState();
+      updateDownloadButtonState();
 
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function handlePreview() {
-      if (!validateBasicFields()) {
-        return;
-      }
-
-      // Show recurring options and preview
-      isRecurringCheckbox.checked = true;
-      recurrenceOptions.classList.add('show');
-      previewSection.style.display = 'block';
-
-      calculateOccurrences();
-      renderCalendar();
-
-      // Scroll to preview
-      previewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function handleSubmit(e) {
@@ -2257,6 +2298,30 @@
       document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
       document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
       validationStatus.classList.remove('show', 'success', 'error');
+    }
+
+    function checkFormValidity() {
+      // Silent validation check (doesn't show errors)
+      const title = document.getElementById('title').value.trim();
+      const startDate = document.getElementById('startDate').value;
+      const startTime = document.getElementById('startTime').value;
+
+      if (!title || !startDate) return false;
+      if (!allDayCheckbox.checked && !startTime) return false;
+
+      if (isRecurringCheckbox.checked) {
+        if (frequencySelect.value === 'WEEKLY' && state.selectedDays.size === 0) return false;
+        const endType = document.querySelector('input[name="endType"]:checked').value;
+        if (endType === 'date' && !recurrenceEndDateInput.value) return false;
+      }
+
+      return true;
+    }
+
+    function updateDownloadButtonState() {
+      const isValid = checkFormValidity();
+      downloadBtn.disabled = !isValid;
+      downloadHint.classList.toggle('hidden', isValid);
     }
 
     function showValidationStatus(isSuccess, title, message) {
@@ -2816,6 +2881,7 @@
 
       // Save restored state
       saveFormState();
+      updateDownloadButtonState();
 
       // Scroll to top
       window.scrollTo({ top: 0, behavior: 'smooth' });
