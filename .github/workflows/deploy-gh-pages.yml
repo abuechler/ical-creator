@@ -25,10 +25,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Create deployment directory
-          mkdir -p deploy
-          cp ical-creator.html deploy/index.html
-          [ -f lock.svg ] && cp lock.svg deploy/ || true
+          # Copy files to temp directory (outside repo, survives branch switch)
+          mkdir -p /tmp/deploy
+          cp ical-creator.html /tmp/deploy/index.html
+          [ -f lock.svg ] && cp lock.svg /tmp/deploy/ || true
 
           # Create or update gh-pages branch
           if git ls-remote --exit-code --heads origin gh-pages; then
@@ -41,9 +41,8 @@ jobs:
             git rm -rf . || true
           fi
 
-          # Copy deployment files to root
-          cp -r deploy/* .
-          rm -rf deploy
+          # Copy deployment files from temp to repo root
+          cp -r /tmp/deploy/* .
 
           # Commit and push
           git add -A
