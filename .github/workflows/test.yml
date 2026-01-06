@@ -73,6 +73,10 @@ jobs:
           echo "----------------------------------------"
           echo "All ICS files validated successfully!"
 
+      - name: Generate Job Summary
+        if: always()
+        run: node scripts/generate-summary.js test-results/results.json >> $GITHUB_STEP_SUMMARY
+
       - name: Upload test results
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: always()
@@ -112,8 +116,14 @@ jobs:
           path: test-output/
 
       - name: Run online validator tests
-        run: npx playwright test tests/online-validator.spec.js --reporter=list || true
+        run: npx playwright test tests/online-validator.spec.js --reporter=json --reporter=html || true
         continue-on-error: true
+        env:
+          PLAYWRIGHT_JSON_OUTPUT_NAME: test-results/online-results.json
+
+      - name: Generate Job Summary
+        if: always()
+        run: node scripts/generate-summary.js test-results/online-results.json --online-validation >> $GITHUB_STEP_SUMMARY
 
       - name: Upload online validation results
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
