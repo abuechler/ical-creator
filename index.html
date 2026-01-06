@@ -1646,6 +1646,55 @@
       return date.toISOString().split('T')[0];
     }
 
+    /**
+     * Convert a local time in a given timezone to UTC.
+     * @param {string} dateStr - Date in YYYY-MM-DD format
+     * @param {string} timeStr - Time in HH:MM format
+     * @param {string} timezone - IANA timezone name (e.g., 'Europe/Berlin')
+     * @returns {string} ISO datetime string in UTC (YYYY-MM-DDTHH:MM:SS)
+     */
+    function convertLocalToUTC(dateStr, timeStr, timezone) {
+      if (timezone === 'UTC') {
+        return `${dateStr}T${timeStr}:00`;
+      }
+
+      // Parse input
+      const [year, month, day] = dateStr.split('-').map(Number);
+      const [hours, minutes] = timeStr.split(':').map(Number);
+
+      // Create a UTC date with these values (as if the input were UTC)
+      const asIfUTC = new Date(Date.UTC(year, month - 1, day, hours, minutes, 0));
+
+      // See what this UTC time looks like in the target timezone
+      const formatter = new Intl.DateTimeFormat('en-CA', {
+        timeZone: timezone,
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hour12: false
+      });
+
+      const parts = formatter.formatToParts(asIfUTC);
+      const get = (type) => Number(parts.find(p => p.type === type).value);
+
+      // What time is asIfUTC in the target timezone?
+      const inTzYear = get('year');
+      const inTzMonth = get('month');
+      const inTzDay = get('day');
+      const inTzHour = get('hour');
+      const inTzMinute = get('minute');
+
+      // Calculate offset: difference between what we want and what we got
+      const wantedLocal = new Date(year, month - 1, day, hours, minutes, 0);
+      const gotLocal = new Date(inTzYear, inTzMonth - 1, inTzDay, inTzHour, inTzMinute, 0);
+
+      const diffMs = wantedLocal - gotLocal;
+
+      // Apply the difference to our UTC guess
+      const actualUTC = new Date(asIfUTC.getTime() + diffMs);
+
+      return actualUTC.toISOString().slice(0, 19);
+    }
+
     // ==================== Event Listeners ====================
     function attachEventListeners() {
       // All-day toggle
@@ -2366,8 +2415,17 @@
       // Create event
       const vevent = new ICAL.Component('vevent');
 
-      // UID
-      vevent.updatePropertyWithValue('uid', generateUID());
+      // UID - use stored ID for saved events to enable updates, otherwise generate new
+      const eventUid = state.currentEventId || generateUID();
+      vevent.updatePropertyWithValue('uid', eventUid);
+
+      // SEQUENCE - for calendar apps to detect updates (RFC 5545)
+      // https://www.rfc-editor.org/rfc/rfc5545#section-3.8.7.4
+      // If event exists, increment sequence; otherwise start at 0
+      const existingEvents = getSavedEvents();
+      const existingEvent = existingEvents.find(e => e.id === state.currentEventId);
+      const sequence = existingEvent ? (existingEvent.sequence || 0) + 1 : 0;
+      vevent.updatePropertyWithValue('sequence', sequence);
 
       // Timestamp (must be UTC per RFC 5545)
       const dtstamp = ICAL.Time.now();
@@ -2377,15 +2435,28 @@
       // Summary
       vevent.updatePropertyWithValue('summary', title);
 
+      // Determine if we should use TZID (for recurring events with non-UTC timezone)
+      // Using TZID ensures DST transitions are handled correctly by the calendar app
+      const useTZID = isRecurring && timezone !== 'UTC' && !isAllDay;
+
       // Start date/time
       let dtstart;
       if (isAllDay) {
         dtstart = ICAL.Time.fromDateString(startDateStr);
         // fromDateString already marks as DATE type, setValue adds VALUE=DATE automatically
         vevent.updatePropertyWithValue('dtstart', dtstart);
-      } else {
+      } else if (useTZID) {
+        // Use TZID for recurring events - calendar app handles DST
         dtstart = ICAL.Time.fromDateTimeString(startDateStr + 'T' + startTimeStr + ':00');
-        dtstart.zone = ICAL.Timezone.utcTimezone; // Simplified - using UTC
+        const dtstartProp = new ICAL.Property('dtstart');
+        dtstartProp.setParameter('tzid', timezone);
+        dtstartProp.setValue(dtstart);
+        vevent.addProperty(dtstartProp);
+      } else {
+        // Convert local time to UTC using the selected timezone
+        const startUTCStr = convertLocalToUTC(startDateStr, startTimeStr, timezone);
+        dtstart = ICAL.Time.fromDateTimeString(startUTCStr);
+        dtstart.zone = ICAL.Timezone.utcTimezone;
         const dtstartProp = new ICAL.Property('dtstart');
         dtstartProp.setValue(dtstart);
         vevent.addProperty(dtstartProp);
@@ -2403,9 +2474,19 @@
           dtend = ICAL.Time.fromDateString(formatDateForInput(endDate));
           // fromDateString already marks as DATE type, setValue adds VALUE=DATE automatically
           vevent.updatePropertyWithValue('dtend', dtend);
-        } else {
+        } else if (useTZID) {
+          // Use TZID for recurring events - calendar app handles DST
           const effectiveEndTime = endTimeStr || startTimeStr;
           dtend = ICAL.Time.fromDateTimeString(effectiveEndDate + 'T' + effectiveEndTime + ':00');
+          const dtendProp = new ICAL.Property('dtend');
+          dtendProp.setParameter('tzid', timezone);
+          dtendProp.setValue(dtend);
+          vevent.addProperty(dtendProp);
+        } else {
+          const effectiveEndTime = endTimeStr || startTimeStr;
+          // Convert local time to UTC using the selected timezone
+          const endUTCStr = convertLocalToUTC(effectiveEndDate, effectiveEndTime, timezone);
+          dtend = ICAL.Time.fromDateTimeString(endUTCStr);
           dtend.zone = ICAL.Timezone.utcTimezone;
           vevent.addProperty(new ICAL.Property('dtend'));
           vevent.updatePropertyWithValue('dtend', dtend);
@@ -2444,8 +2525,15 @@
               const exdate = ICAL.Time.fromDateString(dateKey);
               // fromDateString already marks as DATE type, setValue adds VALUE=DATE automatically
               exdateProp.setValue(exdate);
-            } else {
+            } else if (useTZID) {
+              // Use TZID for recurring events - calendar app handles DST
               const exdate = ICAL.Time.fromDateTimeString(dateKey + 'T' + startTimeStr + ':00');
+              exdateProp.setParameter('tzid', timezone);
+              exdateProp.setValue(exdate);
+            } else {
+              // Convert local time to UTC using the selected timezone
+              const exdateUTCStr = convertLocalToUTC(dateKey, startTimeStr, timezone);
+              const exdate = ICAL.Time.fromDateTimeString(exdateUTCStr);
               exdate.zone = ICAL.Timezone.utcTimezone;
               exdateProp.setValue(exdate);
             }
@@ -2555,6 +2643,11 @@
 
     function generateAndDownloadICS() {
       try {
+        // Ensure currentEventId is set before generating ICS (for UID persistence)
+        if (!state.currentEventId) {
+          state.currentEventId = generateUID();
+        }
+
         const icsString = generateICS();
 
         // Validate
@@ -2905,8 +2998,15 @@
       const eventId = state.currentEventId || generateUID();
       state.currentEventId = eventId;
 
+      // Get existing event to check for sequence number
+      const existingEvents = getSavedEvents();
+      const existingEvent = existingEvents.find(e => e.id === eventId);
+      // Increment sequence if event exists, otherwise start at 0
+      const sequence = existingEvent ? (existingEvent.sequence || 0) + 1 : 0;
+
       return {
         id: eventId,
+        sequence: sequence,
         title: document.getElementById('title').value,
         allDay: allDayCheckbox.checked,
         startDate: document.getElementById('startDate').value,
