@@ -1,5 +1,17 @@
 # Project Notes
 
+- When given a file for task or story do the following after reading it:
+    - Note the start time in the document for tracking in the relevant section.
+    - Analyze the content and identify key requirements or instructions.
+    - Research any unfamiliar concepts or technologies mentioned.
+    - If you have any questions to any steps in the document, go through them one by one, offer suggestions and choices.
+    - Write down all planning prompts, answers and decisions in a "Planning Decisions" section at the end of the
+      document.
+    - Write down the total time spent on planning at the beginning of the "Planning Decisions" section with the current
+      date and time. If there are multiple planning sessions, note each session separately.
+- Make sure to add tests for all features implemented, use mcp playwright with firefox and switch to a responsive design
+  mode with a mobile device ((e.g iPhone 11 with 375x812 px viewport).)
+
 ## CSS Centering Techniques
 
 Reference: https://www.w3.org/Style/Examples/007/center.en.html
@@ -10,12 +22,12 @@ Use `vertical-align: middle` on inline elements:
 
 ```css
 .icon {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 .text {
-  display: inline;
-  vertical-align: middle;
+    display: inline;
+    vertical-align: middle;
 }
 ```
 
@@ -25,9 +37,9 @@ Use `vertical-align: middle` on inline elements:
 
 ```css
 .container {
-  display: flex;
-  align-items: center;      /* vertical */
-  justify-content: center;  /* horizontal */
+    display: flex;
+    align-items: center; /* vertical */
+    justify-content: center; /* horizontal */
 }
 ```
 
@@ -38,11 +50,11 @@ When overriding styles, ensure your rule has higher specificity or comes later i
 ```css
 /* Lower specificity */
 .modal-body strong {
-  display: block;
+    display: block;
 }
 
 /* Higher specificity - wins */
 .modal-body .privacy-modal-title strong {
-  display: inline;
+    display: inline;
 }
 ```
