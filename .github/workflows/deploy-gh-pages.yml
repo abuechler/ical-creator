@@ -27,10 +27,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Get version from package.json
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Deploying version: v${VERSION}"
+
           # Copy files to temp directory (outside repo, survives branch switch)
           mkdir -p /tmp/deploy
           cp ical-creator.html /tmp/deploy/index.html
           [ -f lock.svg ] && cp lock.svg /tmp/deploy/ || true
+
+          # Inject version into HTML
+          sed -i "s/<!-- VERSION_PLACEHOLDER -->/v${VERSION}/" /tmp/deploy/index.html
 
           # Create or update gh-pages branch
           if git ls-remote --exit-code --heads origin gh-pages; then
