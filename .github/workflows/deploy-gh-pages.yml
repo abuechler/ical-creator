@@ -1,0 +1,54 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Prepare and deploy to gh-pages
+        run: |
+          # Configure git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Create deployment directory
+          mkdir -p deploy
+          cp ical-creator.html deploy/index.html
+          [ -f lock.svg ] && cp lock.svg deploy/ || true
+
+          # Create or update gh-pages branch
+          if git ls-remote --exit-code --heads origin gh-pages; then
+            git fetch origin gh-pages
+            git checkout gh-pages
+            # Remove old files (except .git)
+            find . -maxdepth 1 ! -name '.git' ! -name '.' -exec rm -rf {} +
+          else
+            git checkout --orphan gh-pages
+            git rm -rf . || true
+          fi
+
+          # Copy deployment files to root
+          cp -r deploy/* .
+          rm -rf deploy
+
+          # Commit and push
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to deploy"
+          else
+            git commit -m "Deploy from main@${GITHUB_SHA::7}"
+            git push origin gh-pages
+          fi
