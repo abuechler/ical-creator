@@ -1436,7 +1436,8 @@
       calendarMonthsLoaded: 3,
       eventOccurrences: [],
       generatedICS: null,
-      currentEventId: null  // Track current event for updates
+      currentEventId: null,  // Track current event for updates
+      formTouched: false     // Track if user has interacted with the form
     };
 
     // ==================== LocalStorage Keys ====================
@@ -1767,15 +1768,15 @@
       ['title', 'startDate', 'startTime', 'recurrenceEndDate'].forEach(id => {
         const el = document.getElementById(id);
         if (el) {
-          el.addEventListener('input', updateDownloadButtonState);
-          el.addEventListener('change', updateDownloadButtonState);
+          el.addEventListener('input', () => { markFormTouched(); updateDownloadButtonState(); });
+          el.addEventListener('change', () => { markFormTouched(); updateDownloadButtonState(); });
         }
       });
-      allDayCheckbox.addEventListener('change', updateDownloadButtonState);
-      isRecurringCheckbox.addEventListener('change', updateDownloadButtonState);
-      frequencySelect.addEventListener('change', updateDownloadButtonState);
+      allDayCheckbox.addEventListener('change', () => { markFormTouched(); updateDownloadButtonState(); });
+      isRecurringCheckbox.addEventListener('change', () => { markFormTouched(); updateDownloadButtonState(); });
+      frequencySelect.addEventListener('change', () => { markFormTouched(); updateDownloadButtonState(); });
       endTypeRadios.forEach(radio => {
-        radio.addEventListener('change', updateDownloadButtonState);
+        radio.addEventListener('change', () => { markFormTouched(); updateDownloadButtonState(); });
       });
     }
 
@@ -1859,6 +1860,7 @@
       }
 
       saveFormState();
+      markFormTouched();
       updateDownloadButtonState();
     }
 
@@ -1896,6 +1898,7 @@
       // Reset state
       state.selectedDays = new Set();
       state.exceptions = new Set();
+      state.formTouched = false;
       updateDayPickerUI();
 
       // Set default dates
@@ -2321,7 +2324,15 @@
     function updateDownloadButtonState() {
       const isValid = checkFormValidity();
       downloadBtn.disabled = !isValid;
-      downloadHint.classList.toggle('hidden', isValid);
+      // Only show hint if user has interacted with the form
+      downloadHint.classList.toggle('hidden', isValid || !state.formTouched);
+    }
+
+    function markFormTouched() {
+      if (!state.formTouched) {
+        state.formTouched = true;
+        updateDownloadButtonState();
+      }
     }
 
     function showValidationStatus(isSuccess, title, message) {
@@ -2881,6 +2892,7 @@
 
       // Save restored state
       saveFormState();
+      state.formTouched = true;
       updateDownloadButtonState();
 
       // Scroll to top
