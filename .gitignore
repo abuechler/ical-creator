@@ -11,3 +11,15 @@
 .claude_in_a_box
 .mcp.json
 .playwright-mcp/
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Test output
+test-output/
+test-results/
+playwright-report/
+
+# Java build
+validator/target/

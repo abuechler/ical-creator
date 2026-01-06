@@ -1,0 +1,126 @@
+name: Test iCal Creator
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      use_online_validator:
+        description: 'Also validate with online validator (icalendar.org)'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@c1e323688fd81a25caa38c78aa6df2d33d3e20d9 # v4.8.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install firefox --with-deps
+
+      - name: Build Java validator
+        working-directory: validator
+        run: ./mvnw package -q -DskipTests
+
+      - name: Run Playwright tests
+        run: npm test
+
+      - name: Validate generated ICS files with ical4j
+        run: |
+          echo "Validating generated ICS files..."
+          VALIDATOR_JAR="validator/target/ical-validator-1.0.0.jar"
+          VALIDATOR_LIBS="validator/target/lib/*"
+
+          # Find all generated ICS files
+          for ics_file in test-output/*.ics; do
+            if [ -f "$ics_file" ]; then
+              echo "----------------------------------------"
+              echo "Validating: $ics_file"
+              java -cp "$VALIDATOR_JAR:$VALIDATOR_LIBS" ICalValidator "$ics_file"
+              if [ $? -ne 0 ]; then
+                echo "VALIDATION FAILED for $ics_file"
+                exit 1
+              fi
+            fi
+          done
+          echo "----------------------------------------"
+          echo "All ICS files validated successfully!"
+
+      - name: Upload test results
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: test-results
+          path: |
+            test-output/
+            playwright-report/
+            test-results/
+          retention-days: 7
+
+  online-validation:
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.event.inputs.use_online_validator == 'true'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install firefox --with-deps
+
+      - name: Download test artifacts
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: test-results
+          path: test-output/
+
+      - name: Run online validator tests
+        run: npx playwright test tests/online-validator.spec.js --reporter=list || true
+        continue-on-error: true
+
+      - name: Upload online validation results
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: online-validation-results
+          path: |
+            test-output/
+            playwright-report/
+          retention-days: 7
