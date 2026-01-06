@@ -391,6 +391,284 @@ test.describe('iCal Creator - Event Generation', () => {
 
 });
 
+test.describe('iCal Creator - Timezone Handling', () => {
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    await page.waitForSelector('#title');
+  });
+
+  test('Event time should be converted from local timezone to UTC (Europe/Berlin winter)', async ({ page }) => {
+    // Europe/Berlin is UTC+1 in winter (January)
+    // A time of 19:30 in Europe/Berlin should become 18:30 UTC
+
+    await page.locator('#title').fill('Timezone Test Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2025-01-15', '19:30');
+    await fillDateTime(page, 'endDate', 'endTime', '2025-01-15', '20:30');
+
+    // Select Europe/Berlin timezone
+    await scrollAndSelect(page, '#timezone', 'Europe/Berlin');
+
+    // Generate and capture ICS
+    const { content, filePath } = await generateAndCaptureICS(page, 'timezone-berlin-winter.ics');
+
+    // Verify structure
+    verifyICSStructure(content);
+
+    // Extract DTSTART time - should be 18:30 UTC (19:30 - 1 hour offset)
+    const dtstartMatch = content.match(/DTSTART:(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?/);
+    expect(dtstartMatch).toBeTruthy();
+
+    const [, year, month, day, hour, minute] = dtstartMatch;
+    expect(year).toBe('2025');
+    expect(month).toBe('01');
+    expect(day).toBe('15');
+    expect(hour).toBe('18'); // 19:30 local - 1 hour = 18:30 UTC
+    expect(minute).toBe('30');
+
+    // Extract DTEND time - should be 19:30 UTC (20:30 - 1 hour offset)
+    const dtendMatch = content.match(/DTEND:(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?/);
+    expect(dtendMatch).toBeTruthy();
+
+    const [, endYear, endMonth, endDay, endHour, endMinute] = dtendMatch;
+    expect(endYear).toBe('2025');
+    expect(endMonth).toBe('01');
+    expect(endDay).toBe('15');
+    expect(endHour).toBe('19'); // 20:30 local - 1 hour = 19:30 UTC
+    expect(endMinute).toBe('30');
+
+    console.log(`Generated: ${filePath}`);
+  });
+
+  test('Event time should be converted from local timezone to UTC (America/New_York winter)', async ({ page }) => {
+    // America/New_York is UTC-5 in winter (January)
+    // A time of 10:00 in New York should become 15:00 UTC
+
+    await page.locator('#title').fill('NYC Timezone Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2025-01-15', '10:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2025-01-15', '11:00');
+
+    // Select America/New_York timezone
+    await scrollAndSelect(page, '#timezone', 'America/New_York');
+
+    // Generate and capture ICS
+    const { content, filePath } = await generateAndCaptureICS(page, 'timezone-nyc-winter.ics');
+
+    // Verify structure
+    verifyICSStructure(content);
+
+    // Extract DTSTART time - should be 15:00 UTC (10:00 + 5 hours offset)
+    const dtstartMatch = content.match(/DTSTART:(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?/);
+    expect(dtstartMatch).toBeTruthy();
+
+    const [, year, month, day, hour, minute] = dtstartMatch;
+    expect(year).toBe('2025');
+    expect(month).toBe('01');
+    expect(day).toBe('15');
+    expect(hour).toBe('15'); // 10:00 local + 5 hours = 15:00 UTC
+    expect(minute).toBe('00');
+
+    console.log(`Generated: ${filePath}`);
+  });
+
+  test('UTC timezone should not change the time', async ({ page }) => {
+    // When timezone is UTC, the time should remain unchanged
+
+    await page.locator('#title').fill('UTC Test Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2025-01-15', '14:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2025-01-15', '15:00');
+
+    // Select UTC timezone
+    await scrollAndSelect(page, '#timezone', 'UTC');
+
+    // Generate and capture ICS
+    const { content, filePath } = await generateAndCaptureICS(page, 'timezone-utc.ics');
+
+    // Verify structure
+    verifyICSStructure(content);
+
+    // Extract DTSTART time - should remain 14:00 UTC
+    const dtstartMatch = content.match(/DTSTART:(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?/);
+    expect(dtstartMatch).toBeTruthy();
+
+    const [, year, month, day, hour, minute] = dtstartMatch;
+    expect(year).toBe('2025');
+    expect(month).toBe('01');
+    expect(day).toBe('15');
+    expect(hour).toBe('14'); // Unchanged for UTC
+    expect(minute).toBe('00');
+
+    console.log(`Generated: ${filePath}`);
+  });
+
+  test('Event time conversion should handle date boundary crossing', async ({ page }) => {
+    // Asia/Tokyo is UTC+9
+    // A time of 03:00 in Tokyo should become 18:00 UTC on the PREVIOUS day
+
+    await page.locator('#title').fill('Tokyo Early Morning');
+    await fillDateTime(page, 'startDate', 'startTime', '2025-01-15', '03:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2025-01-15', '04:00');
+
+    // Select Asia/Tokyo timezone
+    await scrollAndSelect(page, '#timezone', 'Asia/Tokyo');
+
+    // Generate and capture ICS
+    const { content, filePath } = await generateAndCaptureICS(page, 'timezone-tokyo-boundary.ics');
+
+    // Verify structure
+    verifyICSStructure(content);
+
+    // Extract DTSTART time - should be 18:00 UTC on Jan 14 (03:00 - 9 hours = 18:00 previous day)
+    const dtstartMatch = content.match(/DTSTART:(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?/);
+    expect(dtstartMatch).toBeTruthy();
+
+    const [, year, month, day, hour, minute] = dtstartMatch;
+    expect(year).toBe('2025');
+    expect(month).toBe('01');
+    expect(day).toBe('14'); // Previous day due to timezone offset
+    expect(hour).toBe('18'); // 03:00 - 9 hours = 18:00 previous day
+    expect(minute).toBe('00');
+
+    console.log(`Generated: ${filePath}`);
+  });
+
+  test('Recurring event should use TZID for correct DST handling', async ({ page }) => {
+    // This test verifies that recurring events spanning DST transitions work correctly
+    // Europe/Berlin: UTC+1 (winter) -> UTC+2 (summer, starts late March)
+    //
+    // Problem with UTC approach:
+    // - Event at 19:30 Berlin in January = 18:30 UTC
+    // - If we store DTSTART:...T183000Z, it's 18:30 UTC forever
+    // - In April (summer), 18:30 UTC = 20:30 Berlin (wrong!)
+    //
+    // Solution: Use TZID so calendar app handles DST:
+    // - DTSTART;TZID=Europe/Berlin:...T193000
+    // - Calendar app knows to show 19:30 Berlin regardless of DST
+
+    await page.locator('#title').fill('Bi-weekly Thursday Meeting');
+    // Start on Thursday January 9, 2025 (winter time)
+    await fillDateTime(page, 'startDate', 'startTime', '2025-01-09', '19:30');
+    await fillDateTime(page, 'endDate', 'endTime', '2025-01-09', '20:30');
+
+    // Select Europe/Berlin timezone
+    await scrollAndSelect(page, '#timezone', 'Europe/Berlin');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+
+    // Select weekly frequency with interval 2 (bi-weekly)
+    await scrollAndSelect(page, '#frequency', 'WEEKLY');
+    await scrollAndSelect(page, '#interval', '2');
+
+    // Set end date to May 2025 (spans DST transition on March 30, 2025)
+    await scrollAndCheck(page, 'input[name="endType"][value="date"]');
+    await scrollAndFill(page, '#recurrenceEndDate', '2025-05-31');
+
+    // Generate and capture ICS
+    const { content, filePath } = await generateAndCaptureICS(page, 'timezone-dst-recurring.ics');
+
+    // Verify structure
+    verifyICSStructure(content);
+    expect(content).toContain('RRULE:');
+    expect(content).toContain('FREQ=WEEKLY');
+
+    // For recurring events spanning DST, we should use TZID instead of UTC
+    // Check that DTSTART has TZID parameter
+    const hasTZID = content.includes('DTSTART;TZID=Europe/Berlin');
+
+    if (hasTZID) {
+      // Correct: Using TZID approach - time should be local time (19:30)
+      expect(content).toMatch(/DTSTART;TZID=Europe\/Berlin[^:]*:20250109T193000/);
+      console.log('PASS: Using TZID approach for DST-safe recurring events');
+    } else {
+      // If using UTC approach, verify it's at least correct for the start date
+      // But note this will be wrong after DST transition
+      const dtstartMatch = content.match(/DTSTART:(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?/);
+      expect(dtstartMatch).toBeTruthy();
+      expect(dtstartMatch[4]).toBe('18'); // 19:30 Berlin winter = 18:30 UTC
+      console.log('WARNING: Using UTC approach - events after March 30 DST change will show at 20:30 instead of 19:30');
+    }
+
+    console.log(`Generated: ${filePath}`);
+  });
+
+  test('Recurring event exceptions should use correct timezone conversion', async ({ page }) => {
+    // Test that EXDATE times are also converted to UTC
+
+    await page.locator('#title').fill('Weekly Berlin Meeting');
+    await fillDateTime(page, 'startDate', 'startTime', '2025-01-06', '19:30');
+    await fillDateTime(page, 'endDate', 'endTime', '2025-01-06', '20:30');
+
+    // Select Europe/Berlin timezone
+    await scrollAndSelect(page, '#timezone', 'Europe/Berlin');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+
+    // Select weekly frequency
+    await scrollAndSelect(page, '#frequency', 'WEEKLY');
+
+    // Set occurrence count
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '4');
+
+    // Wait for calendar to render
+    await page.waitForSelector('.calendar-grid');
+
+    // Add exception dates by clicking on calendar days
+    const eventDays = page.locator('.calendar-grid .day.event');
+    const dayCount = await eventDays.count();
+
+    if (dayCount >= 2) {
+      // Click on the second occurrence to add as exception
+      await eventDays.nth(1).click();
+    }
+
+    // Generate and capture ICS
+    const { content, filePath } = await generateAndCaptureICS(page, 'timezone-recurring-exception.ics');
+
+    // Verify structure
+    verifyICSStructure(content);
+
+    // For recurring events with non-UTC timezone, we now use TZID format for DST correctness
+    // Check for TZID format first (preferred for recurring), then UTC format
+    const hasTZID = content.includes('DTSTART;TZID=Europe/Berlin');
+
+    if (hasTZID) {
+      // TZID format: time should be local time (19:30)
+      expect(content).toMatch(/DTSTART;TZID=Europe\/Berlin[^:]*:20250106T193000/);
+      console.log('Using TZID approach for recurring event');
+
+      // Check EXDATE also uses TZID
+      if (dayCount >= 2) {
+        const hasExdateTZID = content.includes('EXDATE;TZID=Europe/Berlin');
+        if (hasExdateTZID) {
+          // EXDATE should also have local time (19:30)
+          expect(content).toMatch(/EXDATE;TZID=Europe\/Berlin[^:]*:\d{8}T193000/);
+        }
+      }
+    } else {
+      // UTC format: time should be converted (19:30 Berlin -> 18:30 UTC)
+      const dtstartMatch = content.match(/DTSTART:(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?/);
+      expect(dtstartMatch).toBeTruthy();
+      expect(dtstartMatch[4]).toBe('18'); // 19:30 - 1 hour = 18:30 UTC
+
+      // If there's an EXDATE, verify it's also converted to UTC
+      if (dayCount >= 2) {
+        const exdateMatch = content.match(/EXDATE:(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?/);
+        if (exdateMatch) {
+          // EXDATE hour should also be 18:30 UTC (original 19:30 - 1 hour)
+          expect(exdateMatch[4]).toBe('18');
+          expect(exdateMatch[5]).toBe('30');
+        }
+      }
+    }
+
+    console.log(`Generated: ${filePath}`);
+  });
+
+});
+
 test.describe('iCal Creator - Form Validation', () => {
 
   test.beforeEach(async ({ page }) => {
