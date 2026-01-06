@@ -2369,8 +2369,10 @@
       // UID
       vevent.updatePropertyWithValue('uid', generateUID());
 
-      // Timestamp
-      vevent.updatePropertyWithValue('dtstamp', ICAL.Time.now());
+      // Timestamp (must be UTC per RFC 5545)
+      const dtstamp = ICAL.Time.now();
+      dtstamp.zone = ICAL.Timezone.utcTimezone;
+      vevent.updatePropertyWithValue('dtstamp', dtstamp);
 
       // Summary
       vevent.updatePropertyWithValue('summary', title);
@@ -2379,10 +2381,8 @@
       let dtstart;
       if (isAllDay) {
         dtstart = ICAL.Time.fromDateString(startDateStr);
-        const dtstartProp = new ICAL.Property('dtstart');
-        dtstartProp.setValue(dtstart);
-        dtstartProp.setParameter('value', 'DATE');
-        vevent.addProperty(dtstartProp);
+        // fromDateString already marks as DATE type, setValue adds VALUE=DATE automatically
+        vevent.updatePropertyWithValue('dtstart', dtstart);
       } else {
         dtstart = ICAL.Time.fromDateTimeString(startDateStr + 'T' + startTimeStr + ':00');
         dtstart.zone = ICAL.Timezone.utcTimezone; // Simplified - using UTC
@@ -2401,10 +2401,8 @@
           const endDate = new Date(effectiveEndDate + 'T00:00:00');
           endDate.setDate(endDate.getDate() + 1);
           dtend = ICAL.Time.fromDateString(formatDateForInput(endDate));
-          const dtendProp = new ICAL.Property('dtend');
-          dtendProp.setValue(dtend);
-          dtendProp.setParameter('value', 'DATE');
-          vevent.addProperty(dtendProp);
+          // fromDateString already marks as DATE type, setValue adds VALUE=DATE automatically
+          vevent.updatePropertyWithValue('dtend', dtend);
         } else {
           const effectiveEndTime = endTimeStr || startTimeStr;
           dtend = ICAL.Time.fromDateTimeString(effectiveEndDate + 'T' + effectiveEndTime + ':00');
@@ -2444,8 +2442,8 @@
             const exdateProp = new ICAL.Property('exdate');
             if (isAllDay) {
               const exdate = ICAL.Time.fromDateString(dateKey);
+              // fromDateString already marks as DATE type, setValue adds VALUE=DATE automatically
               exdateProp.setValue(exdate);
-              exdateProp.setParameter('value', 'DATE');
             } else {
               const exdate = ICAL.Time.fromDateTimeString(dateKey + 'T' + startTimeStr + ':00');
               exdate.zone = ICAL.Timezone.utcTimezone;
