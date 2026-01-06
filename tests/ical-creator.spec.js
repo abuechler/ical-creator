@@ -702,3 +702,106 @@ test.describe('iCal Creator - Form Validation', () => {
   });
 
 });
+
+test.describe('iCal Creator - UID and SEQUENCE (RFC 5545)', () => {
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    await page.waitForSelector('#title');
+    // Clear localStorage to ensure clean state
+    await page.evaluate(() => localStorage.clear());
+  });
+
+  test('Generated iCal should include UID property', async ({ page }) => {
+    await page.locator('#title').fill('UID Test Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2025-03-15', '10:00');
+
+    const { content } = await generateAndCaptureICS(page, 'uid-test.ics');
+
+    verifyICSStructure(content);
+    // UID should be present and match the expected format
+    expect(content).toMatch(/UID:ical-creator-\d+-[a-z0-9]+@ical-creator/);
+  });
+
+  test('Generated iCal should include SEQUENCE property', async ({ page }) => {
+    await page.locator('#title').fill('SEQUENCE Test Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2025-03-15', '10:00');
+
+    const { content } = await generateAndCaptureICS(page, 'sequence-test.ics');
+
+    verifyICSStructure(content);
+    // SEQUENCE should be present (starts at 0 for new events)
+    expect(content).toMatch(/SEQUENCE:\d+/);
+  });
+
+  test('Saved event should retain same UID on re-download', async ({ page }) => {
+    // Create an event and download (which auto-saves)
+    await page.locator('#title').fill('Persistent UID Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2025-03-15', '10:00');
+
+    // First download (this also saves the event to history)
+    const { content: firstICS } = await generateAndCaptureICS(page, 'uid-persist-1.ics');
+
+    // Extract UID from first download
+    const uidMatch1 = firstICS.match(/UID:([^\r\n]+)/);
+    expect(uidMatch1).toBeTruthy();
+    const firstUID = uidMatch1[1];
+
+    // Modify the event title
+    await page.locator('#title').fill('Persistent UID Event - Modified');
+
+    // Second download (same event, should have same UID)
+    const { content: secondICS } = await generateAndCaptureICS(page, 'uid-persist-2.ics');
+
+    // Extract UID from second download
+    const uidMatch2 = secondICS.match(/UID:([^\r\n]+)/);
+    expect(uidMatch2).toBeTruthy();
+    const secondUID = uidMatch2[1];
+
+    // UIDs should be identical (same event)
+    expect(secondUID).toBe(firstUID);
+    console.log(`UID preserved: ${firstUID}`);
+  });
+
+  test('SEQUENCE should increment when event is re-saved', async ({ page }) => {
+    // Create an event and download (first save - sequence 0)
+    await page.locator('#title').fill('SEQUENCE Increment Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2025-03-15', '10:00');
+
+    // First download (saves event with sequence 0)
+    const { content: firstICS } = await generateAndCaptureICS(page, 'seq-increment-1.ics');
+
+    // Extract SEQUENCE from first download
+    const seqMatch1 = firstICS.match(/SEQUENCE:(\d+)/);
+    expect(seqMatch1).toBeTruthy();
+    const firstSequence = parseInt(seqMatch1[1]);
+    expect(firstSequence).toBe(0);
+
+    // Modify and download again (second save - sequence should increment)
+    await page.locator('#title').fill('SEQUENCE Increment Test - Updated');
+
+    // Second download (saves event with incremented sequence)
+    const { content: secondICS } = await generateAndCaptureICS(page, 'seq-increment-2.ics');
+
+    // Extract SEQUENCE from second download
+    const seqMatch2 = secondICS.match(/SEQUENCE:(\d+)/);
+    expect(seqMatch2).toBeTruthy();
+    const secondSequence = parseInt(seqMatch2[1]);
+
+    // SEQUENCE should be incremented
+    expect(secondSequence).toBe(firstSequence + 1);
+    console.log(`SEQUENCE incremented: ${firstSequence} -> ${secondSequence}`);
+  });
+
+  test('New event should start with SEQUENCE 0', async ({ page }) => {
+    await page.locator('#title').fill('New Event SEQUENCE');
+    await fillDateTime(page, 'startDate', 'startTime', '2025-03-15', '10:00');
+
+    const { content } = await generateAndCaptureICS(page, 'new-event-seq.ics');
+
+    verifyICSStructure(content);
+    // New event should have SEQUENCE:0
+    expect(content).toContain('SEQUENCE:0');
+  });
+
+});

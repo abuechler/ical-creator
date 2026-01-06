@@ -2415,8 +2415,17 @@
       // Create event
       const vevent = new ICAL.Component('vevent');
 
-      // UID
-      vevent.updatePropertyWithValue('uid', generateUID());
+      // UID - use stored ID for saved events to enable updates, otherwise generate new
+      const eventUid = state.currentEventId || generateUID();
+      vevent.updatePropertyWithValue('uid', eventUid);
+
+      // SEQUENCE - for calendar apps to detect updates (RFC 5545)
+      // https://www.rfc-editor.org/rfc/rfc5545#section-3.8.7.4
+      // If event exists, increment sequence; otherwise start at 0
+      const existingEvents = getSavedEvents();
+      const existingEvent = existingEvents.find(e => e.id === state.currentEventId);
+      const sequence = existingEvent ? (existingEvent.sequence || 0) + 1 : 0;
+      vevent.updatePropertyWithValue('sequence', sequence);
 
       // Timestamp (must be UTC per RFC 5545)
       const dtstamp = ICAL.Time.now();
@@ -2634,6 +2643,11 @@
 
     function generateAndDownloadICS() {
       try {
+        // Ensure currentEventId is set before generating ICS (for UID persistence)
+        if (!state.currentEventId) {
+          state.currentEventId = generateUID();
+        }
+
         const icsString = generateICS();
 
         // Validate
@@ -2984,8 +2998,15 @@
       const eventId = state.currentEventId || generateUID();
       state.currentEventId = eventId;
 
+      // Get existing event to check for sequence number
+      const existingEvents = getSavedEvents();
+      const existingEvent = existingEvents.find(e => e.id === eventId);
+      // Increment sequence if event exists, otherwise start at 0
+      const sequence = existingEvent ? (existingEvent.sequence || 0) + 1 : 0;
+
       return {
         id: eventId,
+        sequence: sequence,
         title: document.getElementById('title').value,
         allDay: allDayCheckbox.checked,
         startDate: document.getElementById('startDate').value,
