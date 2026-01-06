@@ -1,0 +1,2830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iCal Creator</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.5.0/ical.min.js"></script>
+  <style>
+    /* ==================== CSS Reset & Base ==================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #00ACC1;
+      --primary-dark: #00838F;
+      --primary-light: #B2EBF2;
+      --primary-bg: #E0F7FA;
+      --error: #D32F2F;
+      --error-bg: #FFEBEE;
+      --success: #388E3C;
+      --success-bg: #E8F5E9;
+      --warning: #F57C00;
+      --warning-bg: #FFF3E0;
+      --gray-50: #FAFAFA;
+      --gray-100: #F5F5F5;
+      --gray-200: #EEEEEE;
+      --gray-300: #E0E0E0;
+      --gray-400: #BDBDBD;
+      --gray-500: #9E9E9E;
+      --gray-600: #757575;
+      --gray-700: #616161;
+      --gray-800: #424242;
+      --gray-900: #212121;
+      --white: #FFFFFF;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+      --radius: 8px;
+      --radius-sm: 4px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      line-height: 1.5;
+      color: var(--gray-900);
+      background: var(--gray-100);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* ==================== Layout ==================== */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin: 0 0 8px 0;
+    }
+
+    header p {
+      color: var(--gray-600);
+      margin: 0;
+    }
+
+    /* ==================== Card ==================== */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin: 0 0 16px 0;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    /* ==================== Form Elements ==================== */
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      margin-bottom: 6px;
+    }
+
+    .label-optional {
+      font-weight: 400;
+      color: var(--gray-500);
+    }
+
+    input[type="text"],
+    input[type="url"],
+    input[type="date"],
+    input[type="time"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 1rem;
+      font-family: inherit;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      color: var(--gray-900);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    input:disabled,
+    select:disabled,
+    textarea:disabled {
+      background: var(--gray-100);
+      color: var(--gray-500);
+      cursor: not-allowed;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    /* ==================== Checkbox & Radio ==================== */
+    .checkbox-group,
+    .radio-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-group input[type="checkbox"],
+    .radio-group input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .checkbox-group label,
+    .radio-group label {
+      margin-bottom: 0;
+      cursor: pointer;
+      font-weight: 400;
+    }
+
+    .checkbox-inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .radio-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .radio-option input[type="radio"] {
+      margin-top: 2px;
+    }
+
+    .radio-option-content {
+      flex: 1;
+    }
+
+    .radio-option-label {
+      font-weight: 500;
+      color: var(--gray-800);
+    }
+
+    .radio-option-hint {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+
+    /* ==================== Day Picker (Weekly) ==================== */
+    .day-picker {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .day-picker-btn {
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .day-picker-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .day-picker-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .day-picker-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+    }
+
+    .day-picker-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ==================== Toggle Switch ==================== */
+    .toggle-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+    }
+
+    .toggle-label {
+      font-weight: 500;
+      color: var(--gray-800);
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 48px;
+      height: 26px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--gray-300);
+      border-radius: 26px;
+      transition: 0.2s;
+    }
+
+    .toggle-slider::before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background: var(--white);
+      border-radius: 50%;
+      transition: 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .toggle-switch input:checked + .toggle-slider {
+      background: var(--primary);
+    }
+
+    .toggle-switch input:checked + .toggle-slider::before {
+      transform: translateX(22px);
+    }
+
+    .toggle-switch input:focus + .toggle-slider {
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    /* ==================== Collapsible Content ==================== */
+    .collapsible-content {
+      display: none;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-200);
+      margin-top: 12px;
+    }
+
+    .collapsible-content.show {
+      display: block;
+    }
+
+    /* ==================== Warning Box ==================== */
+    .warning-box {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 0.875rem;
+      color: var(--warning);
+      margin-top: 8px;
+      display: none;
+    }
+
+    .warning-box.show {
+      display: block;
+    }
+
+    /* ==================== Calendar Grid ==================== */
+    .calendar-container {
+      margin-top: 16px;
+    }
+
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .calendar-nav-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--gray-600);
+      transition: all 0.15s;
+    }
+
+    .calendar-nav-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .calendar-nav-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .calendar-month-year {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--gray-800);
+      min-width: 140px;
+      text-align: center;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .calendar-weekday {
+      text-align: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      padding: 8px 0;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      border-radius: var(--radius-sm);
+      border: 2px solid transparent;
+      background: var(--white);
+      cursor: default;
+      transition: all 0.15s;
+    }
+
+    .calendar-day.other-month {
+      color: var(--gray-400);
+    }
+
+    .calendar-day.event-day {
+      background: var(--primary-bg);
+      color: var(--primary-dark);
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .calendar-day.event-day:hover {
+      border-color: var(--primary);
+    }
+
+    .calendar-day.event-day:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .calendar-day.exception {
+      background: var(--error-bg);
+      color: var(--error);
+      text-decoration: line-through;
+    }
+
+    .calendar-day.today {
+      border-color: var(--primary);
+    }
+
+    .calendar-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--gray-200);
+      font-size: 0.875rem;
+      color: var(--gray-600);
+    }
+
+    .calendar-legend {
+      display: flex;
+      gap: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+    }
+
+    .legend-dot.event {
+      background: var(--primary-bg);
+      border: 1px solid var(--primary);
+    }
+
+    .legend-dot.exception {
+      background: var(--error-bg);
+      border: 1px solid var(--error);
+    }
+
+    /* ==================== Exception List ==================== */
+    .exception-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .exception-toggle:hover {
+      color: var(--primary);
+    }
+
+    .exception-toggle:focus {
+      outline: none;
+      color: var(--primary);
+    }
+
+    .exception-toggle-icon {
+      font-size: 0.625rem;
+      transition: transform 0.2s;
+    }
+
+    .exception-toggle.open .exception-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .exception-list {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      background: var(--error-bg);
+      border: 1px solid var(--error);
+      border-radius: var(--radius-sm);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .exception-list.show {
+      display: block;
+    }
+
+    .exception-list-empty {
+      color: var(--gray-500);
+      font-size: 0.875rem;
+      text-align: center;
+    }
+
+    .exception-list-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .exception-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: var(--white);
+      border: 1px solid var(--error);
+      border-radius: 16px;
+      font-size: 0.8125rem;
+      color: var(--error);
+    }
+
+    .exception-item-remove {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border: none;
+      background: transparent;
+      color: var(--error);
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 0;
+      opacity: 0.6;
+    }
+
+    .exception-item-remove:hover {
+      opacity: 1;
+    }
+
+    /* ==================== Buttons ==================== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 500;
+      font-family: inherit;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s;
+      border: none;
+    }
+
+    .btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--gray-700);
+      border: 1px solid var(--gray-300);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--gray-50);
+      border-color: var(--gray-400);
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-group .btn {
+      flex: 1;
+    }
+
+    /* ==================== Validation Status ==================== */
+    .validation-status {
+      display: none;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      font-size: 0.875rem;
+    }
+
+    .validation-status.show {
+      display: block;
+    }
+
+    .validation-status.success {
+      background: var(--success-bg);
+      color: var(--success);
+      border: 1px solid var(--success);
+    }
+
+    .validation-status.error {
+      background: var(--error-bg);
+      color: var(--error);
+      border: 1px solid var(--error);
+    }
+
+    .validation-status-title {
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    /* ==================== Field Errors ==================== */
+    .field-error {
+      font-size: 0.75rem;
+      color: var(--error);
+      margin-top: 4px;
+      display: none;
+    }
+
+    .field-error.show {
+      display: block;
+    }
+
+    input.error,
+    select.error,
+    textarea.error {
+      border-color: var(--error);
+    }
+
+    input.error:focus,
+    select.error:focus,
+    textarea.error:focus {
+      box-shadow: 0 0 0 3px var(--error-bg);
+    }
+
+    /* ==================== Responsive ==================== */
+    @media (max-width: 480px) {
+      .container {
+        padding: 16px 12px;
+      }
+
+      .card {
+        padding: 16px;
+      }
+
+      .form-row {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .btn-group {
+        flex-direction: column;
+      }
+
+      .calendar-day {
+        font-size: 0.75rem;
+      }
+    }
+
+    /* ==================== Hidden utility ==================== */
+    .hidden {
+      display: none !important;
+    }
+
+    /* ==================== Screen reader only ==================== */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ==================== Saved Events ==================== */
+    .saved-events-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .saved-events-header .card-title {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.875rem;
+    }
+
+    .saved-events-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .saved-event-card {
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      background: var(--gray-50);
+    }
+
+    .saved-event-card:hover {
+      border-color: var(--primary-light);
+      background: var(--white);
+    }
+
+    .saved-event-title {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+    }
+
+    .saved-event-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.875rem;
+      color: var(--gray-600);
+      margin-bottom: 12px;
+    }
+
+    .saved-event-detail {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .saved-event-detail-icon {
+      width: 16px;
+      height: 16px;
+      opacity: 0.6;
+    }
+
+    .saved-event-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 12px;
+      background: var(--primary-bg);
+      color: var(--primary-dark);
+    }
+
+    .saved-event-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .saved-event-actions .btn {
+      padding: 6px 16px;
+      font-size: 0.875rem;
+    }
+
+    .btn-danger {
+      background: var(--white);
+      color: var(--error);
+      border: 1px solid var(--error);
+    }
+
+    .btn-danger:hover:not(:disabled) {
+      background: var(--error-bg);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 24px;
+      color: var(--gray-500);
+    }
+
+    /* ==================== Info Icon & Modal ==================== */
+    .subtitle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .info-icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      border: none;
+      background: transparent;
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .info-icon-btn:hover {
+      color: var(--primary);
+    }
+
+    .info-icon-btn:focus {
+      outline: none;
+      color: var(--primary);
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      max-width: 400px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .modal-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--gray-900);
+    }
+
+    .modal-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      font-size: 1.5rem;
+      color: var(--gray-500);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s;
+    }
+
+    .modal-close:hover {
+      background: var(--gray-100);
+      color: var(--gray-700);
+    }
+
+    .modal-body {
+      padding: 20px;
+      font-size: 0.9375rem;
+      color: var(--gray-700);
+      line-height: 1.5;
+      text-align: left;
+    }
+
+    .privacy-modal-title {
+      margin-bottom: 12px;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    .privacy-modal-icon {
+      height: 1.5em;
+      width: 1.5em;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+
+    .modal-body strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+    }
+
+    .modal-body .privacy-modal-title strong {
+      display: inline;
+      vertical-align: middle;
+    }
+
+    .modal-body p {
+      margin: 0 0 12px 0;
+    }
+
+    .modal-body ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .modal-body li {
+      margin-bottom: 6px;
+    }
+
+    .modal-body li:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ==================== Debug Info ==================== */
+    .debug-info {
+      margin-top: 24px;
+      padding: 12px 16px;
+      background: var(--gray-100);
+      border: 1px dashed var(--gray-300);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-family: monospace;
+      color: var(--gray-600);
+    }
+
+    .debug-info-title {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--gray-700);
+    }
+
+    .debug-info-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .debug-info-label {
+      color: var(--gray-500);
+      min-width: 140px;
+    }
+
+    .debug-info-value {
+      color: var(--gray-800);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>iCal Creator</h1>
+      <p class="subtitle">
+        Create and download calendar events
+        <button type="button" class="info-icon-btn" id="privacyInfoBtn" aria-label="Privacy information">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <path d="M8 0a8 8 0 100 16A8 8 0 008 0zm0 14.5a6.5 6.5 0 110-13 6.5 6.5 0 010 13zM8 6a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0v-4.5A.75.75 0 018 6zm0-2.5a1 1 0 100 2 1 1 0 000-2z"/>
+          </svg>
+        </button>
+      </p>
+    </header>
+
+    <!-- Privacy Modal -->
+    <div class="modal-overlay" id="privacyModal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-labelledby="privacyModalTitle">
+        <div class="modal-header">
+          <h2 class="modal-title" id="privacyModalTitle">Privacy Information</h2>
+          <button type="button" class="modal-close" id="privacyModalClose" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="privacy-modal-title">
+            <img src="lock.svg" alt="" class="privacy-modal-icon">
+            <strong>Your data stays private</strong>
+          </div>
+          <p>All data is stored locally on your device using your browser's localStorage. Nothing is sent to or stored on any external server.</p>
+          <p>This means:</p>
+          <ul>
+            <li>Your events are only accessible on this device and browser</li>
+            <li>Clearing your browser data will remove saved events</li>
+            <li>No account or sign-up required</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <form id="eventForm" novalidate>
+      <!-- Basic Event Info -->
+      <section class="card" aria-labelledby="basic-info-title">
+        <h2 class="card-title" id="basic-info-title">Event Details</h2>
+
+        <div class="form-group">
+          <label for="title">Event Title <span class="label-required">*</span></label>
+          <input type="text" id="title" name="title" required placeholder="e.g., Team Meeting">
+          <div class="field-error" id="title-error">Please enter an event title</div>
+        </div>
+
+        <div class="form-group">
+          <div class="checkbox-group">
+            <input type="checkbox" id="allDay" name="allDay">
+            <label for="allDay">All-day event</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="startDate">Start Date <span class="label-required">*</span></label>
+            <input type="date" id="startDate" name="startDate" required>
+            <div class="field-error" id="startDate-error">Please select a start date</div>
+          </div>
+          <div class="form-group" id="startTimeGroup">
+            <label for="startTime">Start Time <span class="label-required">*</span></label>
+            <input type="time" id="startTime" name="startTime" required>
+            <div class="field-error" id="startTime-error">Please select a start time</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="endDate">End Date <span class="label-optional">(optional)</span></label>
+            <input type="date" id="endDate" name="endDate">
+          </div>
+          <div class="form-group" id="endTimeGroup">
+            <label for="endTime">End Time <span class="label-optional">(optional)</span></label>
+            <input type="time" id="endTime" name="endTime">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="timezone">Timezone</label>
+          <select id="timezone" name="timezone">
+            <!-- Populated by JavaScript -->
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location <span class="label-optional">(optional)</span></label>
+          <input type="text" id="location" name="location" placeholder="e.g., Conference Room A">
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description <span class="label-optional">(optional)</span></label>
+          <textarea id="description" name="description" placeholder="Add event details..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="url">URL <span class="label-optional">(optional)</span></label>
+          <input type="url" id="url" name="url" placeholder="e.g., https://meet.example.com/abc">
+        </div>
+      </section>
+
+      <!-- Recurrence Options -->
+      <section class="card" aria-labelledby="recurrence-title">
+        <h2 class="card-title" id="recurrence-title">Recurrence</h2>
+
+        <div class="toggle-section">
+          <span class="toggle-label">Repeat this event</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="isRecurring" name="isRecurring">
+            <span class="toggle-slider" role="presentation"></span>
+            <span class="sr-only">Enable recurring event</span>
+          </label>
+        </div>
+
+        <div class="collapsible-content" id="recurrenceOptions">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="frequency">Repeat</label>
+              <select id="frequency" name="frequency">
+                <option value="DAILY">Daily</option>
+                <option value="WEEKLY">Weekly</option>
+                <option value="MONTHLY">Monthly</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="interval">Every</label>
+              <select id="interval" name="interval">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Weekly Day Selection -->
+          <div class="form-group" id="weeklyDaysGroup">
+            <label>Repeat on</label>
+            <div class="day-picker" role="group" aria-label="Select days of the week">
+              <button type="button" class="day-picker-btn" data-day="MO" aria-pressed="false">Mon</button>
+              <button type="button" class="day-picker-btn" data-day="TU" aria-pressed="false">Tue</button>
+              <button type="button" class="day-picker-btn" data-day="WE" aria-pressed="false">Wed</button>
+              <button type="button" class="day-picker-btn" data-day="TH" aria-pressed="false">Thu</button>
+              <button type="button" class="day-picker-btn" data-day="FR" aria-pressed="false">Fri</button>
+              <button type="button" class="day-picker-btn" data-day="SA" aria-pressed="false">Sat</button>
+              <button type="button" class="day-picker-btn" data-day="SU" aria-pressed="false">Sun</button>
+            </div>
+            <div class="field-error" id="weeklyDays-error">Please select at least one day</div>
+          </div>
+
+          <!-- Monthly Type Selection -->
+          <div class="form-group" id="monthlyTypeGroup">
+            <label>Repeat by</label>
+            <div class="radio-stack">
+              <div class="radio-option">
+                <input type="radio" id="monthlyByDate" name="monthlyType" value="date" checked>
+                <div class="radio-option-content">
+                  <label for="monthlyByDate" class="radio-option-label">Day of month</label>
+                  <div class="radio-option-hint" id="monthlyDateHint">e.g., the 15th of every month</div>
+                </div>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="monthlyByDay" name="monthlyType" value="day">
+                <div class="radio-option-content">
+                  <label for="monthlyByDay" class="radio-option-label">Day of week</label>
+                  <div class="radio-option-hint" id="monthlyDayHint">e.g., the 2nd Tuesday of every month</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- End Condition -->
+          <div class="form-group">
+            <label>Ends</label>
+            <div class="radio-stack">
+              <div class="radio-option">
+                <input type="radio" id="endByDate" name="endType" value="date" checked>
+                <div class="radio-option-content">
+                  <label for="endByDate" class="radio-option-label">On date</label>
+                  <input type="date" id="recurrenceEndDate" name="recurrenceEndDate" style="margin-top: 6px;">
+                </div>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="endByCount" name="endType" value="count">
+                <div class="radio-option-content">
+                  <label for="endByCount" class="radio-option-label">After occurrences</label>
+                  <input type="number" id="occurrenceCount" name="occurrenceCount" min="1" max="999" value="10" style="margin-top: 6px; width: 100px;" disabled>
+                </div>
+              </div>
+              <div class="radio-option">
+                <input type="radio" id="endNever" name="endType" value="never">
+                <div class="radio-option-content">
+                  <label for="endNever" class="radio-option-label">Never</label>
+                </div>
+              </div>
+            </div>
+            <div class="warning-box" id="neverEndWarning">
+              Most events should have an end date. Consider setting an end date to avoid cluttering your calendar.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reminder -->
+      <section class="card" aria-labelledby="reminder-title">
+        <h2 class="card-title" id="reminder-title">Reminder</h2>
+
+        <div class="toggle-section">
+          <span class="toggle-label">Add a reminder</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="hasReminder" name="hasReminder">
+            <span class="toggle-slider" role="presentation"></span>
+            <span class="sr-only">Enable reminder</span>
+          </label>
+        </div>
+
+        <div class="collapsible-content" id="reminderOptions">
+          <div class="form-group">
+            <label for="reminderTime">Remind me</label>
+            <select id="reminderTime" name="reminderTime">
+              <option value="5">5 minutes before</option>
+              <option value="15" selected>15 minutes before</option>
+              <option value="30">30 minutes before</option>
+              <option value="60">1 hour before</option>
+              <option value="1440">1 day before</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Preview (shown when recurring) -->
+      <section class="card" id="previewSection" aria-labelledby="preview-title" style="display: none;">
+        <h2 class="card-title" id="preview-title">Preview & Exceptions</h2>
+        <p style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 16px;">
+          Click on highlighted dates to exclude them from the recurring event.
+        </p>
+
+        <div class="calendar-container">
+          <div class="calendar-header">
+            <button type="button" class="calendar-nav-btn" id="prevMonth" aria-label="Previous month">&larr;</button>
+            <span class="calendar-month-year" id="calendarMonthYear" aria-live="polite"></span>
+            <button type="button" class="calendar-nav-btn" id="nextMonth" aria-label="Next month">&rarr;</button>
+          </div>
+          <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Event preview calendar">
+            <!-- Populated by JavaScript -->
+          </div>
+          <div class="calendar-info">
+            <div class="calendar-legend">
+              <div class="legend-item">
+                <span class="legend-dot event"></span>
+                <span>Event</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot exception"></span>
+                <span>Excluded</span>
+              </div>
+            </div>
+            <div id="exceptionCount" class="exception-toggle" role="button" tabindex="0" aria-expanded="false">
+              <span id="exceptionCountText">0 exceptions</span>
+              <span class="exception-toggle-icon">▶</span>
+            </div>
+          </div>
+          <div id="exceptionList" class="exception-list" aria-hidden="true">
+            <!-- Populated by JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Validation Status -->
+      <div class="validation-status" id="validationStatus" role="alert">
+        <div class="validation-status-title" id="validationTitle"></div>
+        <div id="validationMessage"></div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary" id="newEventBtn">New Event</button>
+        <button type="button" class="btn btn-secondary" id="previewBtn">Preview</button>
+        <button type="submit" class="btn btn-primary" id="downloadBtn">Download .ics</button>
+      </div>
+    </form>
+
+    <!-- Saved Events Section -->
+    <section class="card" id="savedEventsSection" style="display: none;">
+      <div class="saved-events-header">
+        <h2 class="card-title" id="saved-events-title">Saved Events</h2>
+        <button type="button" class="btn btn-secondary btn-sm" id="clearAllBtn">Clear All</button>
+      </div>
+      <div id="savedEventsList" class="saved-events-list">
+        <!-- Populated by JavaScript -->
+      </div>
+    </section>
+
+    <!-- Debug Info -->
+    <div class="debug-info" id="debugInfo">
+      <div class="debug-info-title">Debug Info</div>
+      <div class="debug-info-row">
+        <span class="debug-info-label">Detected timezone:</span>
+        <span class="debug-info-value" id="debugDetectedTz">-</span>
+      </div>
+      <div class="debug-info-row">
+        <span class="debug-info-label">Preferred timezone:</span>
+        <span class="debug-info-value" id="debugPreferredTz">-</span>
+      </div>
+      <div class="debug-info-row">
+        <span class="debug-info-label">Selected timezone:</span>
+        <span class="debug-info-value" id="debugSelectedTz">-</span>
+      </div>
+      <div class="debug-info-row">
+        <span class="debug-info-label">localStorage exists:</span>
+        <span class="debug-info-value" id="debugLocalStorage">-</span>
+      </div>
+      <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+        <button type="button" class="btn btn-secondary btn-sm" id="resetTimezoneBtn">Reset Timezone to Detected</button>
+        <button type="button" class="btn btn-secondary btn-sm" id="clearLocalStorageBtn">Clear All Local Storage</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==================== Constants ====================
+    const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const WEEKDAY_CODES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+
+    // ==================== State ====================
+    const state = {
+      selectedDays: new Set(),
+      exceptions: new Set(),
+      calendarDate: new Date(),
+      calendarMonthsLoaded: 3,
+      eventOccurrences: [],
+      generatedICS: null,
+      currentEventId: null  // Track current event for updates
+    };
+
+    // ==================== LocalStorage Keys ====================
+    const STORAGE_KEYS = {
+      FORM_STATE: 'icalCreator_formState',
+      SAVED_EVENTS: 'icalCreator_savedEvents',
+      PREFERRED_TIMEZONE: 'icalCreator_preferredTimezone'
+    };
+
+    // ==================== DOM Elements ====================
+    const form = document.getElementById('eventForm');
+    const allDayCheckbox = document.getElementById('allDay');
+    const startTimeGroup = document.getElementById('startTimeGroup');
+    const endTimeGroup = document.getElementById('endTimeGroup');
+    const isRecurringCheckbox = document.getElementById('isRecurring');
+    const recurrenceOptions = document.getElementById('recurrenceOptions');
+    const frequencySelect = document.getElementById('frequency');
+    const weeklyDaysGroup = document.getElementById('weeklyDaysGroup');
+    const monthlyTypeGroup = document.getElementById('monthlyTypeGroup');
+    const dayPickerBtns = document.querySelectorAll('.day-picker-btn');
+    const endTypeRadios = document.querySelectorAll('input[name="endType"]');
+    const recurrenceEndDateInput = document.getElementById('recurrenceEndDate');
+    const occurrenceCountInput = document.getElementById('occurrenceCount');
+    const neverEndWarning = document.getElementById('neverEndWarning');
+    const hasReminderCheckbox = document.getElementById('hasReminder');
+    const reminderOptions = document.getElementById('reminderOptions');
+    const previewSection = document.getElementById('previewSection');
+    const calendarGrid = document.getElementById('calendarGrid');
+    const calendarMonthYear = document.getElementById('calendarMonthYear');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    const exceptionCountEl = document.getElementById('exceptionCount');
+    const exceptionCountText = document.getElementById('exceptionCountText');
+    const exceptionListEl = document.getElementById('exceptionList');
+    const validationStatus = document.getElementById('validationStatus');
+    const validationTitle = document.getElementById('validationTitle');
+    const validationMessage = document.getElementById('validationMessage');
+    const previewBtn = document.getElementById('previewBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const newEventBtn = document.getElementById('newEventBtn');
+    const timezoneSelect = document.getElementById('timezone');
+    const savedEventsSection = document.getElementById('savedEventsSection');
+    const savedEventsList = document.getElementById('savedEventsList');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const clearLocalStorageBtn = document.getElementById('clearLocalStorageBtn');
+    const resetTimezoneBtn = document.getElementById('resetTimezoneBtn');
+    const privacyInfoBtn = document.getElementById('privacyInfoBtn');
+    const privacyModal = document.getElementById('privacyModal');
+    const privacyModalClose = document.getElementById('privacyModalClose');
+
+    // ==================== Initialization ====================
+    function init() {
+      populateTimezones();
+      setDefaultDates();
+      restoreFormState();
+      attachEventListeners();
+      updateFrequencyOptions();
+      updateMonthlyHints();
+      renderSavedEvents();
+      updateDebugInfo();
+    }
+
+    function updateDebugInfo() {
+      const detectedTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const selectedTz = timezoneSelect.value;
+      const preferredTz = getPreferredTimezone();
+      const hasLocalStorage = !!localStorage.getItem(STORAGE_KEYS.FORM_STATE);
+
+      document.getElementById('debugDetectedTz').textContent = detectedTz;
+      document.getElementById('debugPreferredTz').textContent = preferredTz || '(none - using detected)';
+      document.getElementById('debugSelectedTz').textContent = selectedTz;
+      document.getElementById('debugLocalStorage').textContent = hasLocalStorage ? 'Yes' : 'No';
+    }
+
+    function clearAllLocalStorage() {
+      localStorage.removeItem(STORAGE_KEYS.FORM_STATE);
+      localStorage.removeItem(STORAGE_KEYS.SAVED_EVENTS);
+      location.reload();
+    }
+
+    function openPrivacyModal() {
+      privacyModal.classList.add('show');
+      privacyModal.setAttribute('aria-hidden', 'false');
+      privacyModalClose.focus();
+    }
+
+    function closePrivacyModal() {
+      privacyModal.classList.remove('show');
+      privacyModal.setAttribute('aria-hidden', 'true');
+      privacyInfoBtn.focus();
+    }
+
+    function getPreferredTimezone() {
+      try {
+        return localStorage.getItem(STORAGE_KEYS.PREFERRED_TIMEZONE);
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function setPreferredTimezone(tz) {
+      try {
+        localStorage.setItem(STORAGE_KEYS.PREFERRED_TIMEZONE, tz);
+      } catch (e) {
+        console.warn('Could not save preferred timezone');
+      }
+    }
+
+    function clearPreferredTimezone() {
+      try {
+        localStorage.removeItem(STORAGE_KEYS.PREFERRED_TIMEZONE);
+      } catch (e) {
+        console.warn('Could not clear preferred timezone');
+      }
+    }
+
+    function populateTimezones() {
+      const commonTimezones = [
+        'UTC',
+        // Americas
+        'America/New_York',
+        'America/Chicago',
+        'America/Denver',
+        'America/Los_Angeles',
+        'America/Toronto',
+        'America/Vancouver',
+        'America/Sao_Paulo',
+        // Europe
+        'Europe/London',
+        'Europe/Paris',
+        'Europe/Berlin',
+        'Europe/Amsterdam',
+        'Europe/Zurich',
+        'Europe/Rome',
+        'Europe/Madrid',
+        'Europe/Stockholm',
+        'Europe/Vienna',
+        'Europe/Warsaw',
+        'Europe/Moscow',
+        // Asia
+        'Asia/Tokyo',
+        'Asia/Shanghai',
+        'Asia/Hong_Kong',
+        'Asia/Singapore',
+        'Asia/Dubai',
+        'Asia/Kolkata',
+        'Asia/Seoul',
+        // Oceania
+        'Australia/Sydney',
+        'Australia/Melbourne',
+        'Pacific/Auckland'
+      ];
+
+      // Try to get user's timezone - prefer saved preference over browser detection
+      const preferredTz = getPreferredTimezone();
+      let detectedTimezone = 'UTC';
+      try {
+        detectedTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      } catch (e) {
+        console.warn('Could not detect timezone');
+      }
+
+      // Use preferred timezone if set, otherwise use detected
+      const defaultTimezone = preferredTz || detectedTimezone;
+
+      // Add detected timezone to list if not already in list
+      if (detectedTimezone && !commonTimezones.includes(detectedTimezone)) {
+        commonTimezones.unshift(detectedTimezone);
+      }
+
+      // Sort: put default timezone first, then alphabetically by region
+      const sortedTimezones = [...commonTimezones].sort((a, b) => {
+        if (a === defaultTimezone) return -1;
+        if (b === defaultTimezone) return 1;
+        return a.localeCompare(b);
+      });
+
+      sortedTimezones.forEach(tz => {
+        const option = document.createElement('option');
+        option.value = tz;
+        // Format: "Europe/Zurich" -> "Europe/Zurich" (keep readable)
+        option.textContent = tz.replace(/_/g, ' ');
+        if (tz === defaultTimezone) {
+          option.selected = true;
+        }
+        timezoneSelect.appendChild(option);
+      });
+    }
+
+    function setDefaultDates() {
+      const today = new Date();
+      const startDateInput = document.getElementById('startDate');
+      startDateInput.value = formatDateForInput(today);
+
+      // Default recurrence end date to 3 months from now
+      const threeMonthsLater = new Date(today);
+      threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 3);
+      recurrenceEndDateInput.value = formatDateForInput(threeMonthsLater);
+
+      // Set calendar to start date
+      state.calendarDate = new Date(today.getFullYear(), today.getMonth(), 1);
+    }
+
+    function formatDateForInput(date) {
+      return date.toISOString().split('T')[0];
+    }
+
+    // ==================== Event Listeners ====================
+    function attachEventListeners() {
+      // All-day toggle
+      allDayCheckbox.addEventListener('change', handleAllDayToggle);
+
+      // Recurring toggle
+      isRecurringCheckbox.addEventListener('change', handleRecurringToggle);
+
+      // Frequency change
+      frequencySelect.addEventListener('change', updateFrequencyOptions);
+
+      // Day picker
+      dayPickerBtns.forEach(btn => {
+        btn.addEventListener('click', () => toggleDay(btn));
+      });
+
+      // End type
+      endTypeRadios.forEach(radio => {
+        radio.addEventListener('change', handleEndTypeChange);
+      });
+
+      // Reminder toggle
+      hasReminderCheckbox.addEventListener('change', handleReminderToggle);
+
+      // Calendar navigation
+      prevMonthBtn.addEventListener('click', () => navigateCalendar(-1));
+      nextMonthBtn.addEventListener('click', () => navigateCalendar(1));
+
+      // Exception list toggle
+      exceptionCountEl.addEventListener('click', toggleExceptionList);
+      exceptionCountEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleExceptionList();
+        }
+      });
+
+      // Start date change - update monthly hints and calendar
+      document.getElementById('startDate').addEventListener('change', () => {
+        updateMonthlyHints();
+        if (isRecurringCheckbox.checked) {
+          calculateOccurrences();
+          renderCalendar();
+        }
+      });
+
+      // Preview button
+      previewBtn.addEventListener('click', handlePreview);
+
+      // New event button
+      newEventBtn.addEventListener('click', handleNewEvent);
+
+      // Form submit
+      form.addEventListener('submit', handleSubmit);
+
+      // Keyboard navigation for calendar
+      calendarGrid.addEventListener('keydown', handleCalendarKeydown);
+
+      // Clear all saved events
+      clearAllBtn.addEventListener('click', clearAllSavedEvents);
+
+      // Clear all localStorage (debug)
+      clearLocalStorageBtn.addEventListener('click', clearAllLocalStorage);
+
+      // Reset timezone to detected (debug)
+      resetTimezoneBtn.addEventListener('click', () => {
+        clearPreferredTimezone();
+        // Also clear timezone from form state so it doesn't override
+        const formState = getFormState();
+        if (formState) {
+          delete formState.timezone;
+          localStorage.setItem(STORAGE_KEYS.FORM_STATE, JSON.stringify(formState));
+        }
+        location.reload();
+      });
+
+      // Privacy modal
+      privacyInfoBtn.addEventListener('click', openPrivacyModal);
+      privacyModalClose.addEventListener('click', closePrivacyModal);
+      privacyModal.addEventListener('click', (e) => {
+        if (e.target === privacyModal) closePrivacyModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && privacyModal.classList.contains('show')) {
+          closePrivacyModal();
+        }
+      });
+
+      // Auto-save form state on input change
+      const autoSaveInputs = [
+        'title', 'startDate', 'startTime', 'endDate', 'endTime',
+        'location', 'description', 'url', 'interval', 'recurrenceEndDate',
+        'occurrenceCount', 'reminderTime'
+      ];
+      autoSaveInputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('input', debounce(saveFormState, 500));
+          el.addEventListener('change', saveFormState);
+        }
+      });
+
+      // Auto-save on select/checkbox changes
+      timezoneSelect.addEventListener('change', () => {
+        setPreferredTimezone(timezoneSelect.value);
+        saveFormState();
+        updateDebugInfo();
+      });
+      frequencySelect.addEventListener('change', saveFormState);
+      allDayCheckbox.addEventListener('change', saveFormState);
+      isRecurringCheckbox.addEventListener('change', saveFormState);
+      hasReminderCheckbox.addEventListener('change', saveFormState);
+
+      // Auto-save on radio changes
+      document.querySelectorAll('input[name="monthlyType"]').forEach(radio => {
+        radio.addEventListener('change', saveFormState);
+      });
+      endTypeRadios.forEach(radio => {
+        radio.addEventListener('change', saveFormState);
+      });
+    }
+
+    // Debounce helper for text inputs
+    function debounce(func, wait) {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
+
+    // ==================== Handlers ====================
+    function handleAllDayToggle() {
+      const isAllDay = allDayCheckbox.checked;
+      startTimeGroup.classList.toggle('hidden', isAllDay);
+      endTimeGroup.classList.toggle('hidden', isAllDay);
+
+      const startTimeInput = document.getElementById('startTime');
+      const endTimeInput = document.getElementById('endTime');
+
+      if (isAllDay) {
+        startTimeInput.removeAttribute('required');
+      } else {
+        startTimeInput.setAttribute('required', '');
+      }
+    }
+
+    function handleRecurringToggle() {
+      const isRecurring = isRecurringCheckbox.checked;
+      recurrenceOptions.classList.toggle('show', isRecurring);
+      previewSection.style.display = isRecurring ? 'block' : 'none';
+
+      if (isRecurring) {
+        calculateOccurrences();
+        renderCalendar();
+      }
+    }
+
+    function updateFrequencyOptions() {
+      const freq = frequencySelect.value;
+      weeklyDaysGroup.classList.toggle('hidden', freq !== 'WEEKLY');
+      monthlyTypeGroup.classList.toggle('hidden', freq !== 'MONTHLY');
+
+      // Set default day for weekly if none selected
+      if (freq === 'WEEKLY' && state.selectedDays.size === 0) {
+        const startDate = document.getElementById('startDate').value;
+        if (startDate) {
+          const date = new Date(startDate + 'T00:00:00');
+          const dayCode = WEEKDAY_CODES[date.getDay()];
+          state.selectedDays.add(dayCode);
+          updateDayPickerUI();
+        }
+      }
+
+      if (isRecurringCheckbox.checked) {
+        calculateOccurrences();
+        renderCalendar();
+      }
+    }
+
+    function toggleDay(btn) {
+      const day = btn.dataset.day;
+      if (state.selectedDays.has(day)) {
+        state.selectedDays.delete(day);
+        btn.classList.remove('active');
+        btn.setAttribute('aria-pressed', 'false');
+      } else {
+        state.selectedDays.add(day);
+        btn.classList.add('active');
+        btn.setAttribute('aria-pressed', 'true');
+      }
+
+      if (isRecurringCheckbox.checked) {
+        calculateOccurrences();
+        renderCalendar();
+      }
+
+      saveFormState();
+    }
+
+    function updateDayPickerUI() {
+      dayPickerBtns.forEach(btn => {
+        const isActive = state.selectedDays.has(btn.dataset.day);
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+      });
+    }
+
+    function handleEndTypeChange(e) {
+      const endType = e.target.value;
+      recurrenceEndDateInput.disabled = endType !== 'date';
+      occurrenceCountInput.disabled = endType !== 'count';
+      neverEndWarning.classList.toggle('show', endType === 'never');
+
+      if (isRecurringCheckbox.checked) {
+        calculateOccurrences();
+        renderCalendar();
+      }
+    }
+
+    function handleReminderToggle() {
+      reminderOptions.classList.toggle('show', hasReminderCheckbox.checked);
+    }
+
+    function handleNewEvent() {
+      // Clear current event ID
+      state.currentEventId = null;
+
+      // Reset form
+      form.reset();
+
+      // Reset state
+      state.selectedDays = new Set();
+      state.exceptions = new Set();
+      updateDayPickerUI();
+
+      // Set default dates
+      setDefaultDates();
+
+      // Reset timezone to preferred (or detected if no preference)
+      const preferredTz = getPreferredTimezone();
+      const detectedTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      const defaultTz = preferredTz || detectedTz;
+      if (timezoneSelect.querySelector(`option[value="${defaultTz}"]`)) {
+        timezoneSelect.value = defaultTz;
+      }
+
+      // Hide recurrence options and preview
+      recurrenceOptions.classList.remove('show');
+      previewSection.style.display = 'none';
+      reminderOptions.classList.remove('show');
+
+      // Clear validation status
+      validationStatus.classList.remove('show', 'success', 'error');
+
+      // Save clean state
+      saveFormState();
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handlePreview() {
+      if (!validateBasicFields()) {
+        return;
+      }
+
+      // Show recurring options and preview
+      isRecurringCheckbox.checked = true;
+      recurrenceOptions.classList.add('show');
+      previewSection.style.display = 'block';
+
+      calculateOccurrences();
+      renderCalendar();
+
+      // Scroll to preview
+      previewSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function handleSubmit(e) {
+      e.preventDefault();
+
+      if (!validateForm()) {
+        return;
+      }
+
+      generateAndDownloadICS();
+    }
+
+    // ==================== Calendar ====================
+    function navigateCalendar(direction) {
+      state.calendarDate.setMonth(state.calendarDate.getMonth() + direction);
+
+      // Auto-extend loaded months if navigating beyond current range
+      const startDateStr = document.getElementById('startDate').value;
+      if (startDateStr) {
+        const startDate = new Date(startDateStr + 'T00:00:00');
+        const viewingMonth = new Date(state.calendarDate);
+        const monthsFromStart = (viewingMonth.getFullYear() - startDate.getFullYear()) * 12
+                               + (viewingMonth.getMonth() - startDate.getMonth()) + 1;
+
+        if (monthsFromStart > state.calendarMonthsLoaded) {
+          state.calendarMonthsLoaded = monthsFromStart + 2; // Load a couple extra months
+          calculateOccurrences();
+        }
+      }
+
+      renderCalendar();
+    }
+
+    function calculateOccurrences() {
+      state.eventOccurrences = [];
+
+      const startDateStr = document.getElementById('startDate').value;
+      if (!startDateStr) return;
+
+      const startDate = new Date(startDateStr + 'T00:00:00');
+      const frequency = frequencySelect.value;
+      const interval = parseInt(document.getElementById('interval').value);
+      const endType = document.querySelector('input[name="endType"]:checked').value;
+
+      let endDate = null;
+      let maxCount = 1000; // Safety limit
+
+      if (!isRecurringCheckbox.checked) {
+        state.eventOccurrences = [startDate];
+        return;
+      }
+
+      if (endType === 'date') {
+        const endDateStr = recurrenceEndDateInput.value;
+        if (endDateStr) {
+          endDate = new Date(endDateStr + 'T23:59:59');
+        }
+      } else if (endType === 'count') {
+        maxCount = parseInt(occurrenceCountInput.value) || 10;
+      }
+
+      // Calculate occurrences based on how many months we want to show
+      const previewEndDate = new Date(startDate);
+      previewEndDate.setMonth(previewEndDate.getMonth() + state.calendarMonthsLoaded);
+
+      const effectiveEndDate = endDate ?
+        (endDate < previewEndDate ? endDate : previewEndDate) :
+        previewEndDate;
+
+      let currentDate = new Date(startDate);
+      let count = 0;
+
+      while (currentDate <= effectiveEndDate && count < maxCount) {
+        if (frequency === 'WEEKLY') {
+          const dayCode = WEEKDAY_CODES[currentDate.getDay()];
+          if (state.selectedDays.has(dayCode)) {
+            state.eventOccurrences.push(new Date(currentDate));
+            count++;
+          }
+          currentDate.setDate(currentDate.getDate() + 1);
+
+          // Check if we completed a week
+          if (currentDate.getDay() === startDate.getDay() && interval > 1) {
+            currentDate.setDate(currentDate.getDate() + 7 * (interval - 1));
+          }
+        } else if (frequency === 'DAILY') {
+          state.eventOccurrences.push(new Date(currentDate));
+          count++;
+          currentDate.setDate(currentDate.getDate() + interval);
+        } else if (frequency === 'MONTHLY') {
+          const monthlyType = document.querySelector('input[name="monthlyType"]:checked').value;
+
+          if (monthlyType === 'date') {
+            state.eventOccurrences.push(new Date(currentDate));
+            count++;
+            currentDate.setMonth(currentDate.getMonth() + interval);
+          } else {
+            // Same weekday of month
+            state.eventOccurrences.push(new Date(currentDate));
+            count++;
+
+            // Calculate next occurrence
+            const weekOfMonth = Math.ceil(startDate.getDate() / 7);
+            const dayOfWeek = startDate.getDay();
+
+            currentDate.setMonth(currentDate.getMonth() + interval);
+            currentDate.setDate(1);
+
+            // Find the nth weekday of the month
+            while (currentDate.getDay() !== dayOfWeek) {
+              currentDate.setDate(currentDate.getDate() + 1);
+            }
+            currentDate.setDate(currentDate.getDate() + (weekOfMonth - 1) * 7);
+          }
+        }
+      }
+    }
+
+    function renderCalendar() {
+      const year = state.calendarDate.getFullYear();
+      const month = state.calendarDate.getMonth();
+
+      calendarMonthYear.textContent = `${MONTHS[month]} ${year}`;
+
+      // Clear grid
+      calendarGrid.innerHTML = '';
+
+      // Add weekday headers
+      WEEKDAYS.forEach(day => {
+        const header = document.createElement('div');
+        header.className = 'calendar-weekday';
+        header.textContent = day;
+        header.setAttribute('role', 'columnheader');
+        calendarGrid.appendChild(header);
+      });
+
+      // Get first day of month and total days
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      // Previous month days
+      for (let i = firstDay - 1; i >= 0; i--) {
+        const dayEl = createDayElement(daysInPrevMonth - i, true);
+        calendarGrid.appendChild(dayEl);
+      }
+
+      // Current month days
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        const isToday = date.getTime() === today.getTime();
+        const isEventDay = isOccurrence(date);
+        const isException = state.exceptions.has(formatDateKey(date));
+
+        const dayEl = createDayElement(day, false, isToday, isEventDay, isException, date);
+        calendarGrid.appendChild(dayEl);
+      }
+
+      // Next month days
+      const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+      const nextMonthDays = totalCells - (firstDay + daysInMonth);
+      for (let day = 1; day <= nextMonthDays; day++) {
+        const dayEl = createDayElement(day, true);
+        calendarGrid.appendChild(dayEl);
+      }
+
+      updateExceptionCount();
+    }
+
+    function createDayElement(day, isOtherMonth, isToday = false, isEventDay = false, isException = false, date = null) {
+      const el = document.createElement('div');
+      el.className = 'calendar-day';
+      el.textContent = day;
+      el.setAttribute('role', 'gridcell');
+
+      if (isOtherMonth) {
+        el.classList.add('other-month');
+      }
+
+      if (isToday) {
+        el.classList.add('today');
+      }
+
+      if (isEventDay) {
+        el.classList.add('event-day');
+        el.setAttribute('tabindex', '0');
+        el.setAttribute('aria-label', `${MONTHS[date.getMonth()]} ${day}, ${date.getFullYear()}${isException ? ' (excluded)' : ''}`);
+
+        if (isException) {
+          el.classList.add('exception');
+        }
+
+        el.addEventListener('click', () => toggleException(date));
+      }
+
+      return el;
+    }
+
+    function isOccurrence(date) {
+      const dateKey = formatDateKey(date);
+      return state.eventOccurrences.some(occ => formatDateKey(occ) === dateKey);
+    }
+
+    function formatDateKey(date) {
+      return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    }
+
+    function toggleException(date) {
+      const dateKey = formatDateKey(date);
+      if (state.exceptions.has(dateKey)) {
+        state.exceptions.delete(dateKey);
+      } else {
+        state.exceptions.add(dateKey);
+      }
+      renderCalendar();
+      saveFormState();
+    }
+
+    function updateExceptionCount() {
+      const count = state.exceptions.size;
+      exceptionCountText.textContent = `${count} exception${count !== 1 ? 's' : ''}`;
+      renderExceptionList();
+    }
+
+    function toggleExceptionList() {
+      const isOpen = exceptionCountEl.classList.toggle('open');
+      exceptionListEl.classList.toggle('show', isOpen);
+      exceptionCountEl.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      exceptionListEl.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    }
+
+    function renderExceptionList() {
+      if (state.exceptions.size === 0) {
+        exceptionListEl.innerHTML = '<div class="exception-list-empty">No exceptions selected. Click on event dates above to exclude them.</div>';
+        return;
+      }
+
+      // Sort exceptions chronologically
+      const sortedExceptions = Array.from(state.exceptions).sort();
+
+      const itemsHtml = sortedExceptions.map(dateKey => {
+        const date = new Date(dateKey + 'T00:00:00');
+        const formattedDate = date.toLocaleDateString(undefined, {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+          year: 'numeric'
+        });
+        return `
+          <div class="exception-item">
+            <span>${formattedDate}</span>
+            <button type="button" class="exception-item-remove" onclick="removeException('${dateKey}')" aria-label="Remove exception for ${formattedDate}">&times;</button>
+          </div>
+        `;
+      }).join('');
+
+      exceptionListEl.innerHTML = `<div class="exception-list-items">${itemsHtml}</div>`;
+    }
+
+    function removeException(dateKey) {
+      state.exceptions.delete(dateKey);
+      renderCalendar();
+      saveFormState();
+    }
+
+    function handleCalendarKeydown(e) {
+      const focusedEl = document.activeElement;
+      if (!focusedEl.classList.contains('event-day')) return;
+
+      const allEventDays = Array.from(calendarGrid.querySelectorAll('.event-day'));
+      const currentIndex = allEventDays.indexOf(focusedEl);
+
+      if (e.key === 'ArrowRight' && currentIndex < allEventDays.length - 1) {
+        allEventDays[currentIndex + 1].focus();
+        e.preventDefault();
+      } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        allEventDays[currentIndex - 1].focus();
+        e.preventDefault();
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        focusedEl.click();
+        e.preventDefault();
+      }
+    }
+
+    function updateMonthlyHints() {
+      const startDateStr = document.getElementById('startDate').value;
+      if (!startDateStr) return;
+
+      const date = new Date(startDateStr + 'T00:00:00');
+      const dayOfMonth = date.getDate();
+      const weekOfMonth = Math.ceil(dayOfMonth / 7);
+      const dayName = WEEKDAYS[date.getDay()];
+
+      const ordinals = ['', '1st', '2nd', '3rd', '4th', '5th'];
+
+      document.getElementById('monthlyDateHint').textContent =
+        `e.g., the ${dayOfMonth}${getOrdinalSuffix(dayOfMonth)} of every month`;
+      document.getElementById('monthlyDayHint').textContent =
+        `e.g., the ${ordinals[weekOfMonth]} ${dayName} of every month`;
+    }
+
+    function getOrdinalSuffix(n) {
+      const s = ['th', 'st', 'nd', 'rd'];
+      const v = n % 100;
+      return s[(v - 20) % 10] || s[v] || s[0];
+    }
+
+    // ==================== Validation ====================
+    function validateBasicFields() {
+      let isValid = true;
+      clearErrors();
+
+      const title = document.getElementById('title');
+      const startDate = document.getElementById('startDate');
+      const startTime = document.getElementById('startTime');
+
+      if (!title.value.trim()) {
+        showFieldError('title', 'Please enter an event title');
+        isValid = false;
+      }
+
+      if (!startDate.value) {
+        showFieldError('startDate', 'Please select a start date');
+        isValid = false;
+      }
+
+      if (!allDayCheckbox.checked && !startTime.value) {
+        showFieldError('startTime', 'Please select a start time');
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    function validateForm() {
+      let isValid = validateBasicFields();
+
+      // Validate weekly days
+      if (isRecurringCheckbox.checked && frequencySelect.value === 'WEEKLY') {
+        if (state.selectedDays.size === 0) {
+          showFieldError('weeklyDays', 'Please select at least one day');
+          isValid = false;
+        }
+      }
+
+      // Validate end date for recurring
+      if (isRecurringCheckbox.checked) {
+        const endType = document.querySelector('input[name="endType"]:checked').value;
+        if (endType === 'date' && !recurrenceEndDateInput.value) {
+          recurrenceEndDateInput.classList.add('error');
+          isValid = false;
+        }
+      }
+
+      return isValid;
+    }
+
+    function showFieldError(fieldId, message) {
+      const field = document.getElementById(fieldId);
+      const errorEl = document.getElementById(fieldId + '-error');
+
+      if (field) field.classList.add('error');
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.add('show');
+      }
+    }
+
+    function clearErrors() {
+      document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+      document.querySelectorAll('.field-error').forEach(el => el.classList.remove('show'));
+      validationStatus.classList.remove('show', 'success', 'error');
+    }
+
+    function showValidationStatus(isSuccess, title, message) {
+      validationStatus.classList.remove('success', 'error');
+      validationStatus.classList.add('show', isSuccess ? 'success' : 'error');
+      validationTitle.textContent = title;
+      validationMessage.textContent = message;
+    }
+
+    // ==================== iCal Generation ====================
+    function generateICS() {
+      const title = document.getElementById('title').value.trim();
+      const startDateStr = document.getElementById('startDate').value;
+      const startTimeStr = document.getElementById('startTime').value;
+      const endDateStr = document.getElementById('endDate').value;
+      const endTimeStr = document.getElementById('endTime').value;
+      const timezone = timezoneSelect.value;
+      const location = document.getElementById('location').value.trim();
+      const description = document.getElementById('description').value.trim();
+      const url = document.getElementById('url').value.trim();
+      const isAllDay = allDayCheckbox.checked;
+      const isRecurring = isRecurringCheckbox.checked;
+      const hasReminder = hasReminderCheckbox.checked;
+
+      // Create calendar
+      const cal = new ICAL.Component(['vcalendar', [], []]);
+      cal.updatePropertyWithValue('prodid', '-//iCal Creator//ical-creator.html//EN');
+      cal.updatePropertyWithValue('version', '2.0');
+      cal.updatePropertyWithValue('calscale', 'GREGORIAN');
+
+      // Create event
+      const vevent = new ICAL.Component('vevent');
+
+      // UID
+      vevent.updatePropertyWithValue('uid', generateUID());
+
+      // Timestamp
+      vevent.updatePropertyWithValue('dtstamp', ICAL.Time.now());
+
+      // Summary
+      vevent.updatePropertyWithValue('summary', title);
+
+      // Start date/time
+      let dtstart;
+      if (isAllDay) {
+        dtstart = ICAL.Time.fromDateString(startDateStr);
+        const dtstartProp = new ICAL.Property('dtstart');
+        dtstartProp.setValue(dtstart);
+        dtstartProp.setParameter('value', 'DATE');
+        vevent.addProperty(dtstartProp);
+      } else {
+        dtstart = ICAL.Time.fromDateTimeString(startDateStr + 'T' + startTimeStr + ':00');
+        dtstart.zone = ICAL.Timezone.utcTimezone; // Simplified - using UTC
+        const dtstartProp = new ICAL.Property('dtstart');
+        dtstartProp.setValue(dtstart);
+        vevent.addProperty(dtstartProp);
+      }
+
+      // End date/time
+      if (endDateStr || endTimeStr) {
+        let dtend;
+        const effectiveEndDate = endDateStr || startDateStr;
+
+        if (isAllDay) {
+          // For all-day events, end date should be the day after
+          const endDate = new Date(effectiveEndDate + 'T00:00:00');
+          endDate.setDate(endDate.getDate() + 1);
+          dtend = ICAL.Time.fromDateString(formatDateForInput(endDate));
+          const dtendProp = new ICAL.Property('dtend');
+          dtendProp.setValue(dtend);
+          dtendProp.setParameter('value', 'DATE');
+          vevent.addProperty(dtendProp);
+        } else {
+          const effectiveEndTime = endTimeStr || startTimeStr;
+          dtend = ICAL.Time.fromDateTimeString(effectiveEndDate + 'T' + effectiveEndTime + ':00');
+          dtend.zone = ICAL.Timezone.utcTimezone;
+          vevent.addProperty(new ICAL.Property('dtend'));
+          vevent.updatePropertyWithValue('dtend', dtend);
+        }
+      }
+
+      // Location
+      if (location) {
+        vevent.updatePropertyWithValue('location', location);
+      }
+
+      // Description
+      if (description) {
+        vevent.updatePropertyWithValue('description', description);
+      }
+
+      // URL
+      if (url) {
+        vevent.updatePropertyWithValue('url', url);
+      }
+
+      // Recurrence rule
+      if (isRecurring) {
+        const rrule = buildRRule();
+        if (rrule) {
+          const rruleProp = new ICAL.Property('rrule');
+          rruleProp.setValue(rrule);
+          vevent.addProperty(rruleProp);
+        }
+
+        // Exceptions
+        if (state.exceptions.size > 0) {
+          state.exceptions.forEach(dateKey => {
+            const exdateProp = new ICAL.Property('exdate');
+            if (isAllDay) {
+              const exdate = ICAL.Time.fromDateString(dateKey);
+              exdateProp.setValue(exdate);
+              exdateProp.setParameter('value', 'DATE');
+            } else {
+              const exdate = ICAL.Time.fromDateTimeString(dateKey + 'T' + startTimeStr + ':00');
+              exdate.zone = ICAL.Timezone.utcTimezone;
+              exdateProp.setValue(exdate);
+            }
+            vevent.addProperty(exdateProp);
+          });
+        }
+      }
+
+      // Reminder/Alarm
+      if (hasReminder) {
+        const valarm = new ICAL.Component('valarm');
+        valarm.updatePropertyWithValue('action', 'DISPLAY');
+        valarm.updatePropertyWithValue('description', 'Reminder: ' + title);
+
+        const reminderMinutes = parseInt(document.getElementById('reminderTime').value);
+        const trigger = new ICAL.Duration({ minutes: reminderMinutes, isNegative: true });
+        valarm.updatePropertyWithValue('trigger', trigger);
+
+        vevent.addSubcomponent(valarm);
+      }
+
+      cal.addSubcomponent(vevent);
+
+      return cal.toString();
+    }
+
+    function buildRRule() {
+      const frequency = frequencySelect.value;
+      const interval = parseInt(document.getElementById('interval').value);
+      const endType = document.querySelector('input[name="endType"]:checked').value;
+
+      const rruleData = {
+        freq: frequency,
+        interval: interval
+      };
+
+      // Weekly - add BYDAY
+      if (frequency === 'WEEKLY' && state.selectedDays.size > 0) {
+        rruleData.byday = Array.from(state.selectedDays);
+      }
+
+      // Monthly - add BYMONTHDAY or BYDAY
+      if (frequency === 'MONTHLY') {
+        const monthlyType = document.querySelector('input[name="monthlyType"]:checked').value;
+        const startDateStr = document.getElementById('startDate').value;
+        const startDate = new Date(startDateStr + 'T00:00:00');
+
+        if (monthlyType === 'date') {
+          rruleData.bymonthday = [startDate.getDate()];
+        } else {
+          const weekOfMonth = Math.ceil(startDate.getDate() / 7);
+          const dayCode = WEEKDAY_CODES[startDate.getDay()];
+          rruleData.byday = [weekOfMonth + dayCode];
+        }
+      }
+
+      // End condition
+      if (endType === 'date') {
+        const endDateStr = recurrenceEndDateInput.value;
+        if (endDateStr) {
+          rruleData.until = ICAL.Time.fromDateString(endDateStr);
+        }
+      } else if (endType === 'count') {
+        rruleData.count = parseInt(occurrenceCountInput.value) || 10;
+      }
+
+      return new ICAL.Recur(rruleData);
+    }
+
+    function generateUID() {
+      return 'ical-creator-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9) + '@ical-creator';
+    }
+
+    // ==================== Validation & Download ====================
+    function validateICS(icsString) {
+      try {
+        const jcalData = ICAL.parse(icsString);
+        const comp = new ICAL.Component(jcalData);
+
+        // Check for VCALENDAR
+        if (comp.name !== 'vcalendar') {
+          throw new Error('Invalid calendar structure');
+        }
+
+        // Check for VEVENT
+        const vevent = comp.getFirstSubcomponent('vevent');
+        if (!vevent) {
+          throw new Error('No event found in calendar');
+        }
+
+        // Check required properties
+        const summary = vevent.getFirstPropertyValue('summary');
+        if (!summary) {
+          throw new Error('Event missing summary/title');
+        }
+
+        const dtstart = vevent.getFirstPropertyValue('dtstart');
+        if (!dtstart) {
+          throw new Error('Event missing start date');
+        }
+
+        return { valid: true, message: 'iCal file is valid and ready for download' };
+      } catch (error) {
+        return { valid: false, message: error.message || 'Failed to parse iCal data' };
+      }
+    }
+
+    function generateAndDownloadICS() {
+      try {
+        const icsString = generateICS();
+
+        // Validate
+        const validation = validateICS(icsString);
+
+        if (!validation.valid) {
+          showValidationStatus(false, 'Validation Failed', validation.message);
+          return;
+        }
+
+        showValidationStatus(true, 'Valid', validation.message);
+
+        // Download
+        const blob = new Blob([icsString], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+
+        const title = document.getElementById('title').value.trim();
+        const filename = title.replace(/[^a-z0-9]/gi, '-').toLowerCase() + '.ics';
+
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+
+        // Save event to history on successful download
+        const eventData = createEventDataForSave();
+        saveEventToHistory(eventData);
+        saveFormState();
+
+      } catch (error) {
+        console.error('Error generating ICS:', error);
+        showValidationStatus(false, 'Generation Failed', error.message || 'An error occurred while generating the calendar file');
+      }
+    }
+
+    // ==================== LocalStorage Functions ====================
+    function getFormState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEYS.FORM_STATE);
+        return saved ? JSON.parse(saved) : null;
+      } catch (e) {
+        console.warn('Could not read form state from localStorage');
+        return null;
+      }
+    }
+
+    function saveFormState() {
+      try {
+        const formState = {
+          title: document.getElementById('title').value,
+          allDay: allDayCheckbox.checked,
+          startDate: document.getElementById('startDate').value,
+          startTime: document.getElementById('startTime').value,
+          endDate: document.getElementById('endDate').value,
+          endTime: document.getElementById('endTime').value,
+          timezone: timezoneSelect.value,
+          location: document.getElementById('location').value,
+          description: document.getElementById('description').value,
+          url: document.getElementById('url').value,
+          isRecurring: isRecurringCheckbox.checked,
+          frequency: frequencySelect.value,
+          interval: document.getElementById('interval').value,
+          selectedDays: Array.from(state.selectedDays),
+          monthlyType: document.querySelector('input[name="monthlyType"]:checked')?.value || 'date',
+          endType: document.querySelector('input[name="endType"]:checked')?.value || 'date',
+          recurrenceEndDate: recurrenceEndDateInput.value,
+          occurrenceCount: occurrenceCountInput.value,
+          hasReminder: hasReminderCheckbox.checked,
+          reminderTime: document.getElementById('reminderTime').value,
+          exceptions: Array.from(state.exceptions),
+          currentEventId: state.currentEventId
+        };
+        localStorage.setItem(STORAGE_KEYS.FORM_STATE, JSON.stringify(formState));
+      } catch (e) {
+        console.warn('Could not save form state to localStorage');
+      }
+    }
+
+    function restoreFormState() {
+      const formState = getFormState();
+      if (!formState) return;
+
+      // Restore basic fields
+      document.getElementById('title').value = formState.title || '';
+      allDayCheckbox.checked = formState.allDay || false;
+      if (formState.startDate) document.getElementById('startDate').value = formState.startDate;
+      document.getElementById('startTime').value = formState.startTime || '';
+      document.getElementById('endDate').value = formState.endDate || '';
+      document.getElementById('endTime').value = formState.endTime || '';
+      document.getElementById('location').value = formState.location || '';
+      document.getElementById('description').value = formState.description || '';
+      document.getElementById('url').value = formState.url || '';
+
+      // Restore timezone only if it exists in the dropdown
+      // Otherwise keep the auto-detected timezone
+      if (formState.timezone) {
+        const tzOption = timezoneSelect.querySelector(`option[value="${formState.timezone}"]`);
+        if (tzOption) {
+          timezoneSelect.value = formState.timezone;
+        }
+        // If saved timezone not in list, don't override detected timezone
+      }
+
+      // Restore recurrence
+      isRecurringCheckbox.checked = formState.isRecurring || false;
+      frequencySelect.value = formState.frequency || 'DAILY';
+      document.getElementById('interval').value = formState.interval || '1';
+
+      // Restore selected days
+      state.selectedDays = new Set(formState.selectedDays || []);
+      updateDayPickerUI();
+
+      // Restore monthly type
+      const monthlyTypeRadio = document.querySelector(`input[name="monthlyType"][value="${formState.monthlyType || 'date'}"]`);
+      if (monthlyTypeRadio) monthlyTypeRadio.checked = true;
+
+      // Restore end type
+      const endTypeRadio = document.querySelector(`input[name="endType"][value="${formState.endType || 'date'}"]`);
+      if (endTypeRadio) {
+        endTypeRadio.checked = true;
+        handleEndTypeChange({ target: endTypeRadio });
+      }
+
+      if (formState.recurrenceEndDate) recurrenceEndDateInput.value = formState.recurrenceEndDate;
+      occurrenceCountInput.value = formState.occurrenceCount || '10';
+
+      // Restore reminder
+      hasReminderCheckbox.checked = formState.hasReminder || false;
+      document.getElementById('reminderTime').value = formState.reminderTime || '15';
+
+      // Restore exceptions
+      state.exceptions = new Set(formState.exceptions || []);
+
+      // Restore current event ID
+      state.currentEventId = formState.currentEventId || null;
+
+      // Update UI to reflect restored state
+      handleAllDayToggle();
+      handleRecurringToggle();
+      handleReminderToggle();
+    }
+
+    function getSavedEvents() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEYS.SAVED_EVENTS);
+        return saved ? JSON.parse(saved) : [];
+      } catch (e) {
+        console.warn('Could not read saved events from localStorage');
+        return [];
+      }
+    }
+
+    function saveEventToHistory(eventData) {
+      try {
+        const events = getSavedEvents();
+        const existingIndex = events.findIndex(e => e.id === eventData.id);
+
+        if (existingIndex >= 0) {
+          // Update existing event
+          events[existingIndex] = eventData;
+        } else {
+          // Add new event
+          events.unshift(eventData);
+        }
+
+        localStorage.setItem(STORAGE_KEYS.SAVED_EVENTS, JSON.stringify(events));
+        renderSavedEvents();
+      } catch (e) {
+        console.warn('Could not save event to localStorage');
+      }
+    }
+
+    function deleteEventFromHistory(eventId) {
+      try {
+        const events = getSavedEvents();
+        const filtered = events.filter(e => e.id !== eventId);
+        localStorage.setItem(STORAGE_KEYS.SAVED_EVENTS, JSON.stringify(filtered));
+
+        // If we're editing this event, clear the current ID
+        if (state.currentEventId === eventId) {
+          state.currentEventId = null;
+          saveFormState();
+        }
+
+        renderSavedEvents();
+      } catch (e) {
+        console.warn('Could not delete event from localStorage');
+      }
+    }
+
+    function clearAllSavedEvents() {
+      if (confirm('Are you sure you want to delete all saved events?')) {
+        localStorage.removeItem(STORAGE_KEYS.SAVED_EVENTS);
+        state.currentEventId = null;
+        saveFormState();
+        renderSavedEvents();
+      }
+    }
+
+    function renderSavedEvents() {
+      const events = getSavedEvents();
+
+      if (events.length === 0) {
+        savedEventsSection.style.display = 'none';
+        return;
+      }
+
+      savedEventsSection.style.display = 'block';
+      savedEventsList.innerHTML = '';
+
+      events.forEach(event => {
+        const card = document.createElement('div');
+        card.className = 'saved-event-card';
+
+        // Format date/time
+        let dateTimeStr = event.startDate || '';
+        if (event.startTime && !event.allDay) {
+          dateTimeStr += ` at ${event.startTime}`;
+        }
+        if (event.allDay) {
+          dateTimeStr += ' (All day)';
+        }
+
+        // Build recurrence summary
+        let recurrenceStr = '';
+        if (event.isRecurring) {
+          const freqMap = { 'DAILY': 'Daily', 'WEEKLY': 'Weekly', 'MONTHLY': 'Monthly' };
+          recurrenceStr = freqMap[event.frequency] || event.frequency;
+          if (event.interval && event.interval !== '1') {
+            recurrenceStr = `Every ${event.interval} ${event.frequency.toLowerCase().replace('ly', '')}s`;
+          }
+        }
+
+        // Build details HTML
+        let detailsHtml = `<span class="saved-event-detail">📅 ${dateTimeStr}</span>`;
+
+        if (event.location) {
+          detailsHtml += `<span class="saved-event-detail">📍 ${escapeHtml(event.location)}</span>`;
+        }
+
+        if (event.timezone) {
+          detailsHtml += `<span class="saved-event-detail">🌍 ${event.timezone.replace(/_/g, ' ')}</span>`;
+        }
+
+        card.innerHTML = `
+          <div class="saved-event-title">${escapeHtml(event.title || 'Untitled Event')}</div>
+          <div class="saved-event-details">
+            ${detailsHtml}
+          </div>
+          ${recurrenceStr ? `<span class="saved-event-badge">${recurrenceStr}</span>` : ''}
+          ${event.hasReminder ? '<span class="saved-event-badge">⏰ Reminder</span>' : ''}
+          <div class="saved-event-actions">
+            <button type="button" class="btn btn-primary btn-sm" onclick="loadEvent('${event.id}')">Load</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="deleteEventFromHistory('${event.id}')">Delete</button>
+          </div>
+        `;
+
+        savedEventsList.appendChild(card);
+      });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    function loadEvent(eventId) {
+      const events = getSavedEvents();
+      const event = events.find(e => e.id === eventId);
+
+      if (!event) return;
+
+      // Set current event ID for future updates
+      state.currentEventId = event.id;
+
+      // Load all fields
+      document.getElementById('title').value = event.title || '';
+      allDayCheckbox.checked = event.allDay || false;
+      document.getElementById('startDate').value = event.startDate || '';
+      document.getElementById('startTime').value = event.startTime || '';
+      document.getElementById('endDate').value = event.endDate || '';
+      document.getElementById('endTime').value = event.endTime || '';
+      timezoneSelect.value = event.timezone || 'UTC';
+      document.getElementById('location').value = event.location || '';
+      document.getElementById('description').value = event.description || '';
+      document.getElementById('url').value = event.url || '';
+
+      // Recurrence
+      isRecurringCheckbox.checked = event.isRecurring || false;
+      frequencySelect.value = event.frequency || 'DAILY';
+      document.getElementById('interval').value = event.interval || '1';
+
+      // Selected days
+      state.selectedDays = new Set(event.selectedDays || []);
+      updateDayPickerUI();
+
+      // Monthly type
+      const monthlyTypeRadio = document.querySelector(`input[name="monthlyType"][value="${event.monthlyType || 'date'}"]`);
+      if (monthlyTypeRadio) monthlyTypeRadio.checked = true;
+
+      // End type
+      const endTypeRadio = document.querySelector(`input[name="endType"][value="${event.endType || 'date'}"]`);
+      if (endTypeRadio) {
+        endTypeRadio.checked = true;
+        handleEndTypeChange({ target: endTypeRadio });
+      }
+
+      recurrenceEndDateInput.value = event.recurrenceEndDate || '';
+      occurrenceCountInput.value = event.occurrenceCount || '10';
+
+      // Reminder
+      hasReminderCheckbox.checked = event.hasReminder || false;
+      document.getElementById('reminderTime').value = event.reminderTime || '15';
+
+      // Exceptions
+      state.exceptions = new Set(event.exceptions || []);
+
+      // Update UI
+      handleAllDayToggle();
+      handleRecurringToggle();
+      handleReminderToggle();
+      updateFrequencyOptions();
+      updateMonthlyHints();
+
+      if (isRecurringCheckbox.checked) {
+        calculateOccurrences();
+        renderCalendar();
+      }
+
+      // Save restored state
+      saveFormState();
+
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Show feedback
+      showValidationStatus(true, 'Loaded', `Event "${event.title}" loaded into form`);
+    }
+
+    function createEventDataForSave() {
+      // Generate or reuse event ID
+      const eventId = state.currentEventId || generateUID();
+      state.currentEventId = eventId;
+
+      return {
+        id: eventId,
+        title: document.getElementById('title').value,
+        allDay: allDayCheckbox.checked,
+        startDate: document.getElementById('startDate').value,
+        startTime: document.getElementById('startTime').value,
+        endDate: document.getElementById('endDate').value,
+        endTime: document.getElementById('endTime').value,
+        timezone: timezoneSelect.value,
+        location: document.getElementById('location').value,
+        description: document.getElementById('description').value,
+        url: document.getElementById('url').value,
+        isRecurring: isRecurringCheckbox.checked,
+        frequency: frequencySelect.value,
+        interval: document.getElementById('interval').value,
+        selectedDays: Array.from(state.selectedDays),
+        monthlyType: document.querySelector('input[name="monthlyType"]:checked')?.value || 'date',
+        endType: document.querySelector('input[name="endType"]:checked')?.value || 'date',
+        recurrenceEndDate: recurrenceEndDateInput.value,
+        occurrenceCount: occurrenceCountInput.value,
+        hasReminder: hasReminderCheckbox.checked,
+        reminderTime: document.getElementById('reminderTime').value,
+        exceptions: Array.from(state.exceptions),
+        savedAt: new Date().toISOString()
+      };
+    }
+
+    // ==================== Start ====================
+    init();
+  </script>
+</body>
+</html>

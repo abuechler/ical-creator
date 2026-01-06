@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude/MCP local config
+.claude_in_a_box
+.mcp.json
+.playwright-mcp/
