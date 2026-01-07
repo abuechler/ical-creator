@@ -749,6 +749,92 @@
     }
 
     /* ==================== Responsive ==================== */
+
+    /* Main content wrapper for responsive layout */
+    .main-content {
+      display: block;
+    }
+
+    /* Desktop layout (≥1024px) - Two column layout */
+    @media (min-width: 1024px) {
+      .container {
+        max-width: 1200px;
+        padding: 24px 32px;
+      }
+
+      .main-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        gap: 24px;
+        align-items: start;
+      }
+
+      /* Form uses grid layout for its children */
+      #eventForm {
+        display: contents;
+      }
+
+      /* Left column items */
+      #eventForm > section[aria-labelledby="basic-info-title"] {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      #eventForm > section[aria-labelledby="recurrence-title"] {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      #eventForm > section[aria-labelledby="reminder-title"] {
+        grid-column: 1;
+        grid-row: 3;
+      }
+
+      #eventForm > .validation-status {
+        grid-column: 1;
+        grid-row: 4;
+      }
+
+      #eventForm > .btn-group {
+        grid-column: 1;
+        grid-row: 5;
+      }
+
+      #eventForm > .download-hint {
+        grid-column: 1;
+        grid-row: 6;
+      }
+
+      /* Right column items - Preview spans multiple rows */
+      #eventForm > #previewSection {
+        grid-column: 2;
+        grid-row: 1 / 4;
+      }
+
+      /* Saved events section in right column */
+      #savedEventsSection {
+        grid-column: 2;
+        grid-row: 4 / 7;
+      }
+
+      /* Make right column items sticky on desktop */
+      #previewSection,
+      #savedEventsSection {
+        position: sticky;
+        top: 24px;
+        align-self: start;
+      }
+    }
+
+    /* Tablet layout (768px - 1023px) - Wider single column */
+    @media (min-width: 768px) and (max-width: 1023px) {
+      .container {
+        max-width: 720px;
+      }
+    }
+
+    /* Mobile layout (≤480px) - Compact styling */
     @media (max-width: 480px) {
       .container {
         padding: 16px 12px;
@@ -1132,9 +1218,10 @@
       </div>
     </div>
 
-    <form id="eventForm" novalidate>
-      <!-- Basic Event Info -->
-      <section class="card" aria-labelledby="basic-info-title">
+    <div class="main-content">
+      <form id="eventForm" novalidate>
+        <!-- Basic Event Info -->
+        <section class="card" aria-labelledby="basic-info-title">
         <h2 class="card-title" id="basic-info-title">Event Details</h2>
 
         <div class="form-group">
@@ -1390,6 +1477,7 @@
         <!-- Populated by JavaScript -->
       </div>
     </section>
+    </div>
 
     <!-- Debug Info -->
     <details class="debug-info" id="debugInfo">
