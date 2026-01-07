@@ -167,3 +167,24 @@ All 26 existing tests continue to pass.
 3. Keep current skip behavior
 
 **Selected:** Option 1 - Use "last weekday" for 5th occurrence. This always exists and matches standard calendar app behavior.
+
+### Decision 3: BYMONTHDAY Handling for Days That Don't Exist in All Months
+**Requirement:** When using monthly recurrence by day-of-month (e.g., BYMONTHDAY=30):
+1. Only create events on the exact day specified - skip months that don't have that day
+2. No overflow allowed (e.g., Feb 30 should NOT become Mar 2)
+3. Show a warning if the selected day doesn't exist in all months (29th, 30th, 31st)
+
+**Example:** BYMONTHDAY=30 with COUNT=12 starting Jan 30, 2026:
+- Jan 30 ✓
+- Feb - SKIP (no 30th)
+- Mar 30 ✓
+- Apr 30 ✓
+- May 30 ✓
+- Jun 30 ✓
+- Jul 30 ✓
+- Aug 30 ✓
+- Sep 30 ✓
+- Oct 30 ✓
+- Nov 30 ✓
+- Dec 30 ✓
+- Jan 30, 2027 ✓ (12th occurrence)

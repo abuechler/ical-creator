@@ -960,6 +960,10 @@ test.describe('iCal Creator - Preview Bug Fix (Last Friday)', () => {
     // Select "by date" option (30th of every month)
     await scrollAndCheck(page, 'input[name="monthlyType"][value="date"]');
 
+    // Verify the hint shows warning about skipped months
+    const hint = await page.locator('#monthlyDateHint').textContent();
+    expect(hint).toContain('skips Feb');
+
     // Set occurrence count to 12
     await scrollAndCheck(page, 'input[name="endType"][value="count"]');
     await scrollAndFill(page, '#occurrenceCount', '12');
@@ -975,12 +979,12 @@ test.describe('iCal Creator - Preview Bug Fix (Last Friday)', () => {
     // Should have 12 occurrences - the 30th of each month
     expect(occurrences.count).toBe(12);
 
-    // Expected dates: 30th of each month (Feb has only 28 days, so it wraps to Mar 2)
-    // After Feb overflow, dates reset to 30th correctly
+    // Expected dates: 30th of each month, skipping Feb (no 30th day)
     const expectedDates = [
       '2026-01-30', // Jan 30
-      '2026-03-02', // Feb 30 -> Mar 2 (overflow, unavoidable)
-      '2026-04-30', // Apr 30 (resets correctly)
+      // Feb skipped - no 30th day
+      '2026-03-30', // Mar 30
+      '2026-04-30', // Apr 30
       '2026-05-30', // May 30
       '2026-06-30', // Jun 30
       '2026-07-30', // Jul 30
@@ -989,7 +993,7 @@ test.describe('iCal Creator - Preview Bug Fix (Last Friday)', () => {
       '2026-10-30', // Oct 30
       '2026-11-30', // Nov 30
       '2026-12-30', // Dec 30
-      '2027-01-30', // Jan 30 (next year)
+      '2027-01-30', // Jan 30 (12th occurrence)
     ];
 
     expect(occurrences.dates).toEqual(expectedDates);

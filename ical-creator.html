@@ -2114,13 +2114,22 @@
           const monthlyType = document.querySelector('input[name="monthlyType"]:checked').value;
 
           if (monthlyType === 'date') {
-            state.eventOccurrences.push(new Date(currentDate));
-            count++;
-            // Set to 1st first to avoid month overflow, then increment month, then restore day
             const targetDay = startDate.getDate();
+
+            // Only add occurrence if the current month has this day
+            // (e.g., skip Feb 30, skip Feb/Apr/Jun/Sep/Nov 31)
+            const daysInCurrentMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+            if (targetDay <= daysInCurrentMonth) {
+              state.eventOccurrences.push(new Date(currentDate));
+              count++;
+            }
+
+            // Move to next month (set to 1st first to avoid overflow)
             currentDate.setDate(1);
             currentDate.setMonth(currentDate.getMonth() + interval);
-            currentDate.setDate(targetDay);
+            // Try to set to target day, but cap at days in month to avoid overflow
+            const daysInNextMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate();
+            currentDate.setDate(Math.min(targetDay, daysInNextMonth));
           } else {
             // Same weekday of month (e.g., 2nd Tuesday, last Friday)
             const weekOfMonth = Math.ceil(startDate.getDate() / 7);
@@ -2339,8 +2348,16 @@
       // Use "last" for 5th week since not all months have 5 occurrences
       const weekLabel = weekOfMonth >= 5 ? 'last' : ordinals[weekOfMonth];
 
-      document.getElementById('monthlyDateHint').textContent =
-        `e.g., the ${dayOfMonth}${getOrdinalSuffix(dayOfMonth)} of every month`;
+      let dateHint = `e.g., the ${dayOfMonth}${getOrdinalSuffix(dayOfMonth)} of every month`;
+      // Add warning for days that don't exist in all months
+      if (dayOfMonth >= 29) {
+        const skippedMonths = [];
+        if (dayOfMonth >= 31) skippedMonths.push('Feb', 'Apr', 'Jun', 'Sep', 'Nov');
+        else if (dayOfMonth === 30) skippedMonths.push('Feb');
+        else if (dayOfMonth === 29) skippedMonths.push('Feb*'); // *except leap years
+        dateHint += ` (skips ${skippedMonths.join(', ')})`;
+      }
+      document.getElementById('monthlyDateHint').textContent = dateHint;
       document.getElementById('monthlyDayHint').textContent =
         `e.g., the ${weekLabel} ${dayName} of every month`;
     }
