@@ -1009,3 +1009,182 @@ test.describe('iCal Creator - Preview Bug Fix (Last Friday)', () => {
   });
 
 });
+
+test.describe('iCal Creator - Demo Events', () => {
+
+  test('demo events are loaded when localStorage is empty', async ({ page }) => {
+    // Clear localStorage before navigating
+    await page.goto(getPageUrl());
+    await page.evaluate(() => localStorage.clear());
+
+    // Reload to trigger demo events loading
+    await page.reload();
+    await page.waitForSelector('#title');
+
+    // Wait for saved events section to be visible
+    await page.waitForSelector('#savedEventsSection', { state: 'visible' });
+
+    // Check that saved events section is displayed
+    const savedEventsSection = page.locator('#savedEventsSection');
+    await expect(savedEventsSection).toBeVisible();
+
+    // Check that there are exactly 2 demo events
+    const eventCards = page.locator('.saved-event-card');
+    await expect(eventCards).toHaveCount(2);
+
+    // Verify first demo event title
+    const firstEventTitle = page.locator('.saved-event-card').first().locator('.saved-event-title');
+    await expect(firstEventTitle).toHaveText('Letzter Freitag im Monat - Senioren Kaffee');
+
+    // Verify second demo event title
+    const secondEventTitle = page.locator('.saved-event-card').last().locator('.saved-event-title');
+    await expect(secondEventTitle).toHaveText('Am 30. Tag jeden Monat - Senioren Treff');
+  });
+
+  test('demo events are NOT loaded when localStorage has existing events', async ({ page }) => {
+    // Clear localStorage before navigating
+    await page.goto(getPageUrl());
+    await page.evaluate(() => localStorage.clear());
+
+    // Add a custom event to localStorage
+    await page.evaluate(() => {
+      const customEvent = {
+        id: 'custom-event-1@ical-creator',
+        sequence: 0,
+        title: 'My Custom Event',
+        allDay: false,
+        startDate: '2026-02-15',
+        startTime: '14:00',
+        endDate: '2026-02-15',
+        endTime: '15:00',
+        timezone: 'Europe/Berlin',
+        location: '',
+        description: '',
+        url: '',
+        isRecurring: false,
+        savedAt: new Date().toISOString()
+      };
+      localStorage.setItem('icalCreator_savedEvents', JSON.stringify([customEvent]));
+    });
+
+    // Reload to trigger demo events check
+    await page.reload();
+    await page.waitForSelector('#title');
+
+    // Wait for saved events section
+    await page.waitForSelector('#savedEventsSection', { state: 'visible' });
+
+    // Check that there is only 1 event (the custom one)
+    const eventCards = page.locator('.saved-event-card');
+    await expect(eventCards).toHaveCount(1);
+
+    // Verify it's the custom event, not a demo event
+    const eventTitle = page.locator('.saved-event-card').first().locator('.saved-event-title');
+    await expect(eventTitle).toHaveText('My Custom Event');
+  });
+
+  test('demo events have correct recurrence badges', async ({ page }) => {
+    // Clear localStorage and reload
+    await page.goto(getPageUrl());
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.waitForSelector('#title');
+    await page.waitForSelector('#savedEventsSection', { state: 'visible' });
+
+    // Both demo events should have Monthly badge
+    const monthlyBadges = page.locator('.saved-event-badge:has-text("Monthly")');
+    await expect(monthlyBadges).toHaveCount(2);
+
+    // Both demo events should have Reminder badge
+    const reminderBadges = page.locator('.saved-event-badge:has-text("Reminder")');
+    await expect(reminderBadges).toHaveCount(2);
+  });
+
+  test('demo event can be loaded into form', async ({ page }) => {
+    // Clear localStorage and reload
+    await page.goto(getPageUrl());
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.waitForSelector('#title');
+    await page.waitForSelector('#savedEventsSection', { state: 'visible' });
+
+    // Click Load button on first demo event
+    const loadButton = page.locator('.saved-event-card').first().locator('button:has-text("Load")');
+    await loadButton.click();
+
+    // Verify form is populated with demo event data
+    await expect(page.locator('#title')).toHaveValue('Letzter Freitag im Monat - Senioren Kaffee');
+    await expect(page.locator('#startDate')).toHaveValue('2026-01-30');
+    await expect(page.locator('#startTime')).toHaveValue('09:00');
+    await expect(page.locator('#endDate')).toHaveValue('2026-01-30');
+    await expect(page.locator('#endTime')).toHaveValue('11:00');
+    await expect(page.locator('#timezone')).toHaveValue('Europe/Zurich');
+    await expect(page.locator('#location')).toHaveValue('Restaurant Lokal, Embrach');
+    await expect(page.locator('#url')).toHaveValue('https://www.restaurantlokal.ch');
+
+    // Check recurrence settings
+    await expect(page.locator('#isRecurring')).toBeChecked();
+    await expect(page.locator('#frequency')).toHaveValue('MONTHLY');
+    await expect(page.locator('#interval')).toHaveValue('1');
+    await expect(page.locator('input[name="monthlyType"][value="day"]')).toBeChecked();
+    await expect(page.locator('input[name="endType"][value="count"]')).toBeChecked();
+    await expect(page.locator('#occurrenceCount')).toHaveValue('12');
+
+    // Check reminder settings
+    await expect(page.locator('#hasReminder')).toBeChecked();
+    await expect(page.locator('#reminderTime')).toHaveValue('60');
+  });
+
+  test('second demo event loads with date-based monthly recurrence', async ({ page }) => {
+    // Clear localStorage and reload
+    await page.goto(getPageUrl());
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.waitForSelector('#title');
+    await page.waitForSelector('#savedEventsSection', { state: 'visible' });
+
+    // Click Load button on second demo event
+    const loadButton = page.locator('.saved-event-card').last().locator('button:has-text("Load")');
+    await loadButton.click();
+
+    // Verify form is populated with second demo event data
+    await expect(page.locator('#title')).toHaveValue('Am 30. Tag jeden Monat - Senioren Treff');
+
+    // Check that monthlyType is 'date' (by day of month)
+    await expect(page.locator('input[name="monthlyType"][value="date"]')).toBeChecked();
+  });
+
+  test('demo event generates valid ICS with correct RRULE', async ({ page }) => {
+    // Clear localStorage and reload
+    await page.goto(getPageUrl());
+    await page.evaluate(() => localStorage.clear());
+    await page.reload();
+    await page.waitForSelector('#title');
+    await page.waitForSelector('#savedEventsSection', { state: 'visible' });
+
+    // Load first demo event (monthly by day)
+    const loadButton = page.locator('.saved-event-card').first().locator('button:has-text("Load")');
+    await loadButton.click();
+
+    // Generate ICS
+    const { content } = await generateAndCaptureICS(page, 'demo-event-monthly-by-day.ics');
+
+    // Verify ICS structure
+    verifyICSStructure(content);
+
+    // Verify event details
+    expect(content).toContain('SUMMARY:Letzter Freitag im Monat - Senioren Kaffee');
+    expect(content).toContain('LOCATION:Restaurant Lokal\\, Embrach');
+    expect(content).toContain('URL:https://www.restaurantlokal.ch');
+
+    // Verify RRULE for monthly by day (5th Friday = last Friday)
+    expect(content).toContain('FREQ=MONTHLY');
+    expect(content).toContain('COUNT=12');
+    expect(content).toMatch(/BYDAY=[-]?\d?FR/); // Should have FR in BYDAY
+
+    // Verify alarm
+    expect(content).toContain('BEGIN:VALARM');
+    expect(content).toContain('TRIGGER:-PT60M');
+  });
+
+});
