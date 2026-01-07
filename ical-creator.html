@@ -750,80 +750,58 @@
 
     /* ==================== Responsive ==================== */
 
-    /* Main content wrapper for responsive layout */
-    .main-content {
+    /* Form area - contains form inputs and preview (Groups 1-3) */
+    .form-area {
       display: block;
     }
 
-    /* Desktop layout (≥1024px) - Two column layout */
+    .form-inputs {
+      display: block;
+    }
+
+    .form-preview {
+      display: block;
+    }
+
+    /* Desktop layout (≥1024px) - Two column form area */
     @media (min-width: 1024px) {
       .container {
         max-width: 1200px;
         padding: 24px 32px;
       }
 
-      .main-content {
+      /* Form area uses two-column grid */
+      .form-area {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto;
         gap: 24px;
         align-items: start;
+        margin-bottom: 24px;
       }
 
-      /* Form uses grid layout for its children */
-      #eventForm {
-        display: contents;
+      /* Left column: form inputs stacked vertically */
+      .form-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
       }
 
-      /* Left column items */
-      #eventForm > section[aria-labelledby="basic-info-title"] {
-        grid-column: 1;
-        grid-row: 1;
-      }
-
-      #eventForm > section[aria-labelledby="recurrence-title"] {
-        grid-column: 1;
-        grid-row: 2;
-      }
-
-      #eventForm > section[aria-labelledby="reminder-title"] {
-        grid-column: 1;
-        grid-row: 3;
-      }
-
-      #eventForm > .validation-status {
-        grid-column: 1;
-        grid-row: 4;
-      }
-
-      #eventForm > .btn-group {
-        grid-column: 1;
-        grid-row: 5;
-      }
-
-      #eventForm > .download-hint {
-        grid-column: 1;
-        grid-row: 6;
-      }
-
-      /* Right column items - Preview spans multiple rows */
-      #eventForm > #previewSection {
-        grid-column: 2;
-        grid-row: 1 / 4;
-      }
-
-      /* Saved events section in right column */
-      #savedEventsSection {
-        grid-column: 2;
-        grid-row: 4 / 7;
-      }
-
-      /* Make right column items sticky on desktop */
-      #previewSection,
-      #savedEventsSection {
+      /* Right column: preview section */
+      .form-preview {
         position: sticky;
         top: 24px;
         align-self: start;
+      }
+
+      /* Saved events section - full width with horizontal cards */
+      #savedEventsSection {
+        max-width: 100%;
+      }
+
+      .saved-events-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 16px;
       }
     }
 
@@ -1218,8 +1196,9 @@
       </div>
     </div>
 
-    <div class="main-content">
-      <form id="eventForm" novalidate>
+    <div class="form-area">
+      <div class="form-inputs">
+        <form id="eventForm" novalidate>
         <!-- Basic Event Info -->
         <section class="card" aria-labelledby="basic-info-title">
         <h2 class="card-title" id="basic-info-title">Event Details</h2>
@@ -1415,44 +1394,6 @@
         </div>
       </section>
 
-      <!-- Preview (shown when recurring) -->
-      <section class="card" id="previewSection" aria-labelledby="preview-title" style="display: none;">
-        <h2 class="card-title" id="preview-title">Preview & Exceptions</h2>
-        <p style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 16px;">
-          Click on highlighted dates to exclude them from the recurring event.
-        </p>
-
-        <div class="calendar-container">
-          <div class="calendar-header">
-            <button type="button" class="calendar-nav-btn" id="prevMonth" aria-label="Previous month">&larr;</button>
-            <span class="calendar-month-year" id="calendarMonthYear" aria-live="polite"></span>
-            <button type="button" class="calendar-nav-btn" id="nextMonth" aria-label="Next month">&rarr;</button>
-          </div>
-          <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Event preview calendar">
-            <!-- Populated by JavaScript -->
-          </div>
-          <div class="calendar-info">
-            <div class="calendar-legend">
-              <div class="legend-item">
-                <span class="legend-dot event"></span>
-                <span>Event</span>
-              </div>
-              <div class="legend-item">
-                <span class="legend-dot exception"></span>
-                <span>Excluded</span>
-              </div>
-            </div>
-            <div id="exceptionCount" class="exception-toggle" role="button" tabindex="0" aria-expanded="false">
-              <span id="exceptionCountText">0 exceptions</span>
-              <span class="exception-toggle-icon">▶</span>
-            </div>
-          </div>
-          <div id="exceptionList" class="exception-list" aria-hidden="true">
-            <!-- Populated by JavaScript -->
-          </div>
-        </div>
-      </section>
-
       <!-- Validation Status -->
       <div class="validation-status" id="validationStatus" role="alert">
         <div class="validation-status-title" id="validationTitle"></div>
@@ -1465,7 +1406,49 @@
         <button type="submit" class="btn btn-primary" id="downloadBtn">Download .ics</button>
       </div>
       <p class="download-hint hidden" id="downloadHint">Fix errors above to download</p>
-    </form>
+        </form>
+      </div>
+
+      <!-- Preview (shown when recurring) -->
+      <div class="form-preview">
+        <section class="card" id="previewSection" aria-labelledby="preview-title" style="display: none;">
+          <h2 class="card-title" id="preview-title">Preview & Exceptions</h2>
+          <p style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 16px;">
+            Click on highlighted dates to exclude them from the recurring event.
+          </p>
+
+          <div class="calendar-container">
+            <div class="calendar-header">
+              <button type="button" class="calendar-nav-btn" id="prevMonth" aria-label="Previous month">&larr;</button>
+              <span class="calendar-month-year" id="calendarMonthYear" aria-live="polite"></span>
+              <button type="button" class="calendar-nav-btn" id="nextMonth" aria-label="Next month">&rarr;</button>
+            </div>
+            <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Event preview calendar">
+              <!-- Populated by JavaScript -->
+            </div>
+            <div class="calendar-info">
+              <div class="calendar-legend">
+                <div class="legend-item">
+                  <span class="legend-dot event"></span>
+                  <span>Event</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot exception"></span>
+                  <span>Excluded</span>
+                </div>
+              </div>
+              <div id="exceptionCount" class="exception-toggle" role="button" tabindex="0" aria-expanded="false">
+                <span id="exceptionCountText">0 exceptions</span>
+                <span class="exception-toggle-icon">▶</span>
+              </div>
+            </div>
+            <div id="exceptionList" class="exception-list" aria-hidden="true">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
 
     <!-- Saved Events Section -->
     <section class="card" id="savedEventsSection" style="display: none;">
@@ -1477,7 +1460,6 @@
         <!-- Populated by JavaScript -->
       </div>
     </section>
-    </div>
 
     <!-- Debug Info -->
     <details class="debug-info" id="debugInfo">
