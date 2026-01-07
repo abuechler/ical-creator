@@ -15,6 +15,19 @@
 - Playwright tests should use `file://` protocol to access HTML files directly - no HTTP server needed.
 - Before assuming a task/feature as done, execute all tests (Maven or Playwright) and make sure they pass.
 
+## Versioning
+
+Update the version in `package.json` using [Semantic Versioning](https://semver.org/):
+
+- **MAJOR** (x.0.0): Breaking changes or major rewrites
+- **MINOR** (0.x.0): New features (backward compatible)
+- **PATCH** (0.0.x): Bug fixes (backward compatible)
+
+Examples:
+- New feature (e.g., demo events): `1.0.0` → `1.1.0`
+- Bug fix (e.g., fixing a typo or broken functionality): `1.1.0` → `1.1.1`
+- Breaking change (e.g., changing data format): `1.1.1` → `2.0.0`
+
 ## CSS Centering Techniques
 
 Reference: https://www.w3.org/Style/Examples/007/center.en.html
