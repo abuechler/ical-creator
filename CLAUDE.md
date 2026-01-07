@@ -12,6 +12,7 @@
 - When creating an implementation plan note start and end time for each step. Do this for bugs as well.
 - Make sure to add tests for all features implemented, use mcp playwright with firefox and switch to a responsive design
   mode with a mobile device ((e.g iPhone 11 with 375x812 px viewport).)
+- Playwright tests should use `file://` protocol to access HTML files directly - no HTTP server needed.
 
 ## CSS Centering Techniques
 

@@ -2116,7 +2116,11 @@
           if (monthlyType === 'date') {
             state.eventOccurrences.push(new Date(currentDate));
             count++;
+            // Set to 1st first to avoid month overflow, then increment month, then restore day
+            const targetDay = startDate.getDate();
+            currentDate.setDate(1);
             currentDate.setMonth(currentDate.getMonth() + interval);
+            currentDate.setDate(targetDay);
           } else {
             // Same weekday of month (e.g., 2nd Tuesday, last Friday)
             const weekOfMonth = Math.ceil(startDate.getDate() / 7);

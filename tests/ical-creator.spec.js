@@ -942,4 +942,66 @@ test.describe('iCal Creator - Preview Bug Fix (Last Friday)', () => {
     console.log(`calendarMonthsLoaded extended to: ${monthsLoaded}`);
   });
 
+  test('Monthly by day-of-month (30th) recurrence should show correct occurrences', async ({ page }) => {
+    // Test for RRULE:FREQ=MONTHLY;COUNT=12;BYMONTHDAY=30
+    // Note: February doesn't have a 30th day
+
+    await page.locator('#title').fill('Senioren Treff');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-30', '09:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-01-30', '11:00');
+    await scrollAndFill(page, '#location', 'Restaurant Lokal, Embrach');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+
+    // Select monthly frequency
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+
+    // Select "by date" option (30th of every month)
+    await scrollAndCheck(page, 'input[name="monthlyType"][value="date"]');
+
+    // Set occurrence count to 12
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '12');
+
+    // Check the calculated occurrences
+    const occurrences = await page.evaluate(() => {
+      return {
+        count: state.eventOccurrences.length,
+        dates: state.eventOccurrences.map(d => d.toLocaleDateString('en-CA'))
+      };
+    });
+
+    // Should have 12 occurrences - the 30th of each month
+    expect(occurrences.count).toBe(12);
+
+    // Expected dates: 30th of each month (Feb has only 28 days, so it wraps to Mar 2)
+    // After Feb overflow, dates reset to 30th correctly
+    const expectedDates = [
+      '2026-01-30', // Jan 30
+      '2026-03-02', // Feb 30 -> Mar 2 (overflow, unavoidable)
+      '2026-04-30', // Apr 30 (resets correctly)
+      '2026-05-30', // May 30
+      '2026-06-30', // Jun 30
+      '2026-07-30', // Jul 30
+      '2026-08-30', // Aug 30
+      '2026-09-30', // Sep 30
+      '2026-10-30', // Oct 30
+      '2026-11-30', // Nov 30
+      '2026-12-30', // Dec 30
+      '2027-01-30', // Jan 30 (next year)
+    ];
+
+    expect(occurrences.dates).toEqual(expectedDates);
+
+    // Verify the RRULE uses BYMONTHDAY
+    const { content } = await generateAndCaptureICS(page, 'monthly-by-date-30.ics');
+    verifyICSStructure(content);
+    expect(content).toContain('FREQ=MONTHLY');
+    expect(content).toContain('BYMONTHDAY=30');
+    expect(content).toContain('COUNT=12');
+
+    console.log('Monthly by date occurrences:', occurrences.dates);
+  });
+
 });
