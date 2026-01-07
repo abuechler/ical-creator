@@ -1,19 +1,36 @@
 # Project Notes
 
-- When given a file for task or story do the following after reading it:
-    - Note the start time in the document for tracking in the relevant section (use full timestamp format: YYYY-MM-DD HH:MM:SS).
-    - Analyze the content and identify key requirements or instructions.
-    - Research any unfamiliar concepts or technologies mentioned.
-    - If you have any questions to any steps in the document, go through them one by one, offer suggestions and choices.
-    - Write down all planning prompts, answers and decisions in a "Planning Decisions" section at the end of the
-      document.
-    - Write down the total time spent on planning at the beginning of the "Planning Decisions" section with the current
-      date and time. If there are multiple planning sessions, note each session separately.
-- When creating an implementation plan note start and end time for each step. Do this for bugs as well.
-- Make sure to add tests for all features implemented, use mcp playwright with firefox and switch to a responsive design
-  mode with a mobile device ((e.g iPhone 11 with 375x812 px viewport).)
-- Playwright tests should use `file://` protocol to access HTML files directly - no HTTP server needed.
-- Before assuming a task/feature as done, execute all tests (Maven or Playwright) and make sure they pass.
+This project is a simple website to create iCal calendar files (.ics) with recurring events support. It is implemented purely with HTML, CSS and JavaScript - no build step required to run. GitHub Actions runs tests via Maven and Playwright.
+
+1. When started with the continue command, check which doc/stories or doc/bugs are not yet done. Pick one and work on it
+   in a separate branch.
+2. Before doing any actual work or planning, check the section [execution instructions](#execution-instructions) below.
+3. When done, move the story or bug document to the directory doc/{stories,bugs}/pr.
+4. Create a PR for the changes when done.
+5. Kill the current session when the PR is created with the command `pkill -f "claude"`
+6. If you cannot find any open stories or bugs, check for open PRs and comments on them. Address any review comments or
+   questions. If there are none, exit the session with `pkill -f "claude"`.
+7. If the current session is fully used up, exit with `pkill -f "claude"`.
+
+## Execution Instructions
+
+- For every story/bug or task, create a separate git branch named `story/<story-name>` or `bug/<bug-name>`.
+- IMPORTANT: Do not ask any questions about a story/bug, if there is something unclear, make reasonable assumptions and
+  document them in the "Planning Decisions" section at the end of the document.
+- Add a "Planning Decisions" section at the end of each story/bug document with:
+    - Start timestamp (YYYY-MM-DD HH:MM:SS)
+    - End timestamp (YYYY-MM-DD HH:MM:SS)
+    - Duration (time spent on planning and implementation)
+    - Any assumptions made and decisions taken
+- IMPORTANT: Implement the feature or fix the bug as per the plan you created, not questions!
+- Add tests for any new features or bug fixes using mcp playwright with firefox in responsive design mode using iPhone
+  11 (375x812 px) and also a laptop (1440x900 px) viewport.
+- Before submitting a PR, run all tests and make sure ALL of them pass:
+    - `npm install`
+    - `npx playwright install firefox`
+    - `npx playwright test`
+    - `mvn -f /workspace/validator/pom.xml test`
+- Commit as Author: Claude <claude@anthropic.com>
 
 ## Versioning
 
@@ -24,6 +41,7 @@ Update the version in `package.json` using [Semantic Versioning](https://semver.
 - **PATCH** (0.0.x): Bug fixes (backward compatible)
 
 Examples:
+
 - New feature (e.g., demo events): `1.0.0` → `1.1.0`
 - Bug fix (e.g., fixing a typo or broken functionality): `1.1.0` → `1.1.1`
 - Breaking change (e.g., changing data format): `1.1.1` → `2.0.0`
