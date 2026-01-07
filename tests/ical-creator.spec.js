@@ -805,3 +805,207 @@ test.describe('iCal Creator - UID and SEQUENCE (RFC 5545)', () => {
   });
 
 });
+
+test.describe('iCal Creator - Preview Bug Fix (Last Friday)', () => {
+  // Test for the preview bug where monthly recurrence on 5th weekday
+  // (last Friday) was not showing all occurrences in the preview
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    await page.waitForSelector('#title');
+  });
+
+  test('Monthly last Friday recurrence should show all 12 occurrences in preview', async ({ page }) => {
+    // This test verifies the fix for the bug where selecting a date on the 5th Friday
+    // (like January 30, 2026) with COUNT=12 would not show all events in the preview
+
+    // Fill in event details - January 30, 2026 is a Friday in the 5th week
+    await page.locator('#title').fill('Senioren Kaffee');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-30', '09:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-01-30', '11:00');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+
+    // Select monthly frequency
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+
+    // Select "by day" option (day of week)
+    await scrollAndCheck(page, 'input[name="monthlyType"][value="day"]');
+
+    // Verify the hint shows "last Fri" instead of "5th Fri"
+    const hint = await page.locator('#monthlyDayHint').textContent();
+    expect(hint).toContain('last Fri');
+
+    // Set occurrence count to 12
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '12');
+
+    // Wait for calendar to render
+    await page.waitForSelector('.calendar-grid');
+
+    // Check the state.eventOccurrences array has all 12 occurrences
+    const occurrences = await page.evaluate(() => {
+      return {
+        count: state.eventOccurrences.length,
+        dates: state.eventOccurrences.map(d => d.toLocaleDateString('en-CA'))
+      };
+    });
+
+    // Should have exactly 12 occurrences
+    expect(occurrences.count).toBe(12);
+
+    // Verify each occurrence is the last Friday of its month
+    const expectedDates = [
+      '2026-01-30', // Jan last Friday
+      '2026-02-27', // Feb last Friday
+      '2026-03-27', // Mar last Friday
+      '2026-04-24', // Apr last Friday
+      '2026-05-29', // May last Friday
+      '2026-06-26', // Jun last Friday
+      '2026-07-31', // Jul last Friday
+      '2026-08-28', // Aug last Friday
+      '2026-09-25', // Sep last Friday
+      '2026-10-30', // Oct last Friday
+      '2026-11-27', // Nov last Friday
+      '2026-12-25', // Dec last Friday
+    ];
+
+    expect(occurrences.dates).toEqual(expectedDates);
+
+    // Verify first occurrence is visible in January calendar
+    const janEvent = page.locator('.calendar-grid .event-day');
+    await expect(janEvent.first()).toBeVisible();
+
+    console.log('All 12 occurrences calculated correctly:', occurrences.dates);
+  });
+
+  test('Generated iCal should use BYDAY=-1FR for last Friday recurrence', async ({ page }) => {
+    // This test verifies that the RRULE uses -1FR (last Friday) instead of 5FR
+
+    await page.locator('#title').fill('Last Friday Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-30', '09:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-01-30', '11:00');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+
+    // Select monthly frequency
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+
+    // Select "by day" option
+    await scrollAndCheck(page, 'input[name="monthlyType"][value="day"]');
+
+    // Set occurrence count
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '12');
+
+    // Generate and capture ICS
+    const { content, filePath } = await generateAndCaptureICS(page, 'last-friday-recurrence.ics');
+
+    // Verify structure
+    verifyICSStructure(content);
+    expect(content).toContain('SUMMARY:Last Friday Event');
+    expect(content).toContain('RRULE:');
+    expect(content).toContain('FREQ=MONTHLY');
+    // Should use -1FR (last Friday) instead of 5FR
+    expect(content).toContain('BYDAY=-1FR');
+    expect(content).toContain('COUNT=12');
+
+    console.log(`Generated: ${filePath}`);
+  });
+
+  test('Preview should extend beyond 3 months for COUNT-based recurrence', async ({ page }) => {
+    // This test verifies that calendarMonthsLoaded is extended to cover all occurrences
+
+    await page.locator('#title').fill('Extended Preview Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-15', '10:00');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+
+    // Select monthly frequency with count of 12
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '12');
+
+    // Check that calendarMonthsLoaded was extended
+    const monthsLoaded = await page.evaluate(() => state.calendarMonthsLoaded);
+
+    // Should be at least 13 months (12 occurrences * 1 month + 1 buffer)
+    expect(monthsLoaded).toBeGreaterThanOrEqual(13);
+
+    // Verify all 12 occurrences are calculated
+    const occurrenceCount = await page.evaluate(() => state.eventOccurrences.length);
+    expect(occurrenceCount).toBe(12);
+
+    console.log(`calendarMonthsLoaded extended to: ${monthsLoaded}`);
+  });
+
+  test('Monthly by day-of-month (30th) recurrence should show correct occurrences', async ({ page }) => {
+    // Test for RRULE:FREQ=MONTHLY;COUNT=12;BYMONTHDAY=30
+    // Note: February doesn't have a 30th day
+
+    await page.locator('#title').fill('Senioren Treff');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-30', '09:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-01-30', '11:00');
+    await scrollAndFill(page, '#location', 'Restaurant Lokal, Embrach');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+
+    // Select monthly frequency
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+
+    // Select "by date" option (30th of every month)
+    await scrollAndCheck(page, 'input[name="monthlyType"][value="date"]');
+
+    // Verify the hint shows warning about skipped months
+    const hint = await page.locator('#monthlyDateHint').textContent();
+    expect(hint).toContain('skips Feb');
+
+    // Set occurrence count to 12
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '12');
+
+    // Check the calculated occurrences
+    const occurrences = await page.evaluate(() => {
+      return {
+        count: state.eventOccurrences.length,
+        dates: state.eventOccurrences.map(d => d.toLocaleDateString('en-CA'))
+      };
+    });
+
+    // Should have 12 occurrences - the 30th of each month
+    expect(occurrences.count).toBe(12);
+
+    // Expected dates: 30th of each month, skipping Feb (no 30th day)
+    const expectedDates = [
+      '2026-01-30', // Jan 30
+      // Feb skipped - no 30th day
+      '2026-03-30', // Mar 30
+      '2026-04-30', // Apr 30
+      '2026-05-30', // May 30
+      '2026-06-30', // Jun 30
+      '2026-07-30', // Jul 30
+      '2026-08-30', // Aug 30
+      '2026-09-30', // Sep 30
+      '2026-10-30', // Oct 30
+      '2026-11-30', // Nov 30
+      '2026-12-30', // Dec 30
+      '2027-01-30', // Jan 30 (12th occurrence)
+    ];
+
+    expect(occurrences.dates).toEqual(expectedDates);
+
+    // Verify the RRULE uses BYMONTHDAY
+    const { content } = await generateAndCaptureICS(page, 'monthly-by-date-30.ics');
+    verifyICSStructure(content);
+    expect(content).toContain('FREQ=MONTHLY');
+    expect(content).toContain('BYMONTHDAY=30');
+    expect(content).toContain('COUNT=12');
+
+    console.log('Monthly by date occurrences:', occurrences.dates);
+  });
+
+});
