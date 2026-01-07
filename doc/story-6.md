@@ -100,5 +100,7 @@ END:VCALENDAR
 | 4. Write Playwright tests | 10:26:00 | 10:35:00 | 6 tests for demo functionality |
 | 5. Update version | 10:35:00 | 10:36:00 | `1.0.0` → `1.1.0` |
 | 6. Run all tests | 10:36:00 | 10:38:00 | 33 tests passed |
-| 7. Create PR | 10:38:00 | - | In progress |
+| 7. Create PR | 10:38:00 | 10:40:00 | Branch pushed, PR ready |
+
+**PR URL:** https://github.com/abuechler/ical-creator/pull/new/feature/demo-events
 
