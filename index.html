@@ -1426,7 +1426,7 @@
       </svg>
       View on GitHub
     </a>
-    <span class="version">v1.0.0</span>
+    <span class="version">v1.1.0</span>
   </footer>
 
   <script>
@@ -1504,6 +1504,7 @@
       attachEventListeners();
       updateFrequencyOptions();
       updateMonthlyHints();
+      loadDemoEventsIfEmpty();
       renderSavedEvents();
       updateDebugInfo();
       updateDownloadButtonState();
@@ -2885,6 +2886,71 @@
       } catch (e) {
         console.warn('Could not read saved events from localStorage');
         return [];
+      }
+    }
+
+    function getDemoEvents() {
+      return [
+        {
+          id: 'ical-creator-demo-senioren-kaffee@ical-creator',
+          sequence: 0,
+          title: 'Letzter Freitag im Monat - Senioren Kaffee',
+          allDay: false,
+          startDate: '2026-01-30',
+          startTime: '09:00',
+          endDate: '2026-01-30',
+          endTime: '11:00',
+          timezone: 'Europe/Zurich',
+          location: 'Restaurant Lokal, Embrach',
+          description: 'Gemütliches beisammen sein und quatschen. Von Zeit zu Zeit spielen wir auch folgende Spiele:\n\n- Schach\n- Ligretto\n- Hau den Lukas\n- Vergiss mein nicht\n\nEs wird definitiv nicht langweilig 😜',
+          url: 'https://www.restaurantlokal.ch',
+          isRecurring: true,
+          frequency: 'MONTHLY',
+          interval: '1',
+          selectedDays: ['FR'],
+          monthlyType: 'day',
+          endType: 'count',
+          recurrenceEndDate: '',
+          occurrenceCount: '12',
+          hasReminder: true,
+          reminderTime: '60',
+          exceptions: [],
+          savedAt: new Date().toISOString()
+        },
+        {
+          id: 'ical-creator-demo-senioren-treff@ical-creator',
+          sequence: 5,
+          title: 'Am 30. Tag jeden Monat - Senioren Treff',
+          allDay: false,
+          startDate: '2026-01-30',
+          startTime: '09:00',
+          endDate: '2026-01-30',
+          endTime: '11:00',
+          timezone: 'Europe/Zurich',
+          location: 'Restaurant Lokal, Embrach',
+          description: 'Wir treffen uns immer am 30. Tag des Monats.\n\nGemütliches beisammen sein und quatschen ist das Hauptmotto, von Zeit zu Zeit spielen wir auch folgende Spiele:\n\n- Schach\n- Ligretto\n- Hau den Lukas\n- Vergiss mein nicht\n\nEs wird definitiv nicht langweilig 😜',
+          url: 'https://www.restaurantlokal.ch',
+          isRecurring: true,
+          frequency: 'MONTHLY',
+          interval: '1',
+          selectedDays: [],
+          monthlyType: 'date',
+          endType: 'count',
+          recurrenceEndDate: '',
+          occurrenceCount: '12',
+          hasReminder: true,
+          reminderTime: '60',
+          exceptions: [],
+          savedAt: new Date().toISOString()
+        }
+      ];
+    }
+
+    function loadDemoEventsIfEmpty() {
+      const savedEvents = getSavedEvents();
+      if (savedEvents.length === 0) {
+        const demoEvents = getDemoEvents();
+        localStorage.setItem(STORAGE_KEYS.SAVED_EVENTS, JSON.stringify(demoEvents));
       }
     }
 
