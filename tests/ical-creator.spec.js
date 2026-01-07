@@ -1207,7 +1207,7 @@ test.describe('iCal Creator - Responsive Design', () => {
     expect(viewport.width).toBe(375);
 
     // Check that main content exists and is visible
-    const mainContent = page.locator('.main-content');
+    const mainContent = page.locator('.form-area');
     await expect(mainContent).toBeVisible();
 
     // Check that the Event Details card is visible
@@ -1240,7 +1240,7 @@ test.describe('iCal Creator - Responsive Design', () => {
     expect(viewport.width).toBe(1440);
 
     // Check that main content exists and is visible
-    const mainContent = page.locator('.main-content');
+    const mainContent = page.locator('.form-area');
     await expect(mainContent).toBeVisible();
 
     // Check that the Event Details card is visible

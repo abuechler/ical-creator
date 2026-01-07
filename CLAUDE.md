@@ -30,7 +30,50 @@ This project is a simple website to create iCal calendar files (.ics) with recur
     - `npx playwright install firefox`
     - `npx playwright test`
     - `mvn -f /workspace/validator/pom.xml test`
-- Commit as Author: Claude <claude@anthropic.com>
+- Commit as Author: `claude-code-ical-creator[bot] <253599583+claude-code-ical-creator[bot]@users.noreply.github.com>`
+
+## GitHub App Authentication
+
+A GitHub App is configured so that Claude's actions (PRs, comments, etc.) appear as coming from `claude-code-ical-creator[bot]` instead of a personal account.
+
+### Token Generation
+
+Use the script at `/home/node/github-app-token.sh` to generate a short-lived installation token:
+
+```bash
+# Generate a token (valid for 1 hour)
+/home/node/github-app-token.sh
+```
+
+### Using with gh CLI
+
+Prefix `gh` commands with the token to act as the bot:
+
+```bash
+# Create PR as bot
+GH_TOKEN=$(/home/node/github-app-token.sh 2>/dev/null) gh pr create --title "My PR" --body "Description"
+
+# Comment on PR as bot
+GH_TOKEN=$(/home/node/github-app-token.sh 2>/dev/null) gh pr comment 123 --body "Comment text"
+
+# Close PR as bot
+GH_TOKEN=$(/home/node/github-app-token.sh 2>/dev/null) gh pr close 123
+```
+
+### Git Commits
+
+For commits to be attributed to the bot, use the bot's author information:
+
+```bash
+git commit --author="claude-code-ical-creator[bot] <253599583+claude-code-ical-creator[bot]@users.noreply.github.com>" -m "Commit message"
+```
+
+### How It Works
+
+1. The script generates a JWT signed with the app's private key
+2. Exchanges it for a short-lived installation access token (1 hour)
+3. The token is used with `gh` CLI or GitHub API
+4. Actions appear as `claude-code-ical-creator[bot]` in GitHub
 
 ## Versioning
 

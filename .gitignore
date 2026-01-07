@@ -22,3 +22,7 @@ playwright-report/
 
 # Java build
 validator/target/
+
+# GitHub App setup (local only, not committed)
+github-app-setup.md
+github-app-token.sh
