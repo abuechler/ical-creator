@@ -100,7 +100,13 @@ END:VCALENDAR
 | 4. Write Playwright tests | 10:26:00 | 10:35:00 | 6 tests for demo functionality |
 | 5. Update version | 10:35:00 | 10:36:00 | `1.0.0` → `1.1.0` |
 | 6. Run all tests | 10:36:00 | 10:38:00 | 33 tests passed |
-| 7. Create PR | 10:38:00 | 10:40:00 | Branch pushed, PR ready |
+| 7. Create PR | 10:38:00 | 10:40:00 | PR #3 created |
+| 8. Address Copilot review | 10:42:00 | 10:45:00 | Fixed description mismatch |
 
-**PR URL:** https://github.com/abuechler/ical-creator/pull/new/feature/demo-events
+**PR URL:** https://github.com/abuechler/ical-creator/pull/3
+
+#### Copilot Review Feedback
+
+**Issue:** Second demo event description said "letzter Freitag im Monat" but used `BYMONTHDAY=30`
+**Fix:** Updated description to "30. Tag des Monats" to match actual recurrence pattern
 
