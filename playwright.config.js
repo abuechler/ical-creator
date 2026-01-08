@@ -1,5 +1,5 @@
 // @ts-check
-const { defineConfig, devices } = require('@playwright/test');
+const { defineConfig } = require('@playwright/test');
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -13,7 +13,7 @@ module.exports = defineConfig({
   reporter: 'html',
   use: {
     baseURL: 'file://' + __dirname + '/ical-creator.html',
-    trace: 'on-first-retry',
+    trace: 'on-first-retry'
   },
 
   projects: [
@@ -23,17 +23,17 @@ module.exports = defineConfig({
         browserName: 'firefox',
         viewport: { width: 375, height: 812 },
         // Note: Firefox doesn't support isMobile, so we just use viewport
-        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1',
-      },
+        userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Mobile/15E148 Safari/604.1'
+      }
     },
     {
       name: 'Laptop Firefox',
       use: {
         browserName: 'firefox',
-        viewport: { width: 1440, height: 900 },
-      },
-    },
+        viewport: { width: 1440, height: 900 }
+      }
+    }
   ],
 
-  webServer: undefined,
+  webServer: undefined
 });

@@ -19,8 +19,60 @@ permissions:
   contents: read
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '24'
+          cache: 'npm'
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        id: eslint
+        run: |
+          npm run lint > eslint-output.txt 2>&1 || true
+          cat eslint-output.txt
+
+          # Extract summary
+          WARNINGS=$(grep -oP '\d+(?= warnings?)' eslint-output.txt | head -1 || echo "0")
+          ERRORS=$(grep -oP '\d+(?= errors?)' eslint-output.txt | head -1 || echo "0")
+
+          echo "warnings=$WARNINGS" >> $GITHUB_OUTPUT
+          echo "errors=$ERRORS" >> $GITHUB_OUTPUT
+
+          # Fail if there are errors
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "ESLint found $ERRORS error(s)"
+            exit 1
+          fi
+
+      - name: Add linting summary
+        if: always()
+        run: |
+          echo "## 🔍 Linting Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Count |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Errors | ${{ steps.eslint.outputs.errors }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Warnings | ${{ steps.eslint.outputs.warnings }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.eslint.outputs.errors }}" -eq 0 ]; then
+            echo "✅ No linting errors found!" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Linting errors found. Please fix before merging." >> $GITHUB_STEP_SUMMARY
+          fi
+
   test:
     runs-on: ubuntu-latest
+    needs: lint
 
     steps:
       - name: Checkout repository
@@ -49,28 +101,86 @@ jobs:
         run: ./mvnw package -q -DskipTests
 
       - name: Run Playwright tests
+        id: playwright
+        continue-on-error: true
         run: npm test
 
       - name: Validate generated ICS files with ical4j
+        id: validation
+        continue-on-error: true
         run: |
           echo "Validating generated ICS files..."
           VALIDATOR_JAR="validator/target/ical-validator-1.0.0.jar"
           VALIDATOR_LIBS="validator/target/lib/*"
+
+          TOTAL=0
+          PASSED=0
+          FAILED=0
 
           # Find all generated ICS files
           for ics_file in test-output/*.ics; do
             if [ -f "$ics_file" ]; then
               echo "----------------------------------------"
               echo "Validating: $ics_file"
-              java -cp "$VALIDATOR_JAR:$VALIDATOR_LIBS" ICalValidator "$ics_file"
-              if [ $? -ne 0 ]; then
+              TOTAL=$((TOTAL + 1))
+              if java -cp "$VALIDATOR_JAR:$VALIDATOR_LIBS" ICalValidator "$ics_file"; then
+                PASSED=$((PASSED + 1))
+              else
+                FAILED=$((FAILED + 1))
                 echo "VALIDATION FAILED for $ics_file"
-                exit 1
               fi
             fi
           done
           echo "----------------------------------------"
-          echo "All ICS files validated successfully!"
+          echo "Validation complete: $PASSED/$TOTAL files passed"
+
+          echo "total=$TOTAL" >> $GITHUB_OUTPUT
+          echo "passed=$PASSED" >> $GITHUB_OUTPUT
+          echo "failed=$FAILED" >> $GITHUB_OUTPUT
+
+          if [ "$FAILED" -gt 0 ]; then
+            exit 1
+          fi
+
+      - name: Add test summary
+        if: always()
+        run: |
+          echo "## 🧪 Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Parse Playwright test results from JSON reporter
+          if [ -f "test-results/.last-run.json" ] || [ -f "playwright-report/index.html" ]; then
+            # Try to extract test counts from the test output
+            TOTAL_TESTS=$(find test-results -name "*.xml" 2>/dev/null | wc -l || echo "N/A")
+            echo "### Playwright Tests" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            if [ "${{ steps.playwright.outcome }}" == "success" ]; then
+              echo "✅ All Playwright tests passed!" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "❌ Some Playwright tests failed. Check the test results for details." >> $GITHUB_STEP_SUMMARY
+            fi
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "### ICS File Validation" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Metric | Count |" >> $GITHUB_STEP_SUMMARY
+          echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Total Files | ${{ steps.validation.outputs.total }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Passed | ${{ steps.validation.outputs.passed }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Failed | ${{ steps.validation.outputs.failed }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.validation.outputs.failed }}" -eq 0 ]; then
+            echo "✅ All ICS files validated successfully!" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Some ICS files failed validation." >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check test results
+        if: steps.playwright.outcome != 'success' || steps.validation.outcome != 'success'
+        run: exit 1
 
       - name: Upload test results
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
