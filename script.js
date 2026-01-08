@@ -76,6 +76,15 @@
       renderSavedEvents();
       updateDebugInfo();
       updateDownloadButtonState();
+
+      // Show preview on initial load if there's a start date
+      const startDate = document.getElementById('startDate').value;
+      if (startDate) {
+        calculateOccurrences();
+        renderCalendar();
+        previewSection.style.display = 'block';
+        updatePreviewContent(isRecurringCheckbox.checked);
+      }
     }
 
     function updateDebugInfo() {
@@ -597,10 +606,18 @@
         timezoneSelect.value = defaultTz;
       }
 
-      // Hide recurrence options and preview
+      // Hide recurrence options and reminder options
       recurrenceOptions.classList.remove('show');
-      previewSection.style.display = 'none';
       reminderOptions.classList.remove('show');
+
+      // Show preview with default start date
+      const startDate = document.getElementById('startDate').value;
+      if (startDate) {
+        calculateOccurrences();
+        renderCalendar();
+        previewSection.style.display = 'block';
+        updatePreviewContent(isRecurringCheckbox.checked);
+      }
 
       // Clear validation status
       validationStatus.classList.remove('show', 'success', 'error');
