@@ -26,11 +26,18 @@ module.exports = [
         setInterval: 'readonly',
         clearInterval: 'readonly',
         window: 'readonly',
-        document: 'readonly'
+        document: 'readonly',
+        localStorage: 'readonly',
+        location: 'readonly',
+        Blob: 'readonly',
+        URL: 'readonly',
+        confirm: 'readonly',
+        alert: 'readonly',
+        ICAL: 'readonly'
       }
     },
     rules: {
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
       'no-undef': 'error',
       'no-console': 'off',
       'semi': ['error', 'always'],
