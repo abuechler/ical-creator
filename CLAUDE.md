@@ -31,6 +31,7 @@ This project is a simple website to create iCal calendar files (.ics) with recur
     - `npx playwright test`
     - `mvn -f /workspace/validator/pom.xml test`
 - Commit as Author: `claude-code-ical-creator[bot] <253599583+claude-code-ical-creator[bot]@users.noreply.github.com>`
+- Ask for a PR review from `GitHub Copilot` and `abuechler`
 
 ## GitHub App Authentication
 
