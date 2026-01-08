@@ -1305,3 +1305,164 @@ test.describe('iCal Creator - Responsive Design', () => {
   });
 
 });
+
+test.describe('iCal Creator - Preview Visibility for Non-Recurring Events', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    await page.waitForSelector('#title');
+  });
+
+  test('Preview should be shown for non-recurring events', async ({ page }) => {
+    // Fill in basic event details
+    await scrollAndFill(page, '#title', 'Non-Recurring Event');
+    await scrollAndFill(page, '#startDate', '2026-02-15');
+    // Blur the field to trigger change event
+    await page.locator('#startDate').blur();
+    await scrollAndFill(page, '#startTime', '10:00');
+
+    // Wait for preview to be shown
+    await page.waitForTimeout(1000);
+
+    // Verify preview section is visible
+    const previewSection = page.locator('#previewSection');
+    await expect(previewSection).toBeVisible();
+
+    // Verify preview title is "Preview" (not "Preview & Exceptions")
+    const previewTitle = page.locator('#preview-title');
+    await expect(previewTitle).toHaveText('Preview');
+
+    // Verify the calendar is shown with the event date highlighted
+    const calendarGrid = page.locator('#calendarGrid');
+    await expect(calendarGrid).toBeVisible();
+
+    // Verify at least one event day exists
+    const eventDay = page.locator('.event-day').first();
+    await expect(eventDay).toBeVisible();
+  });
+
+  test('Preview should show correct instructions for non-recurring events', async ({ page }) => {
+    // Fill in basic event details
+    await scrollAndFill(page, '#title', 'Single Event');
+    await scrollAndFill(page, '#startDate', '2026-03-20');
+
+    // Wait for preview to be visible
+    await page.waitForTimeout(500);
+    const previewSection = page.locator('#previewSection');
+    await expect(previewSection).toBeVisible();
+
+    // Verify instructions text is for non-recurring events
+    const instructionsText = previewSection.locator('p').first();
+    await expect(instructionsText).toHaveText('This is how your event will appear on the calendar.');
+  });
+
+  test('Exception UI should be hidden for non-recurring events', async ({ page }) => {
+    // Fill in basic event details
+    await scrollAndFill(page, '#title', 'Non-Recurring Event');
+    await scrollAndFill(page, '#startDate', '2026-04-10');
+
+    // Wait for preview to be visible
+    await page.waitForTimeout(500);
+    const previewSection = page.locator('#previewSection');
+    await expect(previewSection).toBeVisible();
+
+    // Verify exception count toggle is hidden
+    const exceptionToggle = page.locator('#exceptionCount');
+    await expect(exceptionToggle).toBeHidden();
+
+    // Verify exception legend item is hidden
+    const exceptionLegend = page.locator('.legend-item:has(.legend-dot.exception)');
+    await expect(exceptionLegend).toBeHidden();
+  });
+
+  test('Preview should update to show exceptions UI when recurring is enabled', async ({ page }) => {
+    // Fill in basic event details
+    await scrollAndFill(page, '#title', 'Event');
+    await scrollAndFill(page, '#startDate', '2026-05-15');
+
+    // Wait for preview to be visible (non-recurring)
+    await page.waitForTimeout(500);
+    const previewSection = page.locator('#previewSection');
+    await expect(previewSection).toBeVisible();
+
+    // Verify exception UI is hidden initially
+    const exceptionToggle = page.locator('#exceptionCount');
+    await expect(exceptionToggle).toBeHidden();
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+
+    // Wait for preview to update
+    await page.waitForTimeout(500);
+
+    // Verify preview title changed to "Preview & Exceptions"
+    const previewTitle = page.locator('#preview-title');
+    await expect(previewTitle).toHaveText('Preview & Exceptions');
+
+    // Verify exception UI is now visible
+    await expect(exceptionToggle).toBeVisible();
+
+    // Verify instructions changed for recurring events
+    const instructionsText = previewSection.locator('p').first();
+    await expect(instructionsText).toHaveText('Click on highlighted dates to exclude them from the recurring event.');
+  });
+
+  test('Clicking event dates should not add exceptions for non-recurring events', async ({ page }) => {
+    // Fill in basic event details
+    await scrollAndFill(page, '#title', 'Non-Recurring Event');
+    await scrollAndFill(page, '#startDate', '2026-06-10');
+    // Blur the field to trigger change event
+    await page.locator('#startDate').blur();
+
+    // Wait for preview to be visible
+    await page.waitForTimeout(1000);
+    const previewSection = page.locator('#previewSection');
+    await expect(previewSection).toBeVisible();
+
+    // Find the event day
+    const eventDay = page.locator('.event-day').first();
+    await expect(eventDay).toBeVisible();
+
+    // Verify cursor is default (not pointer)
+    const cursorStyle = await eventDay.evaluate((el) => window.getComputedStyle(el).cursor);
+    expect(cursorStyle).toBe('default');
+
+    // Click on the event day
+    await eventDay.click();
+
+    // Verify no exception was added (exception toggle should remain hidden)
+    const exceptionToggle = page.locator('#exceptionCount');
+    await expect(exceptionToggle).toBeHidden();
+
+    // Verify event day doesn't have exception class
+    await expect(eventDay).not.toHaveClass(/exception/);
+  });
+
+  test('Preview should remain visible when switching from recurring to non-recurring', async ({ page }) => {
+    // Fill in event details
+    await scrollAndFill(page, '#title', 'Event');
+    await scrollAndFill(page, '#startDate', '2026-07-20');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+
+    // Wait for preview to update
+    await page.waitForTimeout(500);
+
+    // Verify preview is visible for recurring
+    const previewSection = page.locator('#previewSection');
+    await expect(previewSection).toBeVisible();
+
+    // Disable recurring (uncheck by clicking again)
+    await scrollAndCheck(page, '#isRecurring');
+
+    // Wait for preview to update
+    await page.waitForTimeout(500);
+
+    // Verify preview is still visible (not hidden)
+    await expect(previewSection).toBeVisible();
+
+    // Verify title changed back to "Preview"
+    const previewTitle = page.locator('#preview-title');
+    await expect(previewTitle).toHaveText('Preview');
+  });
+});
