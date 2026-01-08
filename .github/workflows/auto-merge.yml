@@ -121,14 +121,20 @@ jobs:
                 ref: pr.head.sha
               });
 
-              if (statuses.data.state === 'pending') {
-                console.log('Some commit statuses are still pending');
-                continue;
-              }
+              // If there are no commit statuses at all, treat as success
+              // (GitHub returns 'pending' state by default when total_count is 0)
+              if (statuses.data.total_count > 0) {
+                if (statuses.data.state === 'pending') {
+                  console.log('Some commit statuses are still pending');
+                  continue;
+                }
 
-              if (statuses.data.state === 'failure') {
-                console.log('Some commit statuses failed');
-                continue;
+                if (statuses.data.state === 'failure') {
+                  console.log('Some commit statuses failed');
+                  continue;
+                }
+              } else {
+                console.log('No commit statuses found, proceeding');
               }
 
               // All conditions met, merge the PR
