@@ -1814,9 +1814,14 @@
       // Start date change - update monthly hints and calendar
       document.getElementById('startDate').addEventListener('change', () => {
         updateMonthlyHints();
-        if (isRecurringCheckbox.checked) {
+        // Update preview for both recurring and non-recurring events
+        const startDate = document.getElementById('startDate').value;
+        if (startDate) {
           calculateOccurrences();
           renderCalendar();
+          // Always show and update preview when there's a valid start date
+          previewSection.style.display = 'block';
+          updatePreviewContent(isRecurringCheckbox.checked);
         }
       });
 
@@ -1962,11 +1967,43 @@
     function handleRecurringToggle() {
       const isRecurring = isRecurringCheckbox.checked;
       recurrenceOptions.classList.toggle('show', isRecurring);
-      previewSection.style.display = isRecurring ? 'block' : 'none';
+      previewSection.style.display = 'block';
 
+      // Update preview content based on recurring state
+      updatePreviewContent(isRecurring);
+
+      // Always calculate occurrences and render calendar
+      calculateOccurrences();
+      renderCalendar();
+    }
+
+    function updatePreviewContent(isRecurring) {
+      // Update preview title
+      const previewTitle = document.getElementById('preview-title');
+      previewTitle.textContent = isRecurring ? 'Preview & Exceptions' : 'Preview';
+
+      // Update instructions text
+      const instructionsPara = previewSection.querySelector('p');
       if (isRecurring) {
-        calculateOccurrences();
-        renderCalendar();
+        instructionsPara.textContent = 'Click on highlighted dates to exclude them from the recurring event.';
+        instructionsPara.style.display = 'block';
+      } else {
+        instructionsPara.textContent = 'This is how your event will appear on the calendar.';
+        instructionsPara.style.display = 'block';
+      }
+
+      // Show/hide exception-related UI
+      const calendarInfo = document.querySelector('.calendar-info');
+      if (calendarInfo) {
+        const exceptionToggle = document.getElementById('exceptionCount');
+        const exceptionLegend = document.querySelector('.legend-item:has(.legend-dot.exception)');
+
+        if (exceptionToggle) {
+          exceptionToggle.style.display = isRecurring ? 'flex' : 'none';
+        }
+        if (exceptionLegend) {
+          exceptionLegend.style.display = isRecurring ? 'flex' : 'none';
+        }
       }
     }
 
@@ -2238,6 +2275,12 @@
     }
 
     function renderCalendar() {
+      // If there are event occurrences, set calendar to show the first event's month
+      if (state.eventOccurrences.length > 0) {
+        const firstOccurrence = state.eventOccurrences[0];
+        state.calendarDate = new Date(firstOccurrence.getFullYear(), firstOccurrence.getMonth(), 1);
+      }
+
       const year = state.calendarDate.getFullYear();
       const month = state.calendarDate.getMonth();
 
@@ -2308,13 +2351,21 @@
       if (isEventDay) {
         el.classList.add('event-day');
         el.setAttribute('tabindex', '0');
-        el.setAttribute('aria-label', `${MONTHS[date.getMonth()]} ${day}, ${date.getFullYear()}${isException ? ' (excluded)' : ''}`);
+
+        // Only make clickable for recurring events
+        if (isRecurringCheckbox.checked) {
+          el.setAttribute('aria-label', `${MONTHS[date.getMonth()]} ${day}, ${date.getFullYear()}${isException ? ' (excluded)' : ''}`);
+          el.addEventListener('click', () => toggleException(date));
+          // Add cursor pointer style for recurring events
+          el.style.cursor = 'pointer';
+        } else {
+          el.setAttribute('aria-label', `${MONTHS[date.getMonth()]} ${day}, ${date.getFullYear()}`);
+          el.style.cursor = 'default';
+        }
 
         if (isException) {
           el.classList.add('exception');
         }
-
-        el.addEventListener('click', () => toggleException(date));
       }
 
       return el;
@@ -2330,6 +2381,11 @@
     }
 
     function toggleException(date) {
+      // Only allow exceptions for recurring events
+      if (!isRecurringCheckbox.checked) {
+        return;
+      }
+
       const dateKey = formatDateKey(date);
       if (state.exceptions.has(dateKey)) {
         state.exceptions.delete(dateKey);
