@@ -1188,3 +1188,120 @@ test.describe('iCal Creator - Demo Events', () => {
   });
 
 });
+
+test.describe('iCal Creator - Responsive Design', () => {
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    await page.waitForSelector('#title');
+  });
+
+  test('Mobile layout (375x812) - single column layout', async ({ page, browserName }, testInfo) => {
+    // Skip if not running on mobile viewport
+    if (testInfo.project.name !== 'Mobile Firefox') {
+      test.skip();
+    }
+
+    // Verify the viewport is mobile size
+    const viewport = page.viewportSize();
+    expect(viewport.width).toBe(375);
+
+    // Check that main content exists and is visible
+    const mainContent = page.locator('.form-area');
+    await expect(mainContent).toBeVisible();
+
+    // Check that the Event Details card is visible
+    const eventDetailsCard = page.locator('section[aria-labelledby="basic-info-title"]');
+    await expect(eventDetailsCard).toBeVisible();
+
+    // Get bounding boxes to verify single column layout
+    const eventDetailsBox = await eventDetailsCard.boundingBox();
+
+    // In mobile layout, Event Details should be near full width
+    // Allow some padding (expect width > 300px on 375px viewport)
+    expect(eventDetailsBox.width).toBeGreaterThan(300);
+
+    // Verify form row stacks vertically on mobile
+    const formRow = page.locator('.form-row').first();
+    const formRowBox = await formRow.boundingBox();
+
+    // The form row width should be similar to the card width (stacked layout)
+    expect(formRowBox.width).toBeGreaterThan(300);
+  });
+
+  test('Desktop layout (1440x900) - two column layout', async ({ page, browserName }, testInfo) => {
+    // Skip if not running on desktop viewport
+    if (testInfo.project.name !== 'Laptop Firefox') {
+      test.skip();
+    }
+
+    // Verify the viewport is desktop size
+    const viewport = page.viewportSize();
+    expect(viewport.width).toBe(1440);
+
+    // Check that main content exists and is visible
+    const mainContent = page.locator('.form-area');
+    await expect(mainContent).toBeVisible();
+
+    // Check that the Event Details card is visible
+    const eventDetailsCard = page.locator('section[aria-labelledby="basic-info-title"]');
+    await expect(eventDetailsCard).toBeVisible();
+
+    // Enable recurrence to make preview section visible
+    const isRecurringCheckbox = page.locator('#isRecurring');
+    const slider = isRecurringCheckbox.locator('xpath=following-sibling::span[@class="toggle-slider"]');
+    await slider.scrollIntoViewIfNeeded();
+    await slider.click();
+
+    // Wait for preview section to appear
+    const previewSection = page.locator('#previewSection');
+    await expect(previewSection).toBeVisible();
+
+    // Get bounding boxes to verify two-column layout
+    const eventDetailsBox = await eventDetailsCard.boundingBox();
+    const previewBox = await previewSection.boundingBox();
+
+    // In desktop layout, Event Details and Preview should be side by side
+    // Event Details should be in left column (x position near left edge)
+    expect(eventDetailsBox.x).toBeLessThan(200); // Left column starts near left edge
+
+    // Preview section should be in right column (x position should be roughly half the container)
+    expect(previewBox.x).toBeGreaterThan(600); // Right column starts around middle
+
+    // Both should have similar widths in a two-column layout
+    expect(eventDetailsBox.width).toBeGreaterThan(400);
+    expect(previewBox.width).toBeGreaterThan(400);
+  });
+
+  test('Desktop layout - container uses full width', async ({ page }, testInfo) => {
+    // Skip if not running on desktop viewport
+    if (testInfo.project.name !== 'Laptop Firefox') {
+      test.skip();
+    }
+
+    // Check that container is wider on desktop
+    const container = page.locator('.container');
+    const containerBox = await container.boundingBox();
+
+    // On desktop, container max-width should be 1200px
+    // With 1440px viewport and padding, container should be close to 1200px
+    expect(containerBox.width).toBeGreaterThan(1000);
+    expect(containerBox.width).toBeLessThanOrEqual(1200);
+  });
+
+  test('Mobile layout - container is narrower', async ({ page }, testInfo) => {
+    // Skip if not running on mobile viewport
+    if (testInfo.project.name !== 'Mobile Firefox') {
+      test.skip();
+    }
+
+    // Check that container is narrow on mobile
+    const container = page.locator('.container');
+    const containerBox = await container.boundingBox();
+
+    // On mobile (375px viewport), container should be close to 375px
+    expect(containerBox.width).toBeLessThanOrEqual(375);
+    expect(containerBox.width).toBeGreaterThan(300);
+  });
+
+});
