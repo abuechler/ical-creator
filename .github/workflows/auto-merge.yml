@@ -89,13 +89,55 @@ jobs:
               ref: pr.head.sha
             });
 
-            if (statuses.data.state === 'pending') {
-              console.log('Checks are still pending, waiting...');
-              return;
+            // Wait for checks to complete (poll up to 10 minutes)
+            const maxWaitMinutes = 10;
+            const pollIntervalSeconds = 30;
+            const maxAttempts = (maxWaitMinutes * 60) / pollIntervalSeconds;
+
+            let attempt = 0;
+            let allChecksPassed = false;
+
+            while (attempt < maxAttempts) {
+              // Re-check both check runs and statuses
+              const currentChecks = await github.rest.checks.listForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: pr.head.sha
+              });
+
+              const currentStatuses = await github.rest.repos.getCombinedStatusForRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: pr.head.sha
+              });
+
+              const stillPending = currentChecks.data.check_runs.some(check => check.status !== 'completed');
+              const statusPending = currentStatuses.data.state === 'pending';
+
+              if (!stillPending && !statusPending) {
+                // Check if any failed
+                const anyFailed = currentChecks.data.check_runs.some(
+                  check => check.conclusion !== 'success' && check.conclusion !== 'skipped'
+                );
+
+                if (anyFailed || currentStatuses.data.state === 'failure') {
+                  console.log('Some checks failed, cannot auto-merge');
+                  return;
+                }
+
+                allChecksPassed = true;
+                break;
+              }
+
+              attempt++;
+              if (attempt < maxAttempts) {
+                console.log(`Checks still pending, waiting ${pollIntervalSeconds}s... (attempt ${attempt}/${maxAttempts})`);
+                await new Promise(resolve => setTimeout(resolve, pollIntervalSeconds * 1000));
+              }
             }
 
-            if (statuses.data.state === 'failure') {
-              console.log('Some status checks failed, cannot auto-merge');
+            if (!allChecksPassed) {
+              console.log('Checks did not complete within timeout, giving up');
               return;
             }
 
