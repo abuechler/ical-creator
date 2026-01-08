@@ -34,6 +34,8 @@ jobs:
           # Copy files to temp directory (outside repo, survives branch switch)
           mkdir -p /tmp/deploy
           cp ical-creator.html /tmp/deploy/index.html
+          cp styles.css /tmp/deploy/
+          cp script.js /tmp/deploy/
           [ -f lock.svg ] && cp lock.svg /tmp/deploy/ || true
 
           # Inject version into HTML
