@@ -697,8 +697,8 @@ test.describe('iCal Creator - Form Validation', () => {
     const downloadBtn = page.locator('button[type="submit"]');
 
     // Button should still be disabled without title
-    const isDisabled = await downloadBtn.isDisabled();
-    expect(isDisabled).toBeTruthy();
+    const isDisabled = downloadBtn;
+    await expect(isDisabled).toBeDisabled();
   });
 
 });
@@ -868,7 +868,7 @@ test.describe('iCal Creator - Preview Bug Fix (Last Friday)', () => {
       '2026-09-25', // Sep last Friday
       '2026-10-30', // Oct last Friday
       '2026-11-27', // Nov last Friday
-      '2026-12-25', // Dec last Friday
+      '2026-12-25' // Dec last Friday
     ];
 
     expect(occurrences.dates).toEqual(expectedDates);
@@ -993,7 +993,7 @@ test.describe('iCal Creator - Preview Bug Fix (Last Friday)', () => {
       '2026-10-30', // Oct 30
       '2026-11-30', // Nov 30
       '2026-12-30', // Dec 30
-      '2027-01-30', // Jan 30 (12th occurrence)
+      '2027-01-30' // Jan 30 (12th occurrence)
     ];
 
     expect(occurrences.dates).toEqual(expectedDates);
@@ -1196,7 +1196,7 @@ test.describe('iCal Creator - Responsive Design', () => {
     await page.waitForSelector('#title');
   });
 
-  test('Mobile layout (375x812) - single column layout', async ({ page, browserName }, testInfo) => {
+  test('Mobile layout (375x812) - single column layout', async ({ page, browserName: _browserName }, testInfo) => {
     // Skip if not running on mobile viewport
     if (testInfo.project.name !== 'Mobile Firefox') {
       test.skip();
@@ -1229,7 +1229,7 @@ test.describe('iCal Creator - Responsive Design', () => {
     expect(formRowBox.width).toBeGreaterThan(300);
   });
 
-  test('Desktop layout (1440x900) - two column layout', async ({ page, browserName }, testInfo) => {
+  test('Desktop layout (1440x900) - two column layout', async ({ page, browserName: _browserName }, testInfo) => {
     // Skip if not running on desktop viewport
     if (testInfo.project.name !== 'Laptop Firefox') {
       test.skip();
