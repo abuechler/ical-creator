@@ -2,7 +2,7 @@
 
 This project is a simple website to create iCal calendar files (.ics) with recurring events support. It is implemented purely with HTML, CSS and JavaScript - no build step required to run. GitHub Actions runs tests via Maven and Playwright.
 
-1. When started with the continue command, check which doc/stories or doc/bugs are not yet done. Pick one and work on it
+1. When started with the continue command, check the files in doc/stories or doc/bugs and which ones are not done yet. Pick one and work on it
    in a separate branch.
 2. Before doing any actual work or planning, check the section [execution instructions](#execution-instructions) below.
 3. When done, move the story or bug document to the directory doc/{stories,bugs}/pr.
