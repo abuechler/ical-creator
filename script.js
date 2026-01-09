@@ -63,6 +63,11 @@ const resetTimezoneBtn = document.getElementById('resetTimezoneBtn');
 const privacyInfoBtn = document.getElementById('privacyInfoBtn');
 const privacyModal = document.getElementById('privacyModal');
 const privacyModalClose = document.getElementById('privacyModalClose');
+const addToCalendarBtn = document.getElementById('addToCalendarBtn');
+const calendarDropdownMenu = document.getElementById('calendarDropdownMenu');
+const addToGoogleCalendar = document.getElementById('addToGoogleCalendar');
+const addToOutlook = document.getElementById('addToOutlook');
+const addToYahoo = document.getElementById('addToYahoo');
 
 // ==================== Initialization ====================
 function init() {
@@ -371,6 +376,26 @@ function attachEventListeners() {
     }
   });
 
+  // Add to Calendar dropdown
+  addToCalendarBtn.addEventListener('click', toggleCalendarDropdown);
+  addToGoogleCalendar.addEventListener('click', handleAddToGoogleCalendar);
+  addToOutlook.addEventListener('click', handleAddToOutlook);
+  addToYahoo.addEventListener('click', handleAddToYahoo);
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('#addToCalendarDropdown')) {
+      closeCalendarDropdown();
+    }
+  });
+
+  // Close dropdown on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && calendarDropdownMenu.classList.contains('show')) {
+      closeCalendarDropdown();
+    }
+  });
+
   // Auto-save form state on input change
   const autoSaveInputs = [
     'title', 'startDate', 'startTime', 'endDate', 'endTime',
@@ -640,6 +665,234 @@ function handleSubmit(e) {
   }
 
   generateAndDownloadICS();
+}
+
+// ==================== Calendar Deep Links ====================
+function toggleCalendarDropdown(e) {
+  e.stopPropagation();
+  const isOpen = calendarDropdownMenu.classList.toggle('show');
+  addToCalendarBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+}
+
+function closeCalendarDropdown() {
+  calendarDropdownMenu.classList.remove('show');
+  addToCalendarBtn.setAttribute('aria-expanded', 'false');
+}
+
+function handleAddToGoogleCalendar(e) {
+  e.preventDefault();
+
+  if (!validateBasicFields()) {
+    closeCalendarDropdown();
+    return;
+  }
+
+  const url = generateGoogleCalendarUrl();
+  window.open(url, '_blank', 'noopener,noreferrer');
+  closeCalendarDropdown();
+}
+
+function handleAddToOutlook(e) {
+  e.preventDefault();
+
+  if (!validateBasicFields()) {
+    closeCalendarDropdown();
+    return;
+  }
+
+  const url = generateOutlookUrl();
+  window.open(url, '_blank', 'noopener,noreferrer');
+  closeCalendarDropdown();
+}
+
+function handleAddToYahoo(e) {
+  e.preventDefault();
+
+  if (!validateBasicFields()) {
+    closeCalendarDropdown();
+    return;
+  }
+
+  const url = generateYahooUrl();
+  window.open(url, '_blank', 'noopener,noreferrer');
+  closeCalendarDropdown();
+}
+
+function generateGoogleCalendarUrl() {
+  const title = document.getElementById('title').value.trim();
+  const startDateStr = document.getElementById('startDate').value;
+  const startTimeStr = document.getElementById('startTime').value;
+  const endDateStr = document.getElementById('endDate').value || startDateStr;
+  const endTimeStr = document.getElementById('endTime').value || startTimeStr;
+  const location = document.getElementById('location').value.trim();
+  const description = document.getElementById('description').value.trim();
+  const isAllDay = allDayCheckbox.checked;
+
+  // Format dates for Google Calendar
+  // All-day: YYYYMMDD
+  // Timed: YYYYMMDDTHHMMSS
+  let dates;
+  if (isAllDay) {
+    const startFormatted = startDateStr.replace(/-/g, '');
+    // For all-day events, end date is exclusive (next day)
+    const endDate = new Date(endDateStr + 'T00:00:00');
+    endDate.setDate(endDate.getDate() + 1);
+    const endFormatted = formatDateForInput(endDate).replace(/-/g, '');
+    dates = `${startFormatted}/${endFormatted}`;
+  } else {
+    const startFormatted = startDateStr.replace(/-/g, '') + 'T' + startTimeStr.replace(/:/g, '') + '00';
+    const endFormatted = endDateStr.replace(/-/g, '') + 'T' + endTimeStr.replace(/:/g, '') + '00';
+    dates = `${startFormatted}/${endFormatted}`;
+  }
+
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: title,
+    dates: dates
+  });
+
+  if (location) {
+    params.set('location', location);
+  }
+
+  if (description) {
+    params.set('details', description);
+  }
+
+  // Add recurrence if enabled
+  if (isRecurringCheckbox.checked) {
+    const rrule = buildRRuleString();
+    if (rrule) {
+      params.set('recur', rrule);
+    }
+  }
+
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
+function generateOutlookUrl() {
+  const title = document.getElementById('title').value.trim();
+  const startDateStr = document.getElementById('startDate').value;
+  const startTimeStr = document.getElementById('startTime').value || '00:00';
+  const endDateStr = document.getElementById('endDate').value || startDateStr;
+  const endTimeStr = document.getElementById('endTime').value || startTimeStr;
+  const location = document.getElementById('location').value.trim();
+  const description = document.getElementById('description').value.trim();
+  const isAllDay = allDayCheckbox.checked;
+
+  // Outlook uses ISO 8601 format
+  const startDatetime = isAllDay ? startDateStr : `${startDateStr}T${startTimeStr}:00`;
+  const endDatetime = isAllDay ? endDateStr : `${endDateStr}T${endTimeStr}:00`;
+
+  const params = new URLSearchParams({
+    path: '/calendar/action/compose',
+    rru: 'addevent',
+    subject: title,
+    startdt: startDatetime,
+    enddt: endDatetime
+  });
+
+  if (isAllDay) {
+    params.set('allday', 'true');
+  }
+
+  if (location) {
+    params.set('location', location);
+  }
+
+  if (description) {
+    params.set('body', description);
+  }
+
+  return `https://outlook.live.com/calendar/0/deeplink/compose?${params.toString()}`;
+}
+
+function generateYahooUrl() {
+  const title = document.getElementById('title').value.trim();
+  const startDateStr = document.getElementById('startDate').value;
+  const startTimeStr = document.getElementById('startTime').value || '00:00';
+  const endDateStr = document.getElementById('endDate').value || startDateStr;
+  const endTimeStr = document.getElementById('endTime').value || startTimeStr;
+  const location = document.getElementById('location').value.trim();
+  const description = document.getElementById('description').value.trim();
+  const isAllDay = allDayCheckbox.checked;
+
+  // Yahoo uses YYYYMMDD for all-day, YYYYMMDDTHHMMSS for timed events
+  let st, et;
+  if (isAllDay) {
+    st = startDateStr.replace(/-/g, '');
+    et = endDateStr.replace(/-/g, '');
+  } else {
+    st = startDateStr.replace(/-/g, '') + 'T' + startTimeStr.replace(/:/g, '') + '00';
+    et = endDateStr.replace(/-/g, '') + 'T' + endTimeStr.replace(/:/g, '') + '00';
+  }
+
+  const params = new URLSearchParams({
+    v: '60',
+    title: title,
+    st: st,
+    et: et
+  });
+
+  if (isAllDay) {
+    params.set('dur', 'allday');
+  }
+
+  if (location) {
+    params.set('in_loc', location);
+  }
+
+  if (description) {
+    params.set('desc', description);
+  }
+
+  return `https://calendar.yahoo.com/?${params.toString()}`;
+}
+
+function buildRRuleString() {
+  const frequency = frequencySelect.value;
+  const interval = parseInt(document.getElementById('interval').value);
+  const endType = document.querySelector('input[name="endType"]:checked').value;
+
+  let rrule = `RRULE:FREQ=${frequency}`;
+
+  if (interval > 1) {
+    rrule += `;INTERVAL=${interval}`;
+  }
+
+  // Weekly - add BYDAY
+  if (frequency === 'WEEKLY' && state.selectedDays.size > 0) {
+    rrule += `;BYDAY=${Array.from(state.selectedDays).join(',')}`;
+  }
+
+  // Monthly - add BYMONTHDAY or BYDAY
+  if (frequency === 'MONTHLY') {
+    const monthlyType = document.querySelector('input[name="monthlyType"]:checked').value;
+    const startDateStr = document.getElementById('startDate').value;
+    const startDate = new Date(startDateStr + 'T00:00:00');
+
+    if (monthlyType === 'date') {
+      rrule += `;BYMONTHDAY=${startDate.getDate()}`;
+    } else {
+      const weekOfMonth = Math.ceil(startDate.getDate() / 7);
+      const dayCode = WEEKDAY_CODES[startDate.getDay()];
+      const weekNum = weekOfMonth >= 5 ? -1 : weekOfMonth;
+      rrule += `;BYDAY=${weekNum}${dayCode}`;
+    }
+  }
+
+  // End condition
+  if (endType === 'date') {
+    const endDateStr = recurrenceEndDateInput.value;
+    if (endDateStr) {
+      rrule += `;UNTIL=${endDateStr.replace(/-/g, '')}`;
+    }
+  } else if (endType === 'count') {
+    const count = parseInt(occurrenceCountInput.value) || 10;
+    rrule += `;COUNT=${count}`;
+  }
+
+  return rrule;
 }
 
 // ==================== Calendar ====================

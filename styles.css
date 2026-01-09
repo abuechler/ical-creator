@@ -1094,6 +1094,80 @@
       margin-bottom: 0;
     }
 
+    /* ==================== Dropdown ==================== */
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dropdown-toggle svg {
+      transition: transform 0.2s;
+    }
+
+    .dropdown-toggle[aria-expanded="true"] svg {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 100;
+      display: none;
+      min-width: 180px;
+      padding: 8px 0;
+      margin-top: 4px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md);
+    }
+
+    .dropdown-menu.show {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 16px;
+      color: var(--gray-700);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition: background-color 0.15s, color 0.15s;
+    }
+
+    .dropdown-item:hover {
+      background: var(--gray-50);
+      color: var(--gray-900);
+    }
+
+    .dropdown-item:focus {
+      outline: none;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+    }
+
+    .dropdown-item svg {
+      flex-shrink: 0;
+    }
+
+    /* Right-align dropdown on mobile to prevent overflow */
+    @media (max-width: 480px) {
+      .dropdown-menu {
+        right: 0;
+        left: auto;
+      }
+    }
+
     /* ==================== Debug Info ==================== */
     .debug-info {
       margin-top: 24px;
