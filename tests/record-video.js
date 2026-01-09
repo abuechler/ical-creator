@@ -11,18 +11,49 @@
  *   --mobile-only     Record only mobile viewport (375x812)
  *   --output-dir      Custom output directory (default: videos/)
  *   --duration        Extra wait time in ms after scenario (default: 2000)
+ *   --gif             Convert output to GIF format (requires ffmpeg)
  *
  * Examples:
  *   node tests/record-video.js confetti
  *   node tests/record-video.js form-validation --mobile-only
  *   node tests/record-video.js recurring-event --duration 5000
+ *   node tests/record-video.js recurring-weekly --gif
  *
  * To add a new scenario, add it to the SCENARIOS object below.
  */
 
 const { firefox } = require('playwright');
+const { execSync, spawnSync } = require('child_process');
 const path = require('path');
 const fs = require('fs');
+
+// Check if ffmpeg is available
+function isFFmpegAvailable() {
+  try {
+    execSync('ffmpeg -version', { stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Convert WebM to GIF using ffmpeg
+function convertToGif(webmPath, gifPath, width = 640) {
+  console.log('  Converting to GIF...');
+  const result = spawnSync('ffmpeg', [
+    '-i', webmPath,
+    '-vf', `fps=10,scale=${width}:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse`,
+    '-loop', '0',
+    '-y', // Overwrite output
+    gifPath
+  ], { stdio: 'pipe' });
+
+  if (result.status !== 0) {
+    console.error(`  FFmpeg error: ${result.stderr?.toString()}`);
+    return false;
+  }
+  return true;
+}
 
 // Page URL
 const PAGE_URL = 'file://' + path.resolve(__dirname, '../ical-creator.html');
@@ -283,8 +314,10 @@ const SCENARIOS = {
 // Recording Engine
 // ============================================================================
 
-async function recordScenario(scenarioName, scenarioFn, viewport, outputDir, extraDuration) {
-  const outputFile = `${scenarioName}-${viewport.name}.webm`;
+async function recordScenario(scenarioName, scenarioFn, viewport, outputDir, extraDuration, convertToGifFormat = false) {
+  const webmFile = `${scenarioName}-${viewport.name}.webm`;
+  const gifFile = `${scenarioName}-${viewport.name}.gif`;
+  const outputFile = convertToGifFormat ? gifFile : webmFile;
   console.log(`  Recording ${outputFile} (${viewport.width}x${viewport.height})...`);
 
   const browser = await firefox.launch();
@@ -325,13 +358,27 @@ async function recordScenario(scenarioName, scenarioFn, viewport, outputDir, ext
   await context.close();
   await browser.close();
 
-  // Rename video file
+  // Rename video file and optionally convert to GIF
   if (video) {
     const videoPath = await video.path();
-    const newPath = path.join(outputDir, outputFile);
+    const webmPath = path.join(outputDir, webmFile);
+    const gifPath = path.join(outputDir, gifFile);
+
     try {
-      fs.renameSync(videoPath, newPath);
-      console.log(`  Saved: ${newPath}`);
+      fs.renameSync(videoPath, webmPath);
+
+      if (convertToGifFormat) {
+        const success = convertToGif(webmPath, gifPath, viewport.width > 800 ? 800 : viewport.width);
+        if (success) {
+          // Remove the intermediate WebM file
+          fs.unlinkSync(webmPath);
+          console.log(`  Saved: ${gifPath}`);
+        } else {
+          console.log(`  Conversion failed, keeping WebM: ${webmPath}`);
+        }
+      } else {
+        console.log(`  Saved: ${webmPath}`);
+      }
     } catch (_err) {
       console.log(`  Saved: ${videoPath}`);
     }
@@ -343,6 +390,7 @@ async function main() {
   const args = process.argv.slice(2);
 
   if (args.length === 0 || args.includes('--help') || args.includes('-h')) {
+    const ffmpegStatus = isFFmpegAvailable() ? '(available)' : '(not installed)';
     console.log(`
 Video Recording Utility for iCal Creator
 
@@ -357,6 +405,7 @@ Options:
   --mobile-only     Record only mobile viewport (375x812)
   --output-dir DIR  Custom output directory (default: videos/)
   --duration MS     Extra wait time after scenario (default: 2000)
+  --gif             Convert output to GIF format ${ffmpegStatus}
   --list            List all available scenarios
   --help, -h        Show this help message
 
@@ -365,6 +414,7 @@ Examples:
   node tests/record-video.js form-validation --mobile-only
   node tests/record-video.js recurring-weekly --duration 5000
   node tests/record-video.js full-workflow --output-dir ./demo-videos
+  node tests/record-video.js recurring-weekly --gif
 `);
     return;
   }
@@ -380,6 +430,7 @@ Examples:
   const scenarioName = args[0];
   const desktopOnly = args.includes('--desktop-only');
   const mobileOnly = args.includes('--mobile-only');
+  const useGif = args.includes('--gif');
   const durationIdx = args.indexOf('--duration');
   const extraDuration = durationIdx !== -1 ? parseInt(args[durationIdx + 1]) : 2000;
   const outputDirIdx = args.indexOf('--output-dir');
@@ -394,23 +445,31 @@ Examples:
     process.exit(1);
   }
 
+  // Check ffmpeg availability if GIF requested
+  if (useGif && !isFFmpegAvailable()) {
+    console.error('Error: --gif requires ffmpeg to be installed');
+    console.log('Install ffmpeg: apt-get install ffmpeg (Linux) or brew install ffmpeg (macOS)');
+    process.exit(1);
+  }
+
   // Create output directory
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
 
   console.log(`\nRecording scenario: ${scenarioName}`);
-  console.log(`Output directory: ${outputDir}\n`);
+  console.log(`Output directory: ${outputDir}`);
+  console.log(`Output format: ${useGif ? 'GIF' : 'WebM'}\n`);
 
   const scenarioFn = SCENARIOS[scenarioName];
 
   // Record for each viewport
   if (!mobileOnly) {
-    await recordScenario(scenarioName, scenarioFn, VIEWPORTS.desktop, outputDir, extraDuration);
+    await recordScenario(scenarioName, scenarioFn, VIEWPORTS.desktop, outputDir, extraDuration, useGif);
   }
 
   if (!desktopOnly) {
-    await recordScenario(scenarioName, scenarioFn, VIEWPORTS.mobile, outputDir, extraDuration);
+    await recordScenario(scenarioName, scenarioFn, VIEWPORTS.mobile, outputDir, extraDuration, useGif);
   }
 
   console.log('\nDone!');
