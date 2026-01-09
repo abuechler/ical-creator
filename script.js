@@ -79,6 +79,8 @@ const emojiPickerBtn = document.getElementById('emojiPickerBtn');
 const emojiPicker = document.getElementById('emojiPicker');
 const emojiGrid = document.getElementById('emojiGrid');
 const presetBtns = document.querySelectorAll('.preset-btn');
+const durationBtns = document.querySelectorAll('.duration-btn');
+const durationDisplay = document.getElementById('durationDisplay');
 
 // ==================== Emoji Picker Data ====================
 const EMOJI_LIST = [
@@ -117,6 +119,7 @@ function init() {
   updateDebugInfo();
   updateDownloadButtonState();
   renderEmojiPicker();
+  updateDurationDisplay();
 
   // Show preview on initial load if there's a start date
   const startDate = document.getElementById('startDate').value;
@@ -276,6 +279,121 @@ function clearPresetSelection() {
   presetBtns.forEach(btn => {
     btn.classList.remove('active');
   });
+}
+
+// ==================== Duration Helper ====================
+function handleDurationClick(duration) {
+  const startDate = document.getElementById('startDate').value;
+  const startTime = document.getElementById('startTime').value;
+
+  if (duration === 'allday') {
+    // Enable all-day checkbox
+    allDayCheckbox.checked = true;
+    handleAllDayToggle();
+    updateDurationSelection(duration);
+    saveFormState();
+    return;
+  }
+
+  // Need start date and time for duration presets
+  if (!startDate || !startTime) {
+    return;
+  }
+
+  // Calculate end time based on duration in minutes
+  const minutes = parseInt(duration, 10);
+  const [startHours, startMins] = startTime.split(':').map(Number);
+  const startTotalMins = startHours * 60 + startMins;
+  const endTotalMins = startTotalMins + minutes;
+
+  // Calculate end date and time
+  let endDate = startDate;
+  let endHours = Math.floor(endTotalMins / 60);
+  const endMins = endTotalMins % 60;
+
+  // Handle day overflow
+  if (endHours >= 24) {
+    const dateObj = new Date(startDate + 'T00:00:00');
+    dateObj.setDate(dateObj.getDate() + Math.floor(endHours / 24));
+    endDate = formatDateForInput(dateObj);
+    endHours = endHours % 24;
+  }
+
+  const endTimeStr = String(endHours).padStart(2, '0') + ':' + String(endMins).padStart(2, '0');
+
+  document.getElementById('endDate').value = endDate;
+  document.getElementById('endTime').value = endTimeStr;
+
+  updateDurationSelection(duration);
+  updateDurationDisplay();
+  saveFormState();
+}
+
+function updateDurationSelection(duration) {
+  durationBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.duration === duration);
+  });
+}
+
+function clearDurationSelection() {
+  durationBtns.forEach(btn => btn.classList.remove('active'));
+}
+
+function updateDurationDisplay() {
+  const startDate = document.getElementById('startDate').value;
+  const startTime = document.getElementById('startTime').value;
+  const endDate = document.getElementById('endDate').value;
+  const endTime = document.getElementById('endTime').value;
+
+  // If all-day is checked, show all-day duration
+  if (allDayCheckbox.checked) {
+    if (startDate && endDate && startDate !== endDate) {
+      const start = new Date(startDate + 'T00:00:00');
+      const end = new Date(endDate + 'T00:00:00');
+      const days = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
+      durationDisplay.textContent = days + ' day' + (days > 1 ? 's' : '');
+      durationDisplay.classList.remove('warning');
+    } else {
+      durationDisplay.textContent = 'All day';
+      durationDisplay.classList.remove('warning');
+    }
+    return;
+  }
+
+  // Need both start and end times to calculate duration
+  if (!startTime || !endTime) {
+    durationDisplay.textContent = '';
+    return;
+  }
+
+  // Calculate duration
+  const startDateTime = new Date((startDate || '2000-01-01') + 'T' + startTime);
+  const endDateTime = new Date((endDate || startDate || '2000-01-01') + 'T' + endTime);
+
+  const diffMs = endDateTime - startDateTime;
+  const diffMins = Math.round(diffMs / (1000 * 60));
+
+  if (diffMins < 0) {
+    durationDisplay.textContent = 'Invalid duration';
+    durationDisplay.classList.add('warning');
+    return;
+  }
+
+  durationDisplay.classList.remove('warning');
+
+  if (diffMins === 0) {
+    durationDisplay.textContent = '0 min';
+  } else if (diffMins < 60) {
+    durationDisplay.textContent = diffMins + ' min';
+  } else {
+    const hours = Math.floor(diffMins / 60);
+    const mins = diffMins % 60;
+    if (mins === 0) {
+      durationDisplay.textContent = hours + ' hour' + (hours > 1 ? 's' : '');
+    } else {
+      durationDisplay.textContent = hours + 'h ' + mins + 'm';
+    }
+  }
 }
 
 function getPreferredTimezone() {
@@ -561,6 +679,27 @@ function attachEventListeners() {
   // Clear preset selection when date is manually changed
   document.getElementById('startDate').addEventListener('change', clearPresetSelection);
 
+  // Duration preset buttons
+  durationBtns.forEach(btn => {
+    btn.addEventListener('click', () => handleDurationClick(btn.dataset.duration));
+  });
+
+  // Update duration display when times change
+  ['startTime', 'endTime', 'endDate'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('change', () => {
+        clearDurationSelection();
+        updateDurationDisplay();
+      });
+      el.addEventListener('input', () => {
+        clearDurationSelection();
+        updateDurationDisplay();
+      });
+    }
+  });
+
+
   // Auto-save form state on input change
   const autoSaveInputs = [
     'title', 'startDate', 'startTime', 'endDate', 'endTime',
@@ -657,10 +796,16 @@ function handleAllDayToggle() {
   if (isAllDay) {
     startTimeInput.removeAttribute('required');
     endTimeInput.removeAttribute('required');
+    // Hide duration presets for all-day events (only show duration display)
+    document.getElementById('durationPresets').classList.add('hidden');
+    updateDurationSelection('allday');
   } else {
     startTimeInput.setAttribute('required', '');
     endTimeInput.setAttribute('required', '');
+    document.getElementById('durationPresets').classList.remove('hidden');
+    clearDurationSelection();
   }
+  updateDurationDisplay();
 }
 
 function handleRecurringToggle() {
