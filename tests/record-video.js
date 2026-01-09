@@ -332,7 +332,7 @@ async function recordScenario(scenarioName, scenarioFn, viewport, outputDir, ext
     try {
       fs.renameSync(videoPath, newPath);
       console.log(`  Saved: ${newPath}`);
-    } catch (e) {
+    } catch (_err) {
       console.log(`  Saved: ${videoPath}`);
     }
   }
