@@ -158,6 +158,103 @@
       flex: 1;
     }
 
+    /* ==================== Emoji Picker ==================== */
+    .title-input-wrapper {
+      position: relative;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .title-input-wrapper input[type="text"] {
+      flex: 1;
+    }
+
+    .emoji-picker-btn {
+      width: 42px;
+      height: 42px;
+      padding: 0;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background-color 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .emoji-picker-btn:hover {
+      border-color: var(--primary);
+      background: var(--gray-50);
+    }
+
+    .emoji-picker-btn:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .emoji-picker {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 100;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      width: 280px;
+      max-height: 300px;
+      margin-top: 4px;
+    }
+
+    .emoji-picker.show {
+      display: block;
+    }
+
+    .emoji-picker-header {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+
+    .emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      padding: 12px;
+      max-height: 220px;
+      overflow-y: auto;
+    }
+
+    .emoji-item {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background-color 0.15s;
+    }
+
+    .emoji-item:hover {
+      background: var(--gray-100);
+    }
+
+    .emoji-item:focus {
+      outline: none;
+      background: var(--primary-light);
+    }
+
     /* ==================== Checkbox & Radio ==================== */
     .checkbox-group,
     .radio-group {

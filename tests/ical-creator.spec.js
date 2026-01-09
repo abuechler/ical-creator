@@ -1574,3 +1574,127 @@ test.describe('Confetti Celebration', () => {
     await expect(confettiContainer).toBeVisible({ timeout: 2000 });
   });
 });
+
+// ==================== Emoji Picker Tests ====================
+test.describe('Emoji Picker', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    // Clear any stored state
+    await page.evaluate(() => {
+      localStorage.clear();
+    });
+    await page.reload();
+  });
+
+  test('should open emoji picker when button is clicked', async ({ page }) => {
+    // Click emoji picker button
+    const emojiPickerBtn = page.locator('#emojiPickerBtn');
+    await emojiPickerBtn.click();
+
+    // Verify picker is visible
+    const emojiPicker = page.locator('#emojiPicker');
+    await expect(emojiPicker).toHaveClass(/show/);
+  });
+
+  test('should display emojis in the picker', async ({ page }) => {
+    // Open emoji picker
+    await page.locator('#emojiPickerBtn').click();
+
+    // Verify emojis are displayed
+    const emojiItems = page.locator('.emoji-item');
+    const count = await emojiItems.count();
+    expect(count).toBeGreaterThan(20); // Should have many emojis
+  });
+
+  test('should insert emoji into title field when clicked', async ({ page }) => {
+    // Clear existing title
+    const titleInput = page.locator('#title');
+    await titleInput.fill('Test Event');
+
+    // Open emoji picker
+    await page.locator('#emojiPickerBtn').click();
+
+    // Click first emoji
+    const firstEmoji = page.locator('.emoji-item').first();
+    const emoji = await firstEmoji.textContent();
+    await firstEmoji.click();
+
+    // Verify emoji was inserted
+    const newTitle = await titleInput.inputValue();
+    expect(newTitle).toContain(emoji);
+  });
+
+  test('should close emoji picker after selecting emoji', async ({ page }) => {
+    // Open emoji picker
+    await page.locator('#emojiPickerBtn').click();
+    const emojiPicker = page.locator('#emojiPicker');
+    await expect(emojiPicker).toHaveClass(/show/);
+
+    // Click an emoji
+    await page.locator('.emoji-item').first().click();
+
+    // Verify picker is closed
+    await expect(emojiPicker).not.toHaveClass(/show/);
+  });
+
+  test('should close emoji picker when clicking outside', async ({ page }) => {
+    // Open emoji picker
+    await page.locator('#emojiPickerBtn').click();
+    const emojiPicker = page.locator('#emojiPicker');
+    await expect(emojiPicker).toHaveClass(/show/);
+
+    // Click outside (on the page body)
+    await page.locator('h1').click();
+
+    // Verify picker is closed
+    await expect(emojiPicker).not.toHaveClass(/show/);
+  });
+
+  test('should close emoji picker when pressing Escape', async ({ page }) => {
+    // Open emoji picker
+    await page.locator('#emojiPickerBtn').click();
+    const emojiPicker = page.locator('#emojiPicker');
+    await expect(emojiPicker).toHaveClass(/show/);
+
+    // Press Escape
+    await page.keyboard.press('Escape');
+
+    // Verify picker is closed
+    await expect(emojiPicker).not.toHaveClass(/show/);
+  });
+
+  test('should toggle emoji picker on button click', async ({ page }) => {
+    const emojiPickerBtn = page.locator('#emojiPickerBtn');
+    const emojiPicker = page.locator('#emojiPicker');
+
+    // First click - opens
+    await emojiPickerBtn.click();
+    await expect(emojiPicker).toHaveClass(/show/);
+
+    // Second click - closes
+    await emojiPickerBtn.click();
+    await expect(emojiPicker).not.toHaveClass(/show/);
+  });
+
+  test('emoji should be inserted at cursor position', async ({ page }) => {
+    // Fill title with text
+    const titleInput = page.locator('#title');
+    await titleInput.fill('Hello World');
+
+    // Position cursor in the middle (after "Hello ")
+    await titleInput.focus();
+    await titleInput.evaluate((el) => {
+      el.setSelectionRange(6, 6);
+    });
+
+    // Open emoji picker and select an emoji
+    await page.locator('#emojiPickerBtn').click();
+    const firstEmoji = page.locator('.emoji-item').first();
+    const emoji = await firstEmoji.textContent();
+    await firstEmoji.click();
+
+    // Verify emoji was inserted at cursor position
+    const newTitle = await titleInput.inputValue();
+    expect(newTitle).toBe(`Hello ${emoji}World`);
+  });
+});

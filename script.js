@@ -63,6 +63,33 @@ const resetTimezoneBtn = document.getElementById('resetTimezoneBtn');
 const privacyInfoBtn = document.getElementById('privacyInfoBtn');
 const privacyModal = document.getElementById('privacyModal');
 const privacyModalClose = document.getElementById('privacyModalClose');
+const emojiPickerBtn = document.getElementById('emojiPickerBtn');
+const emojiPicker = document.getElementById('emojiPicker');
+const emojiGrid = document.getElementById('emojiGrid');
+
+// ==================== Emoji Picker Data ====================
+const EMOJI_LIST = [
+  // Calendar & Events
+  '📅', '📆', '🗓️', '📌', '🎯', '⏰', '⏱️', '🔔',
+  // Celebrations
+  '🎉', '🎊', '🎈', '🎁', '🎂', '🥳', '🎇', '🎆',
+  // Activities
+  '🏃', '🚴', '🏊', '⚽', '🏀', '🎾', '🏋️', '🧘',
+  // Work & Meetings
+  '💼', '📊', '📈', '💻', '📱', '📞', '✉️', '📝',
+  // Food & Drinks
+  '☕', '🍽️', '🍕', '🍔', '🥗', '🍰', '🍷', '🍺',
+  // Travel
+  '✈️', '🚗', '🚂', '🏨', '🏖️', '⛷️', '🏕️', '🗺️',
+  // Health & Wellness
+  '🏥', '💊', '🩺', '🧠', '❤️', '💪', '🧘', '😴',
+  // Education
+  '📚', '📖', '✏️', '🎓', '🔬', '🎨', '🎵', '🎸',
+  // Nature & Weather
+  '🌅', '🌙', '⭐', '☀️', '🌧️', '❄️', '🌸', '🌻',
+  // Symbols
+  '✅', '❌', '⚠️', '💡', '🔑', '🏠', '👥', '💬'
+];
 
 // ==================== Initialization ====================
 function init() {
@@ -76,6 +103,7 @@ function init() {
   renderSavedEvents();
   updateDebugInfo();
   updateDownloadButtonState();
+  renderEmojiPicker();
 
   // Show preview on initial load if there's a start date
   const startDate = document.getElementById('startDate').value;
@@ -115,6 +143,61 @@ function closePrivacyModal() {
   privacyModal.classList.remove('show');
   privacyModal.setAttribute('aria-hidden', 'true');
   privacyInfoBtn.focus();
+}
+
+// ==================== Emoji Picker ====================
+function renderEmojiPicker() {
+  emojiGrid.innerHTML = '';
+  EMOJI_LIST.forEach(emoji => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'emoji-item';
+    button.textContent = emoji;
+    button.setAttribute('aria-label', `Insert ${emoji}`);
+    button.addEventListener('click', () => insertEmoji(emoji));
+    emojiGrid.appendChild(button);
+  });
+}
+
+function toggleEmojiPicker() {
+  const isOpen = emojiPicker.classList.contains('show');
+  if (isOpen) {
+    closeEmojiPicker();
+  } else {
+    openEmojiPicker();
+  }
+}
+
+function openEmojiPicker() {
+  emojiPicker.classList.add('show');
+  emojiPicker.setAttribute('aria-hidden', 'false');
+  // Focus first emoji
+  const firstEmoji = emojiGrid.querySelector('.emoji-item');
+  if (firstEmoji) firstEmoji.focus();
+}
+
+function closeEmojiPicker() {
+  emojiPicker.classList.remove('show');
+  emojiPicker.setAttribute('aria-hidden', 'true');
+}
+
+function insertEmoji(emoji) {
+  const titleInput = document.getElementById('title');
+  const cursorPos = titleInput.selectionStart;
+  const textBefore = titleInput.value.substring(0, cursorPos);
+  const textAfter = titleInput.value.substring(titleInput.selectionEnd);
+
+  titleInput.value = textBefore + emoji + textAfter;
+
+  // Set cursor position after the inserted emoji
+  const newCursorPos = cursorPos + emoji.length;
+  titleInput.setSelectionRange(newCursorPos, newCursorPos);
+  titleInput.focus();
+
+  // Trigger input event for form state saving
+  titleInput.dispatchEvent(new window.Event('input', { bubbles: true }));
+
+  closeEmojiPicker();
 }
 
 function getPreferredTimezone() {
@@ -368,6 +451,21 @@ function attachEventListeners() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && privacyModal.classList.contains('show')) {
       closePrivacyModal();
+    }
+  });
+
+  // Emoji picker
+  emojiPickerBtn.addEventListener('click', toggleEmojiPicker);
+  document.addEventListener('click', (e) => {
+    // Close emoji picker when clicking outside
+    if (!emojiPicker.contains(e.target) && e.target !== emojiPickerBtn) {
+      closeEmojiPicker();
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && emojiPicker.classList.contains('show')) {
+      closeEmojiPicker();
+      emojiPickerBtn.focus();
     }
   });
 
