@@ -20,6 +20,9 @@ test-output/
 test-results/
 playwright-report/
 
+# Recorded videos
+videos/
+
 # Java build
 validator/target/
 
