@@ -255,6 +255,48 @@
       background: var(--primary-light);
     }
 
+    /* ==================== Date Presets ==================== */
+    .date-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .preset-btn {
+      padding: 6px 12px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--gray-600);
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .preset-btn:hover {
+      color: var(--gray-800);
+      background: var(--gray-200);
+      border-color: var(--gray-300);
+    }
+
+    .preset-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--primary-light);
+    }
+
+    .preset-btn.active {
+      color: var(--white);
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .preset-btn.active:hover {
+      background: var(--primary-dark);
+      border-color: var(--primary-dark);
+    }
+
     /* ==================== Checkbox & Radio ==================== */
     .checkbox-group,
     .radio-group {
