@@ -1466,3 +1466,111 @@ test.describe('iCal Creator - Preview Visibility for Non-Recurring Events', () =
     await expect(previewTitle).toHaveText('Preview');
   });
 });
+
+// ==================== Confetti Celebration Tests ====================
+test.describe('Confetti Celebration', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    // Clear any stored state
+    await page.evaluate(() => {
+      localStorage.clear();
+    });
+    await page.reload();
+  });
+
+  test('should show confetti animation on successful download', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Confetti Test Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-06-15', '10:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-06-15', '11:00');
+
+    // Wait for download button to be enabled
+    const downloadBtn = page.locator('#downloadBtn');
+    await expect(downloadBtn).toBeEnabled({ timeout: 5000 });
+
+    // Click download button
+    await downloadBtn.click();
+
+    // Wait for confetti container to appear
+    const confettiContainer = page.locator('.confetti-container');
+    await expect(confettiContainer).toBeVisible({ timeout: 2000 });
+
+    // Verify confetti pieces are created
+    const confettiPieces = page.locator('.confetti-piece');
+    const count = await confettiPieces.count();
+    expect(count).toBeGreaterThanOrEqual(40); // Should have many pieces
+  });
+
+  test('confetti container should be removed after animation completes', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Confetti Cleanup Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-06-20', '14:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-06-20', '15:00');
+
+    // Wait for download button to be enabled
+    const downloadBtn = page.locator('#downloadBtn');
+    await expect(downloadBtn).toBeEnabled({ timeout: 5000 });
+
+    // Click download button
+    await downloadBtn.click();
+
+    // Verify confetti appears
+    const confettiContainer = page.locator('.confetti-container');
+    await expect(confettiContainer).toBeVisible({ timeout: 2000 });
+
+    // Wait for the container to be removed (animation is 4.5 seconds)
+    await expect(confettiContainer).toBeHidden({ timeout: 6000 });
+  });
+
+  test('confetti should not block user interaction', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Interaction Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-06-25', '09:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-06-25', '10:00');
+
+    // Wait for download button to be enabled
+    const downloadBtn = page.locator('#downloadBtn');
+    await expect(downloadBtn).toBeEnabled({ timeout: 5000 });
+
+    // Click download button to trigger confetti
+    await downloadBtn.click();
+
+    // Verify confetti is visible
+    const confettiContainer = page.locator('.confetti-container');
+    await expect(confettiContainer).toBeVisible({ timeout: 2000 });
+
+    // Verify container has pointer-events: none (doesn't block interaction)
+    const pointerEvents = await confettiContainer.evaluate((el) =>
+      window.getComputedStyle(el).pointerEvents
+    );
+    expect(pointerEvents).toBe('none');
+
+    // User should still be able to interact with the form
+    const titleField = page.locator('#title');
+    await titleField.fill('Changed During Confetti');
+    await expect(titleField).toHaveValue('Changed During Confetti');
+  });
+
+  test('confetti can be triggered multiple times', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Multiple Confetti Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-07-01', '10:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-07-01', '11:00');
+
+    // Wait for download button to be enabled
+    const downloadBtn = page.locator('#downloadBtn');
+    await expect(downloadBtn).toBeEnabled({ timeout: 5000 });
+
+    // First download
+    await downloadBtn.click();
+    const confettiContainer = page.locator('.confetti-container');
+    await expect(confettiContainer).toBeVisible({ timeout: 2000 });
+
+    // Wait for first animation to complete
+    await expect(confettiContainer).toBeHidden({ timeout: 6000 });
+
+    // Second download - should create new confetti
+    await downloadBtn.click();
+    await expect(confettiContainer).toBeVisible({ timeout: 2000 });
+  });
+});

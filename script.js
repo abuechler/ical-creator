@@ -1411,6 +1411,9 @@ function generateAndDownloadICS() {
     saveEventToHistory(eventData);
     saveFormState();
 
+    // Trigger confetti celebration
+    triggerConfetti();
+
   } catch (error) {
     console.error('Error generating ICS:', error);
     showValidationStatus(false, 'Generation Failed', error.message || 'An error occurred while generating the calendar file');
@@ -1830,6 +1833,32 @@ function createEventDataForSave() {
     exceptions: Array.from(state.exceptions),
     savedAt: new Date().toISOString()
   };
+}
+
+// ==================== Confetti Celebration ====================
+const CONFETTI_COLORS = ['#14b8a6', '#f97316', '#eab308', '#ef4444', '#8b5cf6', '#ec4899', '#3b82f6'];
+
+function triggerConfetti() {
+  const container = document.createElement('div');
+  container.className = 'confetti-container';
+  document.body.appendChild(container);
+
+  // Create confetti pieces
+  const pieceCount = 50;
+  for (let i = 0; i < pieceCount; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.backgroundColor = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
+    piece.style.animationDelay = Math.random() * 0.5 + 's';
+    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+    container.appendChild(piece);
+  }
+
+  // Remove container after animation completes
+  setTimeout(() => {
+    container.remove();
+  }, 4500);
 }
 
 // ==================== Start ====================
