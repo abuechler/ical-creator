@@ -238,6 +238,44 @@ const SCENARIOS = {
   },
 
   /**
+   * Multiple reminders feature
+   */
+  'multiple-reminders': async (page) => {
+    await page.locator('#title').fill('Important Meeting');
+    await page.locator('#startDate').fill('2026-04-10');
+    await page.locator('#startTime').fill('09:00');
+    await page.locator('#endTime').fill('10:00');
+    await page.waitForTimeout(500);
+
+    // Enable reminder
+    const reminderSlider = page.locator('#hasReminder').locator('xpath=following-sibling::span[@class="toggle-slider"]');
+    await reminderSlider.scrollIntoViewIfNeeded();
+    await reminderSlider.click();
+    await page.waitForTimeout(500);
+
+    // Add more reminders
+    await page.locator('#addReminderBtn').click();
+    await page.waitForTimeout(400);
+    await page.locator('#addReminderBtn').click();
+    await page.waitForTimeout(400);
+    await page.locator('#addReminderBtn').click();
+    await page.waitForTimeout(600);
+
+    // Change reminder times
+    const selects = page.locator('.reminder-item select');
+    await selects.nth(1).selectOption('30'); // 30 mins
+    await page.waitForTimeout(300);
+    await selects.nth(2).selectOption('60'); // 1 hour
+    await page.waitForTimeout(300);
+    await selects.nth(3).selectOption('1440'); // 1 day
+    await page.waitForTimeout(800);
+
+    // Remove one reminder
+    await page.locator('.reminder-item .reminder-remove-btn').first().click();
+    await page.waitForTimeout(1000);
+  },
+
+  /**
    * Loading a saved/demo event
    */
   'load-saved-event': async (page) => {
