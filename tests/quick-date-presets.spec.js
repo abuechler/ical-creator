@@ -198,10 +198,6 @@ test.describe('Quick Date Presets - Calendar Update', () => {
     // Click Today preset
     await page.locator('.preset-btn[data-preset="today"]').click();
 
-    // The calendar should show an event marker on today
-    const today = new Date();
-    const dayNumber = today.getDate().toString();
-
     // Look for the calendar cell with today's date that has the event-day class
     const calendarCell = page.locator('.calendar-day.event-day');
     await expect(calendarCell.first()).toBeVisible();
@@ -253,7 +249,6 @@ test.describe('Quick Date Presets - Desktop View', () => {
 
   test('all preset buttons should be on one line on desktop', async ({ page }) => {
     const buttons = page.locator('.preset-btn');
-    const count = await buttons.count();
 
     // Get first and last button positions
     const firstBox = await buttons.first().boundingBox();
