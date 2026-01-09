@@ -20,20 +20,6 @@ async function scrollAndFill(page, selector, value) {
   await element.fill(value);
 }
 
-async function scrollAndCheck(page, selector) {
-  const element = page.locator(selector);
-  const isToggle = await element.locator('xpath=..').evaluate(el => el.classList.contains('toggle-switch'));
-
-  if (isToggle) {
-    const slider = element.locator('xpath=following-sibling::span[@class="toggle-slider"]');
-    await slider.scrollIntoViewIfNeeded();
-    await slider.click();
-  } else {
-    await element.scrollIntoViewIfNeeded();
-    await element.check({ force: true });
-  }
-}
-
 test.describe('QR Code - Button UI', () => {
 
   test.beforeEach(async ({ page }) => {
