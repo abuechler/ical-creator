@@ -1191,6 +1191,52 @@
       margin-bottom: 0;
     }
 
+    /* ==================== QR Code Modal ==================== */
+    .qr-modal-body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .qr-modal-description {
+      margin-bottom: 20px;
+      color: var(--gray-600);
+    }
+
+    .qr-code-container {
+      padding: 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+    }
+
+    .qr-code-container canvas,
+    .qr-code-container img {
+      display: block;
+    }
+
+    #downloadQRBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #downloadQRBtn svg {
+      flex-shrink: 0;
+    }
+
+    #generateQRBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #generateQRBtn svg {
+      flex-shrink: 0;
+    }
+
     /* ==================== Debug Info ==================== */
     .debug-info {
       margin-top: 24px;

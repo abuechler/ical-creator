@@ -66,6 +66,11 @@ const privacyModalClose = document.getElementById('privacyModalClose');
 const emojiPickerBtn = document.getElementById('emojiPickerBtn');
 const emojiPicker = document.getElementById('emojiPicker');
 const emojiGrid = document.getElementById('emojiGrid');
+const generateQRBtn = document.getElementById('generateQRBtn');
+const qrModal = document.getElementById('qrModal');
+const qrModalClose = document.getElementById('qrModalClose');
+const qrCodeContainer = document.getElementById('qrCodeContainer');
+const downloadQRBtn = document.getElementById('downloadQRBtn');
 
 // ==================== Emoji Picker Data ====================
 const EMOJI_LIST = [
@@ -96,6 +101,10 @@ function init() {
   populateTimezones();
   setDefaultDates();
   restoreFormState();
+
+  // Load event from URL parameters if present (overrides saved state)
+  loadEventFromUrl();
+
   attachEventListeners();
   updateFrequencyOptions();
   updateMonthlyHints();
@@ -198,6 +207,246 @@ function insertEmoji(emoji) {
   titleInput.dispatchEvent(new window.Event('input', { bubbles: true }));
 
   closeEmojiPicker();
+}
+
+// ==================== QR Code Functions ====================
+function openQRModal() {
+  qrModal.classList.add('show');
+  qrModal.setAttribute('aria-hidden', 'false');
+  qrModalClose.focus();
+}
+
+function closeQRModal() {
+  qrModal.classList.remove('show');
+  qrModal.setAttribute('aria-hidden', 'true');
+  generateQRBtn.focus();
+}
+
+function handleGenerateQR() {
+  if (!validateBasicFields()) {
+    return;
+  }
+
+  const eventUrl = generateEventUrl();
+  generateQRCode(eventUrl);
+  openQRModal();
+}
+
+function generateEventUrl() {
+  const baseUrl = window.location.origin + window.location.pathname;
+  const params = new URLSearchParams();
+
+  // Get form values
+  const title = document.getElementById('title').value.trim();
+  const startDate = document.getElementById('startDate').value;
+  const startTime = document.getElementById('startTime').value;
+  const endDate = document.getElementById('endDate').value;
+  const endTime = document.getElementById('endTime').value;
+  const location = document.getElementById('location').value.trim();
+  const description = document.getElementById('description').value.trim();
+  const url = document.getElementById('url').value.trim();
+  const timezone = timezoneSelect.value;
+  const isAllDay = allDayCheckbox.checked;
+
+  // Add parameters
+  params.set('title', title);
+  params.set('startDate', startDate);
+  if (!isAllDay && startTime) params.set('startTime', startTime);
+  if (endDate) params.set('endDate', endDate);
+  if (!isAllDay && endTime) params.set('endTime', endTime);
+  if (timezone) params.set('timezone', timezone);
+  if (location) params.set('location', location);
+  if (description) params.set('description', description);
+  if (url) params.set('url', url);
+  if (isAllDay) params.set('allDay', 'true');
+
+  // Add recurrence if enabled
+  if (isRecurringCheckbox.checked) {
+    params.set('recurring', 'true');
+    params.set('frequency', frequencySelect.value);
+    const interval = document.getElementById('interval').value;
+    if (interval && interval !== '1') params.set('interval', interval);
+
+    // Weekly days
+    if (frequencySelect.value === 'WEEKLY' && state.selectedDays.size > 0) {
+      params.set('days', Array.from(state.selectedDays).join(','));
+    }
+
+    // Monthly type
+    if (frequencySelect.value === 'MONTHLY') {
+      const monthlyType = document.querySelector('input[name="monthlyType"]:checked').value;
+      params.set('monthlyType', monthlyType);
+    }
+
+    // End type
+    const endType = document.querySelector('input[name="endType"]:checked').value;
+    params.set('endType', endType);
+    if (endType === 'date') {
+      const recurrenceEndDate = recurrenceEndDateInput.value;
+      if (recurrenceEndDate) params.set('recurrenceEndDate', recurrenceEndDate);
+    } else if (endType === 'count') {
+      const count = occurrenceCountInput.value;
+      if (count) params.set('count', count);
+    }
+  }
+
+  // Add reminder if enabled
+  if (hasReminderCheckbox.checked) {
+    params.set('reminder', 'true');
+    const reminderTime = document.getElementById('reminderTime').value;
+    if (reminderTime) params.set('reminderTime', reminderTime);
+  }
+
+  return baseUrl + '?' + params.toString();
+}
+
+function generateQRCode(content) {
+  // Clear previous QR code
+  qrCodeContainer.innerHTML = '';
+
+  // Create new QR code (eslint-disable-next-line no-new)
+  new QRCode(qrCodeContainer, {
+    text: content,
+    width: 200,
+    height: 200,
+    colorDark: '#000000',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+}
+
+function handleDownloadQR() {
+  const canvas = qrCodeContainer.querySelector('canvas');
+  if (!canvas) {
+    // Try to find image (some QRCode.js implementations use img)
+    const img = qrCodeContainer.querySelector('img');
+    if (img) {
+      downloadImage(img.src, 'event-qr-code.png');
+    }
+    return;
+  }
+
+  const dataUrl = canvas.toDataURL('image/png');
+  downloadImage(dataUrl, 'event-qr-code.png');
+}
+
+function downloadImage(dataUrl, filename) {
+  const link = document.createElement('a');
+  link.download = filename;
+  link.href = dataUrl;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+function loadEventFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+
+  // Check if there are event parameters in URL
+  if (!params.has('title') && !params.has('startDate')) {
+    return false;
+  }
+
+  // Load basic fields
+  if (params.has('title')) {
+    document.getElementById('title').value = params.get('title');
+  }
+  if (params.has('startDate')) {
+    document.getElementById('startDate').value = params.get('startDate');
+  }
+  if (params.has('startTime')) {
+    document.getElementById('startTime').value = params.get('startTime');
+  }
+  if (params.has('endDate')) {
+    document.getElementById('endDate').value = params.get('endDate');
+  }
+  if (params.has('endTime')) {
+    document.getElementById('endTime').value = params.get('endTime');
+  }
+  if (params.has('timezone')) {
+    timezoneSelect.value = params.get('timezone');
+  }
+  if (params.has('location')) {
+    document.getElementById('location').value = params.get('location');
+  }
+  if (params.has('description')) {
+    document.getElementById('description').value = params.get('description');
+  }
+  if (params.has('url')) {
+    document.getElementById('url').value = params.get('url');
+  }
+  if (params.get('allDay') === 'true') {
+    allDayCheckbox.checked = true;
+    handleAllDayToggle();
+  }
+
+  // Load recurrence settings
+  if (params.get('recurring') === 'true') {
+    isRecurringCheckbox.checked = true;
+    handleRecurringToggle();
+
+    if (params.has('frequency')) {
+      frequencySelect.value = params.get('frequency');
+      updateFrequencyOptions();
+    }
+    if (params.has('interval')) {
+      document.getElementById('interval').value = params.get('interval');
+    }
+    if (params.has('days')) {
+      const days = params.get('days').split(',');
+      state.selectedDays = new Set(days);
+      updateDayPickerUI();
+    }
+    if (params.has('monthlyType')) {
+      const monthlyType = params.get('monthlyType');
+      const radio = document.querySelector(`input[name="monthlyType"][value="${monthlyType}"]`);
+      if (radio) radio.checked = true;
+    }
+    if (params.has('endType')) {
+      const endType = params.get('endType');
+      const radio = document.querySelector(`input[name="endType"][value="${endType}"]`);
+      if (radio) {
+        radio.checked = true;
+        handleEndTypeChange();
+      }
+    }
+    if (params.has('recurrenceEndDate')) {
+      recurrenceEndDateInput.value = params.get('recurrenceEndDate');
+    }
+    if (params.has('count')) {
+      occurrenceCountInput.value = params.get('count');
+    }
+  }
+
+  // Load reminder settings
+  if (params.get('reminder') === 'true') {
+    hasReminderCheckbox.checked = true;
+    handleReminderToggle();
+
+    if (params.has('reminderTime')) {
+      document.getElementById('reminderTime').value = params.get('reminderTime');
+    }
+  }
+
+  // Clear URL parameters after loading (clean URL)
+  if (window.history.replaceState) {
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  return true;
+}
+
+function updateDayPickerUI() {
+  dayPickerBtns.forEach(btn => {
+    const day = btn.dataset.day;
+    if (state.selectedDays.has(day)) {
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+    } else {
+      btn.classList.remove('active');
+      btn.setAttribute('aria-pressed', 'false');
+    }
+  });
 }
 
 function getPreferredTimezone() {
@@ -452,6 +701,9 @@ function attachEventListeners() {
     if (e.key === 'Escape' && privacyModal.classList.contains('show')) {
       closePrivacyModal();
     }
+    if (e.key === 'Escape' && qrModal.classList.contains('show')) {
+      closeQRModal();
+    }
   });
 
   // Emoji picker
@@ -468,6 +720,14 @@ function attachEventListeners() {
       emojiPickerBtn.focus();
     }
   });
+
+  // QR Code modal
+  generateQRBtn.addEventListener('click', handleGenerateQR);
+  qrModalClose.addEventListener('click', closeQRModal);
+  qrModal.addEventListener('click', (e) => {
+    if (e.target === qrModal) closeQRModal();
+  });
+  downloadQRBtn.addEventListener('click', handleDownloadQR);
 
   // Auto-save form state on input change
   const autoSaveInputs = [

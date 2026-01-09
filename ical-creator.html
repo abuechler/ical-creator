@@ -6,6 +6,7 @@
   <title>iCal Creator</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.5.0/ical.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
   <div class="container">
@@ -40,6 +41,28 @@
             <li>Clearing your browser data will remove saved events</li>
             <li>No account or sign-up required</li>
           </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="modal-overlay" id="qrModal" aria-hidden="true">
+      <div class="modal" role="dialog" aria-labelledby="qrModalTitle">
+        <div class="modal-header">
+          <h2 class="modal-title" id="qrModalTitle">Share Event via QR Code</h2>
+          <button type="button" class="modal-close" id="qrModalClose" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body qr-modal-body">
+          <p class="qr-modal-description">Scan this QR code to open the event in iCal Creator</p>
+          <div id="qrCodeContainer" class="qr-code-container"></div>
+          <button type="button" class="btn btn-primary" id="downloadQRBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download QR Code
+          </button>
         </div>
       </div>
     </div>
@@ -261,6 +284,15 @@
       <div class="btn-group">
         <button type="button" class="btn btn-secondary" id="newEventBtn">New Event</button>
         <button type="submit" class="btn btn-primary" id="downloadBtn">Download .ics</button>
+        <button type="button" class="btn btn-secondary" id="generateQRBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          QR Code
+        </button>
       </div>
       <p class="download-hint hidden" id="downloadHint">Fix errors above to download</p>
         </form>
