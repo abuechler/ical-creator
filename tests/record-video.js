@@ -238,6 +238,31 @@ const SCENARIOS = {
   },
 
   /**
+   * Calendar deep links dropdown
+   */
+  'deep-links': async (page) => {
+    // Fill in event details
+    await page.locator('#title').fill('Team Meeting');
+    await page.locator('#startDate').fill('2026-03-25');
+    await page.locator('#startTime').fill('10:00');
+    await page.locator('#endTime').fill('11:00');
+    await page.locator('#location').fill('Conference Room');
+    await page.waitForTimeout(500);
+
+    // Click Add to Calendar dropdown
+    await page.locator('#addToCalendarBtn').click();
+    await page.waitForTimeout(1000);
+
+    // Show dropdown menu
+    await page.waitForSelector('.dropdown-menu.show', { timeout: 3000 });
+    await page.waitForTimeout(1500);
+
+    // Close dropdown
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(500);
+  },
+
+  /**
    * Loading a saved/demo event
    */
   'load-saved-event': async (page) => {
