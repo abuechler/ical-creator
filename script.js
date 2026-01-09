@@ -66,6 +66,8 @@ const privacyModalClose = document.getElementById('privacyModalClose');
 const emojiPickerBtn = document.getElementById('emojiPickerBtn');
 const emojiPicker = document.getElementById('emojiPicker');
 const emojiGrid = document.getElementById('emojiGrid');
+const shareBtn = document.getElementById('shareBtn');
+const toast = document.getElementById('toast');
 
 // ==================== Emoji Picker Data ====================
 const EMOJI_LIST = [
@@ -95,7 +97,14 @@ const EMOJI_LIST = [
 function init() {
   populateTimezones();
   setDefaultDates();
-  restoreFormState();
+
+  // Check for shared event in URL before restoring form state
+  const loadedFromUrl = loadEventFromUrl();
+
+  if (!loadedFromUrl) {
+    restoreFormState();
+  }
+
   attachEventListeners();
   updateFrequencyOptions();
   updateMonthlyHints();
@@ -468,6 +477,11 @@ function attachEventListeners() {
       emojiPickerBtn.focus();
     }
   });
+
+  // Share button
+  if (shareBtn) {
+    shareBtn.addEventListener('click', handleShareEvent);
+  }
 
   // Auto-save form state on input change
   const autoSaveInputs = [
@@ -1931,6 +1945,182 @@ function createEventDataForSave() {
     exceptions: Array.from(state.exceptions),
     savedAt: new Date().toISOString()
   };
+}
+
+// ==================== Share via URL ====================
+function handleShareEvent() {
+  const eventData = getShareableEventData();
+  if (!eventData.title) {
+    showToast('Please enter an event title first');
+    return;
+  }
+
+  const shareUrl = generateShareUrl(eventData);
+
+  // Copy to clipboard
+  navigator.clipboard.writeText(shareUrl)
+    .then(() => {
+      showToast('Link copied to clipboard!');
+    })
+    .catch(() => {
+      // Fallback for browsers that don't support clipboard API
+      showToast('Could not copy link. URL: ' + shareUrl);
+    });
+}
+
+function getShareableEventData() {
+  return {
+    title: document.getElementById('title').value,
+    allDay: allDayCheckbox.checked,
+    startDate: document.getElementById('startDate').value,
+    startTime: document.getElementById('startTime').value,
+    endDate: document.getElementById('endDate').value,
+    endTime: document.getElementById('endTime').value,
+    timezone: timezoneSelect.value,
+    location: document.getElementById('location').value,
+    description: document.getElementById('description').value,
+    url: document.getElementById('url').value,
+    isRecurring: isRecurringCheckbox.checked,
+    frequency: frequencySelect.value,
+    interval: document.getElementById('interval').value,
+    selectedDays: Array.from(state.selectedDays),
+    monthlyType: document.querySelector('input[name="monthlyType"]:checked')?.value,
+    endType: document.querySelector('input[name="endType"]:checked')?.value,
+    recurrenceEndDate: recurrenceEndDateInput.value,
+    occurrenceCount: occurrenceCountInput.value,
+    hasReminder: hasReminderCheckbox.checked,
+    reminderTime: document.getElementById('reminderTime').value,
+    exceptions: Array.from(state.exceptions)
+  };
+}
+
+function generateShareUrl(eventData) {
+  const json = JSON.stringify(eventData);
+  const encoded = btoa(encodeURIComponent(json));
+  const baseUrl = window.location.href.split('#')[0];
+  return baseUrl + '#event=' + encoded;
+}
+
+function loadEventFromUrl() {
+  const hash = window.location.hash;
+  if (!hash || !hash.startsWith('#event=')) {
+    return false;
+  }
+
+  try {
+    const encoded = hash.substring(7); // Remove '#event='
+    const json = decodeURIComponent(atob(encoded));
+    const eventData = JSON.parse(json);
+
+    // Populate form with event data
+    populateFormFromEventData(eventData);
+
+    // Clear the hash from URL without reloading
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+
+    return true;
+  } catch (e) {
+    console.error('Failed to load event from URL:', e);
+    return false;
+  }
+}
+
+function populateFormFromEventData(eventData) {
+  // Basic fields
+  if (eventData.title) document.getElementById('title').value = eventData.title;
+  if (eventData.startDate) document.getElementById('startDate').value = eventData.startDate;
+  if (eventData.startTime) document.getElementById('startTime').value = eventData.startTime;
+  if (eventData.endDate) document.getElementById('endDate').value = eventData.endDate;
+  if (eventData.endTime) document.getElementById('endTime').value = eventData.endTime;
+  if (eventData.location) document.getElementById('location').value = eventData.location;
+  if (eventData.description) document.getElementById('description').value = eventData.description;
+  if (eventData.url) document.getElementById('url').value = eventData.url;
+
+  // All-day checkbox
+  if (eventData.allDay !== undefined) {
+    allDayCheckbox.checked = eventData.allDay;
+    handleAllDayToggle();
+  }
+
+  // Timezone
+  if (eventData.timezone) {
+    timezoneSelect.value = eventData.timezone;
+  }
+
+  // Recurring settings
+  if (eventData.isRecurring !== undefined) {
+    isRecurringCheckbox.checked = eventData.isRecurring;
+    handleRecurringToggle();
+  }
+
+  if (eventData.frequency) {
+    frequencySelect.value = eventData.frequency;
+    updateFrequencyOptions();
+  }
+
+  if (eventData.interval) {
+    document.getElementById('interval').value = eventData.interval;
+  }
+
+  // Selected days for weekly recurrence
+  if (eventData.selectedDays && eventData.selectedDays.length > 0) {
+    state.selectedDays = new Set(eventData.selectedDays);
+    dayPickerBtns.forEach(btn => {
+      const day = btn.dataset.day;
+      const isSelected = state.selectedDays.has(day);
+      btn.classList.toggle('active', isSelected);
+      btn.setAttribute('aria-pressed', isSelected.toString());
+    });
+  }
+
+  // Monthly type
+  if (eventData.monthlyType) {
+    const monthlyRadio = document.querySelector(`input[name="monthlyType"][value="${eventData.monthlyType}"]`);
+    if (monthlyRadio) monthlyRadio.checked = true;
+  }
+
+  // End type
+  if (eventData.endType) {
+    const endRadio = document.querySelector(`input[name="endType"][value="${eventData.endType}"]`);
+    if (endRadio) {
+      endRadio.checked = true;
+      handleEndTypeChange();
+    }
+  }
+
+  if (eventData.recurrenceEndDate) {
+    recurrenceEndDateInput.value = eventData.recurrenceEndDate;
+  }
+
+  if (eventData.occurrenceCount) {
+    occurrenceCountInput.value = eventData.occurrenceCount;
+  }
+
+  // Reminder
+  if (eventData.hasReminder !== undefined) {
+    hasReminderCheckbox.checked = eventData.hasReminder;
+    handleReminderToggle();
+  }
+
+  if (eventData.reminderTime) {
+    document.getElementById('reminderTime').value = eventData.reminderTime;
+  }
+
+  // Exceptions
+  if (eventData.exceptions && eventData.exceptions.length > 0) {
+    state.exceptions = new Set(eventData.exceptions);
+  }
+}
+
+function showToast(message) {
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add('show');
+
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
 }
 
 // ==================== Confetti Celebration ====================

@@ -745,6 +745,28 @@
       margin-top: 8px;
     }
 
+    /* ==================== Toast Notification ==================== */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--gray-800);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
     /* ==================== Validation Status ==================== */
     .validation-status {
       display: none;
