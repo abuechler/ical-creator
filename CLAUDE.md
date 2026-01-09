@@ -48,19 +48,26 @@ Use the script at `/home/node/github-app-token.sh` to generate a short-lived ins
 /home/node/github-app-token.sh
 ```
 
-### Using with gh CLI
+### Git Operations
 
-Prefix `gh` commands with the token to act as the bot:
+SSH doesn't work. Use explicit HTTPS URLs with the token:
 
 ```bash
-# Create PR as bot
-GH_TOKEN=$(/home/node/github-app-token.sh 2>/dev/null) gh pr create --title "My PR" --body "Description"
+# Fetch
+GH_TOKEN=$(/home/node/github-app-token.sh 2>/dev/null) git -c "url.https://${GH_TOKEN}@github.com/.insteadOf=git@github.com:" fetch origin main
 
-# Comment on PR as bot
-GH_TOKEN=$(/home/node/github-app-token.sh 2>/dev/null) gh pr comment 123 --body "Comment text"
+# Push
+GH_TOKEN=$(/home/node/github-app-token.sh 2>/dev/null) && git push "https://x-access-token:${GH_TOKEN}@github.com/abuechler/ical-creator.git" branch:branch
+```
 
-# Close PR as bot
-GH_TOKEN=$(/home/node/github-app-token.sh 2>/dev/null) gh pr close 123
+### Using with gh CLI
+
+```bash
+# Read operations work normally
+GH_TOKEN=$(/home/node/github-app-token.sh 2>/dev/null) gh pr view 29 --json body
+
+# For PR edits, use the API directly (gh pr edit has issues)
+GH_TOKEN=$(/home/node/github-app-token.sh 2>/dev/null) gh api repos/abuechler/ical-creator/pulls/29 -X PATCH -f body="..."
 ```
 
 ### Git Commits
