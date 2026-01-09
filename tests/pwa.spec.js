@@ -11,7 +11,7 @@ test.describe('PWA Feature', () => {
     await expect(manifestLink).toHaveAttribute('href', 'manifest.json');
   });
 
-  test('should have valid manifest.json file', async ({ page }) => {
+  test('should have valid manifest.json file', async ({ page: _page }) => {
     const manifestPath = path.join(process.cwd(), 'manifest.json');
     const manifestContent = fs.readFileSync(manifestPath, 'utf8');
     const manifest = JSON.parse(manifestContent);

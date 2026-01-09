@@ -33,7 +33,14 @@ module.exports = [
         URL: 'readonly',
         confirm: 'readonly',
         alert: 'readonly',
-        ICAL: 'readonly'
+        ICAL: 'readonly',
+        navigator: 'readonly',
+        btoa: 'readonly',
+        atob: 'readonly',
+        history: 'readonly',
+        Event: 'readonly',
+        Intl: 'readonly',
+        QRCode: 'readonly'
       }
     },
     rules: {
@@ -77,6 +84,20 @@ module.exports = [
       globals: {
         defineConfig: 'readonly',
         devices: 'readonly'
+      }
+    }
+  },
+  {
+    files: ['sw.js'],
+    languageOptions: {
+      globals: {
+        self: 'readonly',
+        caches: 'readonly',
+        fetch: 'readonly',
+        Response: 'readonly',
+        Request: 'readonly',
+        URL: 'readonly',
+        console: 'readonly'
       }
     }
   }
