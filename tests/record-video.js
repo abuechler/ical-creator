@@ -267,6 +267,30 @@ const SCENARIOS = {
   },
 
   /**
+   * Dark mode toggle
+   */
+  'dark-mode': async (page) => {
+    // Fill form to show content
+    await page.locator('#title').fill('Evening Event');
+    await page.locator('#startDate').fill('2026-06-15');
+    await page.locator('#startTime').fill('19:00');
+    await page.locator('#endTime').fill('21:00');
+    await page.waitForTimeout(800);
+
+    // Toggle to dark mode
+    await page.locator('#themeToggle').click();
+    await page.waitForTimeout(1500);
+
+    // Toggle back to light mode
+    await page.locator('#themeToggle').click();
+    await page.waitForTimeout(1500);
+
+    // Toggle to dark mode again
+    await page.locator('#themeToggle').click();
+    await page.waitForTimeout(1000);
+  },
+
+  /**
    * Loading a saved/demo event
    */
   'load-saved-event': async (page) => {
