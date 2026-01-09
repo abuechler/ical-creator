@@ -267,6 +267,31 @@ const SCENARIOS = {
   },
 
   /**
+   * QR code generation for event sharing
+   */
+  'qr-code': async (page) => {
+    // Fill in event details
+    await page.locator('#title').fill('Team Meeting');
+    await page.locator('#startDate').fill('2026-03-20');
+    await page.locator('#startTime').fill('14:00');
+    await page.locator('#endTime').fill('15:00');
+    await page.locator('#location').fill('Conference Room B');
+    await page.waitForTimeout(500);
+
+    // Click QR Code button
+    await page.locator('#generateQRBtn').click();
+    await page.waitForTimeout(1000);
+
+    // Show the QR code modal
+    await page.waitForSelector('#qrModal[aria-hidden="false"]', { timeout: 5000 });
+    await page.waitForTimeout(2000);
+
+    // Close modal
+    await page.locator('#qrModalClose').click();
+    await page.waitForTimeout(500);
+  },
+
+  /**
    * Loading a saved/demo event
    */
   'load-saved-event': async (page) => {
