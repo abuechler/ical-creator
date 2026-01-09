@@ -66,6 +66,10 @@ const privacyModalClose = document.getElementById('privacyModalClose');
 const emojiPickerBtn = document.getElementById('emojiPickerBtn');
 const emojiPicker = document.getElementById('emojiPicker');
 const emojiGrid = document.getElementById('emojiGrid');
+const installBtn = document.getElementById('installBtn');
+
+// PWA install prompt
+let deferredPrompt = null;
 
 // ==================== Emoji Picker Data ====================
 const EMOJI_LIST = [
@@ -113,6 +117,12 @@ function init() {
     previewSection.style.display = 'block';
     updatePreviewContent(isRecurringCheckbox.checked);
   }
+
+  // Register service worker for PWA
+  registerServiceWorker();
+
+  // Setup PWA install prompt
+  setupPWAInstall();
 }
 
 function updateDebugInfo() {
@@ -1931,6 +1941,63 @@ function createEventDataForSave() {
     exceptions: Array.from(state.exceptions),
     savedAt: new Date().toISOString()
   };
+}
+
+// ==================== PWA Support ====================
+function registerServiceWorker() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then((registration) => {
+          console.log('[PWA] Service worker registered:', registration.scope);
+        })
+        .catch((error) => {
+          console.log('[PWA] Service worker registration failed:', error);
+        });
+    });
+  }
+}
+
+function setupPWAInstall() {
+  // Listen for the beforeinstallprompt event
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later
+    deferredPrompt = e;
+    // Show the install button
+    if (installBtn) {
+      installBtn.style.display = 'inline-flex';
+    }
+  });
+
+  // Handle install button click
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (!deferredPrompt) {
+        return;
+      }
+      // Show the install prompt
+      deferredPrompt.prompt();
+      // Wait for the user to respond to the prompt
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log('[PWA] User response to install prompt:', outcome);
+      // Clear the deferred prompt
+      deferredPrompt = null;
+      // Hide the install button
+      installBtn.style.display = 'none';
+    });
+  }
+
+  // Listen for successful install
+  window.addEventListener('appinstalled', () => {
+    console.log('[PWA] App was installed');
+    // Hide the install button
+    if (installBtn) {
+      installBtn.style.display = 'none';
+    }
+    deferredPrompt = null;
+  });
 }
 
 // ==================== Confetti Celebration ====================

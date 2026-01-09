@@ -66,6 +66,41 @@
       margin: 0;
     }
 
+    .header-top {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .header-top h1 {
+      margin: 0;
+    }
+
+    .install-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .install-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .install-btn svg {
+      flex-shrink: 0;
+    }
+
     /* ==================== Card ==================== */
     .card {
       background: var(--white);

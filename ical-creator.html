@@ -3,14 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create and download calendar events (.ics files) with recurring events support">
+  <meta name="theme-color" content="#0d9488">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="iCal Creator">
   <title>iCal Creator</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.5.0/ical.min.js"></script>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>iCal Creator</h1>
+      <div class="header-top">
+        <h1>iCal Creator</h1>
+        <button type="button" class="install-btn" id="installBtn" aria-label="Install app" style="display: none;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Install</span>
+        </button>
+      </div>
       <p class="subtitle">
         Create and download calendar events
         <button type="button" class="info-icon-btn" id="privacyInfoBtn" aria-label="Privacy information">
