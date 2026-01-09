@@ -53,7 +53,16 @@
 
         <div class="form-group">
           <label for="title">Event Title <span class="label-required">*</span></label>
-          <input type="text" id="title" name="title" required placeholder="e.g., Team Meeting">
+          <div class="title-input-wrapper">
+            <button type="button" class="emoji-picker-btn" id="emojiPickerBtn" aria-label="Add emoji" title="Add emoji">😀</button>
+            <div class="emoji-picker" id="emojiPicker" aria-hidden="true">
+              <div class="emoji-picker-header">
+                <span class="emoji-category-label">Pick an emoji</span>
+              </div>
+              <div class="emoji-grid" id="emojiGrid"></div>
+            </div>
+            <input type="text" id="title" name="title" required placeholder="e.g., Team Meeting">
+          </div>
           <div class="field-error" id="title-error">Please enter an event title</div>
         </div>
 
