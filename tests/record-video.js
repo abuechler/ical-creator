@@ -94,6 +94,35 @@ const SCENARIOS = {
   },
 
   /**
+   * Emoji picker for event titles
+   */
+  'emoji-picker': async (page) => {
+    // Focus on title field
+    await page.locator('#title').click();
+    await page.waitForTimeout(500);
+
+    // Click emoji picker button
+    await page.locator('#emojiPickerBtn').click();
+    await page.waitForTimeout(800);
+
+    // Select a few emojis
+    await page.locator('.emoji-picker button').first().click();
+    await page.waitForTimeout(400);
+
+    // Open picker again
+    await page.locator('#emojiPickerBtn').click();
+    await page.waitForTimeout(600);
+
+    // Select another emoji
+    await page.locator('.emoji-picker button').nth(5).click();
+    await page.waitForTimeout(400);
+
+    // Type the rest of the title
+    await page.locator('#title').pressSequentially(' Birthday Party', { delay: 50 });
+    await page.waitForTimeout(1000);
+  },
+
+  /**
    * Form validation - showing required fields
    */
   'form-validation': async (page) => {
