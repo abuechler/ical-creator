@@ -456,7 +456,7 @@ function attachEventListeners() {
     }
   });
 
-// Emoji picker
+  // Emoji picker
   emojiPickerBtn.addEventListener('click', toggleEmojiPicker);
   document.addEventListener('click', (e) => {
     // Close emoji picker when clicking outside
