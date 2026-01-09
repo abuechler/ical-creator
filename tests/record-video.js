@@ -119,6 +119,40 @@ const SCENARIOS = {
   },
 
   /**
+   * Holiday indicators on calendar preview
+   */
+  'holiday-indicators': async (page) => {
+    // Fill event details around December holidays
+    await page.locator('#title').fill('Team Meeting');
+    await page.locator('#startDate').fill('2026-12-15');
+    await page.locator('#startTime').fill('10:00');
+    await page.locator('#endTime').fill('11:00');
+    await page.waitForTimeout(500);
+
+    // Enable recurring
+    const slider = page.locator('#isRecurring').locator('xpath=following-sibling::span[@class="toggle-slider"]');
+    await slider.scrollIntoViewIfNeeded();
+    await slider.click();
+    await page.waitForTimeout(500);
+
+    // Select weekly to span more time
+    await page.locator('#frequency').selectOption('WEEKLY');
+    await page.waitForTimeout(300);
+
+    // Scroll to calendar to show holiday indicators
+    await page.locator('.calendar-grid').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1000);
+
+    // Hover over a holiday to show tooltip (Christmas)
+    const holidayDot = page.locator('.holiday-indicator').first();
+    if (await holidayDot.count() > 0) {
+      await holidayDot.hover();
+      await page.waitForTimeout(2000);
+    }
+    await page.waitForTimeout(1000);
+  },
+
+  /**
    * Creating a recurring event with weekly frequency
    */
   'recurring-weekly': async (page) => {

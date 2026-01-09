@@ -4,6 +4,107 @@ const WEEKDAY_CODES = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
 
+// Holiday data - major international holidays (fixed dates)
+// Format: 'MM-DD': 'Holiday Name'
+const FIXED_HOLIDAYS = {
+  '01-01': "New Year's Day",
+  '02-14': "Valentine's Day",
+  '03-17': "St. Patrick's Day",
+  '05-01': 'Labour Day',
+  '07-04': 'Independence Day (US)',
+  '10-31': 'Halloween',
+  '11-11': 'Veterans Day',
+  '12-24': 'Christmas Eve',
+  '12-25': 'Christmas Day',
+  '12-26': 'Boxing Day',
+  '12-31': "New Year's Eve"
+};
+
+// Variable holidays (computed per year)
+// Returns object with 'MM-DD': 'Holiday Name' for the given year
+function getVariableHolidays(year) {
+  const holidays = {};
+
+  // Easter Sunday (Western) - using Anonymous Gregorian algorithm
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19 * a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const l = (32 + 2 * e + 2 * i - h - k) % 7;
+  const m = Math.floor((a + 11 * h + 22 * l) / 451);
+  const month = Math.floor((h + l - 7 * m + 114) / 31);
+  const day = ((h + l - 7 * m + 114) % 31) + 1;
+
+  const easter = new Date(year, month - 1, day);
+
+  // Good Friday (2 days before Easter)
+  const goodFriday = new Date(easter);
+  goodFriday.setDate(easter.getDate() - 2);
+  holidays[formatHolidayKey(goodFriday)] = 'Good Friday';
+
+  // Easter Sunday
+  holidays[formatHolidayKey(easter)] = 'Easter Sunday';
+
+  // Easter Monday (1 day after Easter)
+  const easterMonday = new Date(easter);
+  easterMonday.setDate(easter.getDate() + 1);
+  holidays[formatHolidayKey(easterMonday)] = 'Easter Monday';
+
+  // Mother's Day (2nd Sunday of May)
+  const mothersDay = getNthWeekdayOfMonth(year, 4, 0, 2); // May, Sunday, 2nd
+  holidays[formatHolidayKey(mothersDay)] = "Mother's Day";
+
+  // Father's Day (3rd Sunday of June)
+  const fathersDay = getNthWeekdayOfMonth(year, 5, 0, 3); // June, Sunday, 3rd
+  holidays[formatHolidayKey(fathersDay)] = "Father's Day";
+
+  // Thanksgiving (4th Thursday of November - US)
+  const thanksgiving = getNthWeekdayOfMonth(year, 10, 4, 4); // November, Thursday, 4th
+  holidays[formatHolidayKey(thanksgiving)] = 'Thanksgiving (US)';
+
+  return holidays;
+}
+
+// Get the nth occurrence of a weekday in a month
+function getNthWeekdayOfMonth(year, month, weekday, n) {
+  const firstDay = new Date(year, month, 1);
+  const firstWeekday = firstDay.getDay();
+  let dayOffset = weekday - firstWeekday;
+  if (dayOffset < 0) dayOffset += 7;
+  const day = 1 + dayOffset + (n - 1) * 7;
+  return new Date(year, month, day);
+}
+
+function formatHolidayKey(date) {
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${month}-${day}`;
+}
+
+// Check if a date is a holiday and return the holiday name
+function getHoliday(date) {
+  const key = formatHolidayKey(date);
+
+  // Check fixed holidays first
+  if (FIXED_HOLIDAYS[key]) {
+    return FIXED_HOLIDAYS[key];
+  }
+
+  // Check variable holidays for this year
+  const variableHolidays = getVariableHolidays(date.getFullYear());
+  if (variableHolidays[key]) {
+    return variableHolidays[key];
+  }
+
+  return null;
+}
+
 // ==================== State ====================
 const state = {
   selectedDays: new Set(),
@@ -854,8 +955,13 @@ function renderCalendar() {
 function createDayElement(day, isOtherMonth, isToday = false, isEventDay = false, isException = false, date = null) {
   const el = document.createElement('div');
   el.className = 'calendar-day';
-  el.textContent = day;
   el.setAttribute('role', 'gridcell');
+
+  // Create day number span
+  const dayNumber = document.createElement('span');
+  dayNumber.className = 'day-number';
+  dayNumber.textContent = day;
+  el.appendChild(dayNumber);
 
   if (isOtherMonth) {
     el.classList.add('other-month');
@@ -863,6 +969,19 @@ function createDayElement(day, isOtherMonth, isToday = false, isEventDay = false
 
   if (isToday) {
     el.classList.add('today');
+  }
+
+  // Check for holiday
+  if (date) {
+    const holidayName = getHoliday(date);
+    if (holidayName) {
+      el.classList.add('holiday');
+      const holidayIndicator = document.createElement('span');
+      holidayIndicator.className = 'holiday-indicator';
+      holidayIndicator.setAttribute('title', holidayName);
+      holidayIndicator.setAttribute('aria-label', holidayName);
+      el.appendChild(holidayIndicator);
+    }
   }
 
   if (isEventDay) {

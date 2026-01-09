@@ -417,6 +417,7 @@
     .calendar-day {
       aspect-ratio: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       font-size: 0.875rem;
@@ -425,6 +426,11 @@
       background: var(--white);
       cursor: default;
       transition: all 0.15s;
+      position: relative;
+    }
+
+    .calendar-day .day-number {
+      line-height: 1;
     }
 
     .calendar-day.other-month {
@@ -455,6 +461,61 @@
 
     .calendar-day.today {
       border-color: var(--primary);
+    }
+
+    .calendar-day.holiday {
+      position: relative;
+    }
+
+    .calendar-day.holiday .day-number {
+      color: var(--error);
+    }
+
+    .calendar-day.holiday.other-month .day-number {
+      color: var(--gray-400);
+    }
+
+    .calendar-day.holiday.event-day .day-number {
+      color: var(--primary-dark);
+    }
+
+    .holiday-indicator {
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 4px;
+      background-color: var(--error);
+      border-radius: 50%;
+      cursor: help;
+    }
+
+    /* Tooltip on hover */
+    .holiday-indicator::after {
+      content: attr(title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 4px 8px;
+      background: var(--gray-800);
+      color: var(--white);
+      font-size: 0.7rem;
+      font-weight: 500;
+      white-space: nowrap;
+      border-radius: var(--radius-sm);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .holiday-indicator:hover::after,
+    .holiday-indicator:focus::after {
+      opacity: 1;
+      visibility: visible;
     }
 
     .calendar-info {
@@ -493,6 +554,24 @@
     .legend-dot.exception {
       background: var(--error-bg);
       border: 1px solid var(--error);
+    }
+
+    .legend-dot.holiday {
+      background: var(--white);
+      border: 1px solid var(--error);
+      position: relative;
+    }
+
+    .legend-dot.holiday::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 4px;
+      height: 4px;
+      background: var(--error);
+      border-radius: 50%;
     }
 
     /* ==================== Exception List ==================== */
