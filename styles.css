@@ -66,6 +66,65 @@
       margin: 0;
     }
 
+    /* ==================== Quick Add ==================== */
+    .quick-add-container {
+      margin-bottom: 16px;
+    }
+
+    .quick-add-input-wrapper {
+      display: flex;
+      align-items: center;
+      background: var(--white);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 4px 4px 4px 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .quick-add-icon {
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+
+    .quick-add-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      padding: 8px 0;
+      outline: none;
+    }
+
+    .quick-add-input::placeholder {
+      color: var(--gray-400);
+    }
+
+    .quick-add-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .quick-add-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .quick-add-hint {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+      text-align: center;
+      margin: 8px 0 0 0;
+    }
+
     /* ==================== Card ==================== */
     .card {
       background: var(--white);
