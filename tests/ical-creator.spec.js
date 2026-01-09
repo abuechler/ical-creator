@@ -1466,3 +1466,76 @@ test.describe('iCal Creator - Preview Visibility for Non-Recurring Events', () =
     await expect(previewTitle).toHaveText('Preview');
   });
 });
+
+// Holiday Indicators Feature Tests
+test.describe('Holiday Indicators', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    await page.waitForSelector('#title');
+  });
+
+  test('should show holiday indicator for New Years Day', async ({ page }) => {
+    // Navigate to January 2026 (should already be there by default)
+    // New Year's Day is January 1st
+    const calendar = page.locator('.calendar-grid');
+    await expect(calendar).toBeVisible();
+
+    // Find the day with class 'holiday' in January
+    const holidayDay = page.locator('.calendar-day.holiday').first();
+    await expect(holidayDay).toBeVisible();
+
+    // Check that it has a holiday indicator
+    const indicator = holidayDay.locator('.holiday-indicator');
+    await expect(indicator).toBeVisible();
+  });
+
+  test('should show holiday name in tooltip', async ({ page }) => {
+    // Navigate to January 2026
+    const calendar = page.locator('.calendar-grid');
+    await expect(calendar).toBeVisible();
+
+    // Find the holiday indicator
+    const indicator = page.locator('.holiday-indicator').first();
+    await expect(indicator).toBeVisible();
+
+    // Check that the title attribute contains a holiday name
+    const title = await indicator.getAttribute('title');
+    expect(title).toBeTruthy();
+    expect(title.length).toBeGreaterThan(0);
+  });
+
+  test('should show Christmas Day in December', async ({ page }) => {
+    // Set start date to December to show December calendar
+    await page.fill('#startDate', '2026-12-25');
+
+    // Verify we're in December
+    const monthYearText = page.locator('#calendarMonthYear');
+    await expect(monthYearText).toContainText('December');
+
+    // Find holiday days - December has Christmas Eve, Christmas Day, Boxing Day, New Year's Eve
+    const holidayDays = page.locator('.calendar-day:not(.other-month).holiday');
+    const count = await holidayDays.count();
+    expect(count).toBeGreaterThanOrEqual(3);
+  });
+
+  test('should display holiday legend in calendar info', async ({ page }) => {
+    // Check that holiday legend exists
+    const holidayLegend = page.locator('.legend-item:has(.legend-dot.holiday)');
+    await expect(holidayLegend).toBeVisible();
+    await expect(holidayLegend).toContainText('Holiday');
+  });
+
+  test('should show Easter as a variable holiday in April 2026', async ({ page }) => {
+    // Set start date to April to show April calendar
+    await page.fill('#startDate', '2026-04-05');
+
+    // Verify we're in April
+    const monthYearText = page.locator('#calendarMonthYear');
+    await expect(monthYearText).toContainText('April');
+
+    // April has Easter-related holidays (Good Friday, Easter Sunday, Easter Monday)
+    const holidayDays = page.locator('.calendar-day:not(.other-month).holiday');
+    const count = await holidayDays.count();
+    expect(count).toBeGreaterThanOrEqual(2); // At least Good Friday and Easter Sunday
+  });
+});
