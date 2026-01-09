@@ -4,16 +4,21 @@
     }
 
     :root {
+      /* Brand colors */
       --primary: #00ACC1;
       --primary-dark: #00838F;
       --primary-light: #B2EBF2;
       --primary-bg: #E0F7FA;
+
+      /* Semantic colors */
       --error: #D32F2F;
       --error-bg: #FFEBEE;
       --success: #388E3C;
       --success-bg: #E8F5E9;
       --warning: #F57C00;
       --warning-bg: #FFF3E0;
+
+      /* Gray scale - Light theme */
       --gray-50: #FAFAFA;
       --gray-100: #F5F5F5;
       --gray-200: #EEEEEE;
@@ -25,6 +30,21 @@
       --gray-800: #424242;
       --gray-900: #212121;
       --white: #FFFFFF;
+
+      /* Theme-aware semantic tokens */
+      --bg-page: var(--gray-100);
+      --bg-card: var(--white);
+      --bg-card-hover: var(--white);
+      --bg-input: var(--white);
+      --bg-input-disabled: var(--gray-100);
+      --text-primary: var(--gray-900);
+      --text-secondary: var(--gray-600);
+      --text-muted: var(--gray-500);
+      --text-disabled: var(--gray-500);
+      --border-default: var(--gray-300);
+      --border-light: var(--gray-200);
+
+      /* Effects */
       --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
       --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
       --shadow-md: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
@@ -32,14 +52,62 @@
       --radius-sm: 4px;
     }
 
+    /* ==================== Dark Theme ==================== */
+    [data-theme="dark"] {
+      --gray-50: #1a1a2e;
+      --gray-100: #16213e;
+      --gray-200: #1f2b47;
+      --gray-300: #2a3a5a;
+      --gray-400: #4a5a7a;
+      --gray-500: #7a8a9a;
+      --gray-600: #9aaabc;
+      --gray-700: #b8c8d8;
+      --gray-800: #d8e4f0;
+      --gray-900: #e8f0f8;
+      --white: #0f0f1a;
+
+      /* Adjusted brand colors for dark mode */
+      --primary: #26c6da;
+      --primary-dark: #4dd0e1;
+      --primary-light: rgba(38, 198, 218, 0.2);
+      --primary-bg: rgba(38, 198, 218, 0.15);
+
+      /* Adjusted semantic colors for dark mode */
+      --error: #ef5350;
+      --error-bg: rgba(239, 83, 80, 0.15);
+      --success: #66bb6a;
+      --success-bg: rgba(102, 187, 106, 0.15);
+      --warning: #ffa726;
+      --warning-bg: rgba(255, 167, 38, 0.15);
+
+      /* Theme-aware semantic tokens - dark values */
+      --bg-page: #0f0f1a;
+      --bg-card: #1a1a2e;
+      --bg-card-hover: #1f2b47;
+      --bg-input: #16213e;
+      --bg-input-disabled: #1a1a2e;
+      --text-primary: #e8f0f8;
+      --text-secondary: #9aaabc;
+      --text-muted: #7a8a9a;
+      --text-disabled: #4a5a7a;
+      --border-default: #2a3a5a;
+      --border-light: #1f2b47;
+
+      /* Adjusted shadows for dark mode */
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+      --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
       line-height: 1.5;
-      color: var(--gray-900);
-      background: var(--gray-100);
+      color: var(--text-primary);
+      background: var(--bg-page);
       margin: 0;
       padding: 0;
       min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     /* ==================== Layout ==================== */
@@ -68,11 +136,12 @@
 
     /* ==================== Card ==================== */
     .card {
-      background: var(--white);
+      background: var(--bg-card);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 24px;
       margin-bottom: 16px;
+      transition: background-color 0.3s ease;
     }
 
     #eventForm {
@@ -1245,6 +1314,68 @@
 
     .debug-info-value {
       color: var(--gray-800);
+    }
+
+    /* ==================== Theme Toggle ==================== */
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--bg-card-hover);
+    }
+
+    .theme-toggle:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover svg {
+      transform: rotate(15deg);
+    }
+
+    .theme-toggle .sun-icon {
+      display: none;
+    }
+
+    .theme-toggle .moon-icon {
+      display: block;
+    }
+
+    [data-theme="dark"] .theme-toggle .sun-icon {
+      display: block;
+    }
+
+    [data-theme="dark"] .theme-toggle .moon-icon {
+      display: none;
+    }
+
+    /* Header actions container */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
     }
 
     /* ==================== Confetti Celebration ==================== */

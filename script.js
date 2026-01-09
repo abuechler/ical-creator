@@ -20,7 +20,8 @@ const state = {
 const STORAGE_KEYS = {
   FORM_STATE: 'icalCreator_formState',
   SAVED_EVENTS: 'icalCreator_savedEvents',
-  PREFERRED_TIMEZONE: 'icalCreator_preferredTimezone'
+  PREFERRED_TIMEZONE: 'icalCreator_preferredTimezone',
+  THEME: 'icalCreator_theme'
 };
 
 // ==================== DOM Elements ====================
@@ -66,6 +67,7 @@ const privacyModalClose = document.getElementById('privacyModalClose');
 const emojiPickerBtn = document.getElementById('emojiPickerBtn');
 const emojiPicker = document.getElementById('emojiPicker');
 const emojiGrid = document.getElementById('emojiGrid');
+const themeToggle = document.getElementById('themeToggle');
 
 // ==================== Emoji Picker Data ====================
 const EMOJI_LIST = [
@@ -93,6 +95,7 @@ const EMOJI_LIST = [
 
 // ==================== Initialization ====================
 function init() {
+  initTheme();
   populateTimezones();
   setDefaultDates();
   restoreFormState();
@@ -125,6 +128,39 @@ function updateDebugInfo() {
   document.getElementById('debugPreferredTz').textContent = preferredTz || '(none - using detected)';
   document.getElementById('debugSelectedTz').textContent = selectedTz;
   document.getElementById('debugLocalStorage').textContent = hasLocalStorage ? 'Yes' : 'No';
+}
+
+// ==================== Theme Management ====================
+function initTheme() {
+  // Check for saved theme preference, then system preference
+  const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME);
+
+  if (savedTheme) {
+    setTheme(savedTheme);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    setTheme('dark');
+  } else {
+    setTheme('light');
+  }
+
+  // Listen for system theme changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    // Only auto-switch if user hasn't set a preference
+    if (!localStorage.getItem(STORAGE_KEYS.THEME)) {
+      setTheme(e.matches ? 'dark' : 'light');
+    }
+  });
+}
+
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem(STORAGE_KEYS.THEME, theme);
+}
+
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  setTheme(newTheme);
 }
 
 function clearAllLocalStorage() {
@@ -468,6 +504,11 @@ function attachEventListeners() {
       emojiPickerBtn.focus();
     }
   });
+
+  // Theme toggle
+  if (themeToggle) {
+    themeToggle.addEventListener('click', toggleTheme);
+  }
 
   // Auto-save form state on input change
   const autoSaveInputs = [
