@@ -252,6 +252,43 @@
       <div class="btn-group">
         <button type="button" class="btn btn-secondary" id="newEventBtn">New Event</button>
         <button type="submit" class="btn btn-primary" id="downloadBtn">Download .ics</button>
+        <div class="dropdown" id="addToCalendarDropdown">
+          <button type="button" class="btn btn-secondary dropdown-toggle" id="addToCalendarBtn" aria-haspopup="true" aria-expanded="false">
+            Add to Calendar
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="dropdown-menu" id="calendarDropdownMenu" role="menu">
+            <a class="dropdown-item" id="addToGoogleCalendar" href="#" target="_blank" rel="noopener noreferrer" role="menuitem">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              Google Calendar
+            </a>
+            <a class="dropdown-item" id="addToOutlook" href="#" target="_blank" rel="noopener noreferrer" role="menuitem">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              Outlook
+            </a>
+            <a class="dropdown-item" id="addToYahoo" href="#" target="_blank" rel="noopener noreferrer" role="menuitem">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              Yahoo Calendar
+            </a>
+          </div>
+        </div>
       </div>
       <p class="download-hint hidden" id="downloadHint">Fix errors above to download</p>
         </form>
