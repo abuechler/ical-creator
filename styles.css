@@ -333,6 +333,74 @@
       display: block;
     }
 
+    /* ==================== Multiple Reminders ==================== */
+    .reminder-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .reminder-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gray-50);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gray-200);
+    }
+
+    .reminder-item select {
+      flex: 1;
+      padding: 6px 8px;
+      font-size: 0.875rem;
+      border: 1px solid var(--gray-300);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+    }
+
+    .reminder-remove-btn {
+      padding: 4px 8px;
+      font-size: 1rem;
+      color: var(--gray-500);
+      background: transparent;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      line-height: 1;
+    }
+
+    .reminder-remove-btn:hover {
+      color: var(--error);
+      background: var(--error-bg);
+    }
+
+    .reminder-remove-btn:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .reminder-hint {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+      margin: 8px 0 0 0;
+    }
+
+    .reminder-hint.hidden {
+      display: none;
+    }
+
+    .btn-icon {
+      font-weight: bold;
+      margin-right: 4px;
+    }
+
+    #addReminderBtn.hidden {
+      display: none;
+    }
+
     /* ==================== Warning Box ==================== */
     .warning-box {
       background: var(--warning-bg);

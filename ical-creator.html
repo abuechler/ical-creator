@@ -229,16 +229,13 @@
         </div>
 
         <div class="collapsible-content" id="reminderOptions">
-          <div class="form-group">
-            <label for="reminderTime">Remind me</label>
-            <select id="reminderTime" name="reminderTime">
-              <option value="5">5 minutes before</option>
-              <option value="15" selected>15 minutes before</option>
-              <option value="30">30 minutes before</option>
-              <option value="60">1 hour before</option>
-              <option value="1440">1 day before</option>
-            </select>
+          <div id="reminderList" class="reminder-list">
+            <!-- Reminders will be added here dynamically -->
           </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="addReminderBtn">
+            <span class="btn-icon">+</span> Add Reminder
+          </button>
+          <p class="reminder-hint" id="reminderHint">Maximum 5 reminders</p>
         </div>
       </section>
 
