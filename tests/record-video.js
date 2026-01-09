@@ -94,6 +94,36 @@ const SCENARIOS = {
   },
 
   /**
+   * ICS file preview with syntax highlighting
+   */
+  'ics-preview': async (page) => {
+    // Fill in event details
+    await page.locator('#title').fill('Team Standup');
+    await page.locator('#startDate').fill('2026-02-10');
+    await page.locator('#startTime').fill('09:00');
+    await page.locator('#endTime').fill('09:30');
+    await page.locator('#location').fill('Zoom Meeting');
+    await page.locator('#description').fill('Daily team standup meeting');
+    await page.waitForTimeout(800);
+
+    // Click Preview ICS button
+    await page.locator('#previewIcsBtn').click();
+    await page.waitForTimeout(1000);
+
+    // Show the syntax highlighted content
+    await page.waitForSelector('#icsPreviewModal[aria-hidden="false"]', { timeout: 5000 });
+    await page.waitForTimeout(1500);
+
+    // Click copy button
+    await page.locator('#copyIcsBtn').click();
+    await page.waitForTimeout(1500);
+
+    // Close modal
+    await page.locator('#icsPreviewModalClose').click();
+    await page.waitForTimeout(500);
+  },
+
+  /**
    * Form validation - showing required fields
    */
   'form-validation': async (page) => {
