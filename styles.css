@@ -66,6 +66,100 @@
       margin: 0;
     }
 
+    /* ==================== Quick Add ==================== */
+    .quick-add-section {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--gray-100);
+      padding: 16px 0 0 0;
+      margin-bottom: 0;
+    }
+
+    .quick-add-container {
+      margin-bottom: 0;
+    }
+
+    /* OR Divider */
+    .or-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 16px 0;
+      position: relative;
+    }
+
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray-300);
+    }
+
+    .or-divider-text {
+      padding: 0 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .quick-add-input-wrapper {
+      display: flex;
+      align-items: center;
+      background: var(--white);
+      border: 2px solid var(--primary);
+      border-radius: var(--radius);
+      padding: 4px 4px 4px 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .quick-add-icon {
+      color: var(--primary);
+      flex-shrink: 0;
+      margin-right: 8px;
+    }
+
+    .quick-add-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      padding: 8px 0;
+      outline: none;
+    }
+
+    .quick-add-input::placeholder {
+      color: var(--gray-400);
+    }
+
+    .quick-add-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .quick-add-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .quick-add-hint {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+      text-align: center;
+      margin: 8px 0 0 0;
+    }
+
     /* ==================== Card ==================== */
     .card {
       background: var(--white);
@@ -859,6 +953,12 @@
         padding: 24px 32px;
       }
 
+      /* Quick add section spans full width on desktop */
+      .quick-add-section {
+        top: 0;
+        padding: 16px 0;
+      }
+
       /* Form area uses two-column grid */
       .form-area {
         display: grid;
@@ -875,10 +975,10 @@
         gap: 16px;
       }
 
-      /* Right column: preview section */
+      /* Right column: preview section - offset for sticky header */
       .form-preview {
         position: sticky;
-        top: 24px;
+        top: 100px;
         align-self: start;
       }
 

@@ -31,6 +31,9 @@ This project is a simple website to create iCal calendar files (.ics) with recur
     - `npx playwright test`
     - `mvn -f /workspace/validator/pom.xml test`
 - For UI changes, create screenshots in both viewports and add them to the story/bug document AND PR description.
+  - Use Playwright MCP tools with `file:///workspace/ical-creator.html` - no server needed
+  - Use `browser_resize` to set viewport (375x812 for mobile, 1440x900 for desktop)
+  - Save screenshots to a relative path, then copy to `doc/stories/pr/` or `doc/bugs/pr/`
 - Increment the version in `package.json` according to semantic versioning (see [Versioning](#versioning) below).
 - Commit as Author: `claude-code-ical-creator[bot] <253599583+claude-code-ical-creator[bot]@users.noreply.github.com>`
 - Ask for a PR review from `GitHub Copilot` and `abuechler`

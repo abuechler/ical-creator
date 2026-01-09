@@ -66,6 +66,8 @@ const privacyModalClose = document.getElementById('privacyModalClose');
 const emojiPickerBtn = document.getElementById('emojiPickerBtn');
 const emojiPicker = document.getElementById('emojiPicker');
 const emojiGrid = document.getElementById('emojiGrid');
+const quickAddInput = document.getElementById('quickAddInput');
+const quickAddBtn = document.getElementById('quickAddBtn');
 
 // ==================== Emoji Picker Data ====================
 const EMOJI_LIST = [
@@ -468,6 +470,19 @@ function attachEventListeners() {
       emojiPickerBtn.focus();
     }
   });
+
+  // Quick Add natural language input
+  if (quickAddInput) {
+    quickAddInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleQuickAdd();
+      }
+    });
+  }
+  if (quickAddBtn) {
+    quickAddBtn.addEventListener('click', handleQuickAdd);
+  }
 
   // Auto-save form state on input change
   const autoSaveInputs = [
@@ -1958,6 +1973,260 @@ function triggerConfetti() {
     container.remove();
   }, 4500);
 }
+
+// ==================== Natural Language Parsing ====================
+function handleQuickAdd() {
+  const input = quickAddInput?.value?.trim();
+  if (!input) return;
+
+  const parsed = parseNaturalLanguage(input);
+  fillFormFromParsed(parsed);
+
+  // Clear quick add input
+  if (quickAddInput) {
+    quickAddInput.value = '';
+  }
+}
+
+function parseNaturalLanguage(text) {
+  const result = {
+    title: '',
+    date: null,
+    time: null,
+    duration: null, // in minutes
+    recurrence: null,
+    allDay: false
+  };
+
+  let remaining = text;
+
+  // Parse recurrence patterns first
+  const recurrencePatterns = [
+    { regex: /\bevery\s+(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i, freq: 'WEEKLY' },
+    { regex: /\bweekly\b/i, freq: 'WEEKLY' },
+    { regex: /\bdaily\b/i, freq: 'DAILY' },
+    { regex: /\bmonthly\b/i, freq: 'MONTHLY' },
+    { regex: /\bevery\s+day\b/i, freq: 'DAILY' },
+    { regex: /\bevery\s+week\b/i, freq: 'WEEKLY' },
+    { regex: /\bevery\s+month\b/i, freq: 'MONTHLY' }
+  ];
+
+  for (const pattern of recurrencePatterns) {
+    const match = remaining.match(pattern.regex);
+    if (match) {
+      result.recurrence = pattern.freq;
+      remaining = remaining.replace(match[0], '').trim();
+      break;
+    }
+  }
+
+  // Parse duration (for X hour(s)/minute(s))
+  const durationMatch = remaining.match(/\bfor\s+(\d+)\s*(hour|hr|minute|min)s?\b/i);
+  if (durationMatch) {
+    const num = parseInt(durationMatch[1], 10);
+    const unit = durationMatch[2].toLowerCase();
+    if (unit.startsWith('hour') || unit === 'hr') {
+      result.duration = num * 60;
+    } else {
+      result.duration = num;
+    }
+    remaining = remaining.replace(durationMatch[0], '').trim();
+  }
+
+  // Parse time
+  const timePatterns = [
+    // "at 2pm", "at 2:30pm", "at 14:00"
+    { regex: /\bat\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)?\b/i, handler: parseTimeMatch },
+    // "2pm", "2:30pm" (standalone)
+    { regex: /\b(\d{1,2})(?::(\d{2}))?\s*(am|pm)\b/i, handler: parseTimeMatch },
+    // "noon"
+    { regex: /\bnoon\b/i, handler: () => ({ hours: 12, minutes: 0 }) },
+    // "midnight"
+    { regex: /\bmidnight\b/i, handler: () => ({ hours: 0, minutes: 0 }) }
+  ];
+
+  for (const pattern of timePatterns) {
+    const match = remaining.match(pattern.regex);
+    if (match) {
+      result.time = pattern.handler(match);
+      remaining = remaining.replace(match[0], '').trim();
+      break;
+    }
+  }
+
+  // Parse date
+  const today = new Date();
+  const datePatterns = [
+    // "today"
+    { regex: /\btoday\b/i, handler: () => today },
+    // "tomorrow"
+    { regex: /\btomorrow\b/i, handler: () => {
+      const d = new Date(today);
+      d.setDate(d.getDate() + 1);
+      return d;
+    }},
+    // "next monday", "next tuesday", etc.
+    { regex: /\bnext\s+(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i, handler: (match) => {
+      return getNextDayOfWeek(match[1], true);
+    }},
+    // "monday", "tuesday", etc. (this week or next)
+    { regex: /\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/i, handler: (match) => {
+      return getNextDayOfWeek(match[1], false);
+    }},
+    // "on jan 15", "on january 15", "jan 15"
+    { regex: /\b(?:on\s+)?(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+(\d{1,2})(?:st|nd|rd|th)?\b/i, handler: (match) => {
+      const month = getMonthNumber(match[1]);
+      const day = parseInt(match[2], 10);
+      const year = today.getFullYear();
+      const d = new Date(year, month, day);
+      // If date is in the past, assume next year
+      if (d < today) {
+        d.setFullYear(year + 1);
+      }
+      return d;
+    }}
+  ];
+
+  for (const pattern of datePatterns) {
+    const match = remaining.match(pattern.regex);
+    if (match) {
+      result.date = pattern.handler(match);
+      remaining = remaining.replace(match[0], '').trim();
+      break;
+    }
+  }
+
+  // Clean up remaining text for title
+  remaining = remaining
+    .replace(/\bat\b/gi, '')
+    .replace(/\bon\b/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  result.title = remaining;
+
+  return result;
+}
+
+function parseTimeMatch(match) {
+  let hours = parseInt(match[1], 10);
+  const minutes = match[2] ? parseInt(match[2], 10) : 0;
+  const meridiem = match[3]?.toLowerCase();
+
+  if (meridiem === 'pm' && hours !== 12) {
+    hours += 12;
+  } else if (meridiem === 'am' && hours === 12) {
+    hours = 0;
+  }
+
+  return { hours, minutes };
+}
+
+function getNextDayOfWeek(dayName, forceNext) {
+  const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  const targetDay = days.indexOf(dayName.toLowerCase());
+  const today = new Date();
+  const currentDay = today.getDay();
+
+  let daysUntil = targetDay - currentDay;
+  if (daysUntil < 0 || (daysUntil === 0 && forceNext)) {
+    daysUntil += 7;
+  }
+  if (forceNext && daysUntil <= 7) {
+    daysUntil += 7;
+  }
+
+  const result = new Date(today);
+  result.setDate(today.getDate() + daysUntil);
+  return result;
+}
+
+function getMonthNumber(monthName) {
+  const months = {
+    'jan': 0, 'january': 0,
+    'feb': 1, 'february': 1,
+    'mar': 2, 'march': 2,
+    'apr': 3, 'april': 3,
+    'may': 4,
+    'jun': 5, 'june': 5,
+    'jul': 6, 'july': 6,
+    'aug': 7, 'august': 7,
+    'sep': 8, 'september': 8,
+    'oct': 9, 'october': 9,
+    'nov': 10, 'november': 10,
+    'dec': 11, 'december': 11
+  };
+  return months[monthName.toLowerCase()] || 0;
+}
+
+function fillFormFromParsed(parsed) {
+  // Fill title
+  if (parsed.title) {
+    document.getElementById('title').value = parsed.title;
+  }
+
+  // Fill date
+  if (parsed.date) {
+    const dateStr = formatDateForInput(parsed.date);
+    document.getElementById('startDate').value = dateStr;
+    document.getElementById('endDate').value = dateStr;
+  }
+
+  // Fill time
+  if (parsed.time) {
+    const timeStr = formatTimeForInput(parsed.time.hours, parsed.time.minutes);
+    document.getElementById('startTime').value = timeStr;
+
+    // Calculate end time if duration provided
+    if (parsed.duration) {
+      const endHours = parsed.time.hours + Math.floor(parsed.duration / 60);
+      const endMinutes = parsed.time.minutes + (parsed.duration % 60);
+      const adjustedHours = endHours + Math.floor(endMinutes / 60);
+      const adjustedMinutes = endMinutes % 60;
+      document.getElementById('endTime').value = formatTimeForInput(adjustedHours % 24, adjustedMinutes);
+    } else {
+      // Default 1 hour duration
+      const endHours = (parsed.time.hours + 1) % 24;
+      document.getElementById('endTime').value = formatTimeForInput(endHours, parsed.time.minutes);
+    }
+  }
+
+  // Fill recurrence
+  if (parsed.recurrence) {
+    isRecurringCheckbox.checked = true;
+    handleRecurringToggle();
+    frequencySelect.value = parsed.recurrence;
+    updateFrequencyOptions();
+  }
+
+  // Update UI
+  updateMonthlyHints();
+  updateDownloadButtonState();
+  saveFormState();
+
+  // Update preview
+  const startDate = document.getElementById('startDate').value;
+  if (startDate) {
+    calculateOccurrences();
+    renderCalendar();
+    previewSection.style.display = 'block';
+    updatePreviewContent(isRecurringCheckbox.checked);
+  }
+}
+
+function formatDateForInput(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function formatTimeForInput(hours, minutes) {
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
+}
+
+// ==================== Expose functions for testing ====================
+window.parseNaturalLanguage = parseNaturalLanguage;
 
 // ==================== Start ====================
 init();
