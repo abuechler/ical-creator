@@ -105,7 +105,7 @@ test.describe('Share via URL Feature', () => {
         description: 'Test Description'
       };
       // @ts-ignore
-      populateFormFromEventData(eventData);
+      window.populateFormFromEventData(eventData);
     });
 
     // Verify form values
@@ -128,7 +128,7 @@ test.describe('Share via URL Feature', () => {
         reminderTime: '30'
       };
       // @ts-ignore
-      populateFormFromEventData(eventData);
+      window.populateFormFromEventData(eventData);
     });
 
     // Verify form values

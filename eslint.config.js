@@ -33,7 +33,14 @@ module.exports = [
         URL: 'readonly',
         confirm: 'readonly',
         alert: 'readonly',
-        ICAL: 'readonly'
+        ICAL: 'readonly',
+        navigator: 'readonly',
+        btoa: 'readonly',
+        atob: 'readonly',
+        history: 'readonly',
+        Event: 'readonly',
+        Intl: 'readonly',
+        QRCode: 'readonly'
       }
     },
     rules: {
