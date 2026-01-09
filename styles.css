@@ -67,8 +67,43 @@
     }
 
     /* ==================== Quick Add ==================== */
+    .quick-add-section {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--gray-100);
+      padding: 16px 0 0 0;
+      margin-bottom: 0;
+    }
+
     .quick-add-container {
-      margin-bottom: 16px;
+      margin-bottom: 0;
+    }
+
+    /* OR Divider */
+    .or-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 16px 0;
+      position: relative;
+    }
+
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray-300);
+    }
+
+    .or-divider-text {
+      padding: 0 16px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .quick-add-input-wrapper {
@@ -918,6 +953,12 @@
         padding: 24px 32px;
       }
 
+      /* Quick add section spans full width on desktop */
+      .quick-add-section {
+        top: 0;
+        padding: 16px 0;
+      }
+
       /* Form area uses two-column grid */
       .form-area {
         display: grid;
@@ -934,10 +975,10 @@
         gap: 16px;
       }
 
-      /* Right column: preview section */
+      /* Right column: preview section - offset for sticky header */
       .form-preview {
         position: sticky;
-        top: 24px;
+        top: 100px;
         align-self: start;
       }
 

@@ -34,26 +34,37 @@ Add a text field that parses natural language like "Team meeting tomorrow at 3pm
 8. Fill form fields and trigger relevant UI updates
 9. Write Playwright tests for parsing
 
+### Layout Redesign (2026-01-09)
+Based on user feedback, redesigned the NLI layout:
+- Moved NLI to span full width at top (above form + preview columns)
+- Added "OR" divider between NLI and form below
+- Made NLI sticky at top when scrolling
+- Implemented "fire and forget" behavior (NLI auto-clears after execution)
+
 ### Assumptions
 - Will use pure JavaScript regex, no external NLP library
 - Focus on English language patterns only
 - Title will be whatever text remains after extracting date/time/recurrence
 - User pressed Enter or clicks button to parse and fill form
-- Show parsed result in input as placeholder/hint
+- "Fire and forget" model: NLI clears after filling form
 
 ### End Timestamp
-2026-01-09 01:48:00
+2026-01-09 23:30:00
 
 ### Duration
-~56 minutes (planning and implementation)
+~2 hours (initial implementation + layout redesign)
+
+## Demo
+
+![Natural Language Input Demo](natural-language-demo.gif)
 
 ## Screenshots
 
 ### Desktop View
-![Quick Add input on desktop](screenshots/natural-language-desktop.png)
+![Quick Add input on desktop](natural-language-desktop.png)
 
 ### Desktop View (After Parsing)
-![Form filled after natural language parsing](screenshots/natural-language-desktop-filled.png)
+![Form filled after natural language parsing](natural-language-desktop-filled.png)
 
 ### Mobile View
-![Quick Add input on mobile](screenshots/natural-language-mobile.png)
+![Quick Add input on mobile](natural-language-mobile.png)
