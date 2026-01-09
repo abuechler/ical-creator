@@ -63,6 +63,12 @@ const resetTimezoneBtn = document.getElementById('resetTimezoneBtn');
 const privacyInfoBtn = document.getElementById('privacyInfoBtn');
 const privacyModal = document.getElementById('privacyModal');
 const privacyModalClose = document.getElementById('privacyModalClose');
+const previewIcsBtn = document.getElementById('previewIcsBtn');
+const icsPreviewModal = document.getElementById('icsPreviewModal');
+const icsPreviewModalClose = document.getElementById('icsPreviewModalClose');
+const icsPreviewContent = document.getElementById('icsPreviewContent');
+const copyIcsBtn = document.getElementById('copyIcsBtn');
+const copyFeedback = document.getElementById('copyFeedback');
 
 // ==================== Initialization ====================
 function init() {
@@ -115,6 +121,102 @@ function closePrivacyModal() {
   privacyModal.classList.remove('show');
   privacyModal.setAttribute('aria-hidden', 'true');
   privacyInfoBtn.focus();
+}
+
+// ==================== ICS Preview Modal ====================
+let currentIcsContent = '';
+
+function openIcsPreviewModal() {
+  try {
+    // Ensure currentEventId is set before generating ICS (for UID persistence)
+    if (!state.currentEventId) {
+      state.currentEventId = generateUID();
+    }
+
+    currentIcsContent = generateICS();
+    const highlightedContent = highlightIcsContent(currentIcsContent);
+    icsPreviewContent.innerHTML = highlightedContent;
+    icsPreviewModal.classList.add('show');
+    icsPreviewModal.setAttribute('aria-hidden', 'false');
+    icsPreviewModalClose.focus();
+  } catch (error) {
+    console.error('Error generating ICS preview:', error);
+    icsPreviewContent.textContent = 'Error generating ICS preview: ' + (error.message || 'Unknown error');
+    icsPreviewModal.classList.add('show');
+    icsPreviewModal.setAttribute('aria-hidden', 'false');
+  }
+}
+
+function closeIcsPreviewModal() {
+  icsPreviewModal.classList.remove('show');
+  icsPreviewModal.setAttribute('aria-hidden', 'true');
+  previewIcsBtn.focus();
+}
+
+function highlightIcsContent(icsString) {
+  // Escape HTML entities first
+  const escaped = icsString
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  // Split into lines and highlight each
+  const lines = escaped.split('\n');
+  const highlighted = lines.map(line => {
+    // Match property:value pattern
+    const colonIndex = line.indexOf(':');
+    if (colonIndex > 0) {
+      const property = line.substring(0, colonIndex);
+      const value = line.substring(colonIndex + 1);
+
+      // Check if it's a keyword (BEGIN, END)
+      if (property === 'BEGIN' || property === 'END') {
+        return `<span class="ics-keyword">${property}</span>:<span class="ics-value">${value}</span>`;
+      }
+
+      // Check if value looks like a date/time (YYYYMMDD or YYYYMMDDTHHMMSS)
+      if (/^\d{8}(T\d{6}Z?)?$/.test(value) || /^TZID=/.test(value)) {
+        return `<span class="ics-property">${property}</span>:<span class="ics-datetime">${value}</span>`;
+      }
+
+      return `<span class="ics-property">${property}</span>:<span class="ics-value">${value}</span>`;
+    }
+
+    // Handle folded lines (lines starting with space)
+    if (line.startsWith(' ')) {
+      return `<span class="ics-value">${line}</span>`;
+    }
+
+    return line;
+  });
+
+  return highlighted.join('\n');
+}
+
+function copyIcsToClipboard() {
+  window.navigator.clipboard.writeText(currentIcsContent).then(() => {
+    copyFeedback.classList.add('show');
+    setTimeout(() => {
+      copyFeedback.classList.remove('show');
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy:', err);
+    // Fallback for older browsers
+    const textArea = document.createElement('textarea');
+    textArea.value = currentIcsContent;
+    document.body.appendChild(textArea);
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      copyFeedback.classList.add('show');
+      setTimeout(() => {
+        copyFeedback.classList.remove('show');
+      }, 2000);
+    } catch (fallbackErr) {
+      console.error('Fallback copy failed:', fallbackErr);
+    }
+    document.body.removeChild(textArea);
+  });
 }
 
 function getPreferredTimezone() {
@@ -368,6 +470,19 @@ function attachEventListeners() {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && privacyModal.classList.contains('show')) {
       closePrivacyModal();
+    }
+  });
+
+  // ICS Preview modal
+  previewIcsBtn.addEventListener('click', openIcsPreviewModal);
+  icsPreviewModalClose.addEventListener('click', closeIcsPreviewModal);
+  copyIcsBtn.addEventListener('click', copyIcsToClipboard);
+  icsPreviewModal.addEventListener('click', (e) => {
+    if (e.target === icsPreviewModal) closeIcsPreviewModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && icsPreviewModal.classList.contains('show')) {
+      closeIcsPreviewModal();
     }
   });
 

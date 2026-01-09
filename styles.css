@@ -1094,6 +1094,70 @@
       margin-bottom: 0;
     }
 
+    /* ==================== ICS Preview Modal ==================== */
+    .modal-large {
+      max-width: 600px;
+    }
+
+    .ics-preview-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 0.8125rem;
+    }
+
+    .copy-feedback {
+      color: var(--success);
+      font-size: 0.875rem;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .copy-feedback.show {
+      opacity: 1;
+    }
+
+    .ics-preview-content {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin: 0;
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      overflow-x: auto;
+      white-space: pre;
+      max-height: 400px;
+      overflow-y: auto;
+      color: var(--gray-700);
+    }
+
+    /* ICS Syntax Highlighting */
+    .ics-property {
+      color: #0550ae;
+      font-weight: 500;
+    }
+
+    .ics-value {
+      color: var(--gray-700);
+    }
+
+    .ics-keyword {
+      color: #8250df;
+      font-weight: 500;
+    }
+
+    .ics-datetime {
+      color: #0a3069;
+    }
+
     /* ==================== Debug Info ==================== */
     .debug-info {
       margin-top: 24px;
