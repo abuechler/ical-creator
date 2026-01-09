@@ -1466,3 +1466,155 @@ test.describe('iCal Creator - Preview Visibility for Non-Recurring Events', () =
     await expect(previewTitle).toHaveText('Preview');
   });
 });
+
+// ==================== ICS Preview Tests ====================
+test.describe('ICS File Preview', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    // Clear any stored state
+    await page.evaluate(() => {
+      localStorage.clear();
+    });
+    await page.reload();
+  });
+
+  test('should open ICS preview modal when Preview ICS button is clicked', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Preview Test Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-06-15', '10:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-06-15', '11:00');
+
+    // Click Preview ICS button
+    const previewIcsBtn = page.locator('#previewIcsBtn');
+    await previewIcsBtn.click();
+
+    // Verify modal is visible
+    const modal = page.locator('#icsPreviewModal');
+    await expect(modal).toHaveClass(/show/);
+
+    // Verify content is displayed
+    const content = page.locator('#icsPreviewContent');
+    await expect(content).toBeVisible();
+    const text = await content.textContent();
+    expect(text).toContain('BEGIN:VCALENDAR');
+    expect(text).toContain('SUMMARY:Preview Test Event');
+  });
+
+  test('should display ICS content with syntax highlighting', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Highlighted Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-07-01', '14:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-07-01', '15:00');
+
+    // Open preview modal
+    await page.locator('#previewIcsBtn').click();
+
+    // Check for highlighted elements
+    const content = page.locator('#icsPreviewContent');
+    await expect(content).toBeVisible();
+
+    // Verify syntax highlighting classes are present
+    const propertySpans = content.locator('.ics-property');
+    const count = await propertySpans.count();
+    expect(count).toBeGreaterThan(0);
+
+    // Verify keyword highlighting for BEGIN/END
+    const keywordSpans = content.locator('.ics-keyword');
+    const keywordCount = await keywordSpans.count();
+    expect(keywordCount).toBeGreaterThan(0);
+  });
+
+  test('should close ICS preview modal when close button is clicked', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Close Test Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-06-20', '09:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-06-20', '10:00');
+
+    // Open preview modal
+    await page.locator('#previewIcsBtn').click();
+    const modal = page.locator('#icsPreviewModal');
+    await expect(modal).toHaveClass(/show/);
+
+    // Click close button
+    await page.locator('#icsPreviewModalClose').click();
+
+    // Verify modal is hidden
+    await expect(modal).not.toHaveClass(/show/);
+  });
+
+  test('should close ICS preview modal when clicking outside', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Overlay Close Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-06-25', '11:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-06-25', '12:00');
+
+    // Open preview modal
+    await page.locator('#previewIcsBtn').click();
+    const modal = page.locator('#icsPreviewModal');
+    await expect(modal).toHaveClass(/show/);
+
+    // Click on the overlay (outside the modal dialog)
+    await modal.click({ position: { x: 10, y: 10 } });
+
+    // Verify modal is hidden
+    await expect(modal).not.toHaveClass(/show/);
+  });
+
+  test('should close ICS preview modal when pressing Escape', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Escape Close Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-07-05', '13:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-07-05', '14:00');
+
+    // Open preview modal
+    await page.locator('#previewIcsBtn').click();
+    const modal = page.locator('#icsPreviewModal');
+    await expect(modal).toHaveClass(/show/);
+
+    // Press Escape
+    await page.keyboard.press('Escape');
+
+    // Verify modal is hidden
+    await expect(modal).not.toHaveClass(/show/);
+  });
+
+  test('should show copy feedback when copy button is clicked', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Copy Test Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-07-10', '10:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-07-10', '11:00');
+
+    // Open preview modal
+    await page.locator('#previewIcsBtn').click();
+
+    // Click copy button
+    await page.locator('#copyIcsBtn').click();
+
+    // Verify feedback is shown
+    const feedback = page.locator('#copyFeedback');
+    await expect(feedback).toHaveClass(/show/);
+  });
+
+  test('copy feedback should disappear after timeout', async ({ page }) => {
+    // Fill minimum required fields
+    await page.locator('#title').fill('Feedback Timeout Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-07-15', '09:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-07-15', '10:00');
+
+    // Open preview modal
+    await page.locator('#previewIcsBtn').click();
+
+    // Click copy button
+    await page.locator('#copyIcsBtn').click();
+
+    // Verify feedback is shown
+    const feedback = page.locator('#copyFeedback');
+    await expect(feedback).toHaveClass(/show/);
+
+    // Wait for timeout (2 seconds)
+    await page.waitForTimeout(2500);
+
+    // Verify feedback is hidden
+    await expect(feedback).not.toHaveClass(/show/);
+  });
+});
