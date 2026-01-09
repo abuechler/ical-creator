@@ -267,6 +267,26 @@ const SCENARIOS = {
   },
 
   /**
+   * Share via URL feature
+   */
+  'share-url': async (page) => {
+    // Fill in event details
+    await page.locator('#title').fill('Project Kickoff');
+    await page.locator('#startDate').fill('2026-04-01');
+    await page.locator('#startTime').fill('10:00');
+    await page.locator('#endTime').fill('12:00');
+    await page.locator('#location').fill('Conference Room A');
+    await page.waitForTimeout(500);
+
+    // Click Share button
+    await page.locator('#shareBtn').click();
+    await page.waitForTimeout(2000);
+
+    // Show toast notification
+    await page.waitForTimeout(1000);
+  },
+
+  /**
    * Loading a saved/demo event
    */
   'load-saved-event': async (page) => {
