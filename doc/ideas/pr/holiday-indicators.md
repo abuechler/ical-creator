@@ -131,3 +131,36 @@ The BFS API provides many classification codes that could help determine regiona
 3. **No external runtime dependency** - Could pre-fetch and bundle a static list of cantons/municipalities for the iCal creator.
 
 4. **Holiday data source** - The BFS API provides municipality structure, but holiday dates would need a separate source (e.g., [feiertagskalender.ch](https://www.feiertagskalender.ch/) or similar).
+
+### Example: Bezirk Bülach (Kanton Zürich)
+
+Complete list of all 22 municipalities in Bezirk Bülach with their official websites:
+
+| BFS-Nr | Gemeinde | Website |
+|--------|----------|---------|
+| 51 | Bachenbülach | http://www.bachenbuelach.ch |
+| 52 | Bassersdorf | https://www.bassersdorf.ch |
+| 53 | Bülach | https://www.buelach.ch |
+| 54 | Dietlikon | https://www.dietlikon.ch |
+| 55 | Eglisau | https://www.eglisau.ch |
+| 56 | Embrach | http://www.embrach.ch |
+| 57 | Freienstein-Teufen | https://www.freienstein-teufen.ch/ |
+| 58 | Glattfelden | https://www.glattfelden.ch |
+| 59 | Hochfelden | http://www.hochfelden.ch |
+| 60 | Höri | http://www.hoeri.ch |
+| 61 | Hüntwangen | https://www.huentwangen.ch/ |
+| 62 | Kloten | http://www.kloten.ch |
+| 63 | Lufingen | https://www.lufingen.ch/ |
+| 64 | Nürensdorf | http://www.nuerensdorf.ch |
+| 65 | Oberembrach | http://www.oberembrach.ch |
+| 66 | Opfikon | http://www.opfikon.ch |
+| 67 | Rafz | https://www.rafz.ch |
+| 68 | Rorbas | https://www.rorbas.ch |
+| 69 | Wallisellen | http://www.wallisellen.ch |
+| 70 | Wasterkingen | https://www.wasterkingen.ch |
+| 71 | Wil (ZH) | http://www.wil-zh.ch |
+| 72 | Winkel | http://www.winkel.ch |
+
+**Data sources:**
+- Municipality list: [BFS API](https://www.agvchapp.bfs.admin.ch/api/communes/snapshot?date=01-01-2026) (Bezirk Bülach = Parent 10081)
+- Websites: [Wikidata](https://query.wikidata.org/) (Property P856, joined via BFS number P771)
