@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/oberembrach-ferienplan-2025-27.pdf` | 2026-01-10 23:53:00 CET | 51 KB |
+| [`oberembrach-ferienplan-2025-27.pdf`](../../../data/zh/buelach/oberembrach-ferienplan-2025-27.pdf) | 2026-01-10 23:53:00 CET | 51 KB |
 
 ## Source
 

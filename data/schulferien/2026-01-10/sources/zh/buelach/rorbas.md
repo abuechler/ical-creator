@@ -4,10 +4,10 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/rorbas-ferienplan-2025-26.pdf` | 2026-01-10 23:21:55 CET | 89 KB |
-| `data/zh/buelach/rorbas-ferienplan-2026-27.pdf` | 2026-01-10 23:21:55 CET | 89 KB |
-| `data/zh/buelach/rorbas-ferienplan-2027-28.pdf` | 2026-01-10 23:21:56 CET | 90 KB |
-| `data/zh/buelach/rorbas-ferienplan-2028-29.pdf` | 2026-01-10 23:21:56 CET | 90 KB |
+| [`rorbas-ferienplan-2025-26.pdf`](../../../data/zh/buelach/rorbas-ferienplan-2025-26.pdf) | 2026-01-10 23:21:55 CET | 89 KB |
+| [`rorbas-ferienplan-2026-27.pdf`](../../../data/zh/buelach/rorbas-ferienplan-2026-27.pdf) | 2026-01-10 23:21:55 CET | 89 KB |
+| [`rorbas-ferienplan-2027-28.pdf`](../../../data/zh/buelach/rorbas-ferienplan-2027-28.pdf) | 2026-01-10 23:21:56 CET | 90 KB |
+| [`rorbas-ferienplan-2028-29.pdf`](../../../data/zh/buelach/rorbas-ferienplan-2028-29.pdf) | 2026-01-10 23:21:56 CET | 90 KB |
 
 ## Source
 

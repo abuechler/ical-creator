@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/winkel-ferienplan-2024-27.pdf` | 2026-01-10 23:42:00 CET | 46 KB |
+| [`winkel-ferienplan-2024-27.pdf`](../../../data/zh/buelach/winkel-ferienplan-2024-27.pdf) | 2026-01-10 23:42:00 CET | 46 KB |
 
 ## Source
 

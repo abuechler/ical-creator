@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/bassersdorf-ferienplan-2025-28.pdf` | 2026-01-10 23:25:55 CET | 120 KB |
+| [`bassersdorf-ferienplan-2025-28.pdf`](../../../data/zh/buelach/bassersdorf-ferienplan-2025-28.pdf) | 2026-01-10 23:25:55 CET | 120 KB |
 
 ## Source
 

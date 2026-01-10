@@ -7,7 +7,7 @@ Uses **Schule UR** (Unteres Rafzerfeld) - same data as Wasterkingen.
 ## Retrieved Files
 
 See [wasterkingen.md](wasterkingen.md) for file:
-- `data/zh/buelach/wasterkingen-ferienplan-2025-27.pdf`
+- [`wasterkingen-ferienplan-2025-27.pdf`](../../../data/zh/buelach/wasterkingen-ferienplan-2025-27.pdf)
 
 ## Source
 

@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/wasterkingen-ferienplan-2025-27.pdf` | 2026-01-10 23:22:59 CET | 189 KB |
+| [`wasterkingen-ferienplan-2025-27.pdf`](../../../data/zh/buelach/wasterkingen-ferienplan-2025-27.pdf) | 2026-01-10 23:22:59 CET | 189 KB |
 
 ## Source
 

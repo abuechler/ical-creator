@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/rafz-ferienplan-2026-27.pdf` | 2026-01-10 23:23:35 CET | 26 KB |
+| [`rafz-ferienplan-2026-27.pdf`](../../../data/zh/buelach/rafz-ferienplan-2026-27.pdf) | 2026-01-10 23:23:35 CET | 26 KB |
 
 ## Source
 

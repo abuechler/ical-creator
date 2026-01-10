@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/hochfelden-ferienplan-2024-27.pdf` | 2026-01-10 23:45:00 CET | 61 KB |
+| [`hochfelden-ferienplan-2024-27.pdf`](../../../data/zh/buelach/hochfelden-ferienplan-2024-27.pdf) | 2026-01-10 23:45:00 CET | 61 KB |
 
 ## Source
 

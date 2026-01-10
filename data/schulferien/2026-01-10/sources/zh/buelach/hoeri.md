@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/hoeri-ferienplan.pdf` | 2026-01-10 23:53:00 CET | 60 KB |
+| [`hoeri-ferienplan.pdf`](../../../data/zh/buelach/hoeri-ferienplan.pdf) | 2026-01-10 23:53:00 CET | 60 KB |
 
 ## Source
 

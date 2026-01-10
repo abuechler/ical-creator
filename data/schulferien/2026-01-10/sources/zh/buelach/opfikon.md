@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/opfikon-ferienplan-2026-27.pdf` | 2026-01-10 23:54:00 CET | 53 KB |
+| [`opfikon-ferienplan-2026-27.pdf`](../../../data/zh/buelach/opfikon-ferienplan-2026-27.pdf) | 2026-01-10 23:54:00 CET | 53 KB |
 
 ## Source
 

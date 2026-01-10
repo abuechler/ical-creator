@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/wallisellen-ferienplan-2025-33.pdf` | 2026-01-10 23:23:35 CET | 123 KB |
+| [`wallisellen-ferienplan-2025-33.pdf`](../../../data/zh/buelach/wallisellen-ferienplan-2025-33.pdf) | 2026-01-10 23:23:35 CET | 123 KB |
 
 ## Source
 

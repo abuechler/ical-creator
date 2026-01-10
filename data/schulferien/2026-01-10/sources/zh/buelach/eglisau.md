@@ -4,8 +4,8 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/eglisau-ferienplan-2025-26.pdf` | 2026-01-10 23:24:48 CET | 106 KB |
-| `data/zh/buelach/eglisau-ferienplan-2026-27.pdf` | 2026-01-10 23:24:48 CET | 106 KB |
+| [`eglisau-ferienplan-2025-26.pdf`](../../../data/zh/buelach/eglisau-ferienplan-2025-26.pdf) | 2026-01-10 23:24:48 CET | 106 KB |
+| [`eglisau-ferienplan-2026-27.pdf`](../../../data/zh/buelach/eglisau-ferienplan-2026-27.pdf) | 2026-01-10 23:24:48 CET | 106 KB |
 
 ## Source
 

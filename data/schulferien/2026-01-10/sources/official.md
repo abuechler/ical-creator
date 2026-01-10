@@ -8,7 +8,7 @@ The authoritative source for Swiss cantonal school holidays.
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/official/edk-schulferien-2026.pdf` | 2026-01-10 23:21:55 CET | 779 KB |
+| [`edk-schulferien-2026.pdf`](../data/official/edk-schulferien-2026.pdf) | 2026-01-10 23:21:55 CET | 779 KB |
 
 ### Source URLs
 
@@ -32,7 +32,7 @@ Consumer-friendly summary of school holidays.
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/official/tcs-schulferien-2026.pdf` | 2026-01-10 23:21:55 CET | 142 KB |
+| [`tcs-schulferien-2026.pdf`](../data/official/tcs-schulferien-2026.pdf) | 2026-01-10 23:21:55 CET | 142 KB |
 
 ### Source URLs
 

@@ -7,10 +7,10 @@ Uses **Schule RFT** (Rorbas-Freienstein-Teufen) - same data as Rorbas.
 ## Retrieved Files
 
 See [rorbas.md](rorbas.md) for files:
-- `data/zh/buelach/rorbas-ferienplan-2025-26.pdf`
-- `data/zh/buelach/rorbas-ferienplan-2026-27.pdf`
-- `data/zh/buelach/rorbas-ferienplan-2027-28.pdf`
-- `data/zh/buelach/rorbas-ferienplan-2028-29.pdf`
+- [`rorbas-ferienplan-2025-26.pdf`](../../../data/zh/buelach/rorbas-ferienplan-2025-26.pdf)
+- [`rorbas-ferienplan-2026-27.pdf`](../../../data/zh/buelach/rorbas-ferienplan-2026-27.pdf)
+- [`rorbas-ferienplan-2027-28.pdf`](../../../data/zh/buelach/rorbas-ferienplan-2027-28.pdf)
+- [`rorbas-ferienplan-2028-29.pdf`](../../../data/zh/buelach/rorbas-ferienplan-2028-29.pdf)
 
 ## Source
 

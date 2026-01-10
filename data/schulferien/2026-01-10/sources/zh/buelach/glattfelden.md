@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/glattfelden-ferienplan-2025-28.pdf` | 2026-01-10 23:23:55 CET | 98 KB |
+| [`glattfelden-ferienplan-2025-28.pdf`](../../../data/zh/buelach/glattfelden-ferienplan-2025-28.pdf) | 2026-01-10 23:23:55 CET | 98 KB |
 
 ## Source
 

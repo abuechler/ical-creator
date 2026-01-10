@@ -4,7 +4,7 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/buelach-ferienplan-2025-28.pdf` | 2026-01-10 23:22:49 CET | 42 KB |
+| [`buelach-ferienplan-2025-28.pdf`](../../../data/zh/buelach/buelach-ferienplan-2025-28.pdf) | 2026-01-10 23:22:49 CET | 42 KB |
 
 ## Source
 

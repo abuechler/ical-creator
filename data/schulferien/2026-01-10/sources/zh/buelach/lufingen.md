@@ -4,8 +4,8 @@
 
 | File | Retrieved | Size |
 |------|-----------|------|
-| `data/zh/buelach/lufingen-ferienplan-2025-26.pdf` | 2026-01-10 23:25:25 CET | 63 KB |
-| `data/zh/buelach/lufingen-ferienplan-2026-27.pdf` | 2026-01-10 23:25:25 CET | 88 KB |
+| [`lufingen-ferienplan-2025-26.pdf`](../../../data/zh/buelach/lufingen-ferienplan-2025-26.pdf) | 2026-01-10 23:25:25 CET | 63 KB |
+| [`lufingen-ferienplan-2026-27.pdf`](../../../data/zh/buelach/lufingen-ferienplan-2026-27.pdf) | 2026-01-10 23:25:25 CET | 88 KB |
 
 ## Source
 
