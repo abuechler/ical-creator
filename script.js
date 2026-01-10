@@ -66,6 +66,7 @@ const privacyModalClose = document.getElementById('privacyModalClose');
 const emojiPickerBtn = document.getElementById('emojiPickerBtn');
 const emojiPicker = document.getElementById('emojiPicker');
 const emojiGrid = document.getElementById('emojiGrid');
+const presetBtns = document.querySelectorAll('.preset-btn');
 
 // ==================== Emoji Picker Data ====================
 const EMOJI_LIST = [
@@ -200,6 +201,71 @@ function insertEmoji(emoji) {
   closeEmojiPicker();
 }
 
+// ==================== Date Presets ====================
+function handlePresetClick(preset) {
+  const date = getPresetDate(preset);
+  if (date) {
+    document.getElementById('startDate').value = formatDateForInput(date);
+    updatePresetSelection(preset);
+    // Trigger date change logic
+    updateMonthlyHints();
+    calculateOccurrences();
+    renderCalendar();
+    previewSection.style.display = 'block';
+    updatePreviewContent(isRecurringCheckbox.checked);
+    saveFormState();
+  }
+}
+
+function getPresetDate(preset) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  switch (preset) {
+  case 'today':
+    return today;
+
+  case 'tomorrow':
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow;
+
+  case 'nextWeek':
+    const nextWeek = new Date(today);
+    nextWeek.setDate(nextWeek.getDate() + 7);
+    return nextWeek;
+
+  case 'nextMonth':
+    const nextMonth = new Date(today);
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    // Handle month overflow (e.g., Jan 31 -> Feb 28)
+    if (nextMonth.getDate() !== today.getDate()) {
+      // Go to last day of previous month
+      nextMonth.setDate(0);
+    }
+    return nextMonth;
+
+  default:
+    return null;
+  }
+}
+
+function updatePresetSelection(selectedPreset) {
+  presetBtns.forEach(btn => {
+    if (btn.dataset.preset === selectedPreset) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+}
+
+function clearPresetSelection() {
+  presetBtns.forEach(btn => {
+    btn.classList.remove('active');
+  });
+}
+
 function getPreferredTimezone() {
   try {
     return localStorage.getItem(STORAGE_KEYS.PREFERRED_TIMEZONE);
@@ -312,7 +378,10 @@ function setDefaultDates() {
 }
 
 function formatDateForInput(date) {
-  return date.toISOString().split('T')[0];
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 /**
@@ -468,6 +537,14 @@ function attachEventListeners() {
       emojiPickerBtn.focus();
     }
   });
+
+  // Date preset buttons
+  presetBtns.forEach(btn => {
+    btn.addEventListener('click', () => handlePresetClick(btn.dataset.preset));
+  });
+
+  // Clear preset selection when date is manually changed
+  document.getElementById('startDate').addEventListener('change', clearPresetSelection);
 
   // Auto-save form state on input change
   const autoSaveInputs = [

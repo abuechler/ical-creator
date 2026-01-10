@@ -267,6 +267,34 @@ const SCENARIOS = {
   },
 
   /**
+   * Quick date presets feature
+   */
+  'date-presets': async (page) => {
+    await page.locator('#title').fill('My Event');
+    await page.waitForTimeout(500);
+
+    // Show date presets area
+    await page.locator('.date-presets').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+
+    // Click Today preset
+    await page.locator('button[data-preset="today"]').click();
+    await page.waitForTimeout(800);
+
+    // Click Tomorrow preset
+    await page.locator('button[data-preset="tomorrow"]').click();
+    await page.waitForTimeout(800);
+
+    // Click Next Week preset
+    await page.locator('button[data-preset="nextWeek"]').click();
+    await page.waitForTimeout(800);
+
+    // Click Next Month preset
+    await page.locator('button[data-preset="nextMonth"]').click();
+    await page.waitForTimeout(1000);
+  },
+
+  /**
    * Loading a saved/demo event
    */
   'load-saved-event': async (page) => {
