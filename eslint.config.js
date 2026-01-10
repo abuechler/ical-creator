@@ -31,9 +31,11 @@ module.exports = [
         location: 'readonly',
         Blob: 'readonly',
         URL: 'readonly',
+        URLSearchParams: 'readonly',
         confirm: 'readonly',
         alert: 'readonly',
-        ICAL: 'readonly'
+        ICAL: 'readonly',
+        QRCode: 'readonly'
       }
     },
     rules: {
