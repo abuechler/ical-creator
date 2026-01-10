@@ -10,6 +10,40 @@ Switzerland has 26 cantons. Based on EDK/TCS data:
 
 ---
 
+## Summary by Canton
+
+| Canton | Code | Type | Gemeinden | Estimate | Status |
+|--------|------|------|-----------|----------|--------|
+| [Zürich](#zürich-zh) | ZH | Per-Gemeinde | 160 | 9-12 h | In Progress |
+| [Bern](#bern-be) | BE | Per-Gemeinde | 335 | 18-25 h | Not Started |
+| [Aargau](#aargau-ag) | AG | Per-Gemeinde | 212 | 12-16 h | Not Started |
+| [St. Gallen](#st-gallen-sg) | SG | Per-Gemeinde | 75 | 4-5 h | Not Started |
+| [Appenzell AR](#appenzell-ausserrhoden-ar) | AR | Per-Gemeinde | 20 | 1-1.5 h | Not Started |
+| [Appenzell AI](#appenzell-innerrhoden-ai) | AI | Per-Gemeinde | 6 | 0.5 h | Not Started |
+| [Basel-Landschaft](#basel-landschaft-bl) | BL | Standardized | — | 5-10 min | Not Started |
+| [Basel-Stadt](#basel-stadt-bs) | BS | Standardized | — | 5-10 min | Not Started |
+| [Fribourg](#fribourg-fr) | FR | Standardized | — | 5-10 min | Not Started |
+| [Genève](#genève-ge) | GE | Standardized | — | 5-10 min | Not Started |
+| [Glarus](#glarus-gl) | GL | Standardized | — | 5-10 min | Not Started |
+| [Graubünden](#graubünden-gr) | GR | Standardized | — | 10-15 min | Not Started |
+| [Jura](#jura-ju) | JU | Standardized | — | 5-10 min | Not Started |
+| [Luzern](#luzern-lu) | LU | Standardized | — | 5-10 min | Not Started |
+| [Neuchâtel](#neuchâtel-ne) | NE | Standardized | — | 5-10 min | Not Started |
+| [Nidwalden](#nidwalden-nw) | NW | Standardized | — | 5-10 min | Not Started |
+| [Obwalden](#obwalden-ow) | OW | Standardized | — | 5-10 min | Not Started |
+| [Schaffhausen](#schaffhausen-sh) | SH | Standardized | — | 5-10 min | Not Started |
+| [Schwyz](#schwyz-sz) | SZ | Standardized | — | 5-10 min | Not Started |
+| [Solothurn](#solothurn-so) | SO | Standardized | — | 5-10 min | Not Started |
+| [Thurgau](#thurgau-tg) | TG | Standardized | — | 5-10 min | Not Started |
+| [Ticino](#ticino-ti) | TI | Standardized | — | 5-10 min | Not Started |
+| [Uri](#uri-ur) | UR | Standardized | — | 5-10 min | Not Started |
+| [Valais](#valais-vs) | VS | Standardized | — | 10-15 min | Not Started |
+| [Vaud](#vaud-vd) | VD | Standardized | — | 5-10 min | Not Started |
+| [Zug](#zug-zg) | ZG | Standardized | — | 5-10 min | Not Started |
+| | | | **808** | **47-63 h** | |
+
+---
+
 ## Cantons Requiring Per-Gemeinde Data
 
 ### Zürich (ZH)
@@ -136,30 +170,127 @@ Switzerland has 26 cantons. Based on EDK/TCS data:
 
 These cantons have unified school holiday dates. Only need to download official PDFs.
 
-| Canton | Code | Estimated Time | Notes |
-|--------|------|----------------|-------|
-| Basel-Landschaft | BL | 5-10 min | Single PDF |
-| Basel-Stadt | BS | 5-10 min | Single PDF |
-| Fribourg | FR | 5-10 min | Bilingual DE/FR |
-| Genève | GE | 5-10 min | French |
-| Glarus | GL | 5-10 min | Single PDF |
-| Graubünden | GR | 10-15 min | Some regional variation |
-| Jura | JU | 5-10 min | French |
-| Luzern | LU | 5-10 min | Single PDF |
-| Neuchâtel | NE | 5-10 min | French |
-| Nidwalden | NW | 5-10 min | Single PDF |
-| Obwalden | OW | 5-10 min | Single PDF |
-| Schaffhausen | SH | 5-10 min | Single PDF |
-| Solothurn | SO | 5-10 min | Single PDF |
-| Schwyz | SZ | 5-10 min | Single PDF |
-| Thurgau | TG | 5-10 min | Single PDF |
-| Ticino | TI | 5-10 min | Italian |
-| Uri | UR | 5-10 min | Single PDF |
-| Vaud | VD | 5-10 min | French |
-| Valais | VS | 10-15 min | Bilingual DE/FR |
-| Zug | ZG | 5-10 min | Single PDF |
-
 **Standardized Cantons Total:** 2-3 hours
+
+---
+
+### Basel-Landschaft (BL)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Basel-Stadt (BS)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Fribourg (FR)
+
+**Estimated Time:** 5-10 min | **Language:** Bilingual DE/FR | **Source:** Single official PDF
+
+---
+
+### Genève (GE)
+
+**Estimated Time:** 5-10 min | **Language:** French | **Source:** Single official PDF
+
+---
+
+### Glarus (GL)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Graubünden (GR)
+
+**Estimated Time:** 10-15 min | **Language:** German/Romansh/Italian | **Note:** Some regional variation
+
+---
+
+### Jura (JU)
+
+**Estimated Time:** 5-10 min | **Language:** French | **Source:** Single official PDF
+
+---
+
+### Luzern (LU)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Neuchâtel (NE)
+
+**Estimated Time:** 5-10 min | **Language:** French | **Source:** Single official PDF
+
+---
+
+### Nidwalden (NW)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Obwalden (OW)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Schaffhausen (SH)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Schwyz (SZ)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Solothurn (SO)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Thurgau (TG)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Ticino (TI)
+
+**Estimated Time:** 5-10 min | **Language:** Italian | **Source:** Single official PDF
+
+---
+
+### Uri (UR)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
+
+---
+
+### Valais (VS)
+
+**Estimated Time:** 10-15 min | **Language:** Bilingual DE/FR | **Note:** Upper/Lower Valais may differ
+
+---
+
+### Vaud (VD)
+
+**Estimated Time:** 5-10 min | **Language:** French | **Source:** Single official PDF
+
+---
+
+### Zug (ZG)
+
+**Estimated Time:** 5-10 min | **Language:** German | **Source:** Single official PDF
 
 ---
 
