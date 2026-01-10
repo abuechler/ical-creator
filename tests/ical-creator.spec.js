@@ -1698,3 +1698,389 @@ test.describe('Emoji Picker', () => {
     expect(newTitle).toBe(`Hello ${emoji}World`);
   });
 });
+
+test.describe('iCal Creator - Preview Calendar Navigation', () => {
+  // Tests for the calendar month navigation UI interaction
+  // These tests verify that users can navigate through months using Next/Previous buttons
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    await page.waitForSelector('#title');
+  });
+
+  test('Next month button should navigate to the next month', async ({ page }) => {
+    // Set up a recurring event to make the preview visible
+    await page.locator('#title').fill('Monthly Navigation Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-15', '10:00');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+
+    // Wait for calendar to render
+    await page.waitForSelector('.calendar-grid');
+
+    // Verify initial month is January 2026
+    const monthDisplay = page.locator('#calendarMonthYear');
+    await expect(monthDisplay).toHaveText('January 2026');
+
+    // Click Next month button
+    await page.locator('#nextMonth').click();
+
+    // Verify month changed to February 2026
+    await expect(monthDisplay).toHaveText('February 2026');
+  });
+
+  test('Previous month button should navigate to the previous month', async ({ page }) => {
+    // Set up a recurring event
+    await page.locator('#title').fill('Monthly Navigation Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-02-15', '10:00');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+
+    // Wait for calendar to render
+    await page.waitForSelector('.calendar-grid');
+
+    // Verify initial month is February 2026
+    const monthDisplay = page.locator('#calendarMonthYear');
+    await expect(monthDisplay).toHaveText('February 2026');
+
+    // Click Previous month button
+    await page.locator('#prevMonth').click();
+
+    // Verify month changed to January 2026
+    await expect(monthDisplay).toHaveText('January 2026');
+  });
+
+  test('Should navigate through multiple months and see recurring events', async ({ page }) => {
+    // Set up a monthly recurring event with 6 occurrences
+    await page.locator('#title').fill('Multi-Month Navigation Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-20', '14:00');
+
+    // Enable recurring
+    await scrollAndCheck(page, '#isRecurring');
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '6');
+
+    // Wait for calendar to render
+    await page.waitForSelector('.calendar-grid');
+
+    const monthDisplay = page.locator('#calendarMonthYear');
+
+    // Navigate through 6 months and verify each has an event
+    const expectedMonths = [
+      'January 2026',
+      'February 2026',
+      'March 2026',
+      'April 2026',
+      'May 2026',
+      'June 2026'
+    ];
+
+    for (let i = 0; i < expectedMonths.length; i++) {
+      await expect(monthDisplay).toHaveText(expectedMonths[i]);
+
+      // Verify there's an event day visible in this month
+      const eventDay = page.locator('.calendar-day.event-day');
+      await expect(eventDay).toBeVisible();
+
+      // Navigate to next month (except for the last one)
+      if (i < expectedMonths.length - 1) {
+        await page.locator('#nextMonth').click();
+      }
+    }
+
+    // Navigate back through all months
+    for (let i = expectedMonths.length - 1; i >= 0; i--) {
+      await expect(monthDisplay).toHaveText(expectedMonths[i]);
+
+      if (i > 0) {
+        await page.locator('#prevMonth').click();
+      }
+    }
+  });
+
+  test('Calendar navigation should work for non-recurring events', async ({ page }) => {
+    // Set up a non-recurring event
+    await page.locator('#title').fill('Single Event Navigation');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-03-15', '09:00');
+
+    // Wait for calendar to render (preview is visible for non-recurring too)
+    await page.waitForSelector('.calendar-grid');
+
+    const monthDisplay = page.locator('#calendarMonthYear');
+    await expect(monthDisplay).toHaveText('March 2026');
+
+    // Navigate to next month
+    await page.locator('#nextMonth').click();
+    await expect(monthDisplay).toHaveText('April 2026');
+
+    // Navigate back
+    await page.locator('#prevMonth').click();
+    await expect(monthDisplay).toHaveText('March 2026');
+
+    // Verify event is still visible
+    const eventDay = page.locator('.calendar-day.event-day');
+    await expect(eventDay).toBeVisible();
+  });
+
+  test('Last Friday monthly recurrence should show events when navigating months', async ({ page }) => {
+    // This specifically tests the "last Friday" use case from the deployed bug
+    await page.locator('#title').fill('Last Friday Event');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-30', '09:00');
+
+    // Enable recurring monthly by day of week
+    await scrollAndCheck(page, '#isRecurring');
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+    await scrollAndCheck(page, 'input[name="monthlyType"][value="day"]');
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '12');
+
+    // Wait for calendar to render
+    await page.waitForSelector('.calendar-grid');
+
+    const monthDisplay = page.locator('#calendarMonthYear');
+
+    // Expected last Fridays for each month
+    const expectedLastFridays = [
+      { month: 'January 2026', day: '30' },
+      { month: 'February 2026', day: '27' },
+      { month: 'March 2026', day: '27' },
+      { month: 'April 2026', day: '24' },
+      { month: 'May 2026', day: '29' },
+      { month: 'June 2026', day: '26' }
+    ];
+
+    for (let i = 0; i < expectedLastFridays.length; i++) {
+      const { month, day } = expectedLastFridays[i];
+      await expect(monthDisplay).toHaveText(month);
+
+      // Verify the correct day is highlighted as an event
+      const eventDay = page.locator('.calendar-day.event-day');
+      await expect(eventDay).toBeVisible();
+      await expect(eventDay).toHaveText(day);
+
+      if (i < expectedLastFridays.length - 1) {
+        await page.locator('#nextMonth').click();
+      }
+    }
+  });
+});
+
+test.describe('iCal Creator - Exception Management via Calendar UI', () => {
+  // Tests for adding/removing exceptions by clicking on event dates in the calendar
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    await page.waitForSelector('#title');
+  });
+
+  test('Clicking on event date should add exception', async ({ page }) => {
+    // Set up a weekly recurring event
+    await page.locator('#title').fill('Weekly Exception Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-05', '10:00');
+
+    await scrollAndCheck(page, '#isRecurring');
+    await scrollAndSelect(page, '#frequency', 'WEEKLY');
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '8');
+
+    await page.waitForSelector('.calendar-grid');
+
+    // Get the exception count before clicking
+    const exceptionBtn = page.locator('#exceptionCount');
+    await expect(exceptionBtn).toContainText('0 exceptions');
+
+    // Click on the second event day to add as exception
+    const eventDays = page.locator('.calendar-day.event-day');
+    const secondEvent = eventDays.nth(1);
+    await secondEvent.click();
+
+    // Verify exception was added
+    await expect(exceptionBtn).toContainText('1 exception');
+
+    // Verify the clicked day now has exception styling
+    await expect(secondEvent).toHaveClass(/exception/);
+  });
+
+  test('Clicking on exception date should remove exception', async ({ page }) => {
+    // Set up a weekly recurring event
+    await page.locator('#title').fill('Remove Exception Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-05', '10:00');
+
+    await scrollAndCheck(page, '#isRecurring');
+    await scrollAndSelect(page, '#frequency', 'WEEKLY');
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '8');
+
+    await page.waitForSelector('.calendar-grid');
+
+    // Click to add exception
+    const eventDays = page.locator('.calendar-day.event-day');
+    const targetEvent = eventDays.nth(1);
+    await targetEvent.click();
+
+    const exceptionBtn = page.locator('#exceptionCount');
+    await expect(exceptionBtn).toContainText('1 exception');
+
+    // Click again to remove exception
+    await targetEvent.click();
+
+    // Verify exception was removed
+    await expect(exceptionBtn).toContainText('0 exceptions');
+    await expect(targetEvent).not.toHaveClass(/exception/);
+  });
+
+  test('Should add exceptions in different months via navigation', async ({ page }) => {
+    // Set up a monthly recurring event
+    await page.locator('#title').fill('Multi-Month Exception Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-15', '10:00');
+
+    await scrollAndCheck(page, '#isRecurring');
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '6');
+
+    await page.waitForSelector('.calendar-grid');
+
+    const exceptionBtn = page.locator('#exceptionCount');
+    const monthDisplay = page.locator('#calendarMonthYear');
+
+    // Add exception in January
+    await expect(monthDisplay).toHaveText('January 2026');
+    let eventDay = page.locator('.calendar-day.event-day');
+    await eventDay.click();
+    await expect(exceptionBtn).toContainText('1 exception');
+
+    // Navigate to March and add another exception
+    await page.locator('#nextMonth').click();
+    await page.locator('#nextMonth').click();
+    await expect(monthDisplay).toHaveText('March 2026');
+
+    eventDay = page.locator('.calendar-day.event-day');
+    await eventDay.click();
+    await expect(exceptionBtn).toContainText('2 exceptions');
+
+    // Navigate back to January and verify exception is still marked
+    await page.locator('#prevMonth').click();
+    await page.locator('#prevMonth').click();
+    await expect(monthDisplay).toHaveText('January 2026');
+
+    eventDay = page.locator('.calendar-day.event-day');
+    await expect(eventDay).toHaveClass(/exception/);
+  });
+
+  test('Exceptions should be included in generated ICS file', async ({ page }) => {
+    // Set up a weekly recurring event
+    await page.locator('#title').fill('ICS Exception Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-05', '10:00');
+    await fillDateTime(page, 'endDate', 'endTime', '2026-01-05', '11:00');
+
+    await scrollAndCheck(page, '#isRecurring');
+    await scrollAndSelect(page, '#frequency', 'WEEKLY');
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '8');
+
+    await page.waitForSelector('.calendar-grid');
+
+    // Add two exceptions by clicking on event days
+    const eventDays = page.locator('.calendar-day.event-day');
+    await eventDays.nth(1).click(); // Second occurrence
+    await eventDays.nth(2).click(); // Third occurrence
+
+    // Verify exceptions were added
+    const exceptionBtn = page.locator('#exceptionCount');
+    await expect(exceptionBtn).toContainText('2 exceptions');
+
+    // Generate ICS and verify EXDATE entries
+    const { content } = await generateAndCaptureICS(page, 'exceptions-via-ui.ics');
+
+    verifyICSStructure(content);
+    expect(content).toContain('RRULE:FREQ=WEEKLY');
+    expect(content).toContain('EXDATE');
+
+    // Should have EXDATE entries for the two exceptions
+    const exdateMatches = content.match(/EXDATE/g);
+    expect(exdateMatches).not.toBeNull();
+    expect(exdateMatches.length).toBeGreaterThanOrEqual(1);
+  });
+
+  test('Exception toggle should expand to show exception dates', async ({ page }) => {
+    // Set up a recurring event
+    await page.locator('#title').fill('Exception List Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-05', '10:00');
+
+    await scrollAndCheck(page, '#isRecurring');
+    await scrollAndSelect(page, '#frequency', 'WEEKLY');
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '8');
+
+    await page.waitForSelector('.calendar-grid');
+
+    // Add an exception
+    const eventDays = page.locator('.calendar-day.event-day');
+    await eventDays.nth(1).click();
+
+    // Click on exception toggle to expand
+    const exceptionBtn = page.locator('#exceptionCount');
+    await exceptionBtn.click();
+
+    // Verify exception list is visible
+    const exceptionList = page.locator('#exceptionList');
+    await expect(exceptionList).toBeVisible();
+
+    // Verify the exception date is shown in the list
+    const exceptionItems = exceptionList.locator('.exception-item');
+    await expect(exceptionItems).toHaveCount(1);
+  });
+
+  test('Last Friday recurrence should allow adding exceptions via calendar', async ({ page }) => {
+    // Specifically test the "last Friday" use case
+    await page.locator('#title').fill('Last Friday Exception Test');
+    await fillDateTime(page, 'startDate', 'startTime', '2026-01-30', '09:00');
+
+    await scrollAndCheck(page, '#isRecurring');
+    await scrollAndSelect(page, '#frequency', 'MONTHLY');
+    await scrollAndCheck(page, 'input[name="monthlyType"][value="day"]');
+    await scrollAndCheck(page, 'input[name="endType"][value="count"]');
+    await scrollAndFill(page, '#occurrenceCount', '12');
+
+    await page.waitForSelector('.calendar-grid');
+
+    const monthDisplay = page.locator('#calendarMonthYear');
+    const exceptionBtn = page.locator('#exceptionCount');
+
+    // Navigate to March and add exception for March 27 (last Friday)
+    await page.locator('#nextMonth').click();
+    await page.locator('#nextMonth').click();
+    await expect(monthDisplay).toHaveText('March 2026');
+
+    let eventDay = page.locator('.calendar-day.event-day');
+    await expect(eventDay).toHaveText('27');
+    await eventDay.click();
+
+    await expect(exceptionBtn).toContainText('1 exception');
+
+    // Navigate to June and add another exception
+    await page.locator('#nextMonth').click();
+    await page.locator('#nextMonth').click();
+    await page.locator('#nextMonth').click();
+    await expect(monthDisplay).toHaveText('June 2026');
+
+    eventDay = page.locator('.calendar-day.event-day');
+    await expect(eventDay).toHaveText('26');
+    await eventDay.click();
+
+    await expect(exceptionBtn).toContainText('2 exceptions');
+
+    // Generate ICS and verify exceptions
+    const { content } = await generateAndCaptureICS(page, 'last-friday-exceptions.ics');
+
+    verifyICSStructure(content);
+    expect(content).toContain('BYDAY=-1FR');
+    expect(content).toContain('EXDATE');
+  });
+});

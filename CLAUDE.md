@@ -4,13 +4,15 @@ This project is a simple website to create iCal calendar files (.ics) with recur
 
 1. When started with the continue command, check the files in doc/stories or doc/bugs and which ones are not done yet. Pick one and work on it
    in a separate branch.
-2. Before doing any actual work or planning, check the section [execution instructions](#execution-instructions) below.
-3. When done, move the story or bug document to the directory doc/{stories,bugs}/pr.
-4. Create a PR for the changes when done.
-5. Kill the current session when the PR is created with the command `pkill -f "claude"`
-6. If you cannot find any open stories or bugs, check for open PRs and comments on them. Address any review comments or
+2. If asked to fix a bug or implement a feature that doesn't have an existing document, **create the document first** in
+   `doc/bugs/` or `doc/stories/` before starting implementation. This ensures proper tracking, screenshots, and workflow compliance.
+3. Before doing any actual work or planning, check the section [execution instructions](#execution-instructions) below.
+4. When done, move the story or bug document to the directory doc/{stories,bugs}/pr.
+5. Create a PR for the changes when done.
+6. Kill the current session when the PR is created with the command `pkill -f "claude"`
+7. If you cannot find any open stories or bugs, check for open PRs and comments on them. Address any review comments or
    questions. If there are none, exit the session with `pkill -f "claude"`.
-7. If the current session is fully used up, exit with `pkill -f "claude"`.
+8. If the current session is fully used up, exit with `pkill -f "claude"`.
 
 ## Execution Instructions
 

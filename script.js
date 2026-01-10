@@ -109,7 +109,7 @@ function init() {
   const startDate = document.getElementById('startDate').value;
   if (startDate) {
     calculateOccurrences();
-    renderCalendar();
+    renderCalendar(true);
     previewSection.style.display = 'block';
     updatePreviewContent(isRecurringCheckbox.checked);
   }
@@ -408,7 +408,7 @@ function attachEventListeners() {
     const startDate = document.getElementById('startDate').value;
     if (startDate) {
       calculateOccurrences();
-      renderCalendar();
+      renderCalendar(true);
       // Always show and update preview when there's a valid start date
       previewSection.style.display = 'block';
       updatePreviewContent(isRecurringCheckbox.checked);
@@ -500,7 +500,7 @@ function attachEventListeners() {
       saveFormState();
       if (isRecurringCheckbox.checked) {
         calculateOccurrences();
-        renderCalendar();
+        renderCalendar(true);
       }
     });
   });
@@ -527,7 +527,7 @@ function attachEventListeners() {
   occurrenceCountInput.addEventListener('input', () => {
     if (isRecurringCheckbox.checked) {
       calculateOccurrences();
-      renderCalendar();
+      renderCalendar(true);
     }
   });
 
@@ -535,7 +535,7 @@ function attachEventListeners() {
   recurrenceEndDateInput.addEventListener('change', () => {
     if (isRecurringCheckbox.checked) {
       calculateOccurrences();
-      renderCalendar();
+      renderCalendar(true);
     }
   });
 }
@@ -581,7 +581,7 @@ function handleRecurringToggle() {
 
   // Always calculate occurrences and render calendar
   calculateOccurrences();
-  renderCalendar();
+  renderCalendar(true);
 }
 
 function updatePreviewContent(isRecurring) {
@@ -632,7 +632,7 @@ function updateFrequencyOptions() {
 
   if (isRecurringCheckbox.checked) {
     calculateOccurrences();
-    renderCalendar();
+    renderCalendar(true);
   }
 }
 
@@ -650,7 +650,7 @@ function toggleDay(btn) {
 
   if (isRecurringCheckbox.checked) {
     calculateOccurrences();
-    renderCalendar();
+    renderCalendar(true);
   }
 
   saveFormState();
@@ -674,7 +674,7 @@ function handleEndTypeChange(e) {
 
   if (isRecurringCheckbox.checked) {
     calculateOccurrences();
-    renderCalendar();
+    renderCalendar(true);
   }
 }
 
@@ -714,7 +714,7 @@ function handleNewEvent() {
   const startDate = document.getElementById('startDate').value;
   if (startDate) {
     calculateOccurrences();
-    renderCalendar();
+    renderCalendar(true);
     previewSection.style.display = 'block';
     updatePreviewContent(isRecurringCheckbox.checked);
   }
@@ -889,9 +889,10 @@ function calculateOccurrences() {
   }
 }
 
-function renderCalendar() {
-  // If there are event occurrences, set calendar to show the first event's month
-  if (state.eventOccurrences.length > 0) {
+function renderCalendar(resetToFirstOccurrence = false) {
+  // Only reset to first occurrence month when explicitly requested (e.g., when event data changes)
+  // This allows navigation to work properly
+  if (resetToFirstOccurrence && state.eventOccurrences.length > 0) {
     const firstOccurrence = state.eventOccurrences[0];
     state.calendarDate = new Date(firstOccurrence.getFullYear(), firstOccurrence.getMonth(), 1);
   }
@@ -1879,7 +1880,7 @@ function loadEvent(eventId) {
 
   if (isRecurringCheckbox.checked) {
     calculateOccurrences();
-    renderCalendar();
+    renderCalendar(true);
   }
 
   // Save restored state
