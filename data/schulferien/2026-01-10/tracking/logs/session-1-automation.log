@@ -1,0 +1,736 @@
+[00:47:30] Starting affoltern
+
+============================================================
+Processing Bezirk affoltern (14 Gemeinden)
+============================================================
+
+
+[1] Aeugst am Albis
+  Trying: https://www.schule-aeugst.ch
+  ✓ Found: https://www.schule-aeugst.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[2] Affoltern am Albis
+  Trying: https://www.schule-affoltern.ch
+  ✓ Found: https://www.schule-affoltern.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[3] Bonstetten
+  Trying: https://www.schule-bonstetten.ch
+  Trying: https://www.bonstetten-schule.ch
+  Trying: https://www.schulebonstetten.ch
+  Trying: https://www.ps-bonstetten.ch
+  Trying: https://www.primarschule-bonstetten.ch
+  ✓ Found: https://www.primarschule-bonstetten.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[4] Hausen am Albis
+  Trying: https://www.schule-hausen.ch
+  Trying: https://www.hausen-schule.ch
+  Trying: https://www.schulehausen.ch
+  ✓ Found: https://www.schulehausen.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[5] Hedingen
+  Trying: https://www.schule-hedingen.ch
+  Trying: https://www.hedingen-schule.ch
+  Trying: https://www.schulehedingen.ch
+  ✓ Found: https://www.schulehedingen.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[6] Kappel am Albis
+  Trying: https://www.schule-kappel.ch
+  Trying: https://www.kappel-schule.ch
+  Trying: https://www.schulekappel.ch
+  Trying: https://www.ps-kappel.ch
+  Trying: https://www.primarschule-kappel.ch
+  Trying: https://www.schulen-kappel.ch
+  Trying: https://schule-kappel.ch
+  Trying: https://schule.kappel.ch
+  → Website not found, manual search required
+
+[7] Knonau
+  Trying: https://www.schule-knonau.ch
+  ✓ Found: https://www.schule-knonau.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[8] Maschwanden
+  Trying: https://www.schule-maschwanden.ch
+  Trying: https://www.maschwanden-schule.ch
+  Trying: https://www.schulemaschwanden.ch
+  Trying: https://www.ps-maschwanden.ch
+  Trying: https://www.primarschule-maschwanden.ch
+  Trying: https://www.schulen-maschwanden.ch
+  Trying: https://schule-maschwanden.ch
+  Trying: https://schule.maschwanden.ch
+  → Website not found, manual search required
+
+[9] Mettmenstetten
+  Trying: https://www.schule-mettmenstetten.ch
+  Trying: https://www.mettmenstetten-schule.ch
+  Trying: https://www.schulemettmenstetten.ch
+  Trying: https://www.ps-mettmenstetten.ch
+  ✓ Found: https://www.ps-mettmenstetten.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[10] Obfelden
+  Trying: https://www.schule-obfelden.ch
+  Trying: https://www.obfelden-schule.ch
+  Trying: https://www.schuleobfelden.ch
+  Trying: https://www.ps-obfelden.ch
+  Trying: https://www.primarschule-obfelden.ch
+  Trying: https://www.schulen-obfelden.ch
+  Trying: https://schule-obfelden.ch
+  Trying: https://schule.obfelden.ch
+  → Website not found, manual search required
+
+[11] Ottenbach
+  Trying: https://www.schule-ottenbach.ch
+  Trying: https://www.ottenbach-schule.ch
+  Trying: https://www.schuleottenbach.ch
+  Trying: https://www.ps-ottenbach.ch
+  ✓ Found: https://www.ps-ottenbach.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+  ✓ Ferienplan found: 3 PDF(s)
+  ✓ Downloaded: ottenbach-ferienplan.pdf
+  ✓ Downloaded: ottenbach-ferienplan.pdf
+  ✓ Downloaded: ottenbach-ferienplan.pdf
+
+[12] Rifferswil
+  Trying: https://www.schule-rifferswil.ch
+  ✓ Found: https://www.schule-rifferswil.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[13] Stallikon
+  Trying: https://www.schule-stallikon.ch
+  Trying: https://www.stallikon-schule.ch
+  Trying: https://www.schulestallikon.ch
+  Trying: https://www.ps-stallikon.ch
+  Trying: https://www.primarschule-stallikon.ch
+  Trying: https://www.schulen-stallikon.ch
+  Trying: https://schule-stallikon.ch
+  Trying: https://schule.stallikon.ch
+  ✓ Found: https://schule.stallikon.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[14] Wettswil am Albis
+  Trying: https://www.schule-wettswil.ch
+  Trying: https://www.wettswil-schule.ch
+  Trying: https://www.schulewettswil.ch
+  ✓ Found: https://www.schulewettswil.ch
+  ✓ Ferienplan found: 1 PDF(s)
+  ✓ Downloaded: wettswil-ferienplan.pdf
+
+============================================================
+SUMMARY
+============================================================
+Total Gemeinden: 14
+Websites found: 11
+Escola detected: 0
+PDFs found: 2
+PDFs downloaded: 4
+Manual required: 12
+
+Results saved to: /workspace/data/schulferien/2026-01-10/tracking/affoltern-automation.json
+[00:49:28] Completed affoltern
+[00:49:28] Starting dietikon
+
+============================================================
+Processing Bezirk dietikon (11 Gemeinden)
+============================================================
+
+
+[241] Aesch
+  Trying: https://www.schule-aesch.ch
+  Trying: https://www.aesch-schule.ch
+  Trying: https://www.schuleaesch.ch
+  Trying: https://www.ps-aesch.ch
+  Trying: https://www.primarschule-aesch.ch
+  Trying: https://www.schulen-aesch.ch
+  Trying: https://schule-aesch.ch
+  Trying: https://schule.aesch.ch
+  → Website not found, manual search required
+
+[242] Birmensdorf
+  Trying: https://www.schule-birmensdorf.ch
+  Trying: https://www.birmensdorf-schule.ch
+  Trying: https://www.schulebirmensdorf.ch
+  Trying: https://www.ps-birmensdorf.ch
+  Trying: https://www.primarschule-birmensdorf.ch
+  Trying: https://www.schulen-birmensdorf.ch
+  Trying: https://schule-birmensdorf.ch
+  Trying: https://schule.birmensdorf.ch
+  → Website not found, manual search required
+
+[243] Dietikon
+  Trying: https://www.schule-dietikon.ch
+  ✓ Found: https://www.schule-dietikon.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[244] Geroldswil
+  Trying: https://www.schule-geroldswil.ch
+  Trying: https://www.geroldswil-schule.ch
+  Trying: https://www.schulegeroldswil.ch
+  Trying: https://www.ps-geroldswil.ch
+  Trying: https://www.primarschule-geroldswil.ch
+  Trying: https://www.schulen-geroldswil.ch
+  Trying: https://schule-geroldswil.ch
+  Trying: https://schule.geroldswil.ch
+  → Website not found, manual search required
+
+[245] Oberengstringen
+  Trying: https://www.schule-oberengstringen.ch
+  Trying: https://www.oberengstringen-schule.ch
+  Trying: https://www.schuleoberengstringen.ch
+  Trying: https://www.ps-oberengstringen.ch
+  Trying: https://www.primarschule-oberengstringen.ch
+  Trying: https://www.schulen-oberengstringen.ch
+  Trying: https://schule-oberengstringen.ch
+  Trying: https://schule.oberengstringen.ch
+  → Website not found, manual search required
+
+[246] Oetwil an der Limmat
+  Trying: https://www.schule-oetwil.ch
+  ✓ Found: https://www.schule-oetwil.ch
+  ✓ Escola platform detected
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[247] Schlieren
+  Trying: https://www.schule-schlieren.ch
+  Trying: https://www.schlieren-schule.ch
+  Trying: https://www.schuleschlieren.ch
+  ✓ Found: https://www.schuleschlieren.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[248] Spreitenbach
+  Trying: https://www.schule-spreitenbach.ch
+  ✓ Found: https://www.schule-spreitenbach.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[249] Uitikon
+  Trying: https://www.schule-uitikon.ch
+  ✓ Found: https://www.schule-uitikon.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[250] Unterengstringen
+  Trying: https://www.schule-unterengstringen.ch
+  Trying: https://www.unterengstringen-schule.ch
+  Trying: https://www.schuleunterengstringen.ch
+  ✓ Found: https://www.schuleunterengstringen.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[251] Urdorf
+  Trying: https://www.schule-urdorf.ch
+  Trying: https://www.urdorf-schule.ch
+  Trying: https://www.schuleurdorf.ch
+  ✓ Found: https://www.schuleurdorf.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+============================================================
+SUMMARY
+============================================================
+Total Gemeinden: 11
+Websites found: 7
+Escola detected: 1
+PDFs found: 0
+PDFs downloaded: 0
+Manual required: 11
+
+Results saved to: /workspace/data/schulferien/2026-01-10/tracking/dietikon-automation.json
+[00:50:44] Completed dietikon
+[00:50:44] Starting meilen
+
+============================================================
+Processing Bezirk meilen (11 Gemeinden)
+============================================================
+
+
+[151] Erlenbach
+  Trying: https://www.schule-erlenbach.ch
+  Trying: https://www.erlenbach-schule.ch
+  Trying: https://www.schuleerlenbach.ch
+  Trying: https://www.ps-erlenbach.ch
+  Trying: https://www.primarschule-erlenbach.ch
+  Trying: https://www.schulen-erlenbach.ch
+  Trying: https://schule-erlenbach.ch
+  Trying: https://schule.erlenbach.ch
+  → Website not found, manual search required
+
+[152] Herrliberg
+  Trying: https://www.schule-herrliberg.ch
+  ✓ Found: https://www.schule-herrliberg.ch
+  ✓ Escola platform detected
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[153] Hombrechtikon
+  Trying: https://www.schule-hombrechtikon.ch
+  Trying: https://www.hombrechtikon-schule.ch
+  Trying: https://www.schulehombrechtikon.ch
+  ✓ Found: https://www.schulehombrechtikon.ch
+  ✓ Ferienplan found: 1 PDF(s)
+
+[154] Küsnacht
+  Trying: https://www.schule-kuesnacht.ch
+  ✓ Found: https://www.schule-kuesnacht.ch
+  ✓ Escola platform detected
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[155] Männedorf
+  Trying: https://www.schule-maennedorf.ch
+  ✓ Found: https://www.schule-maennedorf.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[156] Meilen
+  Trying: https://www.schule-meilen.ch
+  Trying: https://www.meilen-schule.ch
+  Trying: https://www.schulemeilen.ch
+  ✓ Found: https://www.schulemeilen.ch
+  ✓ Escola platform detected
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[157] Oetwil am See
+  Trying: https://www.schule-oetwil.ch
+  ✓ Found: https://www.schule-oetwil.ch
+  ✓ Escola platform detected
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[158] Stäfa
+  Trying: https://www.schule-staefa.ch
+  ✓ Found: https://www.schule-staefa.ch
+  ✓ Escola platform detected
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[159] Uetikon am See
+  Trying: https://www.schule-uetikon.ch
+  Trying: https://www.uetikon-schule.ch
+  Trying: https://www.schuleuetikon.ch
+  Trying: https://www.ps-uetikon.ch
+  Trying: https://www.primarschule-uetikon.ch
+  Trying: https://www.schulen-uetikon.ch
+  Trying: https://schule-uetikon.ch
+  Trying: https://schule.uetikon.ch
+  → Website not found, manual search required
+
+[160] Zollikon
+  Trying: https://www.schule-zollikon.ch
+  Trying: https://www.zollikon-schule.ch
+  Trying: https://www.schulezollikon.ch
+  ✓ Found: https://www.schulezollikon.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[161] Zumikon
+  Trying: https://www.schule-zumikon.ch
+  ✓ Found: https://www.schule-zumikon.ch
+    Checking: /ferienplan
+  ✓ Ferienplan found: 2 PDF(s)
+  ✓ Downloaded: zumikon-ferienplan.pdf
+  ✓ Downloaded: zumikon-ferienplan.pdf
+
+============================================================
+SUMMARY
+============================================================
+Total Gemeinden: 11
+Websites found: 9
+Escola detected: 5
+PDFs found: 2
+PDFs downloaded: 2
+Manual required: 9
+
+Results saved to: /workspace/data/schulferien/2026-01-10/tracking/meilen-automation.json
+[00:52:01] Completed meilen
+[00:52:01] Starting winterthur
+
+============================================================
+Processing Bezirk winterthur (17 Gemeinden)
+============================================================
+
+
+[211] Brütten
+  Trying: https://www.schule-bruetten.ch
+  Trying: https://www.bruetten-schule.ch
+  Trying: https://www.schulebruetten.ch
+  ✓ Found: https://www.schulebruetten.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[212] Dägerlen
+  Trying: https://www.schule-daegerlen.ch
+  Trying: https://www.daegerlen-schule.ch
+  Trying: https://www.schuledaegerlen.ch
+  Trying: https://www.ps-daegerlen.ch
+  Trying: https://www.primarschule-daegerlen.ch
+  ✓ Found: https://www.primarschule-daegerlen.ch
+  ✓ Ferienplan found: 1 PDF(s)
+  ✓ Downloaded: daegerlen-ferienplan.pdf
+
+[213] Dinhard
+  Trying: https://www.schule-dinhard.ch
+  ✓ Found: https://www.schule-dinhard.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+  ✓ Ferienplan found: 2 PDF(s)
+  ✓ Downloaded: dinhard-ferienplan.pdf
+  ✓ Downloaded: dinhard-ferienplan.pdf
+
+[214] Elgg
+  Trying: https://www.schule-elgg.ch
+  ✓ Found: https://www.schule-elgg.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+  ✓ Ferienplan found: 1 PDF(s)
+  ✓ Downloaded: elgg-ferienplan.pdf
+
+[215] Ellikon an der Thur
+  Trying: https://www.schule-ellikon.ch
+  ✓ Found: https://www.schule-ellikon.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[216] Elsau
+  Trying: https://www.schule-elsau.ch
+  Trying: https://www.elsau-schule.ch
+  Trying: https://www.schuleelsau.ch
+  Trying: https://www.ps-elsau.ch
+  Trying: https://www.primarschule-elsau.ch
+  Trying: https://www.schulen-elsau.ch
+  Trying: https://schule-elsau.ch
+  Trying: https://schule.elsau.ch
+  → Website not found, manual search required
+
+[217] Hagenbuch
+  Trying: https://www.schule-hagenbuch.ch
+  ✓ Found: https://www.schule-hagenbuch.ch
+  ✓ Escola platform detected
+  ✓ Ferienplan found: 1 PDF(s)
+
+[218] Hofstetten
+  Trying: https://www.schule-hofstetten.ch
+  Trying: https://www.hofstetten-schule.ch
+  Trying: https://www.schulehofstetten.ch
+  Trying: https://www.ps-hofstetten.ch
+  Trying: https://www.primarschule-hofstetten.ch
+  Trying: https://www.schulen-hofstetten.ch
+  Trying: https://schule-hofstetten.ch
+  Trying: https://schule.hofstetten.ch
+  → Website not found, manual search required
+
+[219] Neftenbach
+  Trying: https://www.schule-neftenbach.ch
+  ✓ Found: https://www.schule-neftenbach.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[220] Pfungen
+  Trying: https://www.schule-pfungen.ch
+  Trying: https://www.pfungen-schule.ch
+  Trying: https://www.schulepfungen.ch
+  ✓ Found: https://www.schulepfungen.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[221] Rickenbach
+  Trying: https://www.schule-rickenbach.ch
+  ✓ Found: https://www.schule-rickenbach.ch
+    Checking: /ferienplan
+    Checking: /schulorganisation/download/
+    Checking: /informationen/ferienplan
+    Checking: /aktuelles/ferienplan
+    Checking: /downloads
+    Checking: /dokumente
+    Checking: /service/downloads
+    Checking: /ueber-uns/ferienplan
+  → Manual search required
+
+[222] Schlatt
+  Trying: https://www.schule-schlatt.ch
+  Trying: https://www.schlatt-schule.ch
+  Trying: https://www.schuleschlatt.ch
+  Trying: https://www.ps-schlatt.ch
+  Trying: https://www.primarschule-schlatt.ch
+  Trying: https://www.schulen-schlatt.ch
+  Trying: https://schule-schlatt.ch
+  Trying: https://schule.schlatt.ch
+  → Website not found, manual search required
+
+[223] Seuzach
+  Trying: https://www.schule-seuzach.ch
+  Trying: https://www.seuzach-schule.ch
+  Trying: https://www.schuleseuzach.ch
+  Trying: https://www.ps-seuzach.ch
+  Trying: https://www.primarschule-seuzach.ch
+  ✓ Found: https://www.primarschule-seuzach.ch
+  ✓ Ferienplan found: 2 PDF(s)
+  ✓ Downloaded: seuzach-ferienplan.pdf
+  ✓ Downloaded: seuzach-ferienplan.pdf
+
+[224] Turbenthal
+  Trying: https://www.schule-turbenthal.ch
+  Trying: https://www.turbenthal-schule.ch
+  Trying: https://www.schuleturbenthal.ch
+  Trying: https://www.ps-turbenthal.ch
+  ✓ Found: https://www.ps-turbenthal.ch
+    Checking: /ferienplan
+  ✓ Ferienplan found: 1 PDF(s)
+  ✓ Downloaded: turbenthal-ferienplan.pdf
+
+[225] Wiesendangen
+  Trying: https://www.schule-wiesendangen.ch
+  Trying: https://www.wiesendangen-schule.ch
+  Trying: https://www.schulewiesendangen.ch
+  Trying: https://www.ps-wiesendangen.ch
+  Trying: https://www.primarschule-wiesendangen.ch
+  Trying: https://www.schulen-wiesendangen.ch
+  Trying: https://schule-wiesendangen.ch
+  Trying: https://schule.wiesendangen.ch
+  → Website not found, manual search required
+
+[226] Winterthur
+  Trying: https://www.schule-winterthur.ch
+  Trying: https://www.winterthur-schule.ch
+  Trying: https://www.schulewinterthur.ch
+  Trying: https://www.ps-winterthur.ch
+  Trying: https://www.primarschule-winterthur.ch
+  Trying: https://www.schulen-winterthur.ch
+  Trying: https://schule-winterthur.ch
+  Trying: https://schule.winterthur.ch
+  → Website not found, manual search required
+
+[227] Zell
+  Trying: https://www.schule-zell.ch
+  Trying: https://www.zell-schule.ch
+  Trying: https://www.schulezell.ch
+  Trying: https://www.ps-zell.ch
+  Trying: https://www.primarschule-zell.ch
+  Trying: https://www.schulen-zell.ch
+  Trying: https://schule-zell.ch
+  Trying: https://schule.zell.ch
+  → Website not found, manual search required
+
+============================================================
+SUMMARY
+============================================================
+Total Gemeinden: 17
+Websites found: 11
+Escola detected: 1
+PDFs found: 6
+PDFs downloaded: 7
+Manual required: 11
+
+Results saved to: /workspace/data/schulferien/2026-01-10/tracking/winterthur-automation.json
+[00:53:52] Completed winterthur

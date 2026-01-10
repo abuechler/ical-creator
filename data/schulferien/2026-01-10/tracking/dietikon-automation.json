@@ -1,0 +1,124 @@
+{
+  "bezirk": "dietikon",
+  "timestamp": "2026-01-10T23:49:28.775Z",
+  "gemeinden": [
+    {
+      "bfs": 241,
+      "name": "Aesch",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 242,
+      "name": "Birmensdorf",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 243,
+      "name": "Dietikon",
+      "website": "https://www.schule-dietikon.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 244,
+      "name": "Geroldswil",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 245,
+      "name": "Oberengstringen",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 246,
+      "name": "Oetwil an der Limmat",
+      "website": "https://www.schule-oetwil.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 247,
+      "name": "Schlieren",
+      "website": "https://www.schuleschlieren.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 248,
+      "name": "Spreitenbach",
+      "website": "https://www.schule-spreitenbach.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 249,
+      "name": "Uitikon",
+      "website": "https://www.schule-uitikon.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 250,
+      "name": "Unterengstringen",
+      "website": "https://www.schuleunterengstringen.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 251,
+      "name": "Urdorf",
+      "website": "https://www.schuleurdorf.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "websiteFound": 7,
+    "escolaDetected": 1,
+    "pdfFound": 0,
+    "pdfDownloaded": 0,
+    "manualRequired": 11
+  }
+}

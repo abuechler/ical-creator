@@ -1,0 +1,182 @@
+{
+  "bezirk": "affoltern",
+  "timestamp": "2026-01-10T23:47:30.377Z",
+  "gemeinden": [
+    {
+      "bfs": 1,
+      "name": "Aeugst am Albis",
+      "website": "https://www.schule-aeugst.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 2,
+      "name": "Affoltern am Albis",
+      "website": "https://www.schule-affoltern.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 3,
+      "name": "Bonstetten",
+      "website": "https://www.primarschule-bonstetten.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 4,
+      "name": "Hausen am Albis",
+      "website": "https://www.schulehausen.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 5,
+      "name": "Hedingen",
+      "website": "https://www.schulehedingen.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 6,
+      "name": "Kappel am Albis",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 7,
+      "name": "Knonau",
+      "website": "https://www.schule-knonau.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 8,
+      "name": "Maschwanden",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 9,
+      "name": "Mettmenstetten",
+      "website": "https://www.ps-mettmenstetten.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 10,
+      "name": "Obfelden",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 11,
+      "name": "Ottenbach",
+      "website": "https://www.ps-ottenbach.ch",
+      "isEscola": false,
+      "ferienplanPath": "/schulorganisation/download/",
+      "pdfLinks": [
+        {
+          "href": "https://ps-ottenbach.ch/wp-content/uploads/2025/03/Ferienplan_2025_2026_final.pdf",
+          "text": "Ferienplan_2025_2026_final",
+          "isPdf": true
+        },
+        {
+          "href": "https://ps-ottenbach.ch/wp-content/uploads/2025/05/Ferienplan_2026_2027_final.pdf",
+          "text": "Ferienplan_2026_2027_final",
+          "isPdf": true
+        },
+        {
+          "href": "https://ps-ottenbach.ch/wp-content/uploads/2025/04/Ferienhort_Anmeldung-25_26.pdf",
+          "text": "Ferienhort_Anmeldung 25_26",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "ottenbach-ferienplan.pdf",
+        "ottenbach-ferienplan.pdf",
+        "ottenbach-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 12,
+      "name": "Rifferswil",
+      "website": "https://www.schule-rifferswil.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 13,
+      "name": "Stallikon",
+      "website": "https://schule.stallikon.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 14,
+      "name": "Wettswil am Albis",
+      "website": "https://www.schulewettswil.ch",
+      "isEscola": false,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://www.schulewettswil.ch/public/upload/assets/8612/Ferienplan_2025-26.pdf?fp=1",
+          "text": "Ferienplan",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "wettswil-ferienplan.pdf"
+      ],
+      "status": "automated"
+    }
+  ],
+  "summary": {
+    "total": 14,
+    "websiteFound": 11,
+    "escolaDetected": 0,
+    "pdfFound": 2,
+    "pdfDownloaded": 4,
+    "manualRequired": 12
+  }
+}

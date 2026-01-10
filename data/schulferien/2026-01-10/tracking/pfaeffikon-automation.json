@@ -1,0 +1,156 @@
+{
+  "bezirk": "pfaeffikon",
+  "timestamp": "2026-01-10T23:51:42.704Z",
+  "gemeinden": [
+    {
+      "bfs": 171,
+      "name": "Bauma",
+      "website": "https://www.schulebauma.ch",
+      "isEscola": false,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://www.schulebauma.ch/de/downloads/?action=info&pubid=37817",
+          "text": "Ferienplan (aktualisiert!)",
+          "isPdf": false
+        }
+      ],
+      "downloaded": [],
+      "status": "automated"
+    },
+    {
+      "bfs": 172,
+      "name": "Fehraltorf",
+      "website": "https://www.schulefehraltorf.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 173,
+      "name": "Hittnau",
+      "website": "https://www.schulehittnau.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 174,
+      "name": "Illnau-Effretikon",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 175,
+      "name": "Kyburg",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 176,
+      "name": "Lindau",
+      "website": "https://www.schule-lindau.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 177,
+      "name": "Pfäffikon",
+      "website": "https://www.schule-pfaeffikon.ch",
+      "isEscola": true,
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-pfaeffikon.ch/wp-content/uploads/2024/03/2024.03.28-Ferienliste-von-2024-bis-2027.pdf",
+          "text": "Schulferien und Schuleinstellungen von 2024 bis 2027",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "pfaeffikon-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 178,
+      "name": "Russikon",
+      "website": "https://www.schulerussikon.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 179,
+      "name": "Sternenberg",
+      "website": "https://www.schulesternenberg.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 180,
+      "name": "Weisslingen",
+      "website": "https://www.schuleweisslingen.ch",
+      "isEscola": false,
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.schuleweisslingen.ch/_docn/464392/Ferienplan_Schule_Weisslingen_2025_bis_2027.pdf",
+          "text": "Ferienplan",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "weisslingen-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 181,
+      "name": "Wila",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 182,
+      "name": "Wildberg",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "websiteFound": 8,
+    "escolaDetected": 1,
+    "pdfFound": 3,
+    "pdfDownloaded": 2,
+    "manualRequired": 9
+  }
+}

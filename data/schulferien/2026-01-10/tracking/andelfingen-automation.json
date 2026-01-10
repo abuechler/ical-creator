@@ -1,0 +1,241 @@
+{
+  "bezirk": "andelfingen",
+  "timestamp": "2026-01-10T23:47:30.374Z",
+  "gemeinden": [
+    {
+      "bfs": 21,
+      "name": "Adlikon",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 22,
+      "name": "Andelfingen",
+      "website": "https://www.primarschule-andelfingen.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 23,
+      "name": "Benken",
+      "website": "https://www.schule-benken.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 24,
+      "name": "Berg am Irchel",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 25,
+      "name": "Buch am Irchel",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 26,
+      "name": "Dachsen",
+      "website": "https://www.schuledachsen.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 27,
+      "name": "Dorf",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 28,
+      "name": "Feuerthalen",
+      "website": "https://www.schule-feuerthalen.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 29,
+      "name": "Flaach",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 30,
+      "name": "Flurlingen",
+      "website": "https://www.schule-flurlingen.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 31,
+      "name": "Henggart",
+      "website": "https://www.primarschule-henggart.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 32,
+      "name": "Humlikon",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 33,
+      "name": "Kleinandelfingen",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 34,
+      "name": "Laufen-Uhwiesen",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 35,
+      "name": "Marthalen",
+      "website": "https://www.primarschule-marthalen.ch",
+      "isEscola": false,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://www.primarschule-marthalen.ch/xp_wysiwyg_media/rechtssammlung/elterninfo/PSM_Ferienplan.pdf",
+          "text": "Aktueller Ferienplan (PDF)",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "marthalen-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 36,
+      "name": "Ossingen",
+      "website": "https://www.ps-ossingen.ch",
+      "isEscola": false,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://www.ps-ossingen.ch/media/com_ps_ossingen/files/118/Ferienplan-25-26def-26-27prov--07-02-2025-bewillgt-19-2-2025.pdf",
+          "text": "Ferienplan Schuljahr 2025/26",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "ossingen-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 37,
+      "name": "Rheinau",
+      "website": "https://www.primarschule-rheinau.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 38,
+      "name": "Thalheim an der Thur",
+      "website": "https://www.schule-thalheim.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 39,
+      "name": "Trüllikon",
+      "website": "https://www.schule-truellikon.ch",
+      "isEscola": true,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-truellikon.ch/links-und-download/ferienplan/p-120/",
+          "text": "Ferienplan",
+          "isPdf": false
+        },
+        {
+          "href": "https://www.schule-truellikon.ch/links-und-download/ferienplan/p-120/",
+          "text": "Ferienplan",
+          "isPdf": false
+        }
+      ],
+      "downloaded": [],
+      "status": "automated"
+    },
+    {
+      "bfs": 40,
+      "name": "Volken",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    }
+  ],
+  "summary": {
+    "total": 20,
+    "websiteFound": 11,
+    "escolaDetected": 2,
+    "pdfFound": 3,
+    "pdfDownloaded": 2,
+    "manualRequired": 17
+  }
+}

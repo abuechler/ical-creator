@@ -1,0 +1,250 @@
+{
+  "bezirk": "dielsdorf",
+  "timestamp": "2026-01-10T23:47:30.363Z",
+  "gemeinden": [
+    {
+      "bfs": 81,
+      "name": "Bachs",
+      "website": "https://www.primarschule-bachs.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 82,
+      "name": "Boppelsen",
+      "website": "https://www.schuleboppelsen.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 83,
+      "name": "Buchs",
+      "website": "https://www.schulebuchs.ch",
+      "isEscola": false,
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://schulebuchs.ch/wp-content/uploads/2024/11/Ferienplan-und-Feiertage-bis-SJ-28-29.pdf",
+          "text": "zum Ferienplan",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "buchs-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 84,
+      "name": "Dällikon",
+      "website": "https://www.schule-daellikon.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 85,
+      "name": "Dänikon",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 86,
+      "name": "Dielsdorf",
+      "website": "https://www.primarschule-dielsdorf.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 87,
+      "name": "Hüttikon",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 88,
+      "name": "Neerach",
+      "website": "https://www.primarschule-neerach.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 89,
+      "name": "Niederglatt",
+      "website": "https://www.primarschule-niederglatt.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 90,
+      "name": "Niederhasli",
+      "website": "https://www.ps-niederhasli.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 91,
+      "name": "Niederweningen",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 92,
+      "name": "Oberglatt",
+      "website": "https://www.schule-oberglatt.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 93,
+      "name": "Oberweningen",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 94,
+      "name": "Otelfingen",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 95,
+      "name": "Regensberg",
+      "website": "https://www.schule-regensberg.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 96,
+      "name": "Regensdorf",
+      "website": "https://www.ps-regensdorf.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 97,
+      "name": "Rümlang",
+      "website": "https://www.ps-ruemlang.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 98,
+      "name": "Schleinikon",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 99,
+      "name": "Schöfflisdorf",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 100,
+      "name": "Stadel",
+      "website": "https://www.primarschule-stadel.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 101,
+      "name": "Steinmaur",
+      "website": "https://www.primarschule-steinmaur.ch",
+      "isEscola": false,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://primarschule-steinmaur.ch/wp-content/uploads/2025/07/Ferienplan-2025-2028.pdf",
+          "text": "Ferienplan 2025 - 2028",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "steinmaur-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 102,
+      "name": "Weiach",
+      "website": "https://www.schule-weiach.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    }
+  ],
+  "summary": {
+    "total": 22,
+    "websiteFound": 15,
+    "escolaDetected": 5,
+    "pdfFound": 2,
+    "pdfDownloaded": 2,
+    "manualRequired": 20
+  }
+}

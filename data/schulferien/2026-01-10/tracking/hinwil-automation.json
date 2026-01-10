@@ -1,0 +1,124 @@
+{
+  "bezirk": "hinwil",
+  "timestamp": "2026-01-10T23:50:13.336Z",
+  "gemeinden": [
+    {
+      "bfs": 111,
+      "name": "Bäretswil",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 112,
+      "name": "Bubikon",
+      "website": "https://www.schule-bubikon.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 113,
+      "name": "Dürnten",
+      "website": "https://www.schuleduernten.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 114,
+      "name": "Fischenthal",
+      "website": "https://www.schulefischenthal.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 115,
+      "name": "Gossau",
+      "website": "https://www.schulegossau.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 116,
+      "name": "Grüningen",
+      "website": "https://www.schulegrueningen.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 117,
+      "name": "Hinwil",
+      "website": "https://www.schulehinwil.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 118,
+      "name": "Rüti",
+      "website": "https://www.schule-rueti.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 119,
+      "name": "Seegräben",
+      "website": "https://www.schule-seegraeben.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 120,
+      "name": "Wald",
+      "website": "https://www.schule-wald.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 121,
+      "name": "Wetzikon",
+      "website": "https://www.schule-wetzikon.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "websiteFound": 10,
+    "escolaDetected": 3,
+    "pdfFound": 0,
+    "pdfDownloaded": 0,
+    "manualRequired": 11
+  }
+}

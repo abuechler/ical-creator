@@ -15,27 +15,31 @@
 
 | Phase | Status | Started | Completed | Notes |
 |-------|--------|---------|-----------|-------|
-| Phase 1: Automation | Pending | — | — | Escola pattern matching |
+| Phase 1: Automation | Partial | 2026-01-11 00:47 | Interrupted | 9/11 Bezirke ran, script updated |
 | Phase 2: Parallel Manual | Pending | — | — | 3-4 parallel sessions |
 | Phase 3: Documentation | Pending | — | — | Merge and document |
 
+**Note:** Automation was stopped to improve discovery path recording. Script updated at 00:58.
+
 ## Bezirke Progress
 
-| Bezirk | Gemeinden | Status | Automated | Manual | Failed | Time |
-|--------|-----------|--------|-----------|--------|--------|------|
-| Affoltern | 14 | Pending | — | — | — | — |
-| Andelfingen | 20 | Pending | — | — | — | — |
-| Bülach | 22 | **Done** | — | 22 | 0 | ~2h (previous session) |
-| Dielsdorf | 22 | Pending | — | — | — | — |
-| Dietikon | 11 | Pending | — | — | — | — |
-| Hinwil | 11 | Pending | — | — | — | — |
-| Horgen | 9 | Pending | — | — | — | — |
-| Meilen | 11 | Pending | — | — | — | — |
-| Pfäffikon | 10 | Pending | — | — | — | — |
-| Uster | 10 | Pending | — | — | — | — |
-| Winterthur | 19 | Pending | — | — | — | — |
+| Bezirk | Gemeinden | Status | Websites Found | PDFs Auto | Manual Needed | Time |
+|--------|-----------|--------|----------------|-----------|---------------|------|
+| Affoltern | 14 | Automation done | 12 | 2 | 12 | ~3 min |
+| Andelfingen | 20 | Automation done | 11 | 2 | 18 | ~4 min |
+| Bülach | 22 | **Done** | 22 | 0 | 0 | ~2h (previous) |
+| Dielsdorf | 22 | Automation done | 17 | 3 | 19 | ~4 min |
+| Dietikon | 11 | Automation done | 10 | 1 | 10 | ~2 min |
+| Hinwil | 11 | Automation done | 9 | 2 | 9 | ~2 min |
+| Horgen | 12 | Automation done | 8 | 1 | 11 | ~3 min |
+| Meilen | 11 | Automation done | 10 | 2 | 9 | ~2 min |
+| Pfäffikon | 12 | Automation done | 9 | 1 | 11 | ~3 min |
+| Uster | 10 | Automation done | 9 | 1 | 9 | ~2 min |
+| Winterthur | 17 | Pending | — | — | — | — |
 | Zürich (Stadt) | 1 | Pending | — | — | — | — |
-| **Total** | **160** | **1/12** | **0** | **22** | **0** | **~2h** |
+| **Total** | **160** | **10/12** | **~95** | **~15** | **~100** | — |
+
+**Note:** Automation found ~70% of school websites. ~15 PDFs auto-downloaded. ~100 Gemeinden need manual collection.
 
 ## Automation Results
 

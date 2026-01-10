@@ -6,7 +6,7 @@
  * Usage: node escola-finder.js --bezirk <bezirk-name> [--dry-run]
  */
 
-const { chromium } = require('playwright');
+const { firefox } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
@@ -336,35 +336,76 @@ async function findSchoolWebsite(page, gemeinde) {
     console.log(`  Trying: ${url}`);
 
     if (await checkUrl(page, url)) {
-      return { url, found: true };
+      return {
+        url,
+        found: true,
+        discoveryMethod: 'pattern',
+        domainPattern: pattern,
+        triedPatterns: DOMAIN_PATTERNS.slice(0, DOMAIN_PATTERNS.indexOf(pattern) + 1)
+      };
     }
 
     await new Promise(r => setTimeout(r, 500)); // Small delay between attempts
   }
 
-  return { url: null, found: false };
+  return {
+    url: null,
+    found: false,
+    discoveryMethod: 'not_found',
+    triedPatterns: DOMAIN_PATTERNS
+  };
+}
+
+/**
+ * Extract Escola folder ID from URL if present
+ */
+function extractEscolaFolderId(url) {
+  const match = url.match(/ordner_id=(\d+)/);
+  return match ? match[1] : null;
 }
 
 /**
  * Search for Ferienplan on school website
  */
 async function findFerienplan(page, baseUrl) {
+  const currentUrl = page.url();
+
   // First check current page for links
   let links = await findFerienplanLinks(page);
   if (links.length > 0) {
-    return { found: true, links, path: '/' };
+    return {
+      found: true,
+      links,
+      path: '/',
+      fullUrl: currentUrl,
+      discoveryMethod: 'homepage',
+      escolaFolderId: extractEscolaFolderId(currentUrl),
+      triedPaths: ['/']
+    };
   }
+
+  const triedPaths = ['/'];
 
   // Try common paths
   for (const pathPattern of FERIENPLAN_PATTERNS) {
     const url = baseUrl + pathPattern;
     console.log(`    Checking: ${pathPattern}`);
+    triedPaths.push(pathPattern);
 
     try {
       if (await checkUrl(page, url)) {
+        const pageUrl = page.url();
         links = await findFerienplanLinks(page);
         if (links.length > 0) {
-          return { found: true, links, path: pathPattern };
+          return {
+            found: true,
+            links,
+            path: pathPattern,
+            fullUrl: pageUrl,
+            discoveryMethod: 'path_pattern',
+            escolaFolderId: extractEscolaFolderId(pageUrl),
+            triedPaths
+          };
         }
       }
     } catch {
@@ -374,7 +415,15 @@ async function findFerienplan(page, baseUrl) {
     await new Promise(r => setTimeout(r, 300));
   }
 
-  return { found: false, links: [], path: null };
+  return {
+    found: false,
+    links: [],
+    path: null,
+    fullUrl: null,
+    discoveryMethod: 'not_found',
+    escolaFolderId: null,
+    triedPaths
+  };
 }
 
 /**
@@ -436,7 +485,7 @@ async function processBezirk(bezirkName, dryRun = false) {
     }
   };
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await firefox.launch({ headless: true });
   const context = await browser.newContext({
     userAgent: CONFIG.userAgent
   });
@@ -448,9 +497,24 @@ async function processBezirk(bezirkName, dryRun = false) {
     const result = {
       bfs: gemeinde.bfs,
       name: gemeinde.name,
+      // Website discovery
       website: null,
+      websiteDiscovery: {
+        method: null,
+        domainPattern: null,
+        triedPatterns: []
+      },
       isEscola: false,
-      ferienplanPath: null,
+      // Ferienplan discovery
+      ferienplan: {
+        found: false,
+        path: null,
+        fullUrl: null,
+        discoveryMethod: null,
+        escolaFolderId: null,
+        triedPaths: []
+      },
+      // PDF details
       pdfLinks: [],
       downloaded: [],
       status: 'pending'
@@ -458,10 +522,17 @@ async function processBezirk(bezirkName, dryRun = false) {
 
     // Find school website
     const website = await findSchoolWebsite(page, gemeinde);
+    result.websiteDiscovery = {
+      method: website.discoveryMethod,
+      domainPattern: website.domainPattern || null,
+      triedPatterns: website.triedPatterns || []
+    };
+
     if (website.found) {
       result.website = website.url;
       results.summary.websiteFound++;
       console.log(`  ✓ Found: ${website.url}`);
+      console.log(`    Pattern: ${website.domainPattern}`);
 
       // Check if Escola
       result.isEscola = await isEscola(page);
@@ -472,11 +543,23 @@ async function processBezirk(bezirkName, dryRun = false) {
 
       // Search for Ferienplan
       const ferienplan = await findFerienplan(page, website.url);
+      result.ferienplan = {
+        found: ferienplan.found,
+        path: ferienplan.path,
+        fullUrl: ferienplan.fullUrl,
+        discoveryMethod: ferienplan.discoveryMethod,
+        escolaFolderId: ferienplan.escolaFolderId,
+        triedPaths: ferienplan.triedPaths
+      };
+
       if (ferienplan.found) {
-        result.ferienplanPath = ferienplan.path;
         result.pdfLinks = ferienplan.links;
         results.summary.pdfFound++;
         console.log(`  ✓ Ferienplan found: ${ferienplan.links.length} PDF(s)`);
+        console.log(`    Path: ${ferienplan.path}`);
+        if (ferienplan.escolaFolderId) {
+          console.log(`    Escola folder: ${ferienplan.escolaFolderId}`);
+        }
 
         // Download PDFs
         if (!dryRun) {
@@ -489,12 +572,27 @@ async function processBezirk(bezirkName, dryRun = false) {
 
             try {
               await downloadPdf(link.href, destPath);
-              result.downloaded.push(filename);
+              result.downloaded.push({
+                filename,
+                directUrl: link.href,
+                linkText: link.text
+              });
               results.summary.pdfDownloaded++;
               console.log(`  ✓ Downloaded: ${filename}`);
+              console.log(`    URL: ${link.href}`);
             } catch (err) {
               console.log(`  ✗ Download failed: ${err.message}`);
             }
+          }
+        } else {
+          // Dry run - still record the URLs
+          for (const link of ferienplan.links.filter(l => l.isPdf)) {
+            result.downloaded.push({
+              filename: `${normalizeName(gemeinde.name)}-ferienplan.pdf`,
+              directUrl: link.href,
+              linkText: link.text,
+              dryRun: true
+            });
           }
         }
 

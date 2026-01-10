@@ -4,18 +4,27 @@
   "start_time": "2026-01-11T00:39:41+01:00",
   "end_time": null,
   "approach": "hybrid",
-  "original_estimate_hours": {"min": 9, "max": 12},
-  "remaining_estimate_hours": {"min": 7, "max": 10},
-  "hybrid_estimate_hours": {"min": 3, "max": 4},
+  "original_estimate_hours": {
+    "min": 9,
+    "max": 12
+  },
+  "remaining_estimate_hours": {
+    "min": 7,
+    "max": 10
+  },
+  "hybrid_estimate_hours": {
+    "min": 3,
+    "max": 4
+  },
   "phases": {
     "phase1_automation": {
-      "status": "pending",
-      "start_time": null,
-      "end_time": null,
-      "websites_found": 0,
-      "escola_detected": 0,
-      "pdfs_downloaded": 0,
-      "queued_for_manual": 0
+      "status": "completed",
+      "start_time": "2026-01-11T00:47:30+01:00",
+      "end_time": "2026-01-11T00:53:52+01:00",
+      "websites_found": 99,
+      "escola_detected": 21,
+      "pdfs_downloaded": 20,
+      "queued_for_manual": 121
     },
     "phase2_manual": {
       "status": "pending",
@@ -31,18 +40,126 @@
     }
   },
   "bezirke": [
-    {"name": "Affoltern", "bfs": 101, "gemeinden": 14, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null},
-    {"name": "Andelfingen", "bfs": 102, "gemeinden": 20, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null},
-    {"name": "Bülach", "bfs": 103, "gemeinden": 22, "status": "done", "automated": 0, "manual": 22, "failed": 0, "duration_min": 120},
-    {"name": "Dielsdorf", "bfs": 104, "gemeinden": 22, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null},
-    {"name": "Dietikon", "bfs": 105, "gemeinden": 11, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null},
-    {"name": "Hinwil", "bfs": 106, "gemeinden": 11, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null},
-    {"name": "Horgen", "bfs": 107, "gemeinden": 9, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null},
-    {"name": "Meilen", "bfs": 108, "gemeinden": 11, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null},
-    {"name": "Pfäffikon", "bfs": 109, "gemeinden": 10, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null},
-    {"name": "Uster", "bfs": 110, "gemeinden": 10, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null},
-    {"name": "Winterthur", "bfs": 111, "gemeinden": 19, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null},
-    {"name": "Zürich", "bfs": 112, "gemeinden": 1, "status": "pending", "automated": 0, "manual": 0, "failed": 0, "duration_min": null}
+    {
+      "name": "Affoltern",
+      "bfs": 101,
+      "gemeinden": 14,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    },
+    {
+      "name": "Andelfingen",
+      "bfs": 102,
+      "gemeinden": 20,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    },
+    {
+      "name": "Bülach",
+      "bfs": 103,
+      "gemeinden": 22,
+      "status": "done",
+      "automated": 0,
+      "manual": 22,
+      "failed": 0,
+      "duration_min": 120
+    },
+    {
+      "name": "Dielsdorf",
+      "bfs": 104,
+      "gemeinden": 22,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    },
+    {
+      "name": "Dietikon",
+      "bfs": 105,
+      "gemeinden": 11,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    },
+    {
+      "name": "Hinwil",
+      "bfs": 106,
+      "gemeinden": 11,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    },
+    {
+      "name": "Horgen",
+      "bfs": 107,
+      "gemeinden": 9,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    },
+    {
+      "name": "Meilen",
+      "bfs": 108,
+      "gemeinden": 11,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    },
+    {
+      "name": "Pfäffikon",
+      "bfs": 109,
+      "gemeinden": 10,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    },
+    {
+      "name": "Uster",
+      "bfs": 110,
+      "gemeinden": 10,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    },
+    {
+      "name": "Winterthur",
+      "bfs": 111,
+      "gemeinden": 19,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    },
+    {
+      "name": "Zürich",
+      "bfs": 112,
+      "gemeinden": 1,
+      "status": "pending",
+      "automated": 0,
+      "manual": 0,
+      "failed": 0,
+      "duration_min": null
+    }
   ],
   "totals": {
     "gemeinden": 160,

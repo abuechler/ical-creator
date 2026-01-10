@@ -1,0 +1,242 @@
+{
+  "bezirk": "winterthur",
+  "timestamp": "2026-01-10T23:52:01.719Z",
+  "gemeinden": [
+    {
+      "bfs": 211,
+      "name": "Brütten",
+      "website": "https://www.schulebruetten.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 212,
+      "name": "Dägerlen",
+      "website": "https://www.primarschule-daegerlen.ch",
+      "isEscola": false,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://primarschule-daegerlen.ch/wp-content/uploads/2023/11/Ferienplan-2022-2025-1.pdf",
+          "text": "Ferienplan",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "daegerlen-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 213,
+      "name": "Dinhard",
+      "website": "https://www.schule-dinhard.ch",
+      "isEscola": false,
+      "ferienplanPath": "/downloads",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-dinhard.ch/public/upload/assets/7253/SJ%202025_26%20-%20mit%20KW.pdf?fp=1",
+          "text": "Ferienplan 2025/26 [pdf, 24 KB]",
+          "isPdf": true
+        },
+        {
+          "href": "https://www.schule-dinhard.ch/public/upload/assets/7281/SJ%202026_27%20-%20mit%20KW.pdf?fp=1",
+          "text": "Ferienplan 2026/27 [pdf, 24 KB]",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "dinhard-ferienplan.pdf",
+        "dinhard-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 214,
+      "name": "Elgg",
+      "website": "https://www.schule-elgg.ch",
+      "isEscola": false,
+      "ferienplanPath": "/schulorganisation/download/",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-elgg.ch/wp-content/uploads/2025/05/Ferienplan-24-25_25-26_26-27_27-28.pdf",
+          "text": "Ferienplan",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "elgg-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 215,
+      "name": "Ellikon an der Thur",
+      "website": "https://www.schule-ellikon.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 216,
+      "name": "Elsau",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 217,
+      "name": "Hagenbuch",
+      "website": "https://www.schule-hagenbuch.ch",
+      "isEscola": true,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-hagenbuch.ch/downloads/ferienplan.html/240",
+          "text": "Ferienplan",
+          "isPdf": false
+        }
+      ],
+      "downloaded": [],
+      "status": "automated"
+    },
+    {
+      "bfs": 218,
+      "name": "Hofstetten",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 219,
+      "name": "Neftenbach",
+      "website": "https://www.schule-neftenbach.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 220,
+      "name": "Pfungen",
+      "website": "https://www.schulepfungen.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 221,
+      "name": "Rickenbach",
+      "website": "https://www.schule-rickenbach.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 222,
+      "name": "Schlatt",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 223,
+      "name": "Seuzach",
+      "website": "https://www.primarschule-seuzach.ch",
+      "isEscola": false,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://www.primarschule-seuzach.ch/docs/1de4f7a3c0f57b262291da64418adeb7_250409-Ferienplan_Schulbesuchstage-25-26-und-26-27.pdf",
+          "text": "Ferienplan 2025/26 und 2026/27",
+          "isPdf": true
+        },
+        {
+          "href": "https://www.primarschule-seuzach.ch/docs/6acbaa5853dfe762fc29185143c6e8f0_230131_Ferienplan_Primar-_und_Sekundarschule_Seuzach_2025_26_bis_2032_33.pdf",
+          "text": "Ferienplan Primar- und Sekundarschule 2025/26 bis 2032/33",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "seuzach-ferienplan.pdf",
+        "seuzach-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 224,
+      "name": "Turbenthal",
+      "website": "https://www.ps-turbenthal.ch",
+      "isEscola": false,
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.ps-turbenthal.ch/wp-content/uploads/2025/08/Ferienplan-bis-2025.26-2028.29.pdf",
+          "text": "Download Ferienplan",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "turbenthal-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 225,
+      "name": "Wiesendangen",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 226,
+      "name": "Winterthur",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 227,
+      "name": "Zell",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    }
+  ],
+  "summary": {
+    "total": 17,
+    "websiteFound": 11,
+    "escolaDetected": 1,
+    "pdfFound": 6,
+    "pdfDownloaded": 7,
+    "manualRequired": 11
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "bezirk": "meilen",
+  "timestamp": "2026-01-10T23:50:44.420Z",
+  "gemeinden": [
+    {
+      "bfs": 151,
+      "name": "Erlenbach",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 152,
+      "name": "Herrliberg",
+      "website": "https://www.schule-herrliberg.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 153,
+      "name": "Hombrechtikon",
+      "website": "https://www.schulehombrechtikon.ch",
+      "isEscola": false,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://www.schulehombrechtikon.ch/downloads/ferienplan.html/374",
+          "text": "Ferienplan",
+          "isPdf": false
+        }
+      ],
+      "downloaded": [],
+      "status": "automated"
+    },
+    {
+      "bfs": 154,
+      "name": "Küsnacht",
+      "website": "https://www.schule-kuesnacht.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 155,
+      "name": "Männedorf",
+      "website": "https://www.schule-maennedorf.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 156,
+      "name": "Meilen",
+      "website": "https://www.schulemeilen.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 157,
+      "name": "Oetwil am See",
+      "website": "https://www.schule-oetwil.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 158,
+      "name": "Stäfa",
+      "website": "https://www.schule-staefa.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 159,
+      "name": "Uetikon am See",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 160,
+      "name": "Zollikon",
+      "website": "https://www.schulezollikon.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 161,
+      "name": "Zumikon",
+      "website": "https://www.schule-zumikon.ch",
+      "isEscola": false,
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-zumikon.ch/_docn/457855/Termin-_und_Ferienkalender_2025_26.pdf",
+          "text": "Schule Zumikon Termin- und Ferienkalender SJ 2025-26",
+          "isPdf": true
+        },
+        {
+          "href": "https://www.schule-zumikon.ch/_docn/457858/Termin-_und_Ferienkalender_2026_27.pdf",
+          "text": "Schule Zumikon Termin- und Ferienkalender SJ 2026-27",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "zumikon-ferienplan.pdf",
+        "zumikon-ferienplan.pdf"
+      ],
+      "status": "automated"
+    }
+  ],
+  "summary": {
+    "total": 11,
+    "websiteFound": 9,
+    "escolaDetected": 5,
+    "pdfFound": 2,
+    "pdfDownloaded": 2,
+    "manualRequired": 9
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "bezirk": "uster",
+  "timestamp": "2026-01-10T23:51:50.629Z",
+  "gemeinden": [
+    {
+      "bfs": 191,
+      "name": "Dübendorf",
+      "website": "https://www.schule-duebendorf.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 192,
+      "name": "Egg",
+      "website": "https://www.ps-egg.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 193,
+      "name": "Fällanden",
+      "website": "https://www.schulefaellanden.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 194,
+      "name": "Greifensee",
+      "website": "https://www.primarschule-greifensee.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 195,
+      "name": "Maur",
+      "website": "https://www.schule-maur.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 196,
+      "name": "Mönchaltorf",
+      "website": "https://www.schulemoenchaltorf.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 197,
+      "name": "Schwerzenbach",
+      "website": "https://www.schule-schwerzenbach.ch",
+      "isEscola": true,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 198,
+      "name": "Uster",
+      "website": "https://www.primarschule-uster.ch",
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 199,
+      "name": "Volketswil",
+      "website": "https://www.schule-volketswil.ch",
+      "isEscola": false,
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-volketswil.ch/fileadmin/user_upload/schulgemeinde/downloads/Ferien_Termine_Absenzen_Jokertage/Ferienplan_Schuljahr_2024-25.pdf",
+          "text": "Ferienplan",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "volketswil-ferienplan.pdf"
+      ],
+      "status": "automated"
+    },
+    {
+      "bfs": 200,
+      "name": "Wangen-Brüttisellen",
+      "website": null,
+      "isEscola": false,
+      "ferienplanPath": null,
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    }
+  ],
+  "summary": {
+    "total": 10,
+    "websiteFound": 9,
+    "escolaDetected": 1,
+    "pdfFound": 1,
+    "pdfDownloaded": 1,
+    "manualRequired": 9
+  }
+}

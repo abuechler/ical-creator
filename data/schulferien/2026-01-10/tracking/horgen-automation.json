@@ -1,0 +1,426 @@
+{
+  "bezirk": "horgen",
+  "timestamp": "2026-01-10T23:55:49.635Z",
+  "gemeinden": [
+    {
+      "bfs": 131,
+      "name": "Adliswil",
+      "website": "https://www.schule-adliswil.ch",
+      "websiteDiscovery": {
+        "method": "pattern",
+        "domainPattern": "https://www.schule-{name}.ch",
+        "triedPatterns": [
+          "https://www.schule-{name}.ch"
+        ]
+      },
+      "isEscola": true,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": "not_found",
+        "escolaFolderId": null,
+        "triedPaths": [
+          "/",
+          "/ferienplan",
+          "/schulorganisation/download/",
+          "/informationen/ferienplan",
+          "/aktuelles/ferienplan",
+          "/downloads",
+          "/dokumente",
+          "/service/downloads",
+          "/ueber-uns/ferienplan"
+        ]
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 132,
+      "name": "Hirzel",
+      "website": null,
+      "websiteDiscovery": {
+        "method": "not_found",
+        "domainPattern": null,
+        "triedPatterns": [
+          "https://www.schule-{name}.ch",
+          "https://www.{name}-schule.ch",
+          "https://www.schule{name}.ch",
+          "https://www.ps-{name}.ch",
+          "https://www.primarschule-{name}.ch",
+          "https://www.schulen-{name}.ch",
+          "https://schule-{name}.ch",
+          "https://schule.{name}.ch"
+        ]
+      },
+      "isEscola": false,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": null,
+        "escolaFolderId": null,
+        "triedPaths": []
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 133,
+      "name": "Horgen",
+      "website": "https://www.schule-horgen.ch",
+      "websiteDiscovery": {
+        "method": "pattern",
+        "domainPattern": "https://www.schule-{name}.ch",
+        "triedPatterns": [
+          "https://www.schule-{name}.ch"
+        ]
+      },
+      "isEscola": false,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": "not_found",
+        "escolaFolderId": null,
+        "triedPaths": [
+          "/",
+          "/ferienplan",
+          "/schulorganisation/download/",
+          "/informationen/ferienplan",
+          "/aktuelles/ferienplan",
+          "/downloads",
+          "/dokumente",
+          "/service/downloads",
+          "/ueber-uns/ferienplan"
+        ]
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 134,
+      "name": "Hütten",
+      "website": null,
+      "websiteDiscovery": {
+        "method": "not_found",
+        "domainPattern": null,
+        "triedPatterns": [
+          "https://www.schule-{name}.ch",
+          "https://www.{name}-schule.ch",
+          "https://www.schule{name}.ch",
+          "https://www.ps-{name}.ch",
+          "https://www.primarschule-{name}.ch",
+          "https://www.schulen-{name}.ch",
+          "https://schule-{name}.ch",
+          "https://schule.{name}.ch"
+        ]
+      },
+      "isEscola": false,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": null,
+        "escolaFolderId": null,
+        "triedPaths": []
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 135,
+      "name": "Kilchberg",
+      "website": "https://www.schule-kilchberg.ch",
+      "websiteDiscovery": {
+        "method": "pattern",
+        "domainPattern": "https://www.schule-{name}.ch",
+        "triedPatterns": [
+          "https://www.schule-{name}.ch"
+        ]
+      },
+      "isEscola": false,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": "not_found",
+        "escolaFolderId": null,
+        "triedPaths": [
+          "/",
+          "/ferienplan",
+          "/schulorganisation/download/",
+          "/informationen/ferienplan",
+          "/aktuelles/ferienplan",
+          "/downloads",
+          "/dokumente",
+          "/service/downloads",
+          "/ueber-uns/ferienplan"
+        ]
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 136,
+      "name": "Langnau am Albis",
+      "website": "https://www.schule-langnau.ch",
+      "websiteDiscovery": {
+        "method": "pattern",
+        "domainPattern": "https://www.schule-{name}.ch",
+        "triedPatterns": [
+          "https://www.schule-{name}.ch"
+        ]
+      },
+      "isEscola": false,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": "not_found",
+        "escolaFolderId": null,
+        "triedPaths": [
+          "/",
+          "/ferienplan",
+          "/schulorganisation/download/",
+          "/informationen/ferienplan",
+          "/aktuelles/ferienplan",
+          "/downloads",
+          "/dokumente",
+          "/service/downloads",
+          "/ueber-uns/ferienplan"
+        ]
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 137,
+      "name": "Oberrieden",
+      "website": "https://www.schuleoberrieden.ch",
+      "websiteDiscovery": {
+        "method": "pattern",
+        "domainPattern": "https://www.schule{name}.ch",
+        "triedPatterns": [
+          "https://www.schule-{name}.ch",
+          "https://www.{name}-schule.ch",
+          "https://www.schule{name}.ch"
+        ]
+      },
+      "isEscola": false,
+      "ferienplan": {
+        "found": true,
+        "path": "/",
+        "fullUrl": "https://www.schuleoberrieden.ch/",
+        "discoveryMethod": "homepage",
+        "escolaFolderId": null,
+        "triedPaths": [
+          "/"
+        ]
+      },
+      "pdfLinks": [
+        {
+          "href": "https://www.schuleoberrieden.ch/portrait/downloads-und-systematische-rechtssammlung/schulferien",
+          "text": "Schulferien",
+          "isPdf": false
+        },
+        {
+          "href": "https://www.schuleoberrieden.ch/portrait/downloads-und-systematische-rechtssammlung/schulferien",
+          "text": "Schulferien",
+          "isPdf": false
+        }
+      ],
+      "downloaded": [],
+      "status": "automated"
+    },
+    {
+      "bfs": 138,
+      "name": "Richterswil",
+      "website": null,
+      "websiteDiscovery": {
+        "method": "not_found",
+        "domainPattern": null,
+        "triedPatterns": [
+          "https://www.schule-{name}.ch",
+          "https://www.{name}-schule.ch",
+          "https://www.schule{name}.ch",
+          "https://www.ps-{name}.ch",
+          "https://www.primarschule-{name}.ch",
+          "https://www.schulen-{name}.ch",
+          "https://schule-{name}.ch",
+          "https://schule.{name}.ch"
+        ]
+      },
+      "isEscola": false,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": null,
+        "escolaFolderId": null,
+        "triedPaths": []
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 139,
+      "name": "Rüschlikon",
+      "website": "https://www.schulerueschlikon.ch",
+      "websiteDiscovery": {
+        "method": "pattern",
+        "domainPattern": "https://www.schule{name}.ch",
+        "triedPatterns": [
+          "https://www.schule-{name}.ch",
+          "https://www.{name}-schule.ch",
+          "https://www.schule{name}.ch"
+        ]
+      },
+      "isEscola": false,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": "not_found",
+        "escolaFolderId": null,
+        "triedPaths": [
+          "/",
+          "/ferienplan",
+          "/schulorganisation/download/",
+          "/informationen/ferienplan",
+          "/aktuelles/ferienplan",
+          "/downloads",
+          "/dokumente",
+          "/service/downloads",
+          "/ueber-uns/ferienplan"
+        ]
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 140,
+      "name": "Schönenberg",
+      "website": null,
+      "websiteDiscovery": {
+        "method": "not_found",
+        "domainPattern": null,
+        "triedPatterns": [
+          "https://www.schule-{name}.ch",
+          "https://www.{name}-schule.ch",
+          "https://www.schule{name}.ch",
+          "https://www.ps-{name}.ch",
+          "https://www.primarschule-{name}.ch",
+          "https://www.schulen-{name}.ch",
+          "https://schule-{name}.ch",
+          "https://schule.{name}.ch"
+        ]
+      },
+      "isEscola": false,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": null,
+        "escolaFolderId": null,
+        "triedPaths": []
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 141,
+      "name": "Thalwil",
+      "website": "https://www.schulethalwil.ch",
+      "websiteDiscovery": {
+        "method": "pattern",
+        "domainPattern": "https://www.schule{name}.ch",
+        "triedPatterns": [
+          "https://www.schule-{name}.ch",
+          "https://www.{name}-schule.ch",
+          "https://www.schule{name}.ch"
+        ]
+      },
+      "isEscola": true,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": "not_found",
+        "escolaFolderId": null,
+        "triedPaths": [
+          "/",
+          "/ferienplan",
+          "/schulorganisation/download/",
+          "/informationen/ferienplan",
+          "/aktuelles/ferienplan",
+          "/downloads",
+          "/dokumente",
+          "/service/downloads",
+          "/ueber-uns/ferienplan"
+        ]
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    },
+    {
+      "bfs": 142,
+      "name": "Wädenswil",
+      "website": "https://schule.waedenswil.ch",
+      "websiteDiscovery": {
+        "method": "pattern",
+        "domainPattern": "https://schule.{name}.ch",
+        "triedPatterns": [
+          "https://www.schule-{name}.ch",
+          "https://www.{name}-schule.ch",
+          "https://www.schule{name}.ch",
+          "https://www.ps-{name}.ch",
+          "https://www.primarschule-{name}.ch",
+          "https://www.schulen-{name}.ch",
+          "https://schule-{name}.ch",
+          "https://schule.{name}.ch"
+        ]
+      },
+      "isEscola": false,
+      "ferienplan": {
+        "found": false,
+        "path": null,
+        "fullUrl": null,
+        "discoveryMethod": "not_found",
+        "escolaFolderId": null,
+        "triedPaths": [
+          "/",
+          "/ferienplan",
+          "/schulorganisation/download/",
+          "/informationen/ferienplan",
+          "/aktuelles/ferienplan",
+          "/downloads",
+          "/dokumente",
+          "/service/downloads",
+          "/ueber-uns/ferienplan"
+        ]
+      },
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "manual_required"
+    }
+  ],
+  "summary": {
+    "total": 12,
+    "websiteFound": 8,
+    "escolaDetected": 2,
+    "pdfFound": 1,
+    "pdfDownloaded": 0,
+    "manualRequired": 11
+  }
+}
