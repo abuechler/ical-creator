@@ -13,7 +13,8 @@ const state = {
   eventOccurrences: [],
   generatedICS: null,
   currentEventId: null,  // Track current event for updates
-  formTouched: false     // Track if user has interacted with the form
+  formTouched: false,    // Track if user has interacted with the form
+  reminders: []          // Array of reminder times in minutes
 };
 
 // ==================== LocalStorage Keys ====================
@@ -40,6 +41,17 @@ const occurrenceCountInput = document.getElementById('occurrenceCount');
 const neverEndWarning = document.getElementById('neverEndWarning');
 const hasReminderCheckbox = document.getElementById('hasReminder');
 const reminderOptions = document.getElementById('reminderOptions');
+const reminderList = document.getElementById('reminderList');
+const addReminderBtn = document.getElementById('addReminderBtn');
+const reminderHint = document.getElementById('reminderHint');
+const MAX_REMINDERS = 5;
+const REMINDER_OPTIONS = [
+  { value: '5', label: '5 minutes before' },
+  { value: '15', label: '15 minutes before' },
+  { value: '30', label: '30 minutes before' },
+  { value: '60', label: '1 hour before' },
+  { value: '1440', label: '1 day before' }
+];
 const previewSection = document.getElementById('previewSection');
 const calendarGrid = document.getElementById('calendarGrid');
 const calendarMonthYear = document.getElementById('calendarMonthYear');
@@ -457,6 +469,9 @@ function attachEventListeners() {
   // Reminder toggle
   hasReminderCheckbox.addEventListener('change', handleReminderToggle);
 
+  // Add reminder button
+  addReminderBtn.addEventListener('click', () => addReminder());
+
   // Calendar navigation
   prevMonthBtn.addEventListener('click', () => navigateCalendar(-1));
   nextMonthBtn.addEventListener('click', () => navigateCalendar(1));
@@ -550,7 +565,7 @@ function attachEventListeners() {
   const autoSaveInputs = [
     'title', 'startDate', 'startTime', 'endDate', 'endTime',
     'location', 'description', 'url', 'interval', 'recurrenceEndDate',
-    'occurrenceCount', 'reminderTime'
+    'occurrenceCount'
   ];
   autoSaveInputs.forEach(id => {
     const el = document.getElementById(id);
@@ -756,7 +771,92 @@ function handleEndTypeChange(e) {
 }
 
 function handleReminderToggle() {
-  reminderOptions.classList.toggle('show', hasReminderCheckbox.checked);
+  const isEnabled = hasReminderCheckbox.checked;
+  reminderOptions.classList.toggle('show', isEnabled);
+
+  if (isEnabled && state.reminders.length === 0) {
+    // Add default reminder (15 minutes before)
+    addReminder('15');
+  } else if (!isEnabled) {
+    // Clear all reminders
+    state.reminders = [];
+    renderReminders();
+  }
+}
+
+function addReminder(value = '15') {
+  if (state.reminders.length >= MAX_REMINDERS) {
+    return;
+  }
+
+  state.reminders.push(value);
+  renderReminders();
+  updateAddButtonState();
+  saveFormState();
+}
+
+function removeReminder(index) {
+  if (state.reminders.length <= 1) {
+    // Don't allow removing the last reminder - disable reminders instead
+    hasReminderCheckbox.checked = false;
+    handleReminderToggle();
+    saveFormState();
+    return;
+  }
+
+  state.reminders.splice(index, 1);
+  renderReminders();
+  updateAddButtonState();
+  saveFormState();
+}
+
+function updateReminderValue(index, value) {
+  state.reminders[index] = value;
+  saveFormState();
+}
+
+function renderReminders() {
+  reminderList.innerHTML = '';
+
+  state.reminders.forEach((reminderValue, index) => {
+    const item = document.createElement('div');
+    item.className = 'reminder-item';
+    item.setAttribute('data-index', index);
+
+    const select = document.createElement('select');
+    select.setAttribute('aria-label', `Reminder ${index + 1}`);
+    REMINDER_OPTIONS.forEach(opt => {
+      const option = document.createElement('option');
+      option.value = opt.value;
+      option.textContent = opt.label;
+      if (opt.value === reminderValue) {
+        option.selected = true;
+      }
+      select.appendChild(option);
+    });
+    select.addEventListener('change', (e) => {
+      updateReminderValue(index, e.target.value);
+    });
+
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'reminder-remove-btn';
+    removeBtn.setAttribute('aria-label', `Remove reminder ${index + 1}`);
+    removeBtn.textContent = '×';
+    removeBtn.addEventListener('click', () => {
+      removeReminder(index);
+    });
+
+    item.appendChild(select);
+    item.appendChild(removeBtn);
+    reminderList.appendChild(item);
+  });
+}
+
+function updateAddButtonState() {
+  const atMax = state.reminders.length >= MAX_REMINDERS;
+  addReminderBtn.classList.toggle('hidden', atMax);
+  reminderHint.classList.toggle('hidden', !atMax);
 }
 
 function handleNewEvent() {
@@ -769,8 +869,11 @@ function handleNewEvent() {
   // Reset state
   state.selectedDays = new Set();
   state.exceptions = new Set();
+  state.reminders = [];
   state.formTouched = false;
   updateDayPickerUI();
+  renderReminders();
+  updateAddButtonState();
 
   // Set default dates
   setDefaultDates();
@@ -1447,17 +1550,19 @@ function generateICS() {
     }
   }
 
-  // Reminder/Alarm
-  if (hasReminder) {
-    const valarm = new ICAL.Component('valarm');
-    valarm.updatePropertyWithValue('action', 'DISPLAY');
-    valarm.updatePropertyWithValue('description', 'Reminder: ' + title);
+  // Reminder/Alarm - support multiple reminders
+  if (hasReminder && state.reminders.length > 0) {
+    state.reminders.forEach(reminderMinutes => {
+      const valarm = new ICAL.Component('valarm');
+      valarm.updatePropertyWithValue('action', 'DISPLAY');
+      valarm.updatePropertyWithValue('description', 'Reminder: ' + title);
 
-    const reminderMinutes = parseInt(document.getElementById('reminderTime').value);
-    const trigger = new ICAL.Duration({ minutes: reminderMinutes, isNegative: true });
-    valarm.updatePropertyWithValue('trigger', trigger);
+      const minutes = parseInt(reminderMinutes);
+      const trigger = new ICAL.Duration({ minutes: minutes, isNegative: true });
+      valarm.updatePropertyWithValue('trigger', trigger);
 
-    vevent.addSubcomponent(valarm);
+      vevent.addSubcomponent(valarm);
+    });
   }
 
   cal.addSubcomponent(vevent);
@@ -1629,7 +1734,7 @@ function saveFormState() {
       recurrenceEndDate: recurrenceEndDateInput.value,
       occurrenceCount: occurrenceCountInput.value,
       hasReminder: hasReminderCheckbox.checked,
-      reminderTime: document.getElementById('reminderTime').value,
+      reminders: state.reminders,
       exceptions: Array.from(state.exceptions),
       currentEventId: state.currentEventId
     };
@@ -1687,9 +1792,19 @@ function restoreFormState() {
   if (formState.recurrenceEndDate) recurrenceEndDateInput.value = formState.recurrenceEndDate;
   occurrenceCountInput.value = formState.occurrenceCount || '10';
 
-  // Restore reminder
+  // Restore reminders
   hasReminderCheckbox.checked = formState.hasReminder || false;
-  document.getElementById('reminderTime').value = formState.reminderTime || '15';
+  // Support both old format (single reminderTime) and new format (reminders array)
+  if (formState.reminders && Array.isArray(formState.reminders)) {
+    state.reminders = formState.reminders;
+  } else if (formState.reminderTime) {
+    // Migrate from old format
+    state.reminders = [formState.reminderTime];
+  } else {
+    state.reminders = [];
+  }
+  renderReminders();
+  updateAddButtonState();
 
   // Restore exceptions
   state.exceptions = new Set(formState.exceptions || []);
@@ -1737,7 +1852,7 @@ function getDemoEvents() {
       recurrenceEndDate: '',
       occurrenceCount: '12',
       hasReminder: true,
-      reminderTime: '60',
+      reminders: ['60'],
       exceptions: [],
       savedAt: new Date().toISOString()
     },
@@ -1763,7 +1878,7 @@ function getDemoEvents() {
       recurrenceEndDate: '',
       occurrenceCount: '12',
       hasReminder: true,
-      reminderTime: '60',
+      reminders: ['60'],
       exceptions: [],
       savedAt: new Date().toISOString()
     }
@@ -1941,9 +2056,20 @@ function loadEvent(eventId) {
   recurrenceEndDateInput.value = event.recurrenceEndDate || '';
   occurrenceCountInput.value = event.occurrenceCount || '10';
 
-  // Reminder
+  // Reminders - handle both old and new format
   hasReminderCheckbox.checked = event.hasReminder || false;
-  document.getElementById('reminderTime').value = event.reminderTime || '15';
+  if (event.reminders && Array.isArray(event.reminders)) {
+    state.reminders = event.reminders;
+  } else if (event.reminderTime) {
+    // Migrate from old format
+    state.reminders = [event.reminderTime];
+  } else if (event.hasReminder) {
+    state.reminders = ['15'];
+  } else {
+    state.reminders = [];
+  }
+  renderReminders();
+  updateAddButtonState();
 
   // Exceptions
   state.exceptions = new Set(event.exceptions || []);
@@ -2005,7 +2131,7 @@ function createEventDataForSave() {
     recurrenceEndDate: recurrenceEndDateInput.value,
     occurrenceCount: occurrenceCountInput.value,
     hasReminder: hasReminderCheckbox.checked,
-    reminderTime: document.getElementById('reminderTime').value,
+    reminders: [...state.reminders],
     exceptions: Array.from(state.exceptions),
     savedAt: new Date().toISOString()
   };
