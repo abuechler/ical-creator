@@ -2084,3 +2084,181 @@ test.describe('iCal Creator - Exception Management via Calendar UI', () => {
     expect(content).toContain('EXDATE');
   });
 });
+
+// Multiple Reminders Feature Tests
+test.describe('Multiple Reminders', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(getPageUrl());
+    await page.waitForSelector('#title');
+  });
+
+  test('should add and display multiple reminders', async ({ page }) => {
+    // Enable reminders
+    await scrollAndCheck(page, '#hasReminder');
+
+    // Should have one reminder by default
+    const reminderItems = page.locator('.reminder-item');
+    await expect(reminderItems).toHaveCount(1);
+
+    // Add another reminder
+    const addBtn = page.locator('#addReminderBtn');
+    await addBtn.click();
+    await expect(reminderItems).toHaveCount(2);
+
+    // Add a third reminder
+    await addBtn.click();
+    await expect(reminderItems).toHaveCount(3);
+
+    // Verify each reminder has a select and remove button
+    for (let i = 0; i < 3; i++) {
+      const item = reminderItems.nth(i);
+      await expect(item.locator('select')).toBeVisible();
+      await expect(item.locator('.reminder-remove-btn')).toBeVisible();
+    }
+  });
+
+  test('should allow changing reminder values', async ({ page }) => {
+    // Enable reminders
+    await scrollAndCheck(page, '#hasReminder');
+
+    // Change the first reminder to "1 day before"
+    const firstSelect = page.locator('.reminder-item select').first();
+    await firstSelect.selectOption('1440');
+    await expect(firstSelect).toHaveValue('1440');
+
+    // Add another and change it to "30 minutes before"
+    await page.locator('#addReminderBtn').click();
+    const secondSelect = page.locator('.reminder-item select').nth(1);
+    await secondSelect.selectOption('30');
+    await expect(secondSelect).toHaveValue('30');
+  });
+
+  test('should remove individual reminders', async ({ page }) => {
+    // Enable reminders
+    await scrollAndCheck(page, '#hasReminder');
+
+    // Add reminders to have 3 total
+    await page.locator('#addReminderBtn').click();
+    await page.locator('#addReminderBtn').click();
+
+    const reminderItems = page.locator('.reminder-item');
+    await expect(reminderItems).toHaveCount(3);
+
+    // Remove the middle reminder
+    await page.locator('.reminder-item').nth(1).locator('.reminder-remove-btn').click();
+    await expect(reminderItems).toHaveCount(2);
+
+    // Remove another
+    await page.locator('.reminder-item').first().locator('.reminder-remove-btn').click();
+    await expect(reminderItems).toHaveCount(1);
+  });
+
+  test('should uncheck reminder checkbox when last reminder is removed', async ({ page }) => {
+    // Enable reminders
+    await scrollAndCheck(page, '#hasReminder');
+
+    // Should have one reminder
+    const reminderItems = page.locator('.reminder-item');
+    await expect(reminderItems).toHaveCount(1);
+
+    // Remove the last reminder
+    await page.locator('.reminder-remove-btn').first().click();
+
+    // Reminder checkbox should be unchecked and section collapsed
+    const checkbox = page.locator('#hasReminder');
+    await expect(checkbox).not.toBeChecked();
+    await expect(page.locator('#reminderOptions')).not.toBeVisible();
+  });
+
+  test('should enforce maximum of 5 reminders', async ({ page }) => {
+    // Enable reminders
+    await scrollAndCheck(page, '#hasReminder');
+
+    const addBtn = page.locator('#addReminderBtn');
+
+    // Add 4 more reminders (total 5)
+    for (let i = 0; i < 4; i++) {
+      await addBtn.click();
+    }
+
+    const reminderItems = page.locator('.reminder-item');
+    await expect(reminderItems).toHaveCount(5);
+
+    // Add button should be hidden
+    await expect(addBtn).not.toBeVisible();
+
+    // Hint should be visible
+    const hint = page.locator('#reminderHint');
+    await expect(hint).toBeVisible();
+  });
+
+  test('should generate multiple VALARM components in ICS', async ({ page }) => {
+    // Fill required fields
+    await page.fill('#title', 'Multi-Reminder Test');
+    await page.fill('#startDate', '2026-03-20');
+    await page.fill('#startTime', '10:00');
+    await page.fill('#endDate', '2026-03-20');
+    await page.fill('#endTime', '11:00');
+
+    // Enable reminders
+    await scrollAndCheck(page, '#hasReminder');
+
+    // Set first reminder to 15 minutes
+    await page.locator('.reminder-item select').first().selectOption('15');
+
+    // Add second reminder - 1 hour before
+    await page.locator('#addReminderBtn').click();
+    await page.locator('.reminder-item select').nth(1).selectOption('60');
+
+    // Add third reminder - 1 day before
+    await page.locator('#addReminderBtn').click();
+    await page.locator('.reminder-item select').nth(2).selectOption('1440');
+
+    // Generate ICS
+    const downloadPromise = page.waitForEvent('download');
+    await page.click('#downloadBtn');
+    const download = await downloadPromise;
+
+    // Read the downloaded file
+    const filePath = await download.path();
+    const fs = require('fs');
+    const icsContent = fs.readFileSync(filePath, 'utf-8');
+
+    // Count VALARM components - should have 3
+    const valarmCount = (icsContent.match(/BEGIN:VALARM/g) || []).length;
+    expect(valarmCount).toBe(3);
+
+    // Verify different trigger values (ICAL.js formats 60 min as PT60M and 1440 min as P1D)
+    expect(icsContent).toContain('TRIGGER:-PT15M');
+    expect(icsContent).toContain('TRIGGER:-PT60M');
+    expect(icsContent).toContain('TRIGGER:-PT1440M');
+  });
+
+  test('should persist reminders in form state', async ({ page }) => {
+    // Enable reminders
+    await scrollAndCheck(page, '#hasReminder');
+
+    // Set first reminder to 30 minutes
+    await page.locator('.reminder-item select').first().selectOption('30');
+
+    // Add second reminder - 1 hour
+    await page.locator('#addReminderBtn').click();
+    await page.locator('.reminder-item select').nth(1).selectOption('60');
+
+    // Reload page
+    await page.reload();
+
+    // Reminders should be restored
+    const checkbox = page.locator('#hasReminder');
+    await expect(checkbox).toBeChecked();
+
+    // Expand reminder options to see items
+    const reminderItems = page.locator('.reminder-item');
+    await expect(reminderItems).toHaveCount(2);
+
+    // Verify values
+    await expect(page.locator('.reminder-item select').first()).toHaveValue('30');
+    await expect(page.locator('.reminder-item select').nth(1)).toHaveValue('60');
+  });
+
+});
