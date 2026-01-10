@@ -48,3 +48,86 @@ Display holiday markers on the calendar preview to help users avoid scheduling e
 
 ### Mobile (375x812)
 ![Holiday Indicators - Mobile](screenshots/holiday-indicators-mobile.png)
+
+---
+
+## Future Enhancement: Swiss Cantonal/Municipal Holidays
+
+Research notes for potentially supporting regional Swiss holidays (Feiertage) per canton or municipality.
+
+### Official Data Sources
+
+#### BFS REST API (Amtliches Gemeindeverzeichnis)
+The Swiss Federal Statistical Office provides a REST API for municipality data:
+
+**Base URL:** `https://www.agvchapp.bfs.admin.ch/api/communes/`
+
+**Endpoints:**
+
+| Endpoint | Description | Example |
+|----------|-------------|---------|
+| `/snapshot` | List of municipalities on a given date | `?date=01-01-2026` |
+| `/correspondances` | Municipality mappings between periods | `?startPeriod=01-01-2008&endPeriod=01-01-2026` |
+| `/mutations` | Municipality changes during a period | `?startPeriod=01-01-2020&endPeriod=01-01-2026` |
+| `/levels` | Spatial classifications (canton, district, etc.) | `?date=01-01-2026` |
+
+**Snapshot Response Fields:**
+- `HistoricalCode` - Historical identifier
+- `BfsCode` - Official BFS municipality number
+- `ValidFrom` / `ValidTo` - Validity period
+- `Level` - Administrative level
+- `Parent` - Parent entity (Bezirk/Canton)
+- `Name` / `ShortName` - Municipality names
+- `CantonId` / `Canton` - Canton information
+- `DistrictId` / `District` - District (Bezirk) information
+
+**Parameters:**
+- `date` - Reference date (format: DD-MM-YYYY)
+- `format` - Response format: `csv` (default) or `xlsx`
+- `labelLanguages` - Language codes: `de`, `fr`, `it`, `en` (comma-separated)
+
+**Example:**
+```
+https://www.agvchapp.bfs.admin.ch/api/communes/snapshot?date=01-01-2026&format=csv&labelLanguages=de,fr
+```
+
+**Documentation:** [REST API PDF](https://www.agvchapp.bfs.admin.ch/documents/rest_api_de.pdf)
+
+#### Municipality Websites (NOT in BFS data)
+
+The official BFS data does **not** include municipality website URLs. For website URLs, use **Wikidata**:
+
+**SPARQL Query for Swiss Municipality Websites:**
+```sparql
+SELECT ?municipality ?municipalityLabel ?bfsNr ?website WHERE {
+  ?municipality wdt:P31 wd:Q70208 .    # instance of Swiss municipality
+  OPTIONAL { ?municipality wdt:P771 ?bfsNr }   # BFS number
+  OPTIONAL { ?municipality wdt:P856 ?website } # official website
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "de,en" . }
+}
+```
+
+Run at: https://query.wikidata.org/
+
+The BFS number (`P771`) can be used to join Wikidata results with official BFS data.
+
+### Spatial Classifications Available
+
+The BFS API provides many classification codes that could help determine regional holidays:
+
+| Code | Description |
+|------|-------------|
+| `SPRGEB2020` | Language regions (Sprachgebiete) |
+| `REGCH` | Major regions of Switzerland (Grossregionen) |
+| `GDETYP2020_9` | Municipality typology (9 categories) |
+| `STALAN2020` | Urban/rural classification |
+
+### Implementation Considerations
+
+1. **Canton-based holidays** - Each canton has different public holidays. The BFS `CantonId` field allows grouping municipalities by canton.
+
+2. **Data freshness** - Municipality boundaries change over time (mergers, etc.). The API supports historical queries.
+
+3. **No external runtime dependency** - Could pre-fetch and bundle a static list of cantons/municipalities for the iCal creator.
+
+4. **Holiday data source** - The BFS API provides municipality structure, but holiday dates would need a separate source (e.g., [feiertagskalender.ch](https://www.feiertagskalender.ch/) or similar).
