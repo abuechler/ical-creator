@@ -310,6 +310,64 @@ const SCENARIOS = {
   },
 
   /**
+   * Calendar navigation - demonstrating Next/Previous month buttons working
+   */
+  'calendar-navigation': async (page) => {
+    // Fill basic details for a weekly recurring event
+    await page.locator('#title').fill('Weekly Standup');
+    await page.locator('#startDate').fill('2026-02-06'); // Friday
+    await page.locator('#startTime').fill('09:00');
+    await page.waitForTimeout(300);
+
+    // Enable recurring
+    const slider = page.locator('#isRecurring').locator('xpath=following-sibling::span[@class="toggle-slider"]');
+    await slider.click();
+    await page.waitForTimeout(500);
+
+    // Set to weekly on Friday
+    await page.locator('#frequency').selectOption('WEEKLY');
+    await page.waitForTimeout(300);
+
+    // Select "count" end type and set 12 occurrences
+    await page.locator('input[name="endType"][value="count"]').check();
+    await page.waitForTimeout(200);
+    await page.locator('#occurrenceCount').fill('12');
+    await page.waitForTimeout(500);
+
+    // Scroll to calendar
+    await page.locator('.calendar-grid').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(800);
+
+    // Navigate forward through months
+    const nextBtn = page.locator('#nextMonth');
+    await nextBtn.click();
+    await page.waitForTimeout(600);
+    await nextBtn.click();
+    await page.waitForTimeout(600);
+    await nextBtn.click();
+    await page.waitForTimeout(800);
+
+    // Navigate back
+    const prevBtn = page.locator('#prevMonth');
+    await prevBtn.click();
+    await page.waitForTimeout(600);
+    await prevBtn.click();
+    await page.waitForTimeout(800);
+
+    // Click on an event day to add exception
+    const eventDays = page.locator('.calendar-grid .day.event');
+    const count = await eventDays.count();
+    if (count >= 2) {
+      await eventDays.nth(1).click();
+      await page.waitForTimeout(600);
+    }
+
+    // Navigate forward again to show it persists
+    await nextBtn.click();
+    await page.waitForTimeout(1000);
+  },
+
+  /**
    * Full workflow: create event and download
    */
   'full-workflow': async (page) => {
