@@ -1,66 +1,100 @@
 {
   "bezirk": "hinwil",
-  "timestamp": "2026-01-10T23:50:13.336Z",
+  "timestamp": "2026-01-11T02:55:00.000Z",
   "gemeinden": [
     {
       "bfs": 111,
       "name": "Bäretswil",
-      "website": null,
+      "website": "https://www.schulebaeretswil.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/downloads",
+      "pdfLinks": [
+        {
+          "href": "https://www.schulebaeretswil.ch/Ferienplan-2025-27.pdf",
+          "text": "Ferienplan 2025-27",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "baeretswil-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 112,
       "name": "Bubikon",
       "website": "https://www.schule-bubikon.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/downloads",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-bubikon.ch/Ferienplan-2025-30.pdf",
+          "text": "Ferienplan 2025-2030",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "bubikon-ferienplan-2025-30.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 113,
       "name": "Dürnten",
       "website": "https://www.schuleduernten.ch",
       "isEscola": true,
-      "ferienplanPath": null,
+      "ferienplanPath": "/service/agenda/p-183562/",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "webpage_only",
+      "notes": "Escola platform. Ferienplan displayed as calendar/agenda with dates for 2025/26 through 2027/28. No PDF download available."
     },
     {
       "bfs": 114,
       "name": "Fischenthal",
       "website": "https://www.schulefischenthal.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/downloads",
+      "pdfLinks": [
+        {
+          "href": "https://www.schulefischenthal.ch/Ferienplan-2025-27.pdf",
+          "text": "Ferienplan 2025-27",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "fischenthal-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 115,
       "name": "Gossau",
-      "website": "https://www.schulegossau.ch",
+      "website": "https://www.schulegossauzh.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.schulegossauzh.ch/Ferienplan-2025-28.pdf",
+          "text": "Ferienplan 2025-28",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "gossau-zh-ferienplan-2025-28.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 116,
       "name": "Grüningen",
       "website": "https://www.schulegrueningen.ch",
-      "isEscola": false,
+      "isEscola": true,
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "manual_required",
+      "notes": "Escola platform"
     },
     {
       "bfs": 117,
@@ -70,7 +104,8 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "manual_required",
+      "notes": "Escola platform"
     },
     {
       "bfs": 118,
@@ -110,15 +145,19 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "manual_required",
+      "notes": "Escola platform, large municipality"
     }
   ],
   "summary": {
     "total": 11,
-    "websiteFound": 10,
-    "escolaDetected": 3,
-    "pdfFound": 0,
-    "pdfDownloaded": 0,
-    "manualRequired": 11
-  }
+    "websiteFound": 11,
+    "escolaDetected": 4,
+    "pdfDownloaded": 4,
+    "webpageOnly": 1,
+    "manualRequired": 6,
+    "completed": 4
+  },
+  "manualCollectionDate": "2026-01-11",
+  "notes": "Bezirk Hinwil has several Escola-based school websites. 4 Gemeinden have PDF downloads, 1 displays dates on webpage only."
 }
