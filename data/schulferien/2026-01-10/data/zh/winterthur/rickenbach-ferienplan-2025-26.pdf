@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="de" itemscope="itemscope" itemtype="http://schema.org/WebPage">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.primarschule-rickenbach.ch/xmlrpc.php">
+
+<title>Seite nicht gefunden &#8211; 8545 Rickenbach</title>
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	
+		<!-- All in One SEO 4.9.1 - aioseo.com -->
+	<meta name="robots" content="noindex" />
+	<meta name="generator" content="All in One SEO (AIOSEO) 4.9.1" />
+		<script type="application/ld+json" class="aioseo-schema">
+			{"@context":"https:\/\/schema.org","@graph":[{"@type":"BreadcrumbList","@id":"https:\/\/www.primarschule-rickenbach.ch\/wp-content\/uploads\/20250801_PL_Ferienplan_Ilef_202526.pdf\/#breadcrumblist","itemListElement":[{"@type":"ListItem","@id":"https:\/\/www.primarschule-rickenbach.ch#listItem","position":1,"name":"Home","item":"https:\/\/www.primarschule-rickenbach.ch","nextItem":{"@type":"ListItem","@id":"#listItem","name":"404 Error: page not found"}}]},{"@type":"Organization","@id":"https:\/\/www.primarschule-rickenbach.ch\/#organization","name":"8545 Rickenbach","description":"Primarschule","url":"https:\/\/www.primarschule-rickenbach.ch\/","logo":{"@type":"ImageObject","url":"https:\/\/www.primarschule-rickenbach.ch\/wp-content\/uploads\/2023\/05\/cropped-Logo_Schule_Rickenbach_eng-zugeschnitten-1-2.png","@id":"https:\/\/www.primarschule-rickenbach.ch\/wp-content\/uploads\/20250801_PL_Ferienplan_Ilef_202526.pdf\/#organizationLogo","width":300,"height":144},"image":{"@id":"https:\/\/www.primarschule-rickenbach.ch\/wp-content\/uploads\/20250801_PL_Ferienplan_Ilef_202526.pdf\/#organizationLogo"}},{"@type":"WebPage","@id":"https:\/\/www.primarschule-rickenbach.ch\/wp-content\/uploads\/20250801_PL_Ferienplan_Ilef_202526.pdf\/#webpage","url":"https:\/\/www.primarschule-rickenbach.ch\/wp-content\/uploads\/20250801_PL_Ferienplan_Ilef_202526.pdf\/","inLanguage":"de-DE","isPartOf":{"@id":"https:\/\/www.primarschule-rickenbach.ch\/#website"},"breadcrumb":{"@id":"https:\/\/www.primarschule-rickenbach.ch\/wp-content\/uploads\/20250801_PL_Ferienplan_Ilef_202526.pdf\/#breadcrumblist"}},{"@type":"WebSite","@id":"https:\/\/www.primarschule-rickenbach.ch\/#website","url":"https:\/\/www.primarschule-rickenbach.ch\/","name":"8545 Rickenbach","description":"Primarschule","inLanguage":"de-DE","publisher":{"@id":"https:\/\/www.primarschule-rickenbach.ch\/#organization"}}]}
+		</script>
+		<!-- All in One SEO -->
+
+<link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="8545 Rickenbach &raquo; Feed" href="https://www.primarschule-rickenbach.ch/feed/" />
+<link rel="alternate" type="application/rss+xml" title="8545 Rickenbach &raquo; Kommentar-Feed" href="https://www.primarschule-rickenbach.ch/comments/feed/" />
+		<style>
+			.lazyload,
+			.lazyloading {
+				max-width: 100%;
+			}
+		</style>
+		<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/16.0.1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.primarschule-rickenbach.ch\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.8.3"}};
+/*! This file is auto-generated */
+!function(s,n){var o,i,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),a=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===a[t]})}function u(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);for(var n=e.getImageData(16,16,1,1),a=0;a<n.data.length;a++)if(0!==n.data[a])return!1;return!0}function f(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\udedf")}return!1}function g(e,t,n,a){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):s.createElement("canvas"),o=r.getContext("2d",{willReadFrequently:!0}),i=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(function(e){i[e]=t(o,e,n,a)}),i}function t(e){var t=s.createElement("script");t.src=e,t.defer=!0,s.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",i=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){s.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+g.toString()+"("+[JSON.stringify(i),f.toString(),p.toString(),u.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"}),r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=function(e){c(n=e.data),r.terminate(),t(n)})}catch(e){}c(n=g(i,f,p,u))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+<link rel='stylesheet' id='ppb-panels-front-css' href='https://www.primarschule-rickenbach.ch/wp-content/plugins/pootle-page-builder/css/front.css?ver=5.7.1' type='text/css' media='all' />
+<link rel='stylesheet' id='fontawesome-css' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css?ver=6.8.3' type='text/css' media='all' />
+<style id='wp-emoji-styles-inline-css' type='text/css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.primarschule-rickenbach.ch/wp-includes/css/dist/block-library/style.min.css?ver=6.8.3' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<link rel='stylesheet' id='aioseo/css/src/vue/standalone/blocks/table-of-contents/global.scss-css' href='https://www.primarschule-rickenbach.ch/wp-content/plugins/all-in-one-seo-pack/dist/Lite/assets/css/table-of-contents/global.e90f6d47.css?ver=4.9.1' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='contact-form-7-css' href='https://www.primarschule-rickenbach.ch/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.1.3' type='text/css' media='all' />
+<link rel='stylesheet' id='document-gallery-css' href='https://www.primarschule-rickenbach.ch/wp-content/plugins/document-gallery/assets/css/style.min.css?ver=4.4.4' type='text/css' media='all' />
+<link rel='stylesheet' id='vsel-style-css' href='https://www.primarschule-rickenbach.ch/wp-content/plugins/very-simple-event-list/css/vsel-style.min.css?ver=19.2' type='text/css' media='all' />
+<link rel='stylesheet' id='h5p-plugin-styles-css' href='https://www.primarschule-rickenbach.ch/wp-content/plugins/h5p/h5p-php-library/styles/h5p.css?ver=1.16.1' type='text/css' media='all' />
+<link rel='stylesheet' id='mediaelement-css' href='https://www.primarschule-rickenbach.ch/wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css?ver=4.2.17' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css' href='https://www.primarschule-rickenbach.ch/wp-includes/js/mediaelement/wp-mediaelement.min.css?ver=6.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='eighteen-tags-style-css' href='https://www.primarschule-rickenbach.ch/wp-content/themes/eighteen-tags%20Rickenbach/style.css?ver=3.1.1' type='text/css' media='all' />
+<style id='eighteen-tags-style-inline-css' type='text/css'>
+
+		.main-navigation ul li a,
+		.site-title a,
+		ul.menu li a,
+		.site-branding h1 a {
+			color: #000000;
+		}
+
+		.main-navigation ul li a:hover,
+		.site-title a:hover {
+			color: #000000;
+		}
+
+		.site-header {
+			
+		}
+
+		.site-header,
+		.secondary-navigation ul ul,
+		.main-navigation ul.menu > li.menu-item-has-children:after,
+		.secondary-navigation ul.menu ul {
+			background-color: #ffffff;
+		}
+
+		p.site-description,
+		ul.menu li.current-menu-item > a {
+			color: #9aa0a7;
+		}
+
+		h1, h2, h3, h4, h5, h6 {
+			color: #353535;
+		}
+
+		.hentry .entry-header {
+			border-color: #353535;
+		}
+
+		.widget h1 {
+			border-bottom-color: #353535;
+		}
+
+		body,
+		.secondary-navigation a,
+		.widget-area .widget a,
+		.onsale,
+		#comments .comment-list .reply a,
+		.pagination .page-numbers li .page-numbers:not(.current), .woocommerce-pagination .page-numbers li .page-numbers:not(.current) {
+			color: #565656;
+		}
+
+		a  {
+			color: #428bca;
+		}
+
+		a:focus,
+		.button:focus,
+		.button.alt:focus,
+		.button.added_to_cart:focus,
+		.button.wc-forward:focus,
+		button:focus,
+		input[type="button"]:focus,
+		input[type="reset"]:focus,
+		input[type="submit"]:focus {
+			outline-color: #428bca;
+		}
+
+		button, input[type="button"], input[type="reset"], input[type="submit"], .button, .added_to_cart, .widget-area .widget a.button, .site-header-cart .widget_shopping_cart a.button {
+			background-color: #60646c;
+			border-color: #60646c;
+			color: #ffffff;
+		}
+
+		button:hover, input[type="button"]:hover, input[type="reset"]:hover, input[type="submit"]:hover, .button:hover, .added_to_cart:hover, .widget-area .widget a.button:hover, .site-header-cart .widget_shopping_cart a.button:hover {
+			background-color: #474b53;
+			border-color: #474b53;
+			color: #ffffff;
+		}
+
+		button.alt, input[type="button"].alt, input[type="reset"].alt, input[type="submit"].alt, .button.alt, .added_to_cart.alt, .widget-area .widget a.button.alt, .added_to_cart, .pagination .page-numbers li .page-numbers.current, .woocommerce-pagination .page-numbers li .page-numbers.current {
+			background-color: #428bca;
+			border-color: #428bca;
+			color: #ffffff;
+		}
+
+		button.alt:hover, input[type="button"].alt:hover, input[type="reset"].alt:hover, input[type="submit"].alt:hover, .button.alt:hover, .added_to_cart.alt:hover, .widget-area .widget a.button.alt:hover, .added_to_cart:hover {
+			background-color: #2972b1;
+			border-color: #2972b1;
+			color: #ffffff;
+		}
+
+		.site-footer {
+			background-color: #f3f3f3;
+			color: #61656b;
+		}
+
+		.site-footer a:not(.button) {
+			color: #428bca;
+		}
+
+		.site-footer h1, .site-footer h2, .site-footer h3, .site-footer h4, .site-footer h5, .site-footer h6 {
+			color: #494c50;
+		}
+
+		@media screen and ( min-width: 770px ) {
+			.secondary-navigation ul.menu a:hover {
+				color: #b3b9c0;
+			}
+
+			.secondary-navigation ul.menu a {
+				color: #9aa0a7;
+			}
+
+			body > .col-full {
+				background-color: ;
+				padding: px;
+			}
+		}
+</style>
+<link rel='stylesheet' id='dflip-style-css' href='https://www.primarschule-rickenbach.ch/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.20' type='text/css' media='all' />
+<link rel='stylesheet' id='tablepress-default-css' href='https://www.primarschule-rickenbach.ch/wp-content/plugins/tablepress/css/build/default.css?ver=3.2.5' type='text/css' media='all' />
+<link rel='stylesheet' id='etp-fawesome-css' href='https://www.primarschule-rickenbach.ch/wp-content/themes/eighteen-tags/css/font-awesome.min.css?ver=6.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='etp-styles-css' href='https://www.primarschule-rickenbach.ch/wp-content/themes/eighteen-tags/inc/pro//assets/css/front.css?ver=6.8.3' type='text/css' media='all' />
+<style id='etp-styles-inline-css' type='text/css'>
+/*-----STOREFRONT PRO-----*/
+/*Title Tagline*/
+.eighteen-tags-pro-active .site-branding .site-title, .eighteen-tags-pro-active .site-branding .site-title a {font-family:Raleway;color:#353535;font-weight: normal;font-style: normal;text-decoration: none;text-transform: none;}.eighteen-tags-pro-active .site-branding .site-description {font-family:Merriweather;color:#565656;font-weight: normal;font-style: normal;text-decoration: none;text-transform: none;}
+/*Primary navigation*/
+#site-navigation .primary-navigation .menu > li > ul { -webkit-transform-origin: 0 0 ; transform-origin: 0 0 ; -webkit-transition: height 500ms, -webkit-transform 0.5s; transition: height 500ms, transform 0.5s; }.eighteen-tags-pro-active .site-header-cart .cart-contents { color: ; }.eighteen-tags-pro-active #masthead, .eighteen-tags-pro-active .header-toggle { background-color:;}
+/*Secondary navigation*/
+.eighteen-tags-pro-active nav.secondary-navigation {background-color:;}.eighteen-tags-pro-active nav.secondary-navigation a {font-family:;}.eighteen-tags-pro-active nav.secondary-navigation ul,.eighteen-tags-pro-active nav.secondary-navigation a,.eighteen-tags-pro-active nav.secondary-navigation a:hover {font-size:px;letter-spacing:px;color:#fff;font-weight: normal;font-style: normal;text-decoration: none;text-transform: none;}.eighteen-tags-pro-active nav.secondary-navigation ul li.current_page_item a,.eighteen-tags-pro-active nav.secondary-navigation ul li.current_page_item a:hover {color:;}.eighteen-tags-pro-active nav.secondary-navigation ul ul li a,.eighteen-tags-pro-active nav.secondary-navigation ul ul li a:hover {color:;}.eighteen-tags-pro-active nav.secondary-navigation ul.menu ul {background-color:;}
+/*Main Content Styles*/.eighteen-tags-pro-active h1, .eighteen-tags-pro-active h2, .eighteen-tags-pro-active h3, .eighteen-tags-pro-active h4, .eighteen-tags-pro-active h5, .eighteen-tags-pro-active h6 {font-family:Raleway;letter-spacing:px;line-height:;font-weight: normal;font-style: normal;text-decoration: none;text-transform: none;}.blog.eighteen-tags-pro-active .entry-title, .archive.eighteen-tags-pro-active .entry-title, .blog.eighteen-tags-pro-active .entry-title a, .archive.eighteen-tags-pro-active .entry-title a {color:;}.single-post.eighteen-tags-pro-active .entry-title { color:;}body.eighteen-tags-pro-active, .eighteen-tags-pro-active .panel-grid-cell { font-family:Merriweather;line-height:}.eighteen-tags-pro-active .panel-grid-cell, #primary, #secondary {font-size:15px; }*:focus, .button:focus, .button.alt:focus, .button.added_to_cart:focus, .button.wc-forward:focus, button:focus, input[type="button"]:focus, input[type="reset"]:focus, input[type="submit"]:focus { outline: none !important; }
+/* Footer Styles */.eighteen-tags-pro-active .site-footer aside > *:not(h3) {font-size:px;font-weight: normal;font-style: normal;text-decoration: none;text-transform: none;color:;}.eighteen-tags-pro-active .site-footer .footer-widgets h3 {font-size:px;font-weight: normal;font-style: normal;text-decoration: none;text-transform: none;color:;}.eighteen-tags-pro-active .site-footer .footer-widgets a {color:;}.eighteen-tags-pro-active .site-footer .footer-widgets li:before {color:;}@media only screen and (min-width: 770px) {.etp-nav-search .etp-nav-search-close{color:#60646c}.main-navigation ul.menu > li > a, .main-navigation ul.nav-menu > li > a, .etp-nav-search a { padding-top: 0.5em; padding-bottom: 0.5em; }.eighteen-tags-pro-active .main-navigation .site-header-cart li:first-child { padding-top: 0.5em; }.eighteen-tags-pro-active .main-navigation .site-header-cart .cart-contents { padding-top: 0; padding-bottom: 0.5em; }#site-navigation {background-color:;}#site-navigation.main-navigation ul, #site-navigation.main-navigation ul li a, .eighteen-tags-pro-active .header-toggle {font-family:Noto Sans;font-size:px;}#site-navigation.main-navigation .primary-navigation ul li a, #site-navigation.main-navigation ul.site-header-cart li a, .eighteen-tags-pro-active .header-toggle {letter-spacing:px;color:#353535;font-weight: bold;font-style: normal;text-decoration: none;text-transform: none;}#site-navigation.main-navigation ul li.current-menu-parent a,#site-navigation.main-navigation ul li.current-menu-item a {color:;}#site-navigation.main-navigation .primary-navigation ul ul li a, #site-navigation.main-navigation .site-header-cart .widget_shopping_cart {color:#ffffff;}#site-navigation.main-navigation .site-header-cart .widget_shopping_cart, #site-navigation.main-navigation ul.menu ul {background-color:#000000;}}@media only screen and (max-width: 770px) {.handheld-navigation-container a, .handheld-navigation a {font-family:Noto Sans;font-size:px;letter-spacing:px;color:#353535;font-weight: bold;font-style: normal;text-decoration: none;text-transform: none;}#site-navigation a.menu-toggle, .eighteen-tags-pro-active .site-header-cart .cart-contents {color: #000;}#site-navigation .handheld-navigation{background-color: #000000;}#site-navigation .handheld-navigation li a {color: #ffffff;}}
+</style>
+<link rel='stylesheet' id='etp-google-fonts-css' href='//fonts.googleapis.com/css?family=Raleway%7CMerriweather%7CNoto+Sans&#038;ver=6.8.3' type='text/css' media='all' />
+<style type="text/css">.title {
+    clear: both;
+    padding: 5px;
+}
+.document-icon img{
+    box-shadow: 1px 2px 5px grey;
+}
+.document-gallery .document-icon img {
+    border: 1px solid #dbdbdb;
+}
+.document-gallery {
+    margin-top: 10px;
+}
+.document-gallery .document-icon .title {
+    font-size: 1.2em;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+}
+.document-gallery .descriptions.document-icon-row .document-icon {
+    padding: 0 5px 0 0;
+}</style>
+		<script type="text/javascript">
+			ajaxurl = typeof(ajaxurl) !== 'string' ? 'https://www.primarschule-rickenbach.ch/wp-admin/admin-ajax.php' : ajaxurl;
+		</script>
+		<!--n2css--><!--n2js--><script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-includes/js/jquery/jquery.min.js?ver=3.7.1" id="jquery-core-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1" id="jquery-migrate-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/plugins/pootle-page-builder//js/front-end.js?ver=6.8.3" id="pootle-page-builder-front-js-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/themes/eighteen-tags/js/skrollr.min.js?ver=6.8.3" id="etp-skrollr-js"></script>
+<link rel="https://api.w.org/" href="https://www.primarschule-rickenbach.ch/wp-json/" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.primarschule-rickenbach.ch/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.8.3" />
+	<script>
+		pbtn = {
+			dialogUrl : 'https://www.primarschule-rickenbach.ch/wp-admin/admin-ajax.php?action=pbtn_dialog'
+		};
+	</script>
+			<script>
+			document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+		</script>
+				<style>
+			.no-js img.lazyload {
+				display: none;
+			}
+
+			figure.wp-block-image img.lazyloading {
+				min-width: 150px;
+			}
+
+			.lazyload,
+			.lazyloading {
+				--smush-placeholder-width: 100px;
+				--smush-placeholder-aspect-ratio: 1/1;
+				width: var(--smush-image-width, var(--smush-placeholder-width)) !important;
+				aspect-ratio: var(--smush-image-aspect-ratio, var(--smush-placeholder-aspect-ratio)) !important;
+			}
+
+						.lazyload, .lazyloading {
+				opacity: 0;
+			}
+
+			.lazyloaded {
+				opacity: 1;
+				transition: opacity 400ms;
+				transition-delay: 0ms;
+			}
+
+					</style>
+		<link rel="icon" href="https://www.primarschule-rickenbach.ch/wp-content/uploads/2015/12/Favicon.png" sizes="32x32" />
+<link rel="icon" href="https://www.primarschule-rickenbach.ch/wp-content/uploads/2015/12/Favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www.primarschule-rickenbach.ch/wp-content/uploads/2015/12/Favicon.png" />
+<meta name="msapplication-TileImage" content="https://www.primarschule-rickenbach.ch/wp-content/uploads/2015/12/Favicon.png" />
+<style id="sccss">/* ----- Header -----*/
+.etp-nav-styleleft-vertical #page .site-header .col-full {
+    padding-top: 10px !important;
+}
+.hentry .wp-post-image {
+    display: none;
+}
+
+	/* ----- Mobile HEADER image size ----- */
+@media screen and (max-width: 768px) {
+.site-header .site-logo-anchor img, .site-header .site-logo-link img {
+	max-height: none;
+	max-width: 90% !important;
+	}
+}
+@media screen and (max-width: 480px) {
+.site-header .site-logo-anchor img, .site-header .site-logo-link img {
+    max-height: none;
+    max-width: 85% !important;
+	}
+}
+
+/* ----- Sidebar ----- */
+.etp-nav-search input[type="submit"] {
+	display: none;
+}
+
+	/* ----- Navigation ----- */
+.etp-nav-styleleft-vertical #site-navigation.main-navigation ul.menu ul {
+  	top: -20% !important;
+    left: 50% !important;
+}
+.main-navigation ul.menu ul li a, .main-navigation ul.nav-menu ul li a {
+    padding: 0.5em 1em;
+}
+  
+/* ----- Body ----- */
+.eighteen-tags-pro-active .post-meta-container {
+    font-size: 0.857em;
+    margin-bottom: 1em;
+}
+.post-meta.byline, .post-meta.cat-links, .post-meta.comments-link {
+	display: none;
+}
+	/* ----- Body - Tables ----- */
+.col-full {
+    max-width: 75.141em;
+}
+table tbody tr:nth-child(2n) td {
+    background: rgba(0, 0, 0, 0.008) none repeat scroll 0 0;
+}
+table, thead, tbody, th, td, tr {
+    white-space: nowrap;
+}
+.panel-grid-cell-container {
+ 	margin-top: 10px;
+}
+.hentry .entry-header {
+	margin-bottom: 2.631em;
+} 
+  
+ 	 /* ----- Max width before this PARTICULAR table gets nasty. This query will 
+ 	 take effect for any screen smaller than 760px and also iPads specifically. ----- */
+@media 
+only screen and (max-width: 720px),
+(min-device-width: 720px) and (max-device-width: 1024px)  {
+
+		/* ----- Force table to not be like tables anymore ----- */
+table, thead, tbody, th, td, tr { 
+	display: block; 
+    width: 100% !important;
+	}
+	
+		/* ----- Hide table headers (but not display: none;, for accessibility) ----- */
+thead tr { 
+	position: absolute;
+	top: -9999px;
+	left: -9999px;
+	}
+	
+tr { border: 1px solid #ccc; }
+	
+td { 
+		/* ----- Behave  like a "row" ----- */
+	border: none;
+	border-bottom: 1px solid #eee; 
+	position: relative;
+	padding-left: 50%; 
+}
+  
+td:before { 
+		/* ----- Now like a table header ----- */
+	position: absolute;
+		/* ----- Top/left values mimic padding ----- */
+	top: 6px;
+	left: 6px;
+	width: 45%; 
+	padding-right: 10px; 
+	white-space: nowrap;
+}
+ 		 /* ----- Label the data ----- */
+	td:before { content: attr(first); }
+	td:before { content: attr(second); }
+  	td:before { content: attr(third); }
+  	td:before { content: attr(fourth); }
+}
+
+/* ----- Event Kalender ----- */
+
+#vsel h4 {
+    font-size: 16px;
+    margin: 0 0 10px;
+}
+#vsel a.next {
+    display: none;
+}
+p, #vsel {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+}
+
+/* ----- Display Posts Shortcode ----- */
+.display-posts-listing .content {
+  	padding-top: 10px;
+}
+.display-posts-listing {
+    	margin-left: 0;
+}
+
+/* ----- Masonry container ----- */
+.post-247 .display-posts-listing {
+	-moz-column-gap: 1em;
+	-webkit-column-gap: 1em;
+	column-gap: 1em;
+}
+@media screen and (min-width: 1200px){
+.post-247 .display-posts-listing {
+        -moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;
+    }
+}
+@media screen and (max-width: 1200px){
+.post-247 .display-posts-listing {
+        -moz-column-count: 2;
+        -webkit-column-count: 2;
+        column-count: 2;
+    }
+}
+@media screen and (max-width: 700px){
+.post-247 .display-posts-listing {
+        -moz-column-count: 1;
+        -webkit-column-count: 1;
+        column-count: 1;
+    }
+}
+	/* ----- Masonry bricks or child elements ----- */
+.display-posts-listing .listing-item {
+	display: inline-block;
+	border: 1px solid #eee;
+	margin: 0 0 1em;
+	padding: 1em;
+	width: 100%;
+}
+.display-posts-listing .listing-item {
+	background-color: rgba(0, 0, 0, 0.014);
+	-webkit-column-span: all;
+	column-span: all;
+}
+
+/* ----- Footer ----- */
+.site-footer {
+	background-color: #c3d78f;
+}
+.site-info {
+    display: none;
+}
+.footer-widgets {
+    padding-top: 1.236em;
+}
+#colophon {
+    padding: 5px;
+}
+
+/* ----- Change width of HEADER, Navigation &amp; Footer ----- */
+@media screen and (min-width: 1200px) {
+.etp-nav-styleleft-vertical #page .site-header {
+	width: 350px !important;
+}
+#content {
+	margin-left: 350px !important;
+}
+.primary-navigation {
+	padding-left: 2em;
+    padding-top:2em;
+}
+footer {
+	margin-left: 350px !important;
+  }
+.col-full {
+	padding-left: 1em;
+}
+}
+@media screen and (min-width: 768px) and (max-width: 1050px) {
+.etp-nav-styleleft-vertical #page .site-header {
+	width: 180px !important;
+}
+#content {
+	margin-left: 180px !important;
+}
+.primary-navigation {
+	padding-left: 2em;
+    padding-top:2em;
+}
+footer {
+	margin-left: 180px !important;
+  }
+.col-full {
+	padding-left: 1em;
+}
+}</style></head>
+
+<body class="error404 wp-custom-logo wp-theme-eighteen-tags wp-child-theme-eighteen-tagsRickenbach group-blog full-sidebar layout- eighteen-tags-pro-active etp-nav-styleleft-vertical pootle-page-customizer-active">
+<div id="page" class="hfeed site">
+			<nav class="secondary-navigation " role="navigation" aria-label="Secondary Navigation">
+			<div class="col-full"><div style='float:left;' class='social-info'></div></div>		</nav><!-- #site-navigation -->
+		
+	<header id="masthead" class="site-header" role="banner">
+		<div class="col-full">
+
+					<a class="skip-link screen-reader-text" href="#site-navigation">Skip to navigation</a>
+		<a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+		<a href="https://www.primarschule-rickenbach.ch/" class="custom-logo-link" rel="home"><img width="300" height="144" src="https://www.primarschule-rickenbach.ch/wp-content/uploads/2023/05/cropped-Logo_Schule_Rickenbach_eng-zugeschnitten-1-2.png" class="custom-logo" alt="8545 Rickenbach" decoding="async" /></a>		<div id="site-navigation" class="main-navigation" role="navigation"
+				 aria-label="Primary Navigation">
+			<div class="etp-nav-search" style="display: none;">
+				<form role="search" method="get" class="search-form" action="https://www.primarschule-rickenbach.ch/">
+					<label class="screen-reader-text" for="s">Search for:</label>
+					<input type="search" class="search-field"
+								 placeholder="Search&hellip;"
+								 value="" name="s"
+								 title="Search for:"/>
+					<input type="submit" value="&#xf002;"/>
+					<input type='hidden' name='post_type[]' value='post' /><input type='hidden' name='post_type[]' value='page' />				</form>
+				<a class='etp-nav-search-close'><i class='fa fa-close'></i></a>
+			</div><!-- .etp-nav-search -->
+
+			<a class="menu-toggle" aria-controls="primary-navigation"
+				 aria-expanded="false">Navigation</a>
+			<div class="primary-navigation"><ul id="menu-hauptmenue" class="menu"><li id="menu-item-21" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-21"><a href="https://www.primarschule-rickenbach.ch/">Aktuelles</a></li><li id="menu-item-4062" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-4062"><a href="https://www.primarschule-rickenbach.ch/organisation_2/">Organisation</a>
+<ul class="sub-menu">
+	<li id="menu-item-4065" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4065"><a href="https://www.primarschule-rickenbach.ch/organisation_2/">Schulleitung</a></li>
+	<li id="menu-item-4063" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4063"><a href="https://www.primarschule-rickenbach.ch/organisation_2/#schulverwaltung">Schulverwaltung</a></li>
+	<li id="menu-item-4064" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4064"><a href="https://www.primarschule-rickenbach.ch/organisation_2/#schulpflege">Schulpflege</a></li>
+</ul>
+</li><li id="menu-item-50" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-50"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/">Schule</a>
+<ul class="sub-menu">
+	<li id="menu-item-56" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-56"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/">Unsere Schule</a></li>
+	<li id="menu-item-53" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-53"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/schulsozialarbeit/">Schulsozialarbeit</a></li>
+	<li id="menu-item-52" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-52"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/betreuung/">Schulergänzende Betreuung</a></li>
+	<li id="menu-item-54" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-54"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/elternrat/">Elternrat</a></li>
+	<li id="menu-item-55" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/bibliothek/">Bibliothek</a></li>
+</ul>
+</li><li id="menu-item-3228" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3228"><a href="https://www.primarschule-rickenbach.ch/unterricht/ipa-individuelle-projektarbeit/">Unterricht</a>
+<ul class="sub-menu">
+	<li id="menu-item-1384" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1384"><a href="https://www.primarschule-rickenbach.ch/unterricht/ipa-individuelle-projektarbeit/">IPA (Individuelle Projektarbeit)</a></li>
+	<li id="menu-item-2317" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2317"><a href="https://www.primarschule-rickenbach.ch/lehrplan-21-an-der-primarschule-rickenbach/">Lehrplan 21</a></li>
+	<li id="menu-item-440" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-440"><a href="https://www.primarschule-rickenbach.ch/unterricht/schul-abc/">Schul-ABC</a></li>
+	<li id="menu-item-2127" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2127"><a href="https://www.primarschule-rickenbach.ch/aktuelles/schul-leben/">Aus dem Schul-Leben</a></li>
+</ul>
+</li><li id="menu-item-1645" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1645"><a href="https://www.primarschule-rickenbach.ch/aktuelles/medien/">Galerie</a></li><li id="menu-item-20" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"><a href="https://www.primarschule-rickenbach.ch/downloads/">Downloads</a></li><li id="menu-item-2430" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2430"><a href="https://www.primarschule-rickenbach.ch/wp-content/uploads/250711_Schul-ABC_SJ-2526.pdf">Schul-ABC</a></li><li id="menu-item-19" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19"><a href="https://www.primarschule-rickenbach.ch/kontakt/">Kontakt</a></li><li id="menu-item-18" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18"><a href="https://www.primarschule-rickenbach.ch/links/">Links</a></li><li class="etp-search"><a><span class="etp-nav-search"><form role="search" method="get" class="search-form" action="https://www.primarschule-rickenbach.ch/"><input type="search" class="search-field" placeholder="Search&hellip;" value="" name="s" title="Search for:" /><input type="submit" value="&#xf002;" /><input type='hidden' name='post_type[]' value='post' /><input type='hidden' name='post_type[]' value='page' /></form></span></a></li></ul></div>			<div class="handheld-navigation">
+				<div class="menu-hauptmenue-container"><ul id="menu-hauptmenue-1" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-21"><a href="https://www.primarschule-rickenbach.ch/">Aktuelles</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-4062"><a href="https://www.primarschule-rickenbach.ch/organisation_2/">Organisation</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4065"><a href="https://www.primarschule-rickenbach.ch/organisation_2/">Schulleitung</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4063"><a href="https://www.primarschule-rickenbach.ch/organisation_2/#schulverwaltung">Schulverwaltung</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4064"><a href="https://www.primarschule-rickenbach.ch/organisation_2/#schulpflege">Schulpflege</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-50"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/">Schule</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-56"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/">Unsere Schule</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-53"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/schulsozialarbeit/">Schulsozialarbeit</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-52"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/betreuung/">Schulergänzende Betreuung</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-54"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/elternrat/">Elternrat</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-55"><a href="https://www.primarschule-rickenbach.ch/unsere-schule/bibliothek/">Bibliothek</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-3228"><a href="https://www.primarschule-rickenbach.ch/unterricht/ipa-individuelle-projektarbeit/">Unterricht</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1384"><a href="https://www.primarschule-rickenbach.ch/unterricht/ipa-individuelle-projektarbeit/">IPA (Individuelle Projektarbeit)</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2317"><a href="https://www.primarschule-rickenbach.ch/lehrplan-21-an-der-primarschule-rickenbach/">Lehrplan 21</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-440"><a href="https://www.primarschule-rickenbach.ch/unterricht/schul-abc/">Schul-ABC</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2127"><a href="https://www.primarschule-rickenbach.ch/aktuelles/schul-leben/">Aus dem Schul-Leben</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1645"><a href="https://www.primarschule-rickenbach.ch/aktuelles/medien/">Galerie</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"><a href="https://www.primarschule-rickenbach.ch/downloads/">Downloads</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2430"><a href="https://www.primarschule-rickenbach.ch/wp-content/uploads/250711_Schul-ABC_SJ-2526.pdf">Schul-ABC</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19"><a href="https://www.primarschule-rickenbach.ch/kontakt/">Kontakt</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18"><a href="https://www.primarschule-rickenbach.ch/links/">Links</a></li>
+</ul></div>				<div class="etp-nav-search">
+					<form role="search" method="get" class="search-form" action="https://www.primarschule-rickenbach.ch/">
+						<label class="screen-reader-text" for="s">Search for:</label>
+						<input type="search" class="search-field"
+									 placeholder="Search&hellip;"
+									 value="" name="s"
+									 title="Search for:"/>
+						<input type="submit" value="&#xf002;"/>
+						<input type='hidden' name='post_type[]' value='post' /><input type='hidden' name='post_type[]' value='page' />					</form>
+				</div><!-- .etp-nav-search -->
+			</div><!-- .handheld-navigation -->
+					</div><!-- #site-navigation -->
+		
+		</div>
+	</header><!-- #masthead -->
+
+	
+	<div id="content" class="site-content" tabindex="-1">
+		<div class="col-full">
+
+		<div class="woocommerce-breadcrumb"><a href="https://www.primarschule-rickenbach.ch">Home</a>  / 404</div>
+	<div id="primary" class="content-area">
+
+		<main id="main" class="site-main" role="main">
+
+			<section class="error-404 not-found">
+
+				<div class="page-content">
+
+					<header class="page-header">
+						<h1 class="page-title">Oops! That page can&rsquo;t be found.</h1>
+					</header><!-- .page-header -->
+
+					<p>Nothing was found at this location. Try searching, or check out the links below.</p>
+
+					<form role="search" method="get" class="search-form" action="https://www.primarschule-rickenbach.ch/">
+				<label>
+					<span class="screen-reader-text">Suche nach:</span>
+					<input type="search" class="search-field" placeholder="Suchen …" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Suchen" />
+			</form>
+					
+				</div><!-- .page-content -->
+			</section><!-- .error-404 -->
+
+		</main><!-- #main -->
+	</div><!-- #primary -->
+
+
+		</div><!-- .col-full -->
+	</div><!-- #content -->
+
+	
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="col-full">
+
+			
+			<section class="footer-widgets col-3 fix">
+
+				
+					
+						<section class="block footer-widget-1">
+				        	<aside id="text-10" class="widget widget_text">			<div class="textwidget">© Primarschule 8545 Rickenbach<br /><br />
+<a href="https://www.primarschule-rickenbach.ch/wp-admin">LOGIN</a></div>
+		</aside>						</section>
+
+			        
+				
+					
+				
+					
+						<section class="block footer-widget-3">
+				        	<aside id="text-12" class="widget widget_text">			<div class="textwidget">webdesign <a href="http://www.filmprojekt.ch" target="_blank">michel weber</a></div>
+		</aside>						</section>
+
+			        
+				
+			</section><!-- /.footer-widgets  -->
+
+				<div class="site-info">
+			&copy; 8545 Rickenbach 2026					<br/> Eighteen tags designed by <a href="http://www.pootlepress.com" title="Premium WordPress Themes & Plugins by pootlepress" rel="designer">pootlepress</a>.		</div><!-- .site-info -->
+		
+		</div><!-- .col-full -->
+	</footer><!-- #colophon -->
+
+	
+</div><!-- #page -->
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"\/*"},{"not":{"href_matches":["\/wp-*.php","\/wp-admin\/*","\/wp-content\/uploads\/*","\/wp-content\/*","\/wp-content\/plugins\/*","\/wp-content\/themes\/eighteen-tags%20Rickenbach\/*","\/wp-content\/themes\/eighteen-tags\/*","\/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+	<style id="pbtn-styles">
+		.pbtn.pbtn-left{float:left;}
+		.pbtn.pbtn-center{}
+		.pbtn.pbtn-right{float: right;}
+	</style>
+	<script>
+		jQuery( function ($) {
+			$( 'a.pbtn' ).hover(
+				function() {
+					var $t = $( this );
+					if ( ! $t.data( 'hover-color' ) ) {
+						$t.css( 'opacity', '0.7' );
+						return;
+					}
+					var background = $t.css( 'background' );
+					background = background ? background : $t.css( 'background-color' );
+					$t.data( 'background', background );
+					$t.css( 'background', $t.data( 'hover-color' ) );
+				},
+				function() {
+					var $t = $( this );
+					if ( ! $t.data( 'background' ) ) {
+						$t.css( 'opacity', 1 );
+						return;
+					}
+					$t.css( {
+						'background' : $t.data( 'background' )
+					} );
+				}
+			);
+		} );
+	</script>
+	<link rel='stylesheet' id='dashicons-css' href='https://www.primarschule-rickenbach.ch/wp-includes/css/dashicons.min.css?ver=6.8.3' type='text/css' media='all' />
+<script type="module"  src="https://www.primarschule-rickenbach.ch/wp-content/plugins/all-in-one-seo-pack/dist/Lite/assets/table-of-contents.95d0dfce.js?ver=4.9.1" id="aioseo/js/src/vue/standalone/blocks/table-of-contents/frontend.js-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-includes/js/dist/hooks.min.js?ver=4d63a3d491d11ffd8ac6" id="wp-hooks-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-includes/js/dist/i18n.min.js?ver=5e580eb46a90c2b997e6" id="wp-i18n-js"></script>
+<script type="text/javascript" id="wp-i18n-js-after">
+/* <![CDATA[ */
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.1.3" id="swv-js"></script>
+<script type="text/javascript" id="contact-form-7-js-translations">
+/* <![CDATA[ */
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-10-26 03:28:49+0000","generator":"GlotPress\/4.0.3","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=2; plural=n != 1;","lang":"de"},"This contact form is placed in the wrong place.":["Dieses Kontaktformular wurde an der falschen Stelle platziert."],"Error:":["Fehler:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+/* ]]> */
+</script>
+<script type="text/javascript" id="contact-form-7-js-before">
+/* <![CDATA[ */
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/www.primarschule-rickenbach.ch\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.1.3" id="contact-form-7-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/plugins/document-gallery/assets/js/gallery.min.js?ver=4.4.4" id="document-gallery-js"></script>
+<script type="text/javascript" id="page-scroll-to-id-plugin-script-js-extra">
+/* <![CDATA[ */
+var mPS2id_params = {"instances":{"mPS2id_instance_0":{"selector":"a[rel='m_PageScroll2id']","autoSelectorMenuLinks":"false","excludeSelector":"a[href^='#tab-'], a[href^='#tabs-'], a[data-toggle]:not([data-toggle='tooltip']), a[data-slide], a[data-vc-tabs], a[data-vc-accordion]","scrollSpeed":1300,"autoScrollSpeed":"true","scrollEasing":"easeInOutExpo","scrollingEasing":"easeInOutCirc","forceScrollEasing":"false","pageEndSmoothScroll":"true","stopScrollOnUserAction":"false","autoCorrectScroll":"false","autoCorrectScrollExtend":"false","layout":"vertical","offset":0,"dummyOffset":"false","highlightSelector":"","clickedClass":"mPS2id-clicked","targetClass":"mPS2id-target","highlightClass":"mPS2id-highlight","forceSingleHighlight":"false","keepHighlightUntilNext":"false","highlightByNextTarget":"false","appendHash":"false","scrollToHash":"false","scrollToHashForAll":"false","scrollToHashDelay":10000,"scrollToHashUseElementData":"true","scrollToHashRemoveUrlHash":"false","disablePluginBelow":0,"adminDisplayWidgetsId":"true","adminTinyMCEbuttons":"true","unbindUnrelatedClickEvents":"false","unbindUnrelatedClickEventsSelector":"","normalizeAnchorPointTargets":"false","encodeLinks":"false"}},"total_instances":"1","shortcode_class":"_ps2id"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/plugins/page-scroll-to-id/js/page-scroll-to-id.min.js?ver=1.7.9" id="page-scroll-to-id-plugin-script-js"></script>
+<script type="text/javascript" id="mediaelement-core-js-before">
+/* <![CDATA[ */
+var mejsL10n = {"language":"de","strings":{"mejs.download-file":"Datei herunterladen","mejs.install-flash":"Du verwendest einen Browser, der nicht den Flash-Player aktiviert oder installiert hat. Bitte aktiviere dein Flash-Player-Plugin oder lade die neueste Version von https:\/\/get.adobe.com\/flashplayer\/ herunter","mejs.fullscreen":"Vollbild","mejs.play":"Wiedergeben","mejs.pause":"Pausieren","mejs.time-slider":"Zeit-Schieberegler","mejs.time-help-text":"Benutze die Pfeiltasten Links\/Rechts, um 1\u00a0Sekunde vor- oder zur\u00fcckzuspringen. Mit den Pfeiltasten Hoch\/Runter kannst du um 10\u00a0Sekunden vor- oder zur\u00fcckspringen.","mejs.live-broadcast":"Live-\u00dcbertragung","mejs.volume-help-text":"Pfeiltasten Hoch\/Runter benutzen, um die Lautst\u00e4rke zu regeln.","mejs.unmute":"Lautschalten","mejs.mute":"Stummschalten","mejs.volume-slider":"Lautst\u00e4rkeregler","mejs.video-player":"Video-Player","mejs.audio-player":"Audio-Player","mejs.captions-subtitles":"Untertitel","mejs.captions-chapters":"Kapitel","mejs.none":"Keine","mejs.afrikaans":"Afrikaans","mejs.albanian":"Albanisch","mejs.arabic":"Arabisch","mejs.belarusian":"Wei\u00dfrussisch","mejs.bulgarian":"Bulgarisch","mejs.catalan":"Katalanisch","mejs.chinese":"Chinesisch","mejs.chinese-simplified":"Chinesisch (vereinfacht)","mejs.chinese-traditional":"Chinesisch (traditionell)","mejs.croatian":"Kroatisch","mejs.czech":"Tschechisch","mejs.danish":"D\u00e4nisch","mejs.dutch":"Niederl\u00e4ndisch","mejs.english":"Englisch","mejs.estonian":"Estnisch","mejs.filipino":"Filipino","mejs.finnish":"Finnisch","mejs.french":"Franz\u00f6sisch","mejs.galician":"Galicisch","mejs.german":"Deutsch","mejs.greek":"Griechisch","mejs.haitian-creole":"Haitianisch-Kreolisch","mejs.hebrew":"Hebr\u00e4isch","mejs.hindi":"Hindi","mejs.hungarian":"Ungarisch","mejs.icelandic":"Isl\u00e4ndisch","mejs.indonesian":"Indonesisch","mejs.irish":"Irisch","mejs.italian":"Italienisch","mejs.japanese":"Japanisch","mejs.korean":"Koreanisch","mejs.latvian":"Lettisch","mejs.lithuanian":"Litauisch","mejs.macedonian":"Mazedonisch","mejs.malay":"Malaiisch","mejs.maltese":"Maltesisch","mejs.norwegian":"Norwegisch","mejs.persian":"Persisch","mejs.polish":"Polnisch","mejs.portuguese":"Portugiesisch","mejs.romanian":"Rum\u00e4nisch","mejs.russian":"Russisch","mejs.serbian":"Serbisch","mejs.slovak":"Slowakisch","mejs.slovenian":"Slowenisch","mejs.spanish":"Spanisch","mejs.swahili":"Suaheli","mejs.swedish":"Schwedisch","mejs.tagalog":"Tagalog","mejs.thai":"Thai","mejs.turkish":"T\u00fcrkisch","mejs.ukrainian":"Ukrainisch","mejs.vietnamese":"Vietnamesisch","mejs.welsh":"Walisisch","mejs.yiddish":"Jiddisch"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-includes/js/mediaelement/mediaelement-and-player.min.js?ver=4.2.17" id="mediaelement-core-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-includes/js/mediaelement/mediaelement-migrate.min.js?ver=6.8.3" id="mediaelement-migrate-js"></script>
+<script type="text/javascript" id="mediaelement-js-extra">
+/* <![CDATA[ */
+var _wpmejsSettings = {"pluginPath":"\/wp-includes\/js\/mediaelement\/","classPrefix":"mejs-","stretching":"responsive","audioShortcodeLibrary":"mediaelement","videoShortcodeLibrary":"mediaelement"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-includes/js/mediaelement/wp-mediaelement.min.js?ver=6.8.3" id="wp-mediaelement-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/themes/eighteen-tags/js/skip-link-focus-fix.min.js?ver=20130115" id="eighteen-tags-skip-link-focus-fix-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/plugins/3d-flipbook-dflip-lite/assets/js/dflip.min.js?ver=2.4.20" id="dflip-script-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/plugins/slimpack/slimpack/_inc/devicepx-jetpack.js?ver=202602" id="devicepx-js"></script>
+<script type="text/javascript" id="smush-lazy-load-js-before">
+/* <![CDATA[ */
+var smushLazyLoadOptions = {"autoResizingEnabled":false,"autoResizeOptions":{"precision":5,"skipAutoWidth":true}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/plugins/wp-smushit/app/assets/js/smush-lazy-load.min.js?ver=3.22.3" id="smush-lazy-load-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-content/themes/eighteen-tags/inc/pro//assets/js/public.js?ver=1.0.0" id="etp-public-script-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-includes/js/imagesloaded.min.js?ver=5.0.0" id="imagesloaded-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-includes/js/masonry.min.js?ver=4.2.2" id="masonry-js"></script>
+<script type="text/javascript" src="https://www.primarschule-rickenbach.ch/wp-includes/js/jquery/jquery.masonry.min.js?ver=3.1.2b" id="jquery-masonry-js"></script>
+        <script data-cfasync="false">
+            window.dFlipLocation = 'https://www.primarschule-rickenbach.ch/wp-content/plugins/3d-flipbook-dflip-lite/assets/';
+            window.dFlipWPGlobal = {"text":{"toggleSound":"Ton ein-\/ausschalten","toggleThumbnails":"Vorschaubilder ein-\/ausschalten","toggleOutline":"Inhaltsverzeichnis\/Lesezeichen umschalten","previousPage":"Vorherige Seite","nextPage":"N\u00e4chste Seite","toggleFullscreen":"Vollbildmodus wechseln","zoomIn":"Vergr\u00f6\u00dfern","zoomOut":"Verkleinern","toggleHelp":"Hilfe umschalten","singlePageMode":"Einzelseitenmodus","doublePageMode":"Doppelseitenmodus","downloadPDFFile":"PDF-Datei herunterladen","gotoFirstPage":"Zur ersten Seite gehen","gotoLastPage":"Zur letzten Seite gehen","share":"Teilen","mailSubject":"Sieh dir dieses Flipbook an!","mailBody":"Diese Website \u00f6ffnen {{url}}","loading":"DearFlip: l\u00e4dt... "},"viewerType":"flipbook","moreControls":"download,pageMode,startPage,endPage,sound","hideControls":"","scrollWheel":"false","backgroundColor":"#777","backgroundImage":"","height":"auto","paddingLeft":"20","paddingRight":"20","controlsPosition":"bottom","duration":800,"soundEnable":"true","enableDownload":"true","showSearchControl":"false","showPrintControl":"false","enableAnnotation":false,"enableAnalytics":"false","webgl":"true","hard":"none","maxTextureSize":"1600","rangeChunkSize":"524288","zoomRatio":1.5,"stiffness":3,"pageMode":"0","singlePageMode":"0","pageSize":"0","autoPlay":"false","autoPlayDuration":5000,"autoPlayStart":"false","linkTarget":"2","sharePrefix":"flipbook-"};
+        </script>
+      
+</body>
+</html>
