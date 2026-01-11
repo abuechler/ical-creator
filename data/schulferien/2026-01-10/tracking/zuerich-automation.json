@@ -1,24 +1,31 @@
 {
   "bezirk": "zuerich",
-  "timestamp": "2026-01-10T23:53:13.175Z",
+  "timestamp": "2026-01-11T01:30:00.000Z",
   "gemeinden": [
     {
       "bfs": 261,
       "name": "Zürich",
-      "website": null,
+      "website": "https://www.stadt-zuerich.ch/de/bildung/volksschule/schulferien.html",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/de/bildung/volksschule/schulferien.html",
+      "pdfLinks": [
+        "https://www.stadt-zuerich.ch/content/dam/web/de/bildung/volksschule/schulferien/schulferien-2025-2026.pdf",
+        "https://www.stadt-zuerich.ch/content/dam/web/de/bildung/volksschule/schulferien/schulferien-2026-2027.pdf"
+      ],
+      "downloaded": [
+        "zuerich-stadt-ferienplan-2025-26.pdf",
+        "zuerich-stadt-ferienplan-2026-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "Stadt Zürich (centralized school system) - PDFs from official Schulamt. Source: Schulamt Stadt Zürich"
     }
   ],
   "summary": {
     "total": 1,
-    "websiteFound": 0,
+    "websiteFound": 1,
     "escolaDetected": 0,
-    "pdfFound": 0,
-    "pdfDownloaded": 0,
-    "manualRequired": 1
+    "pdfFound": 2,
+    "pdfDownloaded": 2,
+    "manualRequired": 0
   }
 }

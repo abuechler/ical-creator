@@ -1,86 +1,151 @@
 {
   "bezirk": "uster",
-  "timestamp": "2026-01-10T23:51:50.629Z",
+  "timestamp": "2026-01-11T01:35:00.000Z",
+  "lastUpdated": "2026-01-11T01:35:00.000Z",
   "gemeinden": [
     {
       "bfs": 191,
       "name": "Dübendorf",
       "website": "https://www.schule-duebendorf.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "isEscola": true,
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-duebendorf.ch/_docn/455716/Ferienplan_2025-26_und_2026-27.pdf",
+          "text": "Ferienplan und schulfreie Tage der Schuljahre 2025/2026 und 2026/2027",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "duebendorf-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed",
+      "discoveryPath": "Web search -> direct PDF URL"
     },
     {
       "bfs": 192,
       "name": "Egg",
-      "website": "https://www.ps-egg.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "website": "https://www.schulenegg.ch",
+      "isEscola": true,
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.schulenegg.ch/_docn/471649/Ferienplan.pdf",
+          "text": "Ferienplan Schuljahr 2025/26",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "egg-ferienplan-2025-26.pdf"
+      ],
+      "status": "completed",
+      "discoveryPath": "Web search -> direct PDF URL",
+      "notes": "Website domain changed from ps-egg.ch to schulenegg.ch"
     },
     {
       "bfs": 193,
       "name": "Fällanden",
       "website": "https://www.schulefaellanden.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
+      "isEscola": true,
+      "ferienplanPath": "/ferienplan",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "webpage_only",
+      "discoveryPath": "Browser navigation -> Ferienplan page",
+      "notes": "Holiday data displayed on webpage, no PDF download available. Dates for 2025/26 and 2026/27 documented on web page."
     },
     {
       "bfs": 194,
       "name": "Greifensee",
       "website": "https://www.primarschule-greifensee.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "isEscola": true,
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.primarschule-greifensee.ch/_docn/409549/Ferienplan_SJ24_25_25_26.pdf",
+          "text": "Ferienplan SJ 2024/25 und 2025/26",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "greifensee-ferienplan-2024-26.pdf"
+      ],
+      "status": "completed",
+      "discoveryPath": "Web search -> direct PDF URL"
     },
     {
       "bfs": 195,
       "name": "Maur",
       "website": "https://www.schule-maur.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
+      "isEscola": true,
+      "ferienplanPath": "/services/dossier.html/601/collection/16",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-maur.ch/public/upload/assets/7796/Ferienplan%202025_26%20und%202026_27.pdf",
+          "text": "Ferienplan Schuljahr 2025/26 und 2026/27",
+          "isPdf": true
+        }
+      ],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "restricted",
+      "discoveryPath": "Web search -> found URL but access restricted (403 error)",
+      "notes": "Website requires authentication. PDF URL found but returns 403 Forbidden. May need login credentials to access."
     },
     {
       "bfs": 196,
       "name": "Mönchaltorf",
       "website": "https://www.schulemoenchaltorf.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
+      "isEscola": true,
+      "ferienplanPath": "/schulbetrieb/ferienplan.html/619",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "webpage_only",
+      "discoveryPath": "Web search -> ferienplan page not found (404)",
+      "notes": "Ferienplan page URL changed, previous data available on feiertagskalender.ch. Website restructured - old URLs return 404."
     },
     {
       "bfs": 197,
       "name": "Schwerzenbach",
       "website": "https://www.schule-schwerzenbach.ch",
       "isEscola": true,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/organisation/agenda/p-221/",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-schwerzenbach.ch/download.php?action=download&download_type=3&doc_id=hvtsg4ffss2zagy20ncljkma4c6nfl2xkh6r",
+          "text": "Ferienplan inkl. schulfreie Tage",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "schwerzenbach-ferienplan-2025-26.pdf"
+      ],
+      "status": "completed",
+      "discoveryPath": "Web search -> direct PDF URL"
     },
     {
       "bfs": 198,
       "name": "Uster",
       "website": "https://www.primarschule-uster.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "isEscola": true,
+      "ferienplanPath": "/ferienplan-dokumente",
+      "pdfLinks": [
+        {
+          "href": "https://www.primarschule-uster.ch/_doc/450907",
+          "text": "Termine SJ 2025/26",
+          "isPdf": true
+        },
+        {
+          "href": "https://www.primarschule-uster.ch/_doc/450910",
+          "text": "Termine SJ 2026/27",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "uster-termine-2025-26.pdf",
+        "uster-termine-2026-27.pdf"
+      ],
+      "status": "completed",
+      "discoveryPath": "Browser navigation -> ferienplan-dokumente page -> download links"
     },
     {
       "bfs": 199,
@@ -98,25 +163,31 @@
       "downloaded": [
         "volketswil-ferienplan.pdf"
       ],
-      "status": "automated"
+      "status": "completed",
+      "discoveryPath": "Automated collection"
     },
     {
       "bfs": 200,
       "name": "Wangen-Brüttisellen",
-      "website": null,
+      "website": "https://www.schulen-wb.ch",
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "webpage_only",
+      "discoveryPath": "Browser navigation -> homepage, no direct Ferienplan link found",
+      "notes": "Website uses PUPIL CMS. Ferienplan not directly accessible from homepage. School vacation dates available via feiertagskalender.ch and localcities.ch"
     }
   ],
   "summary": {
     "total": 10,
-    "websiteFound": 9,
-    "escolaDetected": 1,
-    "pdfFound": 1,
-    "pdfDownloaded": 1,
-    "manualRequired": 9
-  }
+    "websiteFound": 10,
+    "escolaDetected": 8,
+    "pdfFound": 7,
+    "pdfDownloaded": 7,
+    "webpageOnly": 3,
+    "restricted": 1,
+    "completed": 6
+  },
+  "collectionNotes": "Manual data collection completed 2026-01-11. Browser navigation experienced redirect issues. Web search used to find direct PDF URLs. Some schools have data only on webpage (Fällanden, Mönchaltorf, Wangen-Brüttisellen). Maur requires authentication."
 }

@@ -1,6 +1,7 @@
 {
   "bezirk": "affoltern",
-  "timestamp": "2026-01-10T23:47:30.377Z",
+  "timestamp": "2026-01-11T01:35:00.000Z",
+  "lastUpdated": "2026-01-11T01:35:00.000Z",
   "gemeinden": [
     {
       "bfs": 1,
@@ -9,8 +10,9 @@
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "downloaded": ["aeugst-ferienplan-2025-26.pdf"],
+      "status": "completed",
+      "notes": "Previously downloaded manually"
     },
     {
       "bfs": 2,
@@ -19,8 +21,9 @@
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "downloaded": ["affoltern-am-albis-ferienplan-2025-28.pdf"],
+      "status": "completed",
+      "notes": "Previously downloaded manually"
     },
     {
       "bfs": 3,
@@ -29,78 +32,130 @@
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "downloaded": ["bonstetten-ferienplan-2025-28.pdf"],
+      "status": "completed",
+      "notes": "Previously downloaded manually"
     },
     {
       "bfs": 4,
       "name": "Hausen am Albis",
-      "website": "https://www.schulehausen.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "website": "https://www.primarhausen.ch",
+      "isEscola": true,
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.primarhausen.ch/_doc/477352",
+          "text": "Ferien- und Jahresplan 2025/26",
+          "isPdf": true
+        },
+        {
+          "href": "https://www.primarhausen.ch/_doc/454015",
+          "text": "Vorschau Ferienplan 2026/27",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "hausen-am-albis-ferienplan-2025-26.pdf",
+        "hausen-am-albis-ferienplan-2026-27.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 5,
       "name": "Hedingen",
       "website": "https://www.schulehedingen.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/schule/termine/ferien.php",
+      "pdfLinks": [
+        {
+          "href": "https://www.schulehedingen.ch/schule/termine/Ferienplan_Hedingen_2026-2027.pdf",
+          "text": "Ferienplan 2026-2027",
+          "isPdf": true
+        }
+      ],
+      "downloaded": ["hedingen-ferienplan-2026-27.pdf"],
+      "status": "completed",
+      "notes": "2025-26 version no longer available (410 Gone)"
     },
     {
       "bfs": 6,
       "name": "Kappel am Albis",
-      "website": null,
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "website": "https://www.primarschulekappel.ch",
+      "isEscola": true,
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.primarschulekappel.ch/_doc/484096",
+          "text": "Ferienplan 2025_26 Primarschule Kappel",
+          "isPdf": true
+        }
+      ],
+      "downloaded": ["kappel-am-albis-ferienplan-2025-26.pdf"],
+      "status": "completed"
     },
     {
       "bfs": 7,
       "name": "Knonau",
       "website": "https://www.schule-knonau.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "isEscola": true,
+      "ferienplanPath": "/wissenswertes/ferienkalender.html/498",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-knonau.ch/public/upload/assets/9481/Ferienplan%20SJ%2026_27.pdf?fp=1",
+          "text": "Ferienplan 2025 - 2027",
+          "isPdf": true
+        }
+      ],
+      "downloaded": ["knonau-ferienplan-2025-27.pdf"],
+      "status": "completed"
     },
     {
       "bfs": 8,
       "name": "Maschwanden",
-      "website": null,
+      "website": "https://tagesschule-maschwanden.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/ferienplan/",
+      "pdfLinks": [
+        {
+          "href": "https://tagesschule-maschwanden.ch/wp-content/uploads/2025/12/Ferienplan-2025-27.pdf",
+          "text": "Ferienplan 2025-27",
+          "isPdf": true
+        }
+      ],
+      "downloaded": ["maschwanden-ferienplan-2025-27.pdf"],
+      "status": "completed"
     },
     {
       "bfs": 9,
       "name": "Mettmenstetten",
       "website": "https://www.ps-mettmenstetten.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "isEscola": true,
+      "ferienplanPath": "/informationen/ferienplan.html/211",
+      "pdfLinks": [
+        {
+          "href": "https://www.ps-mettmenstetten.ch/public/upload/assets/2128/Ferienplan%20PSM%20202526%20und%20202627.pdf?fp=1",
+          "text": "Ferienplan 2025/26 und 2026/27",
+          "isPdf": true
+        }
+      ],
+      "downloaded": ["mettmenstetten-ferienplan-2025-27.pdf"],
+      "status": "completed"
     },
     {
       "bfs": 10,
       "name": "Obfelden",
-      "website": null,
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "website": "https://www.primarobfelden.ch",
+      "isEscola": true,
+      "ferienplanPath": "/aktuell/agenda.html/80",
+      "pdfLinks": [
+        {
+          "href": "https://primarobfelden.ch/public/upload/assets/867/2025_2027%20Ferien-%20und%20Aktivitätenplan.pdf?fp=16",
+          "text": "Ferien- und Aktivitätenplan 2025-2027",
+          "isPdf": true
+        }
+      ],
+      "downloaded": ["obfelden-ferienplan-2025-27.pdf"],
+      "status": "completed"
     },
     {
       "bfs": 11,
@@ -118,45 +173,56 @@
           "href": "https://ps-ottenbach.ch/wp-content/uploads/2025/05/Ferienplan_2026_2027_final.pdf",
           "text": "Ferienplan_2026_2027_final",
           "isPdf": true
-        },
-        {
-          "href": "https://ps-ottenbach.ch/wp-content/uploads/2025/04/Ferienhort_Anmeldung-25_26.pdf",
-          "text": "Ferienhort_Anmeldung 25_26",
-          "isPdf": true
         }
       ],
-      "downloaded": [
-        "ottenbach-ferienplan.pdf",
-        "ottenbach-ferienplan.pdf",
-        "ottenbach-ferienplan.pdf"
-      ],
-      "status": "automated"
+      "downloaded": ["ottenbach-ferienplan.pdf"],
+      "status": "completed"
     },
     {
       "bfs": 12,
       "name": "Rifferswil",
       "website": "https://www.schule-rifferswil.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "isEscola": true,
+      "ferienplanPath": "/de/elterninformationen/ferienplanfs/",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-rifferswil.ch/_doc/41815",
+          "text": "Ferien- und Terminplan Schuljahr 2025/26",
+          "isPdf": true
+        },
+        {
+          "href": "https://www.schule-rifferswil.ch/_doc/489218",
+          "text": "Vorschau Feriendaten folgende Schuljahre",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "rifferswil-ferienplan-2025-26.pdf",
+        "rifferswil-ferienplan-preview.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 13,
       "name": "Stallikon",
-      "website": "https://schule.stallikon.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "website": "https://www.schule.stallikon.ch",
+      "isEscola": true,
+      "ferienplanPath": "/aktuelles/schul-abc/ferienplan.html/304",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule.stallikon.ch/public/upload/assets/5446/Ferienplan_25.26_definitiv_120625.pdf?fp=1",
+          "text": "Ferienplan Schuljahr 2025/26",
+          "isPdf": true
+        }
+      ],
+      "downloaded": ["stallikon-ferienplan-2025-26.pdf"],
+      "status": "completed"
     },
     {
       "bfs": 14,
       "name": "Wettswil am Albis",
       "website": "https://www.schulewettswil.ch",
-      "isEscola": false,
+      "isEscola": true,
       "ferienplanPath": "/",
       "pdfLinks": [
         {
@@ -165,18 +231,17 @@
           "isPdf": true
         }
       ],
-      "downloaded": [
-        "wettswil-ferienplan.pdf"
-      ],
-      "status": "automated"
+      "downloaded": ["wettswil-ferienplan.pdf"],
+      "status": "completed"
     }
   ],
   "summary": {
     "total": 14,
-    "websiteFound": 11,
-    "escolaDetected": 0,
-    "pdfFound": 2,
-    "pdfDownloaded": 4,
-    "manualRequired": 12
+    "websiteFound": 14,
+    "escolaDetected": 9,
+    "pdfFound": 14,
+    "pdfDownloaded": 17,
+    "completed": 14,
+    "manualRequired": 0
   }
 }

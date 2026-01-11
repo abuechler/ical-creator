@@ -1,16 +1,24 @@
 {
   "bezirk": "winterthur",
-  "timestamp": "2026-01-10T23:52:01.719Z",
+  "timestamp": "2026-01-11T01:35:00.000Z",
   "gemeinden": [
     {
       "bfs": 211,
       "name": "Brütten",
       "website": "https://www.schulebruetten.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/agenda-2/",
+      "pdfLinks": [
+        {
+          "href": "https://schulebruetten.ch/wp-content/uploads/2024/04/Ferienplan-2024-2027.pdf",
+          "text": "Ferienplan 2024-2027",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "bruetten-ferienplan-2024-27.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 212,
@@ -49,7 +57,6 @@
         }
       ],
       "downloaded": [
-        "dinhard-ferienplan.pdf",
         "dinhard-ferienplan.pdf"
       ],
       "status": "automated"
@@ -77,20 +84,22 @@
       "name": "Ellikon an der Thur",
       "website": "https://www.schule-ellikon.ch",
       "isEscola": false,
-      "ferienplanPath": null,
+      "ferienplanPath": "/ferienplan",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "webpage_only",
+      "notes": "Ferienplan displayed on webpage, no PDF available. School uses Wix platform."
     },
     {
       "bfs": 216,
       "name": "Elsau",
-      "website": null,
+      "website": "https://www.elsauschlatt.ch",
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "uses_winterthur_plan",
+      "notes": "Elsau and Schlatt share school administration with Winterthur region, follow Stadt Winterthur Ferienplan."
     },
     {
       "bfs": 217,
@@ -116,47 +125,87 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "uses_winterthur_plan",
+      "notes": "Small Gemeinde, likely uses Stadt Winterthur Ferienplan. No dedicated school website found."
     },
     {
       "bfs": 219,
       "name": "Neftenbach",
       "website": "https://www.schule-neftenbach.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/_rtr/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-neftenbach.ch/_rtr/publikation_56098",
+          "text": "Ferienplan der Schule Neftenbach 2025-2028",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "neftenbach-ferienplan-2025-28.pdf"
+      ],
+      "status": "completed",
+      "notes": "Also follows Winterthur city Ferienplan as noted on their website."
     },
     {
       "bfs": 220,
       "name": "Pfungen",
       "website": "https://www.schulepfungen.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/infos-service/ferienplan/",
+      "pdfLinks": [
+        {
+          "href": "https://schulepfungen.ch/download/5492/",
+          "text": "Ferienplan Schule Pfungen 2025-27",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "pfungen-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 221,
       "name": "Rickenbach",
-      "website": "https://www.schule-rickenbach.ch",
+      "website": "https://www.primarschule-rickenbach.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/",
+      "pdfLinks": [
+        {
+          "href": "https://www.primarschule-rickenbach.ch/wp-content/uploads/20250801_PL_Ferienplan_Ilef_202526.pdf",
+          "text": "Ferienplan 2025/26",
+          "isPdf": true
+        },
+        {
+          "href": "https://www.primarschule-rickenbach.ch/wp-content/uploads/20260801_PL_Ferienplan_Ilef_202627.pdf",
+          "text": "Ferienplan 2026/27",
+          "isPdf": true
+        },
+        {
+          "href": "https://www.primarschule-rickenbach.ch/wp-content/uploads/20270801_PL_Ferienplan_Ilef_202728.pdf",
+          "text": "Ferienplan 2027/28",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "rickenbach-ferienplan-2025-26.pdf",
+        "rickenbach-ferienplan-2026-27.pdf",
+        "rickenbach-ferienplan-2027-28.pdf"
+      ],
+      "status": "completed",
+      "notes": "This is Rickenbach ZH (8545), part of Bezirk Winterthur. Not to be confused with Rickenbach LU."
     },
     {
       "bfs": 222,
       "name": "Schlatt",
-      "website": null,
+      "website": "https://www.elsauschlatt.ch",
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "uses_winterthur_plan",
+      "notes": "Elsau and Schlatt share school administration with Winterthur region, follow Stadt Winterthur Ferienplan."
     },
     {
       "bfs": 223,
@@ -177,7 +226,6 @@
         }
       ],
       "downloaded": [
-        "seuzach-ferienplan.pdf",
         "seuzach-ferienplan.pdf"
       ],
       "status": "automated"
@@ -203,22 +251,32 @@
     {
       "bfs": 225,
       "name": "Wiesendangen",
-      "website": null,
+      "website": "https://www.wiesendangen.ch",
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "uses_winterthur_plan",
+      "notes": "Part of Winterthur region, likely uses Stadt Winterthur Ferienplan. Gemeinde website found, no dedicated school website."
     },
     {
       "bfs": 226,
       "name": "Winterthur",
-      "website": null,
+      "website": "https://stadt.winterthur.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/themen/leben-in-winterthur/bildung-und-schule/schulen-und-schulhaeuser/schulferien",
+      "pdfLinks": [
+        {
+          "href": "https://stadt.winterthur.ch/themen/leben-in-winterthur/bildung-und-schule/schulen-und-schulhaeuser/schulferien/schulferienplan-2016-2025/schulferienplan-2025-2033.pdf",
+          "text": "Schulferienplan 2025 - 2033",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "winterthur-ferienplan-2025-33.pdf"
+      ],
+      "status": "completed",
+      "notes": "Central Ferienplan for Stadt Winterthur. Many smaller Gemeinden in Bezirk Winterthur follow this plan."
     },
     {
       "bfs": 227,
@@ -228,15 +286,20 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "uses_winterthur_plan",
+      "notes": "Small Gemeinde in Bezirk Winterthur, likely uses Stadt Winterthur Ferienplan. No dedicated school website found."
     }
   ],
   "summary": {
     "total": 17,
-    "websiteFound": 11,
+    "websiteFound": 14,
     "escolaDetected": 1,
-    "pdfFound": 6,
-    "pdfDownloaded": 7,
-    "manualRequired": 11
-  }
+    "pdfDownloaded": 13,
+    "completed": 8,
+    "automated": 4,
+    "webpageOnly": 1,
+    "usesWinterthurPlan": 4
+  },
+  "manualCollectionDate": "2026-01-11",
+  "notes": "Manual collection completed for Bezirk Winterthur. Several smaller Gemeinden (Elsau, Schlatt, Hofstetten, Wiesendangen, Zell) do not have dedicated school websites and likely follow the Stadt Winterthur Ferienplan. The Winterthur city Ferienplan covers 2025-2033."
 }

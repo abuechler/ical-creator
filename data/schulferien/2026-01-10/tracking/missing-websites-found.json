@@ -1,0 +1,117 @@
+{
+  "description": "School websites found via web search for Gemeinden where automation failed",
+  "timestamp": "2026-01-11T01:20:00+01:00",
+  "websites": {
+    "affoltern": {
+      "Kappel am Albis": "https://www.primarschulekappel.ch/",
+      "Maschwanden": "https://tagesschule-maschwanden.ch/",
+      "Obfelden": "https://www.primarobfelden.ch/"
+    },
+    "andelfingen": {
+      "Adlikon": "https://www.primarschule-andelfingen.ch/",
+      "Berg am Irchel": "https://www.schuleflaachtal.ch/",
+      "Buch am Irchel": "https://www.schuleflaachtal.ch/",
+      "Dorf": "https://www.schuleflaachtal.ch/",
+      "Flaach": "https://www.schuleflaachtal.ch/",
+      "Humlikon": "https://www.pshumlikon.ch/",
+      "Kleinandelfingen": "https://www.primarschule-andelfingen.ch/",
+      "Laufen-Uhwiesen": "https://www.ps-uhwiesen.ch/",
+      "Volken": "https://www.schuleflaachtal.ch/"
+    },
+    "dielsdorf": {
+      "Dänikon": "https://www.schule-rotflue.ch/",
+      "Hüttikon": "https://www.schule-rotflue.ch/",
+      "Niederweningen": "https://www.schulewehntal.ch/",
+      "Oberweningen": "https://www.schulewehntal.ch/",
+      "Otelfingen": "https://www.ps-o.ch/",
+      "Schleinikon": "https://www.schulewehntal.ch/",
+      "Schöfflisdorf": "https://www.schulewehntal.ch/"
+    },
+    "dietikon": {
+      "Aesch": "https://www.nassenmatt.ch/",
+      "Birmensdorf": "https://www.primabirmensdorf.ch/",
+      "Geroldswil": "https://www.psog.ch/",
+      "Oberengstringen": "https://www.schule-oe.ch/"
+    },
+    "hinwil": {
+      "Bäretswil": "https://www.baeretswil.org/"
+    },
+    "horgen": {
+      "Hirzel": "https://www.schule-horgen.ch/",
+      "Hütten": "https://www.pswaedenswil.ch/",
+      "Richterswil": "https://www.schule-richterswil-samstagern.ch/",
+      "Schönenberg": "https://www.pswaedenswil.ch/"
+    },
+    "meilen": {
+      "Erlenbach": "https://www.erlenbach.ch/de/schule/home",
+      "Uetikon am See": "https://www.schule.uetikonamsee.ch/"
+    },
+    "pfaeffikon": {
+      "Illnau-Effretikon": "https://www.schule-ilef.ch/",
+      "Kyburg": "https://www.schule-ilef.ch/",
+      "Wila": "https://www.pswila.ch/",
+      "Wildberg": "https://www.schuwi.ch/"
+    },
+    "uster": {
+      "Wangen-Brüttisellen": "https://www.schulen-wb.ch/"
+    },
+    "winterthur": {
+      "Elsau": "https://www.elsauschlatt.ch/",
+      "Hofstetten": "https://www.elsauschlatt.ch/",
+      "Schlatt": "https://www.elsauschlatt.ch/",
+      "Wiesendangen": "https://www.wiesendangen.ch/",
+      "Winterthur": "https://stadt.winterthur.ch/themen/leben-in-winterthur/bildung-und-schule/schulen-und-schulhaeuser",
+      "Zell": "https://www.schulen-zell.ch/"
+    },
+    "zuerich": {
+      "Zürich": "https://www.stadt-zuerich.ch/de/bildung/volksschule/schulferien.html"
+    }
+  },
+  "shared_districts": [
+    {
+      "name": "Schule Flaachtal",
+      "url": "https://www.schuleflaachtal.ch/",
+      "gemeinden": ["Berg am Irchel", "Buch am Irchel", "Dorf", "Flaach", "Volken"]
+    },
+    {
+      "name": "Schule Wehntal",
+      "url": "https://www.schulewehntal.ch/",
+      "gemeinden": ["Niederweningen", "Oberweningen", "Schleinikon", "Schöfflisdorf"]
+    },
+    {
+      "name": "Primarschule Dänikon-Hüttikon",
+      "url": "https://www.schule-rotflue.ch/",
+      "gemeinden": ["Dänikon", "Hüttikon"]
+    },
+    {
+      "name": "Primarschule Andelfingen",
+      "url": "https://www.primarschule-andelfingen.ch/",
+      "gemeinden": ["Adlikon", "Humlikon", "Kleinandelfingen", "Andelfingen"]
+    },
+    {
+      "name": "Schule Elsau-Schlatt",
+      "url": "https://www.elsauschlatt.ch/",
+      "gemeinden": ["Elsau", "Schlatt", "Hofstetten"]
+    },
+    {
+      "name": "Primarschule Wädenswil",
+      "url": "https://www.pswaedenswil.ch/",
+      "gemeinden": ["Hütten", "Schönenberg", "Wädenswil"]
+    },
+    {
+      "name": "Schule Illnau-Effretikon",
+      "url": "https://www.schule-ilef.ch/",
+      "gemeinden": ["Illnau-Effretikon", "Kyburg"]
+    },
+    {
+      "name": "Primarschule Oetwil-Geroldswil",
+      "url": "https://www.psog.ch/",
+      "gemeinden": ["Oetwil an der Limmat", "Geroldswil"]
+    }
+  ],
+  "summary": {
+    "found": 42,
+    "total_missing": 42,
+    "complete": true
+  }
+}

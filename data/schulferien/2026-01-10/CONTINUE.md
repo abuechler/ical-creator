@@ -2,14 +2,21 @@
 
 ## Quick Start Command
 
+**IMPORTANT: Start 3 parallel agents immediately for faster collection!**
+
 ```bash
-claude --resume "Continue collecting Swiss school holiday data for Kanton Zürich. Read /workspace/data/schulferien/2026-01-10/CONTINUE.md for context and instructions."
+claude --resume "Continue collecting Swiss school holiday data. Read /workspace/data/schulferien/2026-01-10/CONTINUE.md for context. IMMEDIATELY launch 3+ parallel Task agents for different Bezirke/cantons using run_in_background:true."
 ```
 
 Or use this prompt directly:
 
 ```
-Continue collecting Swiss school holiday data for Kanton Zürich.
+Continue collecting Swiss school holiday data.
+
+**CRITICAL: Launch 3+ parallel agents immediately!**
+- Use Task tool with subagent_type: general-purpose and run_in_background: true
+- Assign each agent a different Bezirk or canton
+- Do NOT work sequentially - parallelize everything!
 
 Context:
 - Working directory: /workspace/data/schulferien/2026-01-10/
@@ -225,6 +232,36 @@ For each downloaded PDF, create/update source documentation:
 3. **Check automation JSON first** - Many have website URLs even if PDF not found
 4. **Update tracking** - Mark Bezirke complete as you finish them
 5. **Commit frequently** - Save progress regularly
+6. **USE PARALLEL SESSIONS** - Launch multiple Task agents in background for different Bezirke
+
+---
+
+## CRITICAL: Use Parallel Sessions (MANDATORY)
+
+**ALWAYS launch 3+ parallel Task agents immediately when starting a session!**
+
+Launch multiple background agents using the Task tool with `run_in_background: true` and `subagent_type: general-purpose`.
+
+**Example - launch these in a SINGLE message with multiple Task tool calls:**
+
+```
+Task 1: "Collect data for Bezirk Affoltern - navigate to each school website, download Ferienplan PDFs to data/zh/affoltern/"
+Task 2: "Collect data for Bezirk Dietikon - navigate to each school website, download Ferienplan PDFs to data/zh/dietikon/"
+Task 3: "Collect data for Bezirk Winterthur - navigate to each school website, download Ferienplan PDFs to data/zh/winterthur/"
+```
+
+**For each Task agent, include:**
+- Working directory: /workspace/data/schulferien/2026-01-10/
+- Check tracking/{bezirk}-automation.json for Gemeinden list
+- Use Playwright MCP tools to navigate websites
+- Download PDFs with naming: [gemeinde]-ferienplan-[years].pdf
+
+**Monitor progress:**
+```bash
+find data/zh -name "*.pdf" | wc -l  # Count total PDFs
+```
+
+This reduces total collection time from ~6 hours sequential to ~1-2 hours parallel.
 
 ---
 
