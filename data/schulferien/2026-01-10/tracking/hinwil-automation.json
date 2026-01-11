@@ -1,6 +1,6 @@
 {
   "bezirk": "hinwil",
-  "timestamp": "2026-01-11T02:55:00.000Z",
+  "timestamp": "2026-01-11T03:00:00.000Z",
   "gemeinden": [
     {
       "bfs": 111,
@@ -89,75 +89,110 @@
       "bfs": 116,
       "name": "Grüningen",
       "website": "https://www.schulegrueningen.ch",
-      "isEscola": true,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required",
-      "notes": "Escola platform"
+      "isEscola": false,
+      "ferienplanPath": "/a-z-der-schule/ferienkalender.html/912",
+      "pdfLinks": [
+        {
+          "href": "https://www.schulegrueningen.ch/public/upload/assets/3835/Terminkalender_25-26.pdf?fp=8",
+          "text": "Ferienkalender 2025 - 2027",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "grueningen-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "GOViS platform. Found via Aktuelles > Ferienkalender."
     },
     {
       "bfs": 117,
       "name": "Hinwil",
       "website": "https://www.schulehinwil.ch",
       "isEscola": true,
-      "ferienplanPath": null,
+      "ferienplanPath": "/ueber-uns/aktuell/ferienplan/p-182/",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required",
-      "notes": "Escola platform"
+      "status": "webpage_only",
+      "notes": "Escola platform. Ferienplan displayed as table on webpage for 2025/26 and 2026/27. No PDF download available."
     },
     {
       "bfs": 118,
       "name": "Rüti",
       "website": "https://www.schule-rueti.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/schul-abc/downloads/",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-rueti.ch/fileadmin/user_upload/Schulpflege/Ferienplan/Ferienplan_2025_-_2027.pdf",
+          "text": "Ferienplan 2025-2027",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "rueti-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "TYPO3 platform. Found via Schul-ABC > Downloads > Ferienplan."
     },
     {
       "bfs": 119,
       "name": "Seegräben",
       "website": "https://www.schule-seegraeben.ch",
       "isEscola": false,
-      "ferienplanPath": null,
+      "ferienplanPath": "/ferienplan",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "webpage_only",
+      "notes": "Custom CMS. Ferienplan displayed as accordion tabs for 2025/26, 2026/27, 2027/28. No PDF download available."
     },
     {
       "bfs": 120,
       "name": "Wald",
       "website": "https://www.schule-wald.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-wald.ch/_doc/455107",
+          "text": "Ferien Schule Wald 2026_27 (PDF, 70 kB)",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "wald-zh-ferienplan-2026-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "Custom CMS. Found via Schule > Schule Wald ZH > Ferienplan."
     },
     {
       "bfs": 121,
       "name": "Wetzikon",
       "website": "https://www.schule-wetzikon.ch",
-      "isEscola": true,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required",
-      "notes": "Escola platform, large municipality"
+      "isEscola": false,
+      "ferienplanPath": "/schule-wetzikon/ferienplan",
+      "pdfLinks": [
+        {
+          "href": "https://www.wetzikon.ch/schule-wAssets/docs/Schulverwaltung/Ferienplan-2024-2027/Ferienplan-2025-2028.pdf",
+          "text": "Ferienplan 2025-2028",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "wetzikon-ferienplan-2025-28.pdf"
+      ],
+      "status": "completed",
+      "notes": "Gemeinde website. Large municipality - 24,000 residents. PDF found on gemeinde website linked from school page."
     }
   ],
   "summary": {
     "total": 11,
     "websiteFound": 11,
-    "escolaDetected": 4,
-    "pdfDownloaded": 4,
-    "webpageOnly": 1,
-    "manualRequired": 6,
-    "completed": 4
+    "escolaDetected": 2,
+    "pdfDownloaded": 8,
+    "webpageOnly": 3,
+    "manualRequired": 0,
+    "completed": 8
   },
   "manualCollectionDate": "2026-01-11",
-  "notes": "Bezirk Hinwil has several Escola-based school websites. 4 Gemeinden have PDF downloads, 1 displays dates on webpage only."
+  "notes": "Bezirk Hinwil complete. 8 PDFs downloaded, 3 display Ferienplan on webpage only (Dürnten, Hinwil, Seegräben)."
 }
