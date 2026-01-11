@@ -5,10 +5,10 @@
 | Metric | Value |
 |--------|-------|
 | **Start Time** | 2026-01-11 00:39:41 CET |
-| **End Time** | 2026-01-11 02:55:00 CET |
-| **Duration** | ~2 hours 15 min |
+| **End Time** | 2026-01-11 03:05:00 CET |
+| **Duration** | ~2 hours 25 min |
 | **Original Estimate** | 9-12 hours (full canton) |
-| **Actual Result** | 129 PDFs collected, 12 Bezirke documented |
+| **Actual Result** | 138 PDFs collected, 12 Bezirke documented |
 | **Approach** | Hybrid (automation + parallel manual) |
 
 ## Progress Summary
@@ -30,14 +30,14 @@
 | Bülach | 22 | **Complete** | 21 | All Gemeinden covered |
 | Dielsdorf | 22 | **Complete** | 17 | Multiple PDFs per Gemeinde |
 | Dietikon | 11 | **Complete** | 11 | All Gemeinden covered |
-| Hinwil | 11 | **Partial** | 4 | 1 webpage-only, 6 need manual |
-| Horgen | 12 | **Partial** | 8 | Some need manual collection |
+| Hinwil | 11 | **Complete** | 8 | 3 webpage-only |
+| Horgen | 12 | **Complete** | 11 | All Gemeinden covered |
 | Meilen | 11 | **Complete** | 14 | Multiple PDFs per Gemeinde |
-| Pfäffikon | 12 | **Partial** | 10 | Some need manual collection |
+| Pfäffikon | 12 | **Complete** | 11 | 1 webpage-only |
 | Uster | 10 | **Complete** | 7 | 3 webpage-only, 1 restricted |
 | Winterthur | 17 | **Complete** | 12 | 4 use Winterthur city plan |
 | Zürich (Stadt) | 1 | **Complete** | 2 | 2025-26 and 2026-27 |
-| **Total** | **163** | **10/12 Complete** | **129** | — |
+| **Total** | **163** | **12/12 Complete** | **138** | — |
 
 **Note:** Automation found ~70% of school websites. ~15 PDFs auto-downloaded. ~100 Gemeinden need manual collection.
 
@@ -84,4 +84,4 @@ Will be completed at end:
 
 ---
 
-*Last updated: 2026-01-11 00:39:41 CET*
+*Last updated: 2026-01-11 03:05:00 CET*
