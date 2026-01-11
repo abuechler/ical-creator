@@ -1,6 +1,6 @@
 {
   "bezirk": "andelfingen",
-  "timestamp": "2026-01-10T23:47:30.374Z",
+  "timestamp": "2026-01-11T02:45:00.000Z",
   "gemeinden": [
     {
       "bfs": 21,
@@ -10,27 +10,37 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "shared_district",
+      "notes": "Small municipality, children attend neighboring schools"
     },
     {
       "bfs": 22,
       "name": "Andelfingen",
       "website": "https://www.primarschule-andelfingen.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/schnellzugriff/ferienplan.html/321",
+      "pdfLinks": [
+        {
+          "href": "https://www.primarschule-andelfingen.ch/public/upload/assets/7276/Ferienplan_25-27_def%20Version.pdf?fp=1",
+          "text": "Ferienplan 2025 - 2027",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "andelfingen-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 23,
       "name": "Benken",
-      "website": "https://www.schule-benken.ch",
+      "website": "https://www.benken-zh.ch",
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "shared_district",
+      "notes": "Small municipality (882 residents), children attend neighboring schools. Gemeinde website does not have school section."
     },
     {
       "bfs": 24,
@@ -40,7 +50,8 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "shared_district",
+      "notes": "Small municipality, children attend Flaach-Volken school"
     },
     {
       "bfs": 25,
@@ -50,17 +61,26 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "shared_district",
+      "notes": "Small municipality, children attend Flaach-Volken school"
     },
     {
       "bfs": 26,
       "name": "Dachsen",
       "website": "https://www.schuledachsen.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/de/service/downloads.html",
+      "pdfLinks": [
+        {
+          "href": "https://www.schuledachsen.ch/Ferienplan-2025-2028.pdf",
+          "text": "Ferienplan 2025-2028",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "dachsen-ferienplan-2025-28.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 27,
@@ -70,47 +90,59 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "shared_district",
+      "notes": "Small municipality, children attend neighboring schools"
     },
     {
       "bfs": 28,
       "name": "Feuerthalen",
       "website": "https://www.schule-feuerthalen.ch",
       "isEscola": false,
-      "ferienplanPath": null,
+      "ferienplanPath": "/ferienkalender",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "webpage_only",
+      "notes": "Ferienplan displayed on webpage with dates for 2025/26, 2026/27, and 2027/28. No PDF download available."
     },
     {
       "bfs": 29,
       "name": "Flaach",
-      "website": null,
+      "website": "https://www.schule-flaach-volken.ch",
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "manual_required",
+      "notes": "Shared school district with Volken"
     },
     {
       "bfs": 30,
       "name": "Flurlingen",
       "website": "https://www.schule-flurlingen.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/downloads",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-flurlingen.ch/Ferienplan.pdf",
+          "text": "Ferienplan",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "flurlingen-ferienplan.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 31,
       "name": "Henggart",
       "website": "https://www.primarschule-henggart.ch",
       "isEscola": false,
-      "ferienplanPath": null,
+      "ferienplanPath": "/agenda-6.html",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "webpage_only",
+      "notes": "Ferienplan displayed in sidebar of Agenda page. Dates for 2026-2027 available."
     },
     {
       "bfs": 32,
@@ -120,7 +152,8 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "shared_district",
+      "notes": "Small municipality, children attend Andelfingen school"
     },
     {
       "bfs": 33,
@@ -130,7 +163,8 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "shared_district",
+      "notes": "Small municipality, children attend Andelfingen school"
     },
     {
       "bfs": 34,
@@ -140,7 +174,8 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "shared_district",
+      "notes": "Children attend Dachsen or Feuerthalen schools"
     },
     {
       "bfs": 35,
@@ -158,7 +193,7 @@
       "downloaded": [
         "marthalen-ferienplan.pdf"
       ],
-      "status": "automated"
+      "status": "completed"
     },
     {
       "bfs": 36,
@@ -176,7 +211,7 @@
       "downloaded": [
         "ossingen-ferienplan.pdf"
       ],
-      "status": "automated"
+      "status": "completed"
     },
     {
       "bfs": 37,
@@ -186,56 +221,66 @@
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "manual_required",
+      "notes": "Escola platform, requires manual navigation"
     },
     {
       "bfs": 38,
       "name": "Thalheim an der Thur",
       "website": "https://www.schule-thalheim.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "/downloads",
+      "pdfLinks": [
+        {
+          "href": "https://www.schule-thalheim.ch/Ferienplan-2025-26.pdf",
+          "text": "Ferienplan 2025/26",
+          "isPdf": true
+        },
+        {
+          "href": "https://www.schule-thalheim.ch/Ferienplan-2026-27.pdf",
+          "text": "Ferienplan 2026/27",
+          "isPdf": true
+        }
+      ],
+      "downloaded": [
+        "thalheim-ferienplan-2025-26.pdf",
+        "thalheim-ferienplan-2026-27.pdf"
+      ],
+      "status": "completed"
     },
     {
       "bfs": 39,
       "name": "Trüllikon",
       "website": "https://www.schule-truellikon.ch",
       "isEscola": true,
-      "ferienplanPath": "/",
-      "pdfLinks": [
-        {
-          "href": "https://www.schule-truellikon.ch/links-und-download/ferienplan/p-120/",
-          "text": "Ferienplan",
-          "isPdf": false
-        },
-        {
-          "href": "https://www.schule-truellikon.ch/links-und-download/ferienplan/p-120/",
-          "text": "Ferienplan",
-          "isPdf": false
-        }
-      ],
+      "ferienplanPath": "/links-und-download/ferienplan/p-120/",
+      "pdfLinks": [],
       "downloaded": [],
-      "status": "automated"
+      "status": "webpage_only",
+      "notes": "Escola platform, Ferienplan displayed on webpage"
     },
     {
       "bfs": 40,
       "name": "Volken",
-      "website": null,
+      "website": "https://www.schule-flaach-volken.ch",
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "shared_district",
+      "notes": "Shared school district with Flaach"
     }
   ],
   "summary": {
     "total": 20,
-    "websiteFound": 11,
+    "websiteFound": 12,
     "escolaDetected": 2,
-    "pdfFound": 3,
-    "pdfDownloaded": 2,
-    "manualRequired": 17
-  }
+    "pdfDownloaded": 7,
+    "webpageOnly": 3,
+    "sharedDistrict": 9,
+    "manualRequired": 1,
+    "completed": 7
+  },
+  "manualCollectionDate": "2026-01-11",
+  "notes": "Bezirk Andelfingen has many small municipalities where children attend schools in neighboring villages. Major school centers: Andelfingen, Dachsen, Feuerthalen, Marthalen."
 }

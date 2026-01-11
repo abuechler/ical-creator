@@ -1,26 +1,39 @@
 {
   "bezirk": "dietikon",
-  "timestamp": "2026-01-10T23:49:28.775Z",
+  "timestamp": "2026-01-11T01:40:00.000Z",
+  "lastUpdated": "2026-01-11T01:40:00.000Z",
   "gemeinden": [
     {
       "bfs": 241,
-      "name": "Aesch",
-      "website": null,
-      "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "name": "Aesch (ZH)",
+      "website": "https://www.nassenmatt.ch",
+      "isEscola": true,
+      "ferienplanPath": "https://www.nassenmatt.ch/aktuelles/ferienplan/p-56/",
+      "pdfLinks": [
+        "https://www.nassenmatt.ch/download.php?action=download&doc_id=2GBQYgPMFz0YsKHBPvBiUVcD7kyZwc3qlyG2ytYIklxeKe5V&download_type=3"
+      ],
+      "downloaded": [
+        "aesch-zh-ferienplan-2024-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "Primarschule Aesch ZH (Nassenmatt). Found via Gemeinde website -> Bildung -> Primarschule"
     },
     {
       "bfs": 242,
       "name": "Birmensdorf",
-      "website": null,
+      "website": "https://www.primabirmensdorf.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "https://www.primabirmensdorf.ch/web/agenda.php",
+      "pdfLinks": [
+        "https://www.primabirmensdorf.ch/web/_dateien/Ferienplan25-26.pdf",
+        "https://www.primabirmensdorf.ch/web/_dateien/Ferienplan26-27.pdf"
+      ],
+      "downloaded": [
+        "birmensdorf-ferienplan-2025-26.pdf",
+        "birmensdorf-ferienplan-2026-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "Found via Gemeinde website -> Bildung/Integration -> Primarschule redirect"
     },
     {
       "bfs": 243,
@@ -29,38 +42,52 @@
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "downloaded": [
+        "dietikon-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "Previously downloaded"
     },
     {
       "bfs": 244,
       "name": "Geroldswil",
-      "website": null,
+      "website": "https://www.psog.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "https://www.psog.ch/service/ferien-und-jahresterminplan/",
+      "pdfLinks": [
+        "https://www.psog.ch/media/ferienplan_2026_2027.pdf"
+      ],
+      "downloaded": [
+        "psog-oetwil-geroldswil-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "Shares Primarschule Oetwil-Geroldswil (PSOG) with Oetwil an der Limmat. Same Ferienplan applies."
     },
     {
       "bfs": 245,
       "name": "Oberengstringen",
-      "website": null,
+      "website": "https://www.schule-oe.ch",
       "isEscola": false,
-      "ferienplanPath": null,
+      "ferienplanPath": "https://www.schule-oe.ch/ferienplan",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "webpage_only",
+      "notes": "Ferienplan displayed on webpage only, no PDF download available. Found via Gemeinde website -> Bildung -> Schule Oberengstringen"
     },
     {
       "bfs": 246,
       "name": "Oetwil an der Limmat",
-      "website": "https://www.schule-oetwil.ch",
-      "isEscola": true,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "website": "https://www.psog.ch",
+      "isEscola": false,
+      "ferienplanPath": "https://www.psog.ch/service/ferien-und-jahresterminplan/",
+      "pdfLinks": [
+        "https://www.psog.ch/media/ferienplan_2026_2027.pdf"
+      ],
+      "downloaded": [
+        "psog-oetwil-geroldswil-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "Shares Primarschule Oetwil-Geroldswil (PSOG) with Geroldswil. Found via Gemeinde Oetwil an der Limmat -> Bildung -> Kindergarten/Primarschule"
     },
     {
       "bfs": 247,
@@ -69,8 +96,11 @@
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "downloaded": [
+        "schlieren-ferienplan-2026-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "Previously downloaded"
     },
     {
       "bfs": 248,
@@ -79,46 +109,86 @@
       "isEscola": false,
       "ferienplanPath": null,
       "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "downloaded": [
+        "spreitenbach-ferienplan-2024-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "Previously downloaded"
     },
     {
       "bfs": 249,
       "name": "Uitikon",
       "website": "https://www.schule-uitikon.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "https://www.schule-uitikon.ch/_rtr/ferienplan",
+      "pdfLinks": [
+        "https://www.schule-uitikon.ch/_doc/477139"
+      ],
+      "downloaded": [
+        "uitikon-ferienplan-2025-27.pdf"
+      ],
+      "status": "completed",
+      "notes": "i-web CMS"
     },
     {
       "bfs": 250,
       "name": "Unterengstringen",
       "website": "https://www.schuleunterengstringen.ch",
       "isEscola": false,
-      "ferienplanPath": null,
+      "ferienplanPath": "https://www.schuleunterengstringen.ch/_rtr/ferienplan",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "webpage_only",
+      "notes": "Ferienplan displayed on webpage only (2025/2026 dates), no PDF download available. i-web CMS"
     },
     {
       "bfs": 251,
       "name": "Urdorf",
       "website": "https://www.schuleurdorf.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
-      "downloaded": [],
-      "status": "manual_required"
+      "ferienplanPath": "https://www.schuleurdorf.ch/web/cms.php?open=ferienplaene",
+      "pdfLinks": [
+        "https://www.schuleurdorf.ch/web/_dateien/1314857101_Ferienplan2025_26gueltigerPlan.pdf",
+        "https://www.schuleurdorf.ch/web/_dateien/Ferienplan2026_27mitKW.pdf",
+        "https://www.schuleurdorf.ch/web/_dateien/Ferienplan2027_28.pdf"
+      ],
+      "downloaded": [
+        "urdorf-ferienplan-2025-26.pdf",
+        "urdorf-ferienplan-2026-27.pdf",
+        "urdorf-ferienplan-2027-28.pdf"
+      ],
+      "status": "completed",
+      "notes": "Custom CMS with direct PDF downloads"
     }
   ],
   "summary": {
     "total": 11,
-    "websiteFound": 7,
+    "websiteFound": 11,
     "escolaDetected": 1,
-    "pdfFound": 0,
-    "pdfDownloaded": 0,
-    "manualRequired": 11
+    "pdfDownloaded": 9,
+    "webpageOnly": 2,
+    "manualRequired": 0
+  },
+  "collectionNotes": {
+    "sharedSchools": [
+      {
+        "name": "Primarschule Oetwil-Geroldswil (PSOG)",
+        "website": "https://www.psog.ch",
+        "municipalities": ["Oetwil an der Limmat", "Geroldswil"],
+        "notes": "Both municipalities share the same Ferienplan"
+      }
+    ],
+    "webpageOnlyMunicipalities": [
+      {
+        "name": "Oberengstringen",
+        "website": "https://www.schule-oe.ch/ferienplan",
+        "reason": "Ferienplan displayed as HTML table, no PDF available"
+      },
+      {
+        "name": "Unterengstringen",
+        "website": "https://www.schuleunterengstringen.ch/_rtr/ferienplan",
+        "reason": "Ferienplan displayed as HTML content, no PDF available"
+      }
+    ]
   }
 }
