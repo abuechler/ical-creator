@@ -1,0 +1,2240 @@
+{
+  "$schema": "https://github.com/abuechler/ical-creator/blob/main/data/schulferien/schema-v1.json",
+  "version": "1.0.0",
+  "meta": {
+    "title": "Swiss School Holidays (Schulferien Schweiz)",
+    "description": "Comprehensive Swiss school holiday data with cantonal and local variations",
+    "repository": "https://github.com/abuechler/ical-creator",
+    "generated": "2026-01-11T14:00:00Z",
+    "generator": "schulferien-collector v1.0",
+    "coverage": {
+      "cantons": 26,
+      "school_years": ["2025/26", "2026/27"],
+      "data_completeness": {
+        "cantonal_level": "all 26 cantons from EDK",
+        "bezirk_level": "ZH (12 Bezirke), AG (11 Bezirke)",
+        "gemeinde_level": "ZH Bülach (22 Gemeinden sample)"
+      }
+    },
+    "primary_source": {
+      "name": "EDK/IDES",
+      "full_name": "Schweizerische Konferenz der kantonalen Erziehungsdirektoren",
+      "url": "https://www.edk.ch/de/bildungssystem/kantonale-schulorganisation/Schulferien/",
+      "pdf_url": "https://edudoc.ch/record/235166/files/Schulferien_2026.pdf",
+      "pdf_path": "data/official/edk-schulferien-2026.pdf",
+      "retrieved_at": "2026-01-10T23:21:55+01:00",
+      "data_date": "2025-07-08"
+    }
+  },
+
+  "taxonomy": {
+    "holiday_types": {
+      "school_vacation_sport": {
+        "de": "Sportferien",
+        "fr": "Vacances de sport",
+        "it": "Vacanze sportive",
+        "en": "Sports vacation"
+      },
+      "school_vacation_spring": {
+        "de": "Frühlingsferien",
+        "fr": "Vacances de printemps",
+        "it": "Vacanze primaverili",
+        "en": "Spring vacation"
+      },
+      "school_vacation_summer": {
+        "de": "Sommerferien",
+        "fr": "Vacances d'été",
+        "it": "Vacanze estive",
+        "en": "Summer vacation"
+      },
+      "school_vacation_autumn": {
+        "de": "Herbstferien",
+        "fr": "Vacances d'automne",
+        "it": "Vacanze autunnali",
+        "en": "Autumn vacation"
+      },
+      "school_vacation_winter": {
+        "de": "Weihnachtsferien",
+        "fr": "Vacances de Noël",
+        "it": "Vacanze di Natale",
+        "en": "Christmas vacation"
+      }
+    },
+    "holiday_systems": {
+      "centralized": "Canton sets all dates uniformly for all schools",
+      "hybrid": "Canton sets some dates, locals set others (e.g., Sportferien)",
+      "local": "Each Gemeinde/school district sets own dates"
+    },
+    "languages": {
+      "de": "German",
+      "fr": "French",
+      "it": "Italian",
+      "rm": "Romansh"
+    }
+  },
+
+  "cantons": {
+    "AG": {
+      "name": "Aargau",
+      "bfs_nr": 19,
+      "slug": "aargau",
+      "language": "de",
+      "holiday_system": "hybrid",
+      "wikidata": "Q11972",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Aargau",
+      "official_url": "https://www.ag.ch/",
+      "notes": "9 weeks cantonal uniform + 4 weeks local (Sportferien vary by Bezirk)",
+
+      "retrieval": {
+        "source_url": "https://www.schulen-aargau.ch/regelschule/schulorganisation/planung-ressourcen/stunden-ferienplanung",
+        "pdf_url": "https://www.schulen-aargau.ch/media/schulen-aargau/schulorganisation/ressourcen-planung/stunden-ferienplanung/bksvs-kantonal-einheitlicher-ferienplan.pdf",
+        "pdf_path": "data/ag/bksvs-kantonal-einheitlicher-ferienplan.pdf",
+        "retrieved_at": "2026-01-11T10:15:00+01:00"
+      },
+
+      "search_hints": {
+        "gemeinde_website": {
+          "pattern_used": "www.{gemeinde}.ch"
+        },
+        "school_website": {
+          "notes": "Each Bezirk Hauptort has school website",
+          "url_patterns": ["www.schule-{gemeinde}.ch", "www.schulen-{gemeinde}.ch"]
+        },
+        "platform": {
+          "cms": "Various",
+          "common_types": ["Escola", "WordPress", "Custom"]
+        }
+      },
+
+      "holidays_cantonal": {
+        "description": "These dates apply to ALL 197 Gemeinden in Kanton Aargau",
+        "2025/26": [
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-18",
+            "end": "2026-08-09",
+            "calendar_weeks": [29, 30, 31, 32],
+            "duration_days": 23,
+            "school_days_off": 17
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-09-26",
+            "end": "2026-10-11",
+            "calendar_weeks": [39, 40, 41],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      },
+
+      "bezirke": {
+        "1901": {
+          "name": "Aarau",
+          "slug": "aarau",
+          "bfs_nr": 1901,
+          "hauptort": "Aarau",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-01-24",
+                "end": "2026-02-08",
+                "calendar_weeks": [4, 5, 6],
+                "duration_days": 16,
+                "school_days_off": 12
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-01-30",
+                "end": "2027-02-14",
+                "calendar_weeks": [4, 5, 6],
+                "duration_days": 16,
+                "school_days_off": 12
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.ksab.ch/",
+            "retrieved_at": "2026-01-11T11:30:00+01:00"
+          }
+        },
+        "1902": {
+          "name": "Baden",
+          "slug": "baden",
+          "bfs_nr": 1902,
+          "hauptort": "Baden",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-01-31",
+                "end": "2026-02-15",
+                "calendar_weeks": [5, 6, 7],
+                "duration_days": 16,
+                "school_days_off": 12
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-02-06",
+                "end": "2027-02-21",
+                "calendar_weeks": [5, 6, 7, 8],
+                "duration_days": 16,
+                "school_days_off": 12
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.schule-baden.ch/agenda/ferien-und-schulfreie-tage/",
+            "retrieved_at": "2026-01-11T11:45:00+01:00"
+          }
+        },
+        "1903": {
+          "name": "Bremgarten",
+          "slug": "bremgarten",
+          "bfs_nr": 1903,
+          "hauptort": "Bremgarten",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-01-23",
+                "end": "2026-02-09",
+                "calendar_weeks": [4, 5, 6],
+                "duration_days": 18,
+                "school_days_off": 12
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-01-29",
+                "end": "2027-02-15",
+                "calendar_weeks": [4, 5, 6, 7],
+                "duration_days": 18,
+                "school_days_off": 12
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.bremgarten.ch/",
+            "pdf_path": "data/ag/bremgarten-ferienplan.pdf",
+            "retrieved_at": "2026-01-11T12:00:00+01:00"
+          }
+        },
+        "1904": {
+          "name": "Brugg",
+          "slug": "brugg",
+          "bfs_nr": 1904,
+          "hauptort": "Brugg",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-01-31",
+                "end": "2026-02-15",
+                "calendar_weeks": [5, 6, 7],
+                "duration_days": 16,
+                "school_days_off": 12
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-02-06",
+                "end": "2027-02-21",
+                "calendar_weeks": [5, 6, 7, 8],
+                "duration_days": 16,
+                "school_days_off": 12
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.schule-brugg.ch/",
+            "retrieved_at": "2026-01-11T12:15:00+01:00"
+          }
+        },
+        "1905": {
+          "name": "Kulm",
+          "slug": "kulm",
+          "bfs_nr": 1905,
+          "hauptort": "Unterkulm",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-01-24",
+                "end": "2026-02-08",
+                "calendar_weeks": [4, 5, 6],
+                "duration_days": 16,
+                "school_days_off": 12
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-01-30",
+                "end": "2027-02-14",
+                "calendar_weeks": [4, 5, 6],
+                "duration_days": 16,
+                "school_days_off": 12
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.schule-unterkulm.ch/agenda/ferienplan.html/751",
+            "retrieved_at": "2026-01-11T12:18:00+01:00"
+          }
+        },
+        "1906": {
+          "name": "Laufenburg",
+          "slug": "laufenburg",
+          "bfs_nr": 1906,
+          "hauptort": "Laufenburg",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-02-09",
+                "end": "2026-02-20",
+                "calendar_weeks": [7, 8],
+                "duration_days": 12,
+                "school_days_off": 10
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-02-08",
+                "end": "2027-02-19",
+                "calendar_weeks": [6, 7, 8],
+                "duration_days": 12,
+                "school_days_off": 10
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.ksrl.ch/ger/Schule/Agenda/Ferien-und-schulfreie-Tage",
+            "retrieved_at": "2026-01-11T12:19:00+01:00"
+          }
+        },
+        "1907": {
+          "name": "Lenzburg",
+          "slug": "lenzburg",
+          "bfs_nr": 1907,
+          "hauptort": "Lenzburg",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-01-24",
+                "end": "2026-02-08",
+                "calendar_weeks": [4, 5, 6],
+                "duration_days": 16,
+                "school_days_off": 12
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-01-30",
+                "end": "2027-02-14",
+                "calendar_weeks": [4, 5, 6],
+                "duration_days": 16,
+                "school_days_off": 12
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.rs-l.ch/regionalschule/infos-und-daten/ferien-und-abwesenheiten/ferienplan.html/36",
+            "retrieved_at": "2026-01-11T12:19:45+01:00"
+          }
+        },
+        "1908": {
+          "name": "Muri",
+          "slug": "muri",
+          "bfs_nr": 1908,
+          "hauptort": "Muri",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-01-23",
+                "end": "2026-02-09",
+                "calendar_weeks": [4, 5, 6],
+                "duration_days": 18,
+                "school_days_off": 12
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-01-29",
+                "end": "2027-02-15",
+                "calendar_weeks": [4, 5, 6, 7],
+                "duration_days": 18,
+                "school_days_off": 12
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.muri.ch/leben/bildung/ferien-und-schulfreie-tage.html/445",
+            "retrieved_at": "2026-01-11T12:19:50+01:00"
+          }
+        },
+        "1909": {
+          "name": "Rheinfelden",
+          "slug": "rheinfelden",
+          "bfs_nr": 1909,
+          "hauptort": "Rheinfelden",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-02-16",
+                "end": "2026-02-27",
+                "calendar_weeks": [8, 9],
+                "duration_days": 12,
+                "school_days_off": 10
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-02-15",
+                "end": "2027-02-26",
+                "calendar_weeks": [7, 8],
+                "duration_days": 12,
+                "school_days_off": 10
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.schulen-rheinfelden.ch/ferienplan",
+            "retrieved_at": "2026-01-11T12:19:53+01:00"
+          },
+          "search_hints": {
+            "platform": {
+              "cms": "Custom CMS"
+            },
+            "automation_hints": {
+              "aggregator_geo_code": 194,
+              "aggregator_url": "https://www.feiertagskalender.ch/ferien.php?geo=194"
+            }
+          }
+        },
+        "1910": {
+          "name": "Zofingen",
+          "slug": "zofingen",
+          "bfs_nr": 1910,
+          "hauptort": "Zofingen",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-01-26",
+                "end": "2026-02-06",
+                "calendar_weeks": [5, 6],
+                "duration_days": 12,
+                "school_days_off": 10
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-02-01",
+                "end": "2027-02-12",
+                "calendar_weeks": [5, 6],
+                "duration_days": 12,
+                "school_days_off": 10
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.schulezofingen.ch/schule/wie-wo-was/ferienplan-.html/558",
+            "retrieved_at": "2026-01-11T12:20:08+01:00"
+          }
+        },
+        "1911": {
+          "name": "Zurzach",
+          "slug": "zurzach",
+          "bfs_nr": 1911,
+          "hauptort": "Bad Zurzach",
+          "holidays_local": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-02-02",
+                "end": "2026-02-15",
+                "calendar_weeks": [6, 7],
+                "duration_days": 14,
+                "school_days_off": 10
+              }
+            ],
+            "2026/27": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2027-02-08",
+                "end": "2027-02-21",
+                "calendar_weeks": [6, 7, 8],
+                "duration_days": 14,
+                "school_days_off": 10
+              }
+            ]
+          },
+          "retrieval": {
+            "source_url": "https://www.schulebadzurzach.ch/",
+            "retrieved_at": "2026-01-11T12:20:08+01:00"
+          }
+        }
+      }
+    },
+
+    "AI": {
+      "name": "Appenzell Innerrhoden",
+      "bfs_nr": 16,
+      "slug": "appenzell-innerrhoden",
+      "language": "de",
+      "holiday_system": "local",
+      "wikidata": "Q12099",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Appenzell_Innerrhoden",
+      "notes": "Oberegg has different dates than rest of canton",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-13",
+            "end": "2026-02-22",
+            "calendar_weeks": [7, 8],
+            "duration_days": 10,
+            "school_days_off": 8,
+            "scope": "Alle Schulen (except Oberegg)"
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-16",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-03",
+            "end": "2026-10-18",
+            "calendar_weeks": [40, 41, 42],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      },
+      "regional_variations": {
+        "oberegg": {
+          "name": "Oberegg",
+          "holidays": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-01-24",
+                "end": "2026-02-01",
+                "calendar_weeks": [4, 5],
+                "duration_days": 9,
+                "school_days_off": 7
+              }
+            ]
+          }
+        }
+      }
+    },
+
+    "AR": {
+      "name": "Appenzell Ausserrhoden",
+      "bfs_nr": 15,
+      "slug": "appenzell-ausserrhoden",
+      "language": "de",
+      "holiday_system": "local",
+      "wikidata": "Q12079",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Appenzell_Ausserrhoden",
+      "notes": "Sportwoche variiert - dates set by local school authorities",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "varies": true,
+            "notes": "Set by local school authorities"
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-09",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32],
+            "duration_days": 37,
+            "school_days_off": 27
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-03",
+            "end": "2026-10-18",
+            "calendar_weeks": [40, 41, 42],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "BE": {
+      "name": "Bern",
+      "bfs_nr": 2,
+      "slug": "bern",
+      "language": "de",
+      "secondary_language": "fr",
+      "holiday_system": "local",
+      "wikidata": "Q11911",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Bern",
+      "notes": "Sportwoche variiert; special rules for tourism municipalities and Biel region",
+
+      "holidays": {
+        "german_region": {
+          "scope": "Kindergarten, Volksschulen (German part)",
+          "2025/26": [
+            {
+              "type": "school_vacation_sport",
+              "varies": true,
+              "notes": "Set by local school authorities"
+            },
+            {
+              "type": "school_vacation_spring",
+              "start": "2026-04-03",
+              "end": "2026-04-19",
+              "calendar_weeks": [14, 15, 16],
+              "duration_days": 17,
+              "school_days_off": 11
+            },
+            {
+              "type": "school_vacation_summer",
+              "start": "2026-07-04",
+              "end": "2026-08-09",
+              "calendar_weeks": [27, 28, 29, 30, 31, 32],
+              "duration_days": 37,
+              "school_days_off": 27
+            },
+            {
+              "type": "school_vacation_autumn",
+              "start": "2026-09-19",
+              "end": "2026-10-11",
+              "calendar_weeks": [38, 39, 40, 41],
+              "duration_days": 23,
+              "school_days_off": 17
+            },
+            {
+              "type": "school_vacation_winter",
+              "start": "2026-12-24",
+              "end": "2027-01-10",
+              "calendar_weeks": [52, 53, 1, 2],
+              "duration_days": 18,
+              "school_days_off": 10,
+              "notes": "24.12.2026 ab Mittag"
+            }
+          ]
+        },
+        "french_region": {
+          "scope": "École obligatoire (French part)",
+          "2025/26": [
+            {
+              "type": "school_vacation_sport",
+              "varies": true,
+              "notes": "Set by local school authorities"
+            },
+            {
+              "type": "school_vacation_spring",
+              "start": "2026-04-03",
+              "end": "2026-04-19",
+              "calendar_weeks": [14, 15, 16],
+              "duration_days": 17,
+              "school_days_off": 11
+            },
+            {
+              "type": "school_vacation_summer",
+              "start": "2026-07-04",
+              "end": "2026-08-16",
+              "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+              "duration_days": 44,
+              "school_days_off": 32
+            },
+            {
+              "type": "school_vacation_autumn",
+              "start": "2026-10-03",
+              "end": "2026-10-18",
+              "calendar_weeks": [40, 41, 42],
+              "duration_days": 16,
+              "school_days_off": 12
+            },
+            {
+              "type": "school_vacation_winter",
+              "start": "2026-12-25",
+              "end": "2027-01-10",
+              "calendar_weeks": [52, 53, 1, 2],
+              "duration_days": 17,
+              "school_days_off": 10
+            }
+          ]
+        }
+      }
+    },
+
+    "BL": {
+      "name": "Basel-Landschaft",
+      "bfs_nr": 13,
+      "slug": "basel-landschaft",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12146",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Basel-Landschaft",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-14",
+            "end": "2026-03-01",
+            "calendar_weeks": [7, 8, 9],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-03-28",
+            "end": "2026-04-12",
+            "calendar_weeks": [13, 14, 15],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-06-27",
+            "end": "2026-08-09",
+            "calendar_weeks": [26, 27, 28, 29, 30, 31, 32],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-09-26",
+            "end": "2026-10-11",
+            "calendar_weeks": [39, 40, 41],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "BS": {
+      "name": "Basel-Stadt",
+      "bfs_nr": 12,
+      "slug": "basel-stadt",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12172",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Basel-Stadt",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-14",
+            "end": "2026-03-01",
+            "calendar_weeks": [7, 8, 9],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-03-28",
+            "end": "2026-04-12",
+            "calendar_weeks": [13, 14, 15],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-06-27",
+            "end": "2026-08-09",
+            "calendar_weeks": [26, 27, 28, 29, 30, 31, 32],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-09-26",
+            "end": "2026-10-11",
+            "calendar_weeks": [39, 40, 41],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "FR": {
+      "name": "Fribourg",
+      "bfs_nr": 10,
+      "slug": "fribourg",
+      "language": "fr",
+      "secondary_language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12640",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Freiburg",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-14",
+            "end": "2026-02-22",
+            "calendar_weeks": [7, 8],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-11",
+            "end": "2026-08-26",
+            "calendar_weeks": [28, 29, 30, 31, 32, 33, 34],
+            "duration_days": 47,
+            "school_days_off": 33,
+            "scope": "Écoles primaires (ville)"
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-10",
+            "end": "2026-10-25",
+            "calendar_weeks": [41, 42, 43],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "GE": {
+      "name": "Genève",
+      "bfs_nr": 25,
+      "slug": "geneve",
+      "language": "fr",
+      "holiday_system": "centralized",
+      "wikidata": "Q11917",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Genf",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-21",
+            "end": "2026-03-01",
+            "calendar_weeks": [8, 9],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-06-27",
+            "end": "2026-08-16",
+            "calendar_weeks": [26, 27, 28, 29, 30, 31, 32, 33],
+            "duration_days": 51,
+            "school_days_off": 37
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-17",
+            "end": "2026-10-25",
+            "calendar_weeks": [42, 43],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-24",
+            "end": "2027-01-10",
+            "calendar_weeks": [52, 53, 1, 2],
+            "duration_days": 18,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "GL": {
+      "name": "Glarus",
+      "bfs_nr": 8,
+      "slug": "glarus",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12127",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Glarus",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-01-24",
+            "end": "2026-02-01",
+            "calendar_weeks": [4, 5],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-06-27",
+            "end": "2026-08-09",
+            "calendar_weeks": [26, 27, 28, 29, 30, 31, 32],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-03",
+            "end": "2026-10-18",
+            "calendar_weeks": [40, 41, 42],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-24",
+            "end": "2027-01-10",
+            "calendar_weeks": [52, 53, 1, 2],
+            "duration_days": 18,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "GR": {
+      "name": "Graubünden",
+      "bfs_nr": 18,
+      "slug": "graubuenden",
+      "language": "de",
+      "secondary_language": "rm",
+      "tertiary_language": "it",
+      "holiday_system": "hybrid",
+      "wikidata": "Q11925",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Graub%C3%BCnden",
+      "notes": "Autumn and Christmas holidays are cantonal. Other dates set by school authorities.",
+
+      "holidays": {
+        "german_romansh": {
+          "scope": "Deutsch-/Romanischbünden",
+          "2025/26": [
+            {
+              "type": "school_vacation_sport",
+              "start": "2026-02-21",
+              "end": "2026-03-01",
+              "calendar_weeks": [8, 9],
+              "duration_days": 9,
+              "school_days_off": 7
+            },
+            {
+              "type": "school_vacation_spring",
+              "start": "2026-04-18",
+              "end": "2026-05-03",
+              "calendar_weeks": [16, 17, 18],
+              "duration_days": 16,
+              "school_days_off": 12
+            },
+            {
+              "type": "school_vacation_summer",
+              "start": "2026-07-04",
+              "end": "2026-08-16",
+              "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+              "duration_days": 44,
+              "school_days_off": 32
+            },
+            {
+              "type": "school_vacation_autumn",
+              "start": "2026-10-10",
+              "end": "2026-10-25",
+              "calendar_weeks": [41, 42, 43],
+              "duration_days": 16,
+              "school_days_off": 12
+            },
+            {
+              "type": "school_vacation_winter",
+              "start": "2026-12-23",
+              "end": "2027-01-05",
+              "calendar_weeks": [52, 53, 1],
+              "duration_days": 14,
+              "school_days_off": 8
+            }
+          ]
+        },
+        "moesano": {
+          "scope": "Moesano (Italian-speaking)",
+          "notes": "Dates set by local school authorities",
+          "2025/26": [
+            {
+              "type": "school_vacation_summer",
+              "end": "2026-08-23",
+              "notes": "Start date varies"
+            },
+            {
+              "type": "school_vacation_autumn",
+              "start": "2026-10-31",
+              "end": "2026-11-08",
+              "calendar_weeks": [44, 45],
+              "duration_days": 9,
+              "school_days_off": 7
+            },
+            {
+              "type": "school_vacation_winter",
+              "start": "2026-12-24",
+              "end": "2027-01-06",
+              "calendar_weeks": [52, 53, 1],
+              "duration_days": 14,
+              "school_days_off": 8
+            }
+          ]
+        }
+      }
+    },
+
+    "JU": {
+      "name": "Jura",
+      "bfs_nr": 26,
+      "slug": "jura",
+      "language": "fr",
+      "holiday_system": "centralized",
+      "wikidata": "Q12755",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Jura",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-14",
+            "end": "2026-02-22",
+            "calendar_weeks": [7, 8],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-16",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-03",
+            "end": "2026-10-18",
+            "calendar_weeks": [40, 41, 42],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-24",
+            "end": "2027-01-10",
+            "calendar_weeks": [52, 53, 1, 2],
+            "duration_days": 18,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "LU": {
+      "name": "Luzern",
+      "bfs_nr": 3,
+      "slug": "luzern",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12121",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Luzern",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-07",
+            "end": "2026-02-22",
+            "calendar_weeks": [6, 7, 8],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-16",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-09-26",
+            "end": "2026-10-11",
+            "calendar_weeks": [39, 40, 41],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "NE": {
+      "name": "Neuchâtel",
+      "bfs_nr": 24,
+      "slug": "neuchatel",
+      "language": "fr",
+      "holiday_system": "centralized",
+      "wikidata": "Q12738",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Neuenburg",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-21",
+            "end": "2026-03-01",
+            "calendar_weeks": [8, 9],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-16",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-03",
+            "end": "2026-10-18",
+            "calendar_weeks": [40, 41, 42],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "NW": {
+      "name": "Nidwalden",
+      "bfs_nr": 7,
+      "slug": "nidwalden",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12133",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Nidwalden",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-07",
+            "end": "2026-02-22",
+            "calendar_weeks": [6, 7, 8],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-16",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-09-26",
+            "end": "2026-10-11",
+            "calendar_weeks": [39, 40, 41],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "OW": {
+      "name": "Obwalden",
+      "bfs_nr": 6,
+      "slug": "obwalden",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12573",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Obwalden",
+      "notes": "Engelberg has different dates",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-07",
+            "end": "2026-02-22",
+            "calendar_weeks": [6, 7, 8],
+            "duration_days": 16,
+            "school_days_off": 12,
+            "scope": "Alle Schulen ausser Engelberg"
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-16",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-09-25",
+            "end": "2026-10-11",
+            "calendar_weeks": [39, 40, 41],
+            "duration_days": 17,
+            "school_days_off": 13
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-24",
+            "end": "2027-01-06",
+            "calendar_weeks": [52, 53, 1],
+            "duration_days": 14,
+            "school_days_off": 8
+          }
+        ]
+      },
+      "regional_variations": {
+        "engelberg": {
+          "name": "Engelberg",
+          "holidays": {
+            "2025/26": [
+              {
+                "type": "school_vacation_sport",
+                "start": "2026-02-12",
+                "end": "2026-02-22",
+                "calendar_weeks": [7, 8],
+                "duration_days": 11,
+                "school_days_off": 9
+              },
+              {
+                "type": "school_vacation_summer",
+                "start": "2026-06-27",
+                "end": "2026-08-09",
+                "calendar_weeks": [26, 27, 28, 29, 30, 31, 32],
+                "duration_days": 44,
+                "school_days_off": 32
+              },
+              {
+                "type": "school_vacation_autumn",
+                "start": "2026-10-03",
+                "end": "2026-10-25",
+                "calendar_weeks": [40, 41, 42, 43],
+                "duration_days": 23,
+                "school_days_off": 17
+              }
+            ]
+          }
+        }
+      }
+    },
+
+    "SG": {
+      "name": "St. Gallen",
+      "bfs_nr": 17,
+      "slug": "st-gallen",
+      "language": "de",
+      "holiday_system": "local",
+      "wikidata": "Q12746",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_St._Gallen",
+      "notes": "Sportwoche variiert - dates set by local school authorities",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "varies": true,
+            "notes": "Set by local school authorities"
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-09",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32],
+            "duration_days": 37,
+            "school_days_off": 27
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-09-26",
+            "end": "2026-10-18",
+            "calendar_weeks": [39, 40, 41, 42],
+            "duration_days": 23,
+            "school_days_off": 17
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "SH": {
+      "name": "Schaffhausen",
+      "bfs_nr": 14,
+      "slug": "schaffhausen",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12697",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Schaffhausen",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-01-24",
+            "end": "2026-02-08",
+            "calendar_weeks": [4, 5, 6],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-11",
+            "end": "2026-04-26",
+            "calendar_weeks": [15, 16, 17],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-09",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32],
+            "duration_days": 37,
+            "school_days_off": 27
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-09-26",
+            "end": "2026-10-18",
+            "calendar_weeks": [39, 40, 41, 42],
+            "duration_days": 23,
+            "school_days_off": 17
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-24",
+            "end": "2027-01-03",
+            "calendar_weeks": [52, 53],
+            "duration_days": 11,
+            "school_days_off": 7
+          }
+        ]
+      }
+    },
+
+    "SO": {
+      "name": "Solothurn",
+      "bfs_nr": 11,
+      "slug": "solothurn",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12640",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Solothurn",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-01-31",
+            "end": "2026-02-15",
+            "calendar_weeks": [5, 6, 7],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-09",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32],
+            "duration_days": 37,
+            "school_days_off": 27
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-09-26",
+            "end": "2026-10-18",
+            "calendar_weeks": [39, 40, 41, 42],
+            "duration_days": 23,
+            "school_days_off": 17
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "SZ": {
+      "name": "Schwyz",
+      "bfs_nr": 5,
+      "slug": "schwyz",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12433",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Schwyz",
+      "notes": "Uniform start date and minimum duration; Sport and Summer may vary by 1 week",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-21",
+            "end": "2026-03-01",
+            "calendar_weeks": [8, 9],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-25",
+            "end": "2026-05-10",
+            "calendar_weeks": [17, 18, 19],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-09",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32],
+            "duration_days": 37,
+            "school_days_off": 27
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-09-26",
+            "end": "2026-10-11",
+            "calendar_weeks": [39, 40, 41],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-25",
+            "end": "2027-01-06",
+            "calendar_weeks": [52, 53, 1],
+            "duration_days": 13,
+            "school_days_off": 7
+          }
+        ]
+      }
+    },
+
+    "TG": {
+      "name": "Thurgau",
+      "bfs_nr": 20,
+      "slug": "thurgau",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12713",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Thurgau",
+      "notes": "Pfingstferien 14.05.2026 - 25.05.2026",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-01-24",
+            "end": "2026-02-01",
+            "calendar_weeks": [4, 5],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-09",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32],
+            "duration_days": 37,
+            "school_days_off": 27
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-03",
+            "end": "2026-10-18",
+            "calendar_weeks": [40, 41, 42],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "TI": {
+      "name": "Ticino",
+      "bfs_nr": 21,
+      "slug": "ticino",
+      "language": "it",
+      "holiday_system": "centralized",
+      "wikidata": "Q12724",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Tessin",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-14",
+            "end": "2026-02-22",
+            "calendar_weeks": [7, 8],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-12",
+            "calendar_weeks": [14, 15],
+            "duration_days": 10,
+            "school_days_off": 8
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-06-18",
+            "end": "2026-08-30",
+            "calendar_weeks": [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35],
+            "duration_days": 74,
+            "school_days_off": 52
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-31",
+            "end": "2026-11-08",
+            "calendar_weeks": [44, 45],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-24",
+            "end": "2027-01-06",
+            "calendar_weeks": [52, 53, 1],
+            "duration_days": 14,
+            "school_days_off": 8
+          }
+        ]
+      }
+    },
+
+    "UR": {
+      "name": "Uri",
+      "bfs_nr": 4,
+      "slug": "uri",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12404",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Uri",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-28",
+            "end": "2026-03-08",
+            "calendar_weeks": [9, 10],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-05-02",
+            "end": "2026-05-17",
+            "calendar_weeks": [18, 19, 20],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-16",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-03",
+            "end": "2026-10-18",
+            "calendar_weeks": [40, 41, 42],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-24",
+            "end": "2027-01-10",
+            "calendar_weeks": [52, 53, 1, 2],
+            "duration_days": 18,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "VD": {
+      "name": "Vaud",
+      "bfs_nr": 22,
+      "slug": "vaud",
+      "language": "fr",
+      "holiday_system": "centralized",
+      "wikidata": "Q12771",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Waadt",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-02-14",
+            "end": "2026-02-22",
+            "calendar_weeks": [7, 8],
+            "duration_days": 9,
+            "school_days_off": 7
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-03",
+            "end": "2026-04-19",
+            "calendar_weeks": [14, 15, 16],
+            "duration_days": 17,
+            "school_days_off": 11
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-06-27",
+            "end": "2026-08-16",
+            "calendar_weeks": [26, 27, 28, 29, 30, 31, 32, 33],
+            "duration_days": 51,
+            "school_days_off": 37
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-10",
+            "end": "2026-10-25",
+            "calendar_weeks": [41, 42, 43],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-24",
+            "end": "2027-01-10",
+            "calendar_weeks": [52, 53, 1, 2],
+            "duration_days": 18,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "VS": {
+      "name": "Valais",
+      "bfs_nr": 23,
+      "slug": "valais",
+      "language": "de",
+      "secondary_language": "fr",
+      "holiday_system": "centralized",
+      "wikidata": "Q834",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Wallis",
+      "notes": "Different dates for German and French regions; tourism municipalities have variations",
+
+      "holidays": {
+        "german_region": {
+          "scope": "Oberwallis (German-speaking)",
+          "2025/26": [
+            {
+              "type": "school_vacation_sport",
+              "start": "2026-02-21",
+              "end": "2026-03-08",
+              "calendar_weeks": [8, 9, 10],
+              "duration_days": 16,
+              "school_days_off": 12,
+              "scope": "Alle Schulen ausser Tourismusgemeinden"
+            },
+            {
+              "type": "school_vacation_spring",
+              "start": "2026-05-09",
+              "end": "2026-05-17",
+              "calendar_weeks": [19, 20],
+              "duration_days": 9,
+              "school_days_off": 7
+            },
+            {
+              "type": "school_vacation_summer",
+              "start": "2026-07-01",
+              "end": "2026-08-16",
+              "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+              "duration_days": 47,
+              "school_days_off": 33
+            },
+            {
+              "type": "school_vacation_autumn",
+              "start": "2026-10-10",
+              "end": "2026-10-25",
+              "calendar_weeks": [41, 42, 43],
+              "duration_days": 16,
+              "school_days_off": 12
+            },
+            {
+              "type": "school_vacation_winter",
+              "start": "2026-12-19",
+              "end": "2027-01-03",
+              "calendar_weeks": [51, 52, 53],
+              "duration_days": 16,
+              "school_days_off": 10
+            }
+          ]
+        },
+        "french_region": {
+          "scope": "Valais romand (French-speaking)",
+          "2025/26": [
+            {
+              "type": "school_vacation_sport",
+              "start": "2026-02-14",
+              "end": "2026-02-22",
+              "calendar_weeks": [7, 8],
+              "duration_days": 9,
+              "school_days_off": 7
+            },
+            {
+              "type": "school_vacation_spring",
+              "start": "2026-04-03",
+              "end": "2026-04-12",
+              "calendar_weeks": [14, 15],
+              "duration_days": 10,
+              "school_days_off": 8
+            },
+            {
+              "type": "school_vacation_summer",
+              "start": "2026-06-27",
+              "end": "2026-08-19",
+              "calendar_weeks": [26, 27, 28, 29, 30, 31, 32, 33],
+              "duration_days": 54,
+              "school_days_off": 38
+            },
+            {
+              "type": "school_vacation_autumn",
+              "start": "2026-10-15",
+              "end": "2026-10-25",
+              "calendar_weeks": [42, 43],
+              "duration_days": 11,
+              "school_days_off": 9
+            },
+            {
+              "type": "school_vacation_winter",
+              "start": "2026-12-24",
+              "end": "2027-01-10",
+              "calendar_weeks": [52, 53, 1, 2],
+              "duration_days": 18,
+              "school_days_off": 10
+            }
+          ]
+        }
+      }
+    },
+
+    "ZG": {
+      "name": "Zug",
+      "bfs_nr": 9,
+      "slug": "zug",
+      "language": "de",
+      "holiday_system": "centralized",
+      "wikidata": "Q12592",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Zug",
+
+      "holidays": {
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "start": "2026-01-31",
+            "end": "2026-02-15",
+            "calendar_weeks": [5, 6, 7],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-11",
+            "end": "2026-04-26",
+            "calendar_weeks": [15, 16, 17],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-04",
+            "end": "2026-08-16",
+            "calendar_weeks": [27, 28, 29, 30, 31, 32, 33],
+            "duration_days": 44,
+            "school_days_off": 32
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-03",
+            "end": "2026-10-18",
+            "calendar_weeks": [40, 41, 42],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      }
+    },
+
+    "ZH": {
+      "name": "Zürich",
+      "bfs_nr": 1,
+      "slug": "zuerich",
+      "language": "de",
+      "holiday_system": "local",
+      "wikidata": "Q11943",
+      "wikipedia": "https://de.wikipedia.org/wiki/Kanton_Zürich",
+      "notes": "13 weeks total. School year start and Christmas holidays are cantonal. Other dates are recommendations - Gemeinden decide freely.",
+
+      "retrieval": {
+        "source_url": "https://www.zh.ch/de/bildung.html",
+        "retrieved_at": "2026-01-10T23:21:55+01:00",
+        "method": "per_gemeinde_collection"
+      },
+
+      "search_hints": {
+        "gemeinde_website": {
+          "pattern_used": "www.{gemeinde}.ch"
+        },
+        "school_website": {
+          "url_patterns": [
+            "www.schule-{gemeinde}.ch",
+            "www.schulen{gemeinde}.ch",
+            "www.ps-{gemeinde}.ch"
+          ]
+        },
+        "ferienplan_page": {
+          "navigation_paths": [
+            ["Organisation", "Ferienplan"],
+            ["Aktuelles", "Ferienplan"],
+            ["Downloads"]
+          ],
+          "search_terms_used": ["Ferien", "Ferienplan"]
+        },
+        "platform": {
+          "cms": "Escola",
+          "notes": "Most common in Kanton Zürich",
+          "pdf_url_pattern": "/public/upload/assets/{asset_id}/{filename}.pdf"
+        }
+      },
+
+      "holidays_cantonal": {
+        "description": "Cantonal recommendations - dates may vary by Gemeinde",
+        "2025/26": [
+          {
+            "type": "school_vacation_sport",
+            "varies": true,
+            "notes": "Set by individual Gemeinden"
+          },
+          {
+            "type": "school_vacation_spring",
+            "start": "2026-04-18",
+            "end": "2026-05-03",
+            "calendar_weeks": [16, 17, 18],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_summer",
+            "start": "2026-07-11",
+            "end": "2026-08-16",
+            "calendar_weeks": [28, 29, 30, 31, 32, 33],
+            "duration_days": 37,
+            "school_days_off": 27
+          },
+          {
+            "type": "school_vacation_autumn",
+            "start": "2026-10-03",
+            "end": "2026-10-18",
+            "calendar_weeks": [40, 41, 42],
+            "duration_days": 16,
+            "school_days_off": 12
+          },
+          {
+            "type": "school_vacation_winter",
+            "start": "2026-12-19",
+            "end": "2027-01-03",
+            "calendar_weeks": [51, 52, 53],
+            "duration_days": 16,
+            "school_days_off": 10
+          }
+        ]
+      },
+
+      "bezirke": {
+        "108": {
+          "name": "Bülach",
+          "slug": "buelach",
+          "bfs_nr": 108,
+          "hauptort": "Bülach",
+          "gemeinden_count": 22,
+
+          "gemeinden": {
+            "53": {
+              "name": "Rorbas",
+              "slug": "rorbas",
+              "bfs_nr": 53,
+              "postal_codes": ["8427"],
+              "language": "de",
+
+              "wikidata": "Q67752",
+              "wikipedia": "https://de.wikipedia.org/wiki/Rorbas",
+              "official_url": "https://www.rorbas.ch/",
+
+              "school_district": {
+                "name": "Schule RFT",
+                "type": "shared",
+                "members": ["Rorbas", "Freienstein-Teufen"],
+                "member_bfs_nrs": [53, 38],
+                "website": "https://www.schulerft.ch/",
+                "notes": "Shared school district - same holidays for all member Gemeinden"
+              },
+
+              "retrieval": {
+                "source_url": "https://www.schulerft.ch/ferienplan",
+                "pdf_url": "https://www.schulerft.ch/public/upload/assets/5678/Ferienplan_2024-2028.pdf",
+                "pdf_path": "data/zh/buelach/rft-ferienplan-2024-28.pdf",
+                "retrieved_at": "2026-01-10T14:32:10+01:00",
+                "file_size_kb": 245
+              },
+
+              "search_hints": {
+                "gemeinde_website": {
+                  "url": "https://www.rorbas.ch/",
+                  "found_via": "direct_url",
+                  "pattern_used": "www.{gemeinde}.ch"
+                },
+                "school_website": {
+                  "url": "https://www.schulerft.ch/",
+                  "found_via": "gemeinde_link",
+                  "navigation_path": ["Verwaltung", "Bildung", "Primarschule"],
+                  "alternative_urls_tried": [
+                    "www.schule-rorbas.ch (not found)",
+                    "www.primarschule-rorbas.ch (not found)"
+                  ],
+                  "notes": "Shared district - redirects to Schule RFT"
+                },
+                "ferienplan_page": {
+                  "url": "https://www.schulerft.ch/organisation/ferienplan.html/412",
+                  "found_via": "site_navigation",
+                  "navigation_path": ["Organisation", "Ferienplan"],
+                  "search_terms_used": ["Ferien", "Ferienplan"]
+                },
+                "pdf_download": {
+                  "url": "https://www.schulerft.ch/public/upload/assets/5678/Ferienplan_2024-2028.pdf",
+                  "found_via": "download_link",
+                  "link_text": "Ferienplan 2024-2028 (PDF)",
+                  "direct_download": true,
+                  "requires_javascript": false,
+                  "requires_login": false
+                },
+                "platform": {
+                  "cms": "Escola",
+                  "cms_version": "escola-v3",
+                  "identified_by": "URL pattern /public/upload/assets/",
+                  "pdf_url_pattern": "/public/upload/assets/{asset_id}/{filename}.pdf"
+                },
+                "automation_hints": {
+                  "robots_txt_allows": true,
+                  "sitemap_url": "https://www.schulerft.ch/sitemap.xml",
+                  "recommended_selectors": {
+                    "pdf_links": "a[href*='Ferienplan'][href$='.pdf']"
+                  }
+                },
+                "historical_urls": [
+                  {
+                    "url": "https://www.schulerft.ch/public/upload/assets/4521/Ferienplan_2020-2024.pdf",
+                    "valid_for": "2020-2024",
+                    "status": "archived"
+                  }
+                ]
+              },
+
+              "holidays": {
+                "2025/26": [
+                  {
+                    "type": "school_vacation_autumn",
+                    "start": "2025-10-06",
+                    "end": "2025-10-17",
+                    "calendar_weeks": [41, 42],
+                    "duration_days": 12,
+                    "school_days_off": 10
+                  },
+                  {
+                    "type": "school_vacation_winter",
+                    "start": "2025-12-22",
+                    "end": "2026-01-02",
+                    "calendar_weeks": [52, 53],
+                    "duration_days": 12,
+                    "school_days_off": 10
+                  },
+                  {
+                    "type": "school_vacation_sport",
+                    "start": "2026-02-16",
+                    "end": "2026-02-27",
+                    "calendar_weeks": [8, 9],
+                    "duration_days": 12,
+                    "school_days_off": 10
+                  },
+                  {
+                    "type": "school_vacation_spring",
+                    "start": "2026-04-13",
+                    "end": "2026-04-24",
+                    "calendar_weeks": [16, 17],
+                    "duration_days": 12,
+                    "school_days_off": 10
+                  },
+                  {
+                    "type": "school_vacation_summer",
+                    "start": "2026-07-20",
+                    "end": "2026-08-14",
+                    "calendar_weeks": [30, 31, 32, 33],
+                    "duration_days": 26,
+                    "school_days_off": 20
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
