@@ -2146,7 +2146,7 @@ function triggerConfetti() {
   document.body.appendChild(container);
 
   // Create confetti pieces
-  const pieceCount = 50;
+  const pieceCount = 500;
   for (let i = 0; i < pieceCount; i++) {
     const piece = document.createElement('div');
     piece.className = 'confetti-piece';
