@@ -169,13 +169,14 @@
     {
       "bfs": 136,
       "name": "Langnau am Albis",
-      "website": "https://www.schule-langnau.ch",
+      "website": null,
       "websiteDiscovery": {
         "method": "pattern",
         "domainPattern": "https://www.schule-{name}.ch",
         "triedPatterns": [
           "https://www.schule-{name}.ch"
-        ]
+        ],
+        "notes": "Pattern-based URL schule-langnau.ch was unverified and returned 403. Set to null."
       },
       "isEscola": false,
       "ferienplan": {

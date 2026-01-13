@@ -26,17 +26,10 @@
       "website": "https://www.schule-bubikon.ch",
       "isEscola": false,
       "ferienplanPath": "/downloads",
-      "pdfLinks": [
-        {
-          "href": "https://www.schule-bubikon.ch/Ferienplan-2025-30.pdf",
-          "text": "Ferienplan 2025-2030",
-          "isPdf": true
-        }
-      ],
-      "downloaded": [
-        "bubikon-ferienplan-2025-30.pdf"
-      ],
-      "status": "completed"
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "needs_verification",
+      "notes": "Website exists. PDF URL was unverified/fabricated. Needs manual verification of actual ferienplan location."
     },
     {
       "bfs": 113,
@@ -55,17 +48,10 @@
       "website": "https://www.schulefischenthal.ch",
       "isEscola": false,
       "ferienplanPath": "/downloads",
-      "pdfLinks": [
-        {
-          "href": "https://www.schulefischenthal.ch/Ferienplan-2025-27.pdf",
-          "text": "Ferienplan 2025-27",
-          "isPdf": true
-        }
-      ],
-      "downloaded": [
-        "fischenthal-ferienplan-2025-27.pdf"
-      ],
-      "status": "completed"
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "needs_verification",
+      "notes": "Website exists. PDF URL was unverified/fabricated. Needs manual verification of actual ferienplan location."
     },
     {
       "bfs": 115,
@@ -121,18 +107,10 @@
       "website": "https://www.schule-rueti.ch",
       "isEscola": false,
       "ferienplanPath": "/schul-abc/downloads/",
-      "pdfLinks": [
-        {
-          "href": "https://www.schule-rueti.ch/fileadmin/user_upload/Schulpflege/Ferienplan/Ferienplan_2025_-_2027.pdf",
-          "text": "Ferienplan 2025-2027",
-          "isPdf": true
-        }
-      ],
-      "downloaded": [
-        "rueti-ferienplan-2025-27.pdf"
-      ],
-      "status": "completed",
-      "notes": "TYPO3 platform. Found via Schul-ABC > Downloads > Ferienplan."
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "needs_verification",
+      "notes": "TYPO3 platform. PDF URL was unverified/fabricated. Needs manual verification of actual ferienplan location."
     },
     {
       "bfs": 119,
@@ -188,11 +166,12 @@
     "total": 11,
     "websiteFound": 11,
     "escolaDetected": 2,
-    "pdfDownloaded": 8,
+    "pdfDownloaded": 5,
     "webpageOnly": 3,
+    "needsVerification": 3,
     "manualRequired": 0,
-    "completed": 8
+    "completed": 5
   },
   "manualCollectionDate": "2026-01-11",
-  "notes": "Bezirk Hinwil complete. 8 PDFs downloaded, 3 display Ferienplan on webpage only (Dürnten, Hinwil, Seegräben)."
+  "notes": "Bezirk Hinwil: 5 PDFs downloaded, 3 display Ferienplan on webpage only (Dürnten, Hinwil, Seegräben), 3 need verification (Bubikon, Fischenthal, Rüti)."
 }

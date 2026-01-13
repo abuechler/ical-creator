@@ -1,5 +1,4 @@
 {
-  "$schema": "https://github.com/abuechler/ical-creator/blob/main/data/schulferien/schema-v1.json",
   "version": "1.0.0",
   "meta": {
     "title": "Swiss School Holidays (Schulferien Schweiz)",
@@ -2173,10 +2172,11 @@
                 },
                 "automation_hints": {
                   "robots_txt_allows": true,
-                  "sitemap_url": "https://www.schule-rft.ch/sitemap.xml",
+                  "sitemap_url": null,
                   "recommended_selectors": {
                     "pdf_links": "a[href*='download.php'][href*='doc_id']"
-                  }
+                  },
+                  "notes": "No sitemap.xml available"
                 },
                 "historical_urls": [
                   {

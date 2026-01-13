@@ -60,18 +60,11 @@
       "website": "https://www.primarschule-greifensee.ch",
       "isEscola": true,
       "ferienplanPath": "/ferienplan",
-      "pdfLinks": [
-        {
-          "href": "https://www.primarschule-greifensee.ch/_docn/409549/Ferienplan_SJ24_25_25_26.pdf",
-          "text": "Ferienplan SJ 2024/25 und 2025/26",
-          "isPdf": true
-        }
-      ],
-      "downloaded": [
-        "greifensee-ferienplan-2024-26.pdf"
-      ],
-      "status": "completed",
-      "discoveryPath": "Web search -> direct PDF URL"
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "needs_verification",
+      "discoveryPath": "Web search -> direct PDF URL",
+      "notes": "Website exists (Escola). PDF URL was unverified and returned HTTP 500. Needs manual verification of actual ferienplan location."
     },
     {
       "bfs": 195,
@@ -183,11 +176,12 @@
     "total": 10,
     "websiteFound": 10,
     "escolaDetected": 8,
-    "pdfFound": 7,
-    "pdfDownloaded": 7,
+    "pdfFound": 6,
+    "pdfDownloaded": 6,
     "webpageOnly": 3,
+    "needsVerification": 1,
     "restricted": 1,
-    "completed": 6
+    "completed": 5
   },
-  "collectionNotes": "Manual data collection completed 2026-01-11. Browser navigation experienced redirect issues. Web search used to find direct PDF URLs. Some schools have data only on webpage (Fällanden, Mönchaltorf, Wangen-Brüttisellen). Maur requires authentication."
+  "collectionNotes": "Manual data collection completed 2026-01-11. Browser navigation experienced redirect issues. Web search used to find direct PDF URLs. Some schools have data only on webpage (Fällanden, Mönchaltorf, Wangen-Brüttisellen). Maur requires authentication. Greifensee needs verification (PDF URL was unverified)."
 }

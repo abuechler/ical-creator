@@ -79,6 +79,11 @@ function extractUrlsFromFile(filePath) {
         continue;
       }
 
+      // Skip truncated/placeholder URLs with "..."
+      if (url.includes('...')) {
+        continue;
+      }
+
       // Skip incomplete URLs
       if (url === 'https://' || url === 'http://') {
         continue;

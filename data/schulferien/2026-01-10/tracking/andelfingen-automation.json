@@ -67,20 +67,21 @@
     {
       "bfs": 26,
       "name": "Dachsen",
-      "website": "https://www.schuledachsen.ch",
+      "website": "https://primarschuledachsen.ch",
       "isEscola": false,
-      "ferienplanPath": "/de/service/downloads.html",
+      "ferienplanPath": "/schule-als-kalender/",
       "pdfLinks": [
         {
-          "href": "https://www.schuledachsen.ch/Ferienplan-2025-2028.pdf",
-          "text": "Ferienplan 2025-2028",
+          "href": "https://primarschuledachsen.ch/wp-content/uploads/2025/11/Ferienplan-PS-Dachsen-25-28.pdf",
+          "text": "Ferienplan PS Dachsen 25-28",
           "isPdf": true
         }
       ],
       "downloaded": [
         "dachsen-ferienplan-2025-28.pdf"
       ],
-      "status": "completed"
+      "status": "completed",
+      "notes": "WordPress site. Ferienplan found via /schule-als-kalender/ page."
     },
     {
       "bfs": 27,
@@ -230,23 +231,10 @@
       "website": "https://www.schule-thalheim.ch",
       "isEscola": false,
       "ferienplanPath": "/downloads",
-      "pdfLinks": [
-        {
-          "href": "https://www.schule-thalheim.ch/Ferienplan-2025-26.pdf",
-          "text": "Ferienplan 2025/26",
-          "isPdf": true
-        },
-        {
-          "href": "https://www.schule-thalheim.ch/Ferienplan-2026-27.pdf",
-          "text": "Ferienplan 2026/27",
-          "isPdf": true
-        }
-      ],
-      "downloaded": [
-        "thalheim-ferienplan-2025-26.pdf",
-        "thalheim-ferienplan-2026-27.pdf"
-      ],
-      "status": "completed"
+      "pdfLinks": [],
+      "downloaded": [],
+      "status": "needs_verification",
+      "notes": "Website exists. PDF URLs were unverified/fabricated. Needs manual verification of actual ferienplan location."
     },
     {
       "bfs": 39,
@@ -278,6 +266,7 @@
     "pdfDownloaded": 7,
     "webpageOnly": 3,
     "sharedDistrict": 9,
+    "needsVerification": 1,
     "manualRequired": 1,
     "completed": 7
   },
