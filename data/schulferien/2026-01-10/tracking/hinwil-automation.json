@@ -5,13 +5,13 @@
     {
       "bfs": 111,
       "name": "Bäretswil",
-      "website": "https://www.schulebaeretswil.ch",
+      "website": "https://www.baeretswil.org",
       "isEscola": false,
-      "ferienplanPath": "/downloads",
+      "ferienplanPath": "/ferienplan",
       "pdfLinks": [
         {
-          "href": "https://www.schulebaeretswil.ch/Ferienplan-2025-27.pdf",
-          "text": "Ferienplan 2025-27",
+          "href": "https://www.baeretswil.org/_docn/490805/Schulagenda_2025-2027.pdf",
+          "text": "Schulagenda 2025-2027",
           "isPdf": true
         }
       ],
@@ -70,13 +70,13 @@
     {
       "bfs": 115,
       "name": "Gossau",
-      "website": "https://www.schulegossauzh.ch",
+      "website": "https://www.schulegossau-zh.ch",
       "isEscola": false,
-      "ferienplanPath": "/ferienplan",
+      "ferienplanPath": "/p135001550.html",
       "pdfLinks": [
         {
-          "href": "https://www.schulegossauzh.ch/Ferienplan-2025-28.pdf",
-          "text": "Ferienplan 2025-28",
+          "href": "https://www.schulegossau-zh.ch/cm_document/Terminkalender_Schuljahre_2025-2028_fuer_Homepage_1.pdf",
+          "text": "Terminkalender 2025-2028",
           "isPdf": true
         }
       ],

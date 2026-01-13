@@ -107,13 +107,13 @@
     {
       "bfs": 29,
       "name": "Flaach",
-      "website": "https://www.schule-flaach-volken.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
+      "website": "https://www.schuleflaachtal.ch",
+      "isEscola": true,
+      "ferienplanPath": "/schule-flaachtal/ferienplan/p-186/",
       "pdfLinks": [],
       "downloaded": [],
-      "status": "manual_required",
-      "notes": "Shared school district with Volken"
+      "status": "webpage_only",
+      "notes": "Shared school district (Schule Flaachtal) with Volken, Dorf, Berg am Irchel, Buch am Irchel. Ferienplan displayed on webpage."
     },
     {
       "bfs": 30,
@@ -262,13 +262,13 @@
     {
       "bfs": 40,
       "name": "Volken",
-      "website": "https://www.schule-flaach-volken.ch",
-      "isEscola": false,
-      "ferienplanPath": null,
+      "website": "https://www.schuleflaachtal.ch",
+      "isEscola": true,
+      "ferienplanPath": "/schule-flaachtal/ferienplan/p-186/",
       "pdfLinks": [],
       "downloaded": [],
       "status": "shared_district",
-      "notes": "Shared school district with Flaach"
+      "notes": "Shared school district (Schule Flaachtal) with Flaach, Dorf, Berg am Irchel, Buch am Irchel"
     }
   ],
   "summary": {
