@@ -63,6 +63,24 @@ async function scrollAndFill(page, selector, value) {
   await element.fill(value);
 }
 
+// Helper to set the first reminder value in the new multiple reminders UI
+async function setFirstReminderValue(page, value) {
+  // Wait for the reminder item to be created (happens automatically when checkbox is checked)
+  const reminderItem = page.locator('#reminderList .reminder-item').first();
+  await reminderItem.waitFor({ state: 'visible' });
+  const select = reminderItem.locator('select');
+  await select.scrollIntoViewIfNeeded();
+  await select.selectOption(value);
+}
+
+// Helper to get the first reminder value
+async function getFirstReminderValue(page) {
+  const reminderItem = page.locator('#reminderList .reminder-item').first();
+  await reminderItem.waitFor({ state: 'visible' });
+  const select = reminderItem.locator('select');
+  return await select.inputValue();
+}
+
 // Helper to generate and capture ICS content
 async function generateAndCaptureICS(page, filename) {
   // Set up download handling
@@ -273,8 +291,8 @@ test.describe('iCal Creator - Event Generation', () => {
     // Enable reminder (scroll into view first)
     await scrollAndCheck(page, '#hasReminder');
 
-    // Set reminder time (30 minutes before)
-    await scrollAndSelect(page, '#reminderTime', '30');
+    // Set reminder time (30 minutes before) using new multiple reminders UI
+    await setFirstReminderValue(page, '30');
 
     // Generate and capture ICS
     const { content, filePath } = await generateAndCaptureICS(page, 'event-with-reminder.ics');
@@ -1130,9 +1148,10 @@ test.describe('iCal Creator - Demo Events', () => {
     await expect(page.locator('input[name="endType"][value="count"]')).toBeChecked();
     await expect(page.locator('#occurrenceCount')).toHaveValue('12');
 
-    // Check reminder settings
+    // Check reminder settings (using new multiple reminders UI)
     await expect(page.locator('#hasReminder')).toBeChecked();
-    await expect(page.locator('#reminderTime')).toHaveValue('60');
+    const firstReminderValue = await getFirstReminderValue(page);
+    expect(firstReminderValue).toBe('60');
   });
 
   test('second demo event loads with date-based monthly recurrence', async ({ page }) => {
