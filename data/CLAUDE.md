@@ -36,6 +36,16 @@ node data/scripts/validate-urls.js data/schulferien/2026-01-10/schulferien-schwe
 
 **All URLs must pass validation before committing.**
 
+### Known Exceptions
+
+Some URLs may fail automated validation but are verified valid:
+
+- **pswila.ch** - Blocks automated requests (403) but works in browser. Jimdo platform with strong bot protection.
+- **SSL certificate errors** - Some Swiss government sites (e.g., schulen-aargau.ch) have certificate chain issues that don't affect browser access.
+- **Connection refused** - Temporary server issues; retry later.
+
+Document any new exceptions in this section when manually verified.
+
 ## Required Documentation
 
 For every file downloaded, document in `sources/`:
