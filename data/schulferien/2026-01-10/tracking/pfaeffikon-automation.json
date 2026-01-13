@@ -127,12 +127,19 @@
     {
       "bfs": 181,
       "name": "Wila",
-      "website": null,
+      "website": "https://www.pswila.ch",
       "isEscola": false,
-      "ferienplanPath": null,
-      "pdfLinks": [],
+      "ferienplanPath": "/daten-ferien/",
+      "pdfLinks": [
+        {
+          "href": "https://www.pswila.ch/app/download/7594485259/Datenplan_Eltern_2526.pdf?t=1761233010",
+          "text": "Datenplan Eltern 2025/26",
+          "isPdf": true
+        }
+      ],
       "downloaded": [],
-      "status": "manual_required"
+      "status": "completed",
+      "notes": "Website blocks automated requests (403) but PDF URL verified manually. Jimdo platform."
     },
     {
       "bfs": 182,

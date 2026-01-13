@@ -169,58 +169,74 @@ async function validateUrl(urlInfo) {
       };
     }
 
-    // Try HTTP HEAD request
+    // Try HTTP HEAD request, fall back to GET if HEAD returns 405
     const http = parsedUrl.protocol === 'https:' ? require('https') : require('http');
 
-    return new Promise((resolve) => {
-      const req = http.request(url, {
-        method: 'HEAD',
-        timeout: REQUEST_TIMEOUT,
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; URLValidator/1.0)'
-        }
-      }, (res) => {
-        if (res.statusCode >= 200 && res.statusCode < 400) {
-          resolve({
-            ...urlInfo,
-            status: 'valid',
-            httpStatus: res.statusCode
-          });
-        } else if (res.statusCode >= 400) {
-          resolve({
-            ...urlInfo,
-            status: 'invalid',
-            reason: `HTTP ${res.statusCode}`,
-            httpStatus: res.statusCode
-          });
-        } else {
-          resolve({
-            ...urlInfo,
-            status: 'valid',
-            httpStatus: res.statusCode
-          });
-        }
-      });
+    const makeRequest = (method) => {
+      return new Promise((resolve) => {
+        const req = http.request(url, {
+          method: method,
+          timeout: REQUEST_TIMEOUT,
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+          }
+        }, (res) => {
+          // Consume response data to free up memory
+          res.resume();
 
-      req.on('error', (err) => {
-        resolve({
-          ...urlInfo,
-          status: 'error',
-          reason: err.message
+          if (res.statusCode >= 200 && res.statusCode < 400) {
+            resolve({
+              ...urlInfo,
+              status: 'valid',
+              httpStatus: res.statusCode,
+              method: method
+            });
+          } else if (res.statusCode === 405 && method === 'HEAD') {
+            // HEAD not allowed, retry with GET
+            resolve({ retry: true });
+          } else if (res.statusCode >= 400) {
+            resolve({
+              ...urlInfo,
+              status: 'invalid',
+              reason: `HTTP ${res.statusCode}`,
+              httpStatus: res.statusCode
+            });
+          } else {
+            resolve({
+              ...urlInfo,
+              status: 'valid',
+              httpStatus: res.statusCode
+            });
+          }
         });
-      });
 
-      req.on('timeout', () => {
-        req.destroy();
-        resolve({
-          ...urlInfo,
-          status: 'error',
-          reason: 'Request timeout'
+        req.on('error', (err) => {
+          resolve({
+            ...urlInfo,
+            status: 'error',
+            reason: err.message
+          });
         });
-      });
 
-      req.end();
-    });
+        req.on('timeout', () => {
+          req.destroy();
+          resolve({
+            ...urlInfo,
+            status: 'error',
+            reason: 'Request timeout'
+          });
+        });
+
+        req.end();
+      });
+    };
+
+    // Try HEAD first, fall back to GET if 405
+    let result = await makeRequest('HEAD');
+    if (result.retry) {
+      result = await makeRequest('GET');
+    }
+    return result;
 
   } catch (err) {
     return {
