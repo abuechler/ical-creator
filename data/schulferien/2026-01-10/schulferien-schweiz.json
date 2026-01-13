@@ -2123,16 +2123,16 @@
                 "type": "shared",
                 "members": ["Rorbas", "Freienstein-Teufen"],
                 "member_bfs_nrs": [53, 38],
-                "website": "https://www.schulerft.ch/",
+                "website": "https://www.schule-rft.ch/",
                 "notes": "Shared school district - same holidays for all member Gemeinden"
               },
 
               "retrieval": {
-                "source_url": "https://www.schulerft.ch/ferienplan",
-                "pdf_url": "https://www.schulerft.ch/public/upload/assets/5678/Ferienplan_2024-2028.pdf",
-                "pdf_path": "data/zh/buelach/rft-ferienplan-2024-28.pdf",
+                "source_url": "https://www.schule-rft.ch/schulorganisation/download/p-183391/?ordner_id=138",
+                "pdf_url": "https://www.schule-rft.ch/download.php?action=download&doc_id=fi0yN9cFQWcWNhEfnAvVJIu0M4ZDLlSSjt7VrYskSEHg8jsO&download_type=3",
+                "pdf_path": "data/zh/buelach/rft-ferienplan-2025-26.pdf",
                 "retrieved_at": "2026-01-10T14:32:10+01:00",
-                "file_size_kb": 245
+                "file_size_kb": 89
               },
 
               "search_hints": {
@@ -2142,7 +2142,7 @@
                   "pattern_used": "www.{gemeinde}.ch"
                 },
                 "school_website": {
-                  "url": "https://www.schulerft.ch/",
+                  "url": "https://www.schule-rft.ch/",
                   "found_via": "gemeinde_link",
                   "navigation_path": ["Verwaltung", "Bildung", "Primarschule"],
                   "alternative_urls_tried": [
@@ -2152,37 +2152,38 @@
                   "notes": "Shared district - redirects to Schule RFT"
                 },
                 "ferienplan_page": {
-                  "url": "https://www.schulerft.ch/organisation/ferienplan.html/412",
+                  "url": "https://www.schule-rft.ch/schulorganisation/download/p-183391/?ordner_id=138",
                   "found_via": "site_navigation",
-                  "navigation_path": ["Organisation", "Ferienplan"],
+                  "navigation_path": ["Schulorganisation", "Download", "Ferienpläne"],
                   "search_terms_used": ["Ferien", "Ferienplan"]
                 },
                 "pdf_download": {
-                  "url": "https://www.schulerft.ch/public/upload/assets/5678/Ferienplan_2024-2028.pdf",
+                  "url": "https://www.schule-rft.ch/download.php?action=download&doc_id=fi0yN9cFQWcWNhEfnAvVJIu0M4ZDLlSSjt7VrYskSEHg8jsO&download_type=3",
                   "found_via": "download_link",
-                  "link_text": "Ferienplan 2024-2028 (PDF)",
+                  "link_text": "Ferienplan 2025_2026 (PDF)",
                   "direct_download": true,
-                  "requires_javascript": false,
+                  "requires_javascript": true,
                   "requires_login": false
                 },
                 "platform": {
                   "cms": "Escola",
                   "cms_version": "escola-v3",
-                  "identified_by": "URL pattern /public/upload/assets/",
-                  "pdf_url_pattern": "/public/upload/assets/{asset_id}/{filename}.pdf"
+                  "identified_by": "URL pattern /download.php?action=download",
+                  "pdf_url_pattern": "/download.php?action=download&doc_id={doc_id}&download_type=3"
                 },
                 "automation_hints": {
                   "robots_txt_allows": true,
-                  "sitemap_url": "https://www.schulerft.ch/sitemap.xml",
+                  "sitemap_url": "https://www.schule-rft.ch/sitemap.xml",
                   "recommended_selectors": {
-                    "pdf_links": "a[href*='Ferienplan'][href$='.pdf']"
+                    "pdf_links": "a[href*='download.php'][href*='doc_id']"
                   }
                 },
                 "historical_urls": [
                   {
-                    "url": "https://www.schulerft.ch/public/upload/assets/4521/Ferienplan_2020-2024.pdf",
+                    "url": "https://www.schule-rft.ch/schulorganisation/download/p-183391/?ordner_id=138",
                     "valid_for": "2020-2024",
-                    "status": "archived"
+                    "status": "archived",
+                    "notes": "Dynamic download links - older PDFs may no longer be available"
                   }
                 ]
               },
