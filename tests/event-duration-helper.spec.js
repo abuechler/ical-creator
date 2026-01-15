@@ -170,81 +170,6 @@ test.describe('Event Duration Helper - Active State', () => {
   });
 });
 
-test.describe('Event Duration Helper - Duration Display', () => {
-
-  test.beforeEach(async ({ page }) => {
-    await page.goto(getPageUrl());
-    await page.waitForLoadState('domcontentloaded');
-    await page.evaluate(() => localStorage.clear());
-    await page.reload();
-    await page.waitForLoadState('domcontentloaded');
-  });
-
-  test('should display duration in minutes for short events', async ({ page }) => {
-    await page.locator('#startDate').fill('2026-01-15');
-    await page.locator('#startTime').fill('10:00');
-    await page.locator('#endTime').fill('10:45');
-
-    await expect(page.locator('#durationDisplay')).toHaveText('45 min');
-  });
-
-  test('should display duration in hours for 1 hour', async ({ page }) => {
-    await page.locator('#startDate').fill('2026-01-15');
-    await page.locator('#startTime').fill('10:00');
-    await page.locator('#endTime').fill('11:00');
-
-    await expect(page.locator('#durationDisplay')).toHaveText('1 hour');
-  });
-
-  test('should display duration in hours (plural) for multiple hours', async ({ page }) => {
-    await page.locator('#startDate').fill('2026-01-15');
-    await page.locator('#startTime').fill('10:00');
-    await page.locator('#endTime').fill('13:00');
-
-    await expect(page.locator('#durationDisplay')).toHaveText('3 hours');
-  });
-
-  test('should display combined hours and minutes', async ({ page }) => {
-    await page.locator('#startDate').fill('2026-01-15');
-    await page.locator('#startTime').fill('10:00');
-    await page.locator('#endTime').fill('11:30');
-
-    await expect(page.locator('#durationDisplay')).toHaveText('1h 30m');
-  });
-
-  test('should show warning for invalid duration', async ({ page }) => {
-    await page.locator('#startDate').fill('2026-01-15');
-    await page.locator('#startTime').fill('14:00');
-    await page.locator('#endTime').fill('10:00');
-
-    await expect(page.locator('#durationDisplay')).toHaveText('Invalid duration');
-    await expect(page.locator('#durationDisplay')).toHaveClass(/warning/);
-  });
-
-  test('should not display duration without end time', async ({ page }) => {
-    await page.locator('#startDate').fill('2026-01-15');
-    await page.locator('#startTime').fill('10:00');
-
-    const display = page.locator('#durationDisplay');
-    await expect(display).toBeEmpty();
-  });
-
-  test('should display "All day" for all-day events', async ({ page }) => {
-    await page.locator('#startDate').fill('2026-01-15');
-    await page.locator('#allDay').check();
-
-    await expect(page.locator('#durationDisplay')).toHaveText('All day');
-  });
-
-  test('should display multiple days for multi-day all-day events', async ({ page }) => {
-    await page.locator('#startDate').fill('2026-01-15');
-    await page.locator('#endDate').fill('2026-01-17');
-    await page.locator('#allDay').check();
-
-    await expect(page.locator('#durationDisplay')).toHaveText('3 days');
-  });
-});
-
 test.describe('Event Duration Helper - All-day Integration', () => {
 
   test.beforeEach(async ({ page }) => {
@@ -319,14 +244,6 @@ test.describe('Event Duration Helper - Desktop View', () => {
   test('duration presets should be visible on desktop', async ({ page }) => {
     await expect(page.locator('.duration-presets')).toBeVisible();
   });
-
-  test('duration display should update on desktop', async ({ page }) => {
-    await page.locator('#startDate').fill('2026-01-15');
-    await page.locator('#startTime').fill('09:00');
-    await page.locator('#endTime').fill('17:00');
-
-    await expect(page.locator('#durationDisplay')).toHaveText('8 hours');
-  });
 });
 
 test.describe('Event Duration Helper - Accessibility', () => {
@@ -355,9 +272,5 @@ test.describe('Event Duration Helper - Accessibility', () => {
 
     // End time should be set
     await expect(page.locator('#endTime')).toHaveValue('11:00');
-  });
-
-  test('duration display should have aria-live for screen readers', async ({ page }) => {
-    await expect(page.locator('#durationDisplay')).toHaveAttribute('aria-live', 'polite');
   });
 });

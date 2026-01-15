@@ -339,24 +339,6 @@
       border-color: var(--primary);
     }
 
-    .duration-display {
-      font-size: 0.875rem;
-      color: var(--gray-600);
-      background: var(--gray-100);
-      padding: 6px 12px;
-      border-radius: 16px;
-      white-space: nowrap;
-    }
-
-    .duration-display:empty {
-      display: none;
-    }
-
-    .duration-display.warning {
-      color: var(--warning);
-      background: var(--warning-bg);
-    }
-
     /* ==================== Checkbox & Radio ==================== */
     .checkbox-group,
     .radio-group {

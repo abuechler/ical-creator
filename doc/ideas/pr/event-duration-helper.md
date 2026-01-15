@@ -1,18 +1,17 @@
 # Event Duration Helper
 
 ## Description
-Show calculated event duration when both start and end times are set, and provide quick preset duration buttons (30 min, 1 hour, 2 hours, etc.) to automatically set the end time.
+Provide quick preset duration buttons (30 min, 1 hour, 2 hours, All day) to automatically set the end time based on start time.
 
 ## User Value
-- **Clarity**: Instantly see how long the event will be
 - **Speed**: Set common durations with one click
-- **Error Prevention**: Catch mistakes when duration seems wrong
+- **Convenience**: No need to manually calculate end times
 
 ## Implementation Details
-- Display duration badge next to end time field when both times are set
 - Add duration preset buttons (30 min, 1 hour, 2 hours, All day)
 - Clicking duration preset auto-fills end date/time based on start
-- Update duration display in real-time as times change
+- Active preset button is highlighted to show current selection
+- Selection is cleared when times are manually changed
 
 ## Planning Decisions
 
@@ -20,19 +19,16 @@ Show calculated event duration when both start and end times are set, and provid
 2026-01-09 03:30:00
 
 ### Implementation Plan
-1. Add duration display element next to end time field
-2. Create duration preset buttons (30 min, 1h, 2h, All day)
-3. Add JavaScript to calculate and display duration
-4. Add handlers for duration presets to set end time
-5. Add CSS for duration badge and preset button styling
-6. Write Playwright tests
+1. Create duration preset buttons (30 min, 1h, 2h, All day)
+2. Add handlers for duration presets to set end time
+3. Add CSS for preset button styling and active state
+4. Write Playwright tests
 
 ### Assumptions
 - Duration presets only work if start time is set
 - "All day" preset enables the all-day checkbox
-- Duration is calculated in hours/minutes format
-- Duration display updates on input change
-- Negative duration shows warning or is prevented
+- Clicking a preset replaces (not adds to) the current end time
+- Active button styling clearly indicates current selection
 
 ### End Timestamp
 2026-01-09 04:00:00
@@ -42,6 +38,9 @@ Show calculated event duration when both start and end times are set, and provid
 
 ### Bug Fix
 Also fixed `formatDateForInput()` function to use local date components instead of `toISOString()` to prevent timezone-related date shifts.
+
+### Update (2026-01-15)
+Removed the duration display element that showed calculated duration (e.g., "1h 30m"). The display was visually similar to the preset buttons, causing user confusion. The active button styling already clearly indicates the selected preset.
 
 ## Screenshots
 

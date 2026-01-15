@@ -80,7 +80,6 @@ const emojiPicker = document.getElementById('emojiPicker');
 const emojiGrid = document.getElementById('emojiGrid');
 const presetBtns = document.querySelectorAll('.preset-btn');
 const durationBtns = document.querySelectorAll('.duration-btn');
-const durationDisplay = document.getElementById('durationDisplay');
 
 // ==================== Emoji Picker Data ====================
 const EMOJI_LIST = [
@@ -119,7 +118,6 @@ function init() {
   updateDebugInfo();
   updateDownloadButtonState();
   renderEmojiPicker();
-  updateDurationDisplay();
 
   // Show preview on initial load if there's a start date
   const startDate = document.getElementById('startDate').value;
@@ -325,7 +323,6 @@ function handleDurationClick(duration) {
   document.getElementById('endTime').value = endTimeStr;
 
   updateDurationSelection(duration);
-  updateDurationDisplay();
   saveFormState();
 }
 
@@ -337,63 +334,6 @@ function updateDurationSelection(duration) {
 
 function clearDurationSelection() {
   durationBtns.forEach(btn => btn.classList.remove('active'));
-}
-
-function updateDurationDisplay() {
-  const startDate = document.getElementById('startDate').value;
-  const startTime = document.getElementById('startTime').value;
-  const endDate = document.getElementById('endDate').value;
-  const endTime = document.getElementById('endTime').value;
-
-  // If all-day is checked, show all-day duration
-  if (allDayCheckbox.checked) {
-    if (startDate && endDate && startDate !== endDate) {
-      const start = new Date(startDate + 'T00:00:00');
-      const end = new Date(endDate + 'T00:00:00');
-      const days = Math.round((end - start) / (1000 * 60 * 60 * 24)) + 1;
-      durationDisplay.textContent = days + ' day' + (days > 1 ? 's' : '');
-      durationDisplay.classList.remove('warning');
-    } else {
-      durationDisplay.textContent = 'All day';
-      durationDisplay.classList.remove('warning');
-    }
-    return;
-  }
-
-  // Need both start and end times to calculate duration
-  if (!startTime || !endTime) {
-    durationDisplay.textContent = '';
-    return;
-  }
-
-  // Calculate duration
-  const startDateTime = new Date((startDate || '2000-01-01') + 'T' + startTime);
-  const endDateTime = new Date((endDate || startDate || '2000-01-01') + 'T' + endTime);
-
-  const diffMs = endDateTime - startDateTime;
-  const diffMins = Math.round(diffMs / (1000 * 60));
-
-  if (diffMins < 0) {
-    durationDisplay.textContent = 'Invalid duration';
-    durationDisplay.classList.add('warning');
-    return;
-  }
-
-  durationDisplay.classList.remove('warning');
-
-  if (diffMins === 0) {
-    durationDisplay.textContent = '0 min';
-  } else if (diffMins < 60) {
-    durationDisplay.textContent = diffMins + ' min';
-  } else {
-    const hours = Math.floor(diffMins / 60);
-    const mins = diffMins % 60;
-    if (mins === 0) {
-      durationDisplay.textContent = hours + ' hour' + (hours > 1 ? 's' : '');
-    } else {
-      durationDisplay.textContent = hours + 'h ' + mins + 'm';
-    }
-  }
 }
 
 function getPreferredTimezone() {
@@ -684,18 +624,12 @@ function attachEventListeners() {
     btn.addEventListener('click', () => handleDurationClick(btn.dataset.duration));
   });
 
-  // Update duration display when times change
+  // Clear duration selection when times change manually
   ['startTime', 'endTime', 'endDate'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
-      el.addEventListener('change', () => {
-        clearDurationSelection();
-        updateDurationDisplay();
-      });
-      el.addEventListener('input', () => {
-        clearDurationSelection();
-        updateDurationDisplay();
-      });
+      el.addEventListener('change', clearDurationSelection);
+      el.addEventListener('input', clearDurationSelection);
     }
   });
 
@@ -796,7 +730,7 @@ function handleAllDayToggle() {
   if (isAllDay) {
     startTimeInput.removeAttribute('required');
     endTimeInput.removeAttribute('required');
-    // Hide duration presets for all-day events (only show duration display)
+    // Hide duration presets for all-day events
     document.getElementById('durationPresets').classList.add('hidden');
     updateDurationSelection('allday');
   } else {
@@ -805,7 +739,6 @@ function handleAllDayToggle() {
     document.getElementById('durationPresets').classList.remove('hidden');
     clearDurationSelection();
   }
-  updateDurationDisplay();
 }
 
 function handleRecurringToggle() {
