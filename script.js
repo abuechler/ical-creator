@@ -79,6 +79,7 @@ const emojiPickerBtn = document.getElementById('emojiPickerBtn');
 const emojiPicker = document.getElementById('emojiPicker');
 const emojiGrid = document.getElementById('emojiGrid');
 const presetBtns = document.querySelectorAll('.preset-btn');
+const durationBtns = document.querySelectorAll('.duration-btn');
 
 // ==================== Emoji Picker Data ====================
 const EMOJI_LIST = [
@@ -276,6 +277,63 @@ function clearPresetSelection() {
   presetBtns.forEach(btn => {
     btn.classList.remove('active');
   });
+}
+
+// ==================== Duration Helper ====================
+function handleDurationClick(duration) {
+  const startDate = document.getElementById('startDate').value;
+  const startTime = document.getElementById('startTime').value;
+
+  if (duration === 'allday') {
+    // Enable all-day checkbox
+    allDayCheckbox.checked = true;
+    handleAllDayToggle();
+    updateDurationSelection(duration);
+    saveFormState();
+    return;
+  }
+
+  // Need start date and time for duration presets
+  if (!startDate || !startTime) {
+    return;
+  }
+
+  // Calculate end time based on duration in minutes
+  const minutes = parseInt(duration, 10);
+  const [startHours, startMins] = startTime.split(':').map(Number);
+  const startTotalMins = startHours * 60 + startMins;
+  const endTotalMins = startTotalMins + minutes;
+
+  // Calculate end date and time
+  let endDate = startDate;
+  let endHours = Math.floor(endTotalMins / 60);
+  const endMins = endTotalMins % 60;
+
+  // Handle day overflow
+  if (endHours >= 24) {
+    const dateObj = new Date(startDate + 'T00:00:00');
+    dateObj.setDate(dateObj.getDate() + Math.floor(endHours / 24));
+    endDate = formatDateForInput(dateObj);
+    endHours = endHours % 24;
+  }
+
+  const endTimeStr = String(endHours).padStart(2, '0') + ':' + String(endMins).padStart(2, '0');
+
+  document.getElementById('endDate').value = endDate;
+  document.getElementById('endTime').value = endTimeStr;
+
+  updateDurationSelection(duration);
+  saveFormState();
+}
+
+function updateDurationSelection(duration) {
+  durationBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.duration === duration);
+  });
+}
+
+function clearDurationSelection() {
+  durationBtns.forEach(btn => btn.classList.remove('active'));
 }
 
 function getPreferredTimezone() {
@@ -561,6 +619,21 @@ function attachEventListeners() {
   // Clear preset selection when date is manually changed
   document.getElementById('startDate').addEventListener('change', clearPresetSelection);
 
+  // Duration preset buttons
+  durationBtns.forEach(btn => {
+    btn.addEventListener('click', () => handleDurationClick(btn.dataset.duration));
+  });
+
+  // Clear duration selection when times change manually
+  ['startTime', 'endTime', 'endDate'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('change', clearDurationSelection);
+      el.addEventListener('input', clearDurationSelection);
+    }
+  });
+
+
   // Auto-save form state on input change
   const autoSaveInputs = [
     'title', 'startDate', 'startTime', 'endDate', 'endTime',
@@ -657,9 +730,14 @@ function handleAllDayToggle() {
   if (isAllDay) {
     startTimeInput.removeAttribute('required');
     endTimeInput.removeAttribute('required');
+    // Hide duration presets for all-day events
+    document.getElementById('durationPresets').classList.add('hidden');
+    updateDurationSelection('allday');
   } else {
     startTimeInput.setAttribute('required', '');
     endTimeInput.setAttribute('required', '');
+    document.getElementById('durationPresets').classList.remove('hidden');
+    clearDurationSelection();
   }
 }
 
