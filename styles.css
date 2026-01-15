@@ -296,6 +296,49 @@
       border-color: var(--primary-dark);
     }
 
+    /* ==================== Duration Helper ==================== */
+    .duration-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .duration-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .duration-btn {
+      padding: 6px 12px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--gray-600);
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .duration-btn:hover {
+      background: var(--gray-200);
+      border-color: var(--gray-300);
+    }
+
+    .duration-btn:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    .duration-btn.active {
+      color: var(--white);
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+
     /* ==================== Checkbox & Radio ==================== */
     .checkbox-group,
     .radio-group {

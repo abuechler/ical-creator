@@ -333,6 +333,36 @@ const SCENARIOS = {
   },
 
   /**
+   * Event duration helper presets
+   */
+  'duration-helper': async (page) => {
+    await page.locator('#title').fill('Quick Meeting');
+    await page.locator('#startDate').fill('2026-03-15');
+    await page.locator('#startTime').fill('14:00');
+    await page.waitForTimeout(500);
+
+    // Show duration presets area
+    await page.locator('.duration-presets').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+
+    // Click 30 min preset
+    await page.locator('button[data-duration="30"]').click();
+    await page.waitForTimeout(800);
+
+    // Click 1 hour preset
+    await page.locator('button[data-duration="60"]').click();
+    await page.waitForTimeout(800);
+
+    // Click 2 hours preset
+    await page.locator('button[data-duration="120"]').click();
+    await page.waitForTimeout(800);
+
+    // Click All day preset
+    await page.locator('button[data-duration="allday"]').click();
+    await page.waitForTimeout(1000);
+  },
+
+  /**
    * Loading a saved/demo event
    */
   'load-saved-event': async (page) => {
