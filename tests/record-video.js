@@ -363,6 +363,35 @@ const SCENARIOS = {
   },
 
   /**
+   * Live event card preview
+   */
+  'live-preview': async (page) => {
+    // Scroll to show preview area
+    await page.locator('#eventCardPreview').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+
+    // Type title slowly to show live update
+    await page.locator('#title').pressSequentially('Team Standup Meeting', { delay: 50 });
+    await page.waitForTimeout(300);
+
+    // Fill date and time
+    await page.locator('#startDate').fill('2026-03-20');
+    await page.waitForTimeout(300);
+    await page.locator('#startTime').fill('09:00');
+    await page.waitForTimeout(300);
+    await page.locator('#endTime').fill('09:30');
+    await page.waitForTimeout(300);
+
+    // Add location
+    await page.locator('#location').fill('Zoom');
+    await page.waitForTimeout(500);
+
+    // Show preview card with all info
+    await page.locator('#eventCardPreview').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(1500);
+  },
+
+  /**
    * Loading a saved/demo event
    */
   'load-saved-event': async (page) => {

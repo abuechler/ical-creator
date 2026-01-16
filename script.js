@@ -80,6 +80,13 @@ const emojiPicker = document.getElementById('emojiPicker');
 const emojiGrid = document.getElementById('emojiGrid');
 const presetBtns = document.querySelectorAll('.preset-btn');
 const durationBtns = document.querySelectorAll('.duration-btn');
+const eventCardTitle = document.getElementById('eventCardTitle');
+const eventCardDateTime = document.getElementById('eventCardDateTime');
+const eventCardLocation = document.getElementById('eventCardLocation');
+const eventCardDescription = document.getElementById('eventCardDescription');
+const eventCardBadgeRecurring = document.getElementById('eventCardBadgeRecurring');
+const eventCardBadgeReminder = document.getElementById('eventCardBadgeReminder');
+const eventCardRecurrenceText = document.getElementById('eventCardRecurrenceText');
 
 // ==================== Emoji Picker Data ====================
 const EMOJI_LIST = [
@@ -126,6 +133,7 @@ function init() {
     renderCalendar(true);
     previewSection.style.display = 'block';
     updatePreviewContent(isRecurringCheckbox.checked);
+    updateEventCard();
   }
 }
 
@@ -554,6 +562,7 @@ function attachEventListeners() {
       // Always show and update preview when there's a valid start date
       previewSection.style.display = 'block';
       updatePreviewContent(isRecurringCheckbox.checked);
+      updateEventCard();
     }
   });
 
@@ -659,6 +668,20 @@ function attachEventListeners() {
   isRecurringCheckbox.addEventListener('change', saveFormState);
   hasReminderCheckbox.addEventListener('change', saveFormState);
 
+  // Update event card preview on form changes
+  const eventCardInputs = ['title', 'startDate', 'startTime', 'endTime', 'location', 'description'];
+  eventCardInputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('input', debounce(updateEventCard, 100));
+      el.addEventListener('change', updateEventCard);
+    }
+  });
+  allDayCheckbox.addEventListener('change', updateEventCard);
+  isRecurringCheckbox.addEventListener('change', updateEventCard);
+  hasReminderCheckbox.addEventListener('change', updateEventCard);
+  frequencySelect.addEventListener('change', updateEventCard);
+
   // Auto-save on radio changes
   document.querySelectorAll('input[name="monthlyType"]').forEach(radio => {
     radio.addEventListener('change', () => {
@@ -748,6 +771,7 @@ function handleRecurringToggle() {
 
   // Update preview content based on recurring state
   updatePreviewContent(isRecurring);
+  updateEventCard();
 
   // Always calculate occurrences and render calendar
   calculateOccurrences();
@@ -782,6 +806,104 @@ function updatePreviewContent(isRecurring) {
       exceptionLegend.style.display = isRecurring ? 'flex' : 'none';
     }
   }
+}
+
+function updateEventCard() {
+  // Get form values
+  const title = document.getElementById('title').value || 'Event Title';
+  const startDate = document.getElementById('startDate').value;
+  const startTime = document.getElementById('startTime').value;
+  const endTime = document.getElementById('endTime').value;
+  const location = document.getElementById('location').value;
+  const description = document.getElementById('description').value;
+  const isAllDay = allDayCheckbox.checked;
+  const isRecurring = isRecurringCheckbox.checked;
+  const hasReminder = hasReminderCheckbox.checked;
+
+  // Update title
+  if (eventCardTitle) {
+    eventCardTitle.textContent = title;
+  }
+
+  // Update date/time
+  if (eventCardDateTime) {
+    let dateTimeText = '';
+    if (startDate) {
+      const dateObj = new Date(startDate + 'T00:00:00');
+      const dateOptions = { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' };
+      dateTimeText = dateObj.toLocaleDateString('en-US', dateOptions);
+
+      if (!isAllDay && startTime) {
+        const startTimeFormatted = formatTime12Hour(startTime);
+        if (endTime) {
+          const endTimeFormatted = formatTime12Hour(endTime);
+          dateTimeText += ` ${startTimeFormatted} - ${endTimeFormatted}`;
+        } else {
+          dateTimeText += ` at ${startTimeFormatted}`;
+        }
+      } else if (isAllDay) {
+        dateTimeText += ' (All day)';
+      }
+    } else {
+      dateTimeText = 'Date and time';
+    }
+    eventCardDateTime.querySelector('span').textContent = dateTimeText;
+  }
+
+  // Update location
+  if (eventCardLocation) {
+    if (location) {
+      eventCardLocation.querySelector('span').textContent = location;
+      eventCardLocation.style.display = 'flex';
+    } else {
+      eventCardLocation.style.display = 'none';
+    }
+  }
+
+  // Update description (truncated)
+  if (eventCardDescription) {
+    if (description) {
+      // Truncate to ~100 chars
+      const truncated = description.length > 100
+        ? description.substring(0, 100) + '...'
+        : description;
+      eventCardDescription.querySelector('span').textContent = truncated;
+      eventCardDescription.style.display = 'flex';
+    } else {
+      eventCardDescription.style.display = 'none';
+    }
+  }
+
+  // Update recurring badge
+  if (eventCardBadgeRecurring) {
+    if (isRecurring) {
+      const freq = frequencySelect.value;
+      let recurrenceText = 'Recurring';
+      switch (freq) {
+      case 'DAILY': recurrenceText = 'Daily'; break;
+      case 'WEEKLY': recurrenceText = 'Weekly'; break;
+      case 'MONTHLY': recurrenceText = 'Monthly'; break;
+      }
+      if (eventCardRecurrenceText) {
+        eventCardRecurrenceText.textContent = recurrenceText;
+      }
+      eventCardBadgeRecurring.style.display = 'inline-flex';
+    } else {
+      eventCardBadgeRecurring.style.display = 'none';
+    }
+  }
+
+  // Update reminder badge
+  if (eventCardBadgeReminder) {
+    eventCardBadgeReminder.style.display = hasReminder ? 'inline-flex' : 'none';
+  }
+}
+
+function formatTime12Hour(time24) {
+  const [hours, minutes] = time24.split(':').map(Number);
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const hours12 = hours % 12 || 12;
+  return `${hours12}:${minutes.toString().padStart(2, '0')} ${ampm}`;
 }
 
 function updateFrequencyOptions() {
@@ -975,6 +1097,7 @@ function handleNewEvent() {
     renderCalendar(true);
     previewSection.style.display = 'block';
     updatePreviewContent(isRecurringCheckbox.checked);
+    updateEventCard();
   }
 
   // Clear validation status
